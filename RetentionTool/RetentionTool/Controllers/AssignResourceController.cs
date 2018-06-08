@@ -256,7 +256,7 @@ namespace RetentionTool.Controllers
           //  List<string> va = new List<string>();
           List< EmployeeList>  va = (from emp in db.Employees where emp.Name.Contains(name)
                                   
-
+                                     && emp.IsActive==true
                                      select new EmployeeList
           {
               Id=emp.Id,
