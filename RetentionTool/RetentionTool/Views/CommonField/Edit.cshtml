@@ -1,0 +1,48 @@
+﻿@model RetentionTool.Models.CommonFieldViewModel
+
+@{
+    ViewBag.Title = "CommonField Edit";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+
+        <h2>CommonField Edit</h2>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <div>
+
+                    @Html.LabelFor(model => model.Name)
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
+
+
+                </div>
+
+                @*<div>
+                    @Html.CheckBox("IsActive")
+                    @Html.LabelFor(model => model.IsActive)
+                </div>*@
+                <div>
+
+                    <input type="submit" value="Save" class="btn btn-success" />
+                    @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
+
+                </div>
+            </div>
+
+
+        }
+
+    </div>
+
+</div>
+
+
+
+

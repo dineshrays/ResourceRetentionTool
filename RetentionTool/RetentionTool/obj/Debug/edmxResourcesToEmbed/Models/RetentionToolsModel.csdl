@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RetentionToolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Commonfield">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Modules" Relationship="RetentionToolModel.FK_Module_Commonfields" FromRole="Commonfield" ToRole="Module" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="CommonField_Id" Type="Int64" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Modules" Relationship="RetentionToolModel.FK_Module_Skills" FromRole="Skill" ToRole="Module" />
+  </EntityType>
+  <EntityContainer Name="RetentionToolEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Commonfields" EntityType="Self.Commonfield" />
+    <EntitySet Name="Skills" EntityType="Self.Skill" />
+    <EntitySet Name="Modules" EntityType="RetentionToolModel.Module" />
+    <AssociationSet Name="FK_Module_Commonfields" Association="RetentionToolModel.FK_Module_Commonfields">
+      <End Role="Commonfield" EntitySet="Commonfields" />
+      <End Role="Module" EntitySet="Modules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Module_Skills" Association="RetentionToolModel.FK_Module_Skills">
+      <End Role="Skill" EntitySet="Skills" />
+      <End Role="Module" EntitySet="Modules" />
+    </AssociationSet>
+    <EntitySet Name="AssignResources" EntityType="RetentionToolModel.AssignResource" />
+    <EntitySet Name="AssignResourcesDets" EntityType="RetentionToolModel.AssignResourcesDet" />
+    <EntitySet Name="Employees" EntityType="RetentionToolModel.Employee" />
+    <EntitySet Name="Managers" EntityType="RetentionToolModel.Manager" />
+    <EntitySet Name="Trainers" EntityType="RetentionToolModel.Trainer" />
+    <AssociationSet Name="FK_AssignResources_AssignResources" Association="RetentionToolModel.FK_AssignResources_AssignResources">
+      <End Role="AssignResource" EntitySet="AssignResources" />
+      <End Role="AssignResource1" EntitySet="AssignResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssignResources_Managers" Association="RetentionToolModel.FK_AssignResources_Managers">
+      <End Role="Manager" EntitySet="Managers" />
+      <End Role="AssignResource" EntitySet="AssignResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssignResources_Module" Association="RetentionToolModel.FK_AssignResources_Module">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="AssignResource" EntitySet="AssignResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssignResources_Trainers" Association="RetentionToolModel.FK_AssignResources_Trainers">
+      <End Role="Trainer" EntitySet="Trainers" />
+      <End Role="AssignResource" EntitySet="AssignResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssignResourcesDet_AssignResources" Association="RetentionToolModel.FK_AssignResourcesDet_AssignResources">
+      <End Role="AssignResource" EntitySet="AssignResources" />
+      <End Role="AssignResourcesDet" EntitySet="AssignResourcesDets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssignResourcesDet_Employees" Association="RetentionToolModel.FK_AssignResourcesDet_Employees">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="AssignResourcesDet" EntitySet="AssignResourcesDets" />
+    </AssociationSet>
+    <EntitySet Name="ModuleDets" EntityType="RetentionToolModel.ModuleDet" />
+    <AssociationSet Name="FK_ModuleDet_Module" Association="RetentionToolModel.FK_ModuleDet_Module">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="ModuleDet" EntitySet="ModuleDets" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Commonfield_Id" Type="Int64" />
+    <Property Name="Skill_Id" Type="Int64" />
+    <Property Name="ModuleName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Commonfield" Relationship="RetentionToolModel.FK_Module_Commonfields" FromRole="Module" ToRole="Commonfield" />
+    <NavigationProperty Name="Skill" Relationship="RetentionToolModel.FK_Module_Skills" FromRole="Module" ToRole="Skill" />
+    <NavigationProperty Name="AssignResources" Relationship="RetentionToolModel.FK_AssignResources_Module" FromRole="Module" ToRole="AssignResource" />
+    <NavigationProperty Name="ModuleDets" Relationship="RetentionToolModel.FK_ModuleDet_Module" FromRole="Module" ToRole="ModuleDet" />
+  </EntityType>
+  <Association Name="FK_Module_Commonfields">
+    <End Type="RetentionToolModel.Commonfield" Role="Commonfield" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.Module" Role="Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commonfield">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Module">
+        <PropertyRef Name="Commonfield_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Module_Skills">
+    <End Type="RetentionToolModel.Skill" Role="Skill" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.Module" Role="Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Module">
+        <PropertyRef Name="Skill_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AssignResource">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Manager_Id" Type="Int64" />
+    <Property Name="Trainer_Id" Type="Int64" />
+    <Property Name="Module_Id" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="AssignResources1" Relationship="RetentionToolModel.FK_AssignResources_AssignResources" FromRole="AssignResource" ToRole="AssignResource1" />
+    <NavigationProperty Name="AssignResource1" Relationship="RetentionToolModel.FK_AssignResources_AssignResources" FromRole="AssignResource1" ToRole="AssignResource" />
+    <NavigationProperty Name="Manager" Relationship="RetentionToolModel.FK_AssignResources_Managers" FromRole="AssignResource" ToRole="Manager" />
+    <NavigationProperty Name="Module" Relationship="RetentionToolModel.FK_AssignResources_Module" FromRole="AssignResource" ToRole="Module" />
+    <NavigationProperty Name="Trainer" Relationship="RetentionToolModel.FK_AssignResources_Trainers" FromRole="AssignResource" ToRole="Trainer" />
+    <NavigationProperty Name="AssignResourcesDets" Relationship="RetentionToolModel.FK_AssignResourcesDet_AssignResources" FromRole="AssignResource" ToRole="AssignResourcesDet" />
+  </EntityType>
+  <EntityType Name="AssignResourcesDet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AssignResources_Id" Type="Int32" />
+    <Property Name="Employee_Id" Type="Int64" />
+    <NavigationProperty Name="AssignResource" Relationship="RetentionToolModel.FK_AssignResourcesDet_AssignResources" FromRole="AssignResourcesDet" ToRole="AssignResource" />
+    <NavigationProperty Name="Employee" Relationship="RetentionToolModel.FK_AssignResourcesDet_Employees" FromRole="AssignResourcesDet" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="AssignResourcesDets" Relationship="RetentionToolModel.FK_AssignResourcesDet_Employees" FromRole="Employee" ToRole="AssignResourcesDet" />
+  </EntityType>
+  <EntityType Name="Manager">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="AssignResources" Relationship="RetentionToolModel.FK_AssignResources_Managers" FromRole="Manager" ToRole="AssignResource" />
+  </EntityType>
+  <EntityType Name="Trainer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="AssignResources" Relationship="RetentionToolModel.FK_AssignResources_Trainers" FromRole="Trainer" ToRole="AssignResource" />
+  </EntityType>
+  <Association Name="FK_AssignResources_AssignResources">
+    <End Type="RetentionToolModel.AssignResource" Role="AssignResource" Multiplicity="1" />
+    <End Type="RetentionToolModel.AssignResource" Role="AssignResource1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AssignResource">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignResource1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssignResources_Managers">
+    <End Type="RetentionToolModel.Manager" Role="Manager" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.AssignResource" Role="AssignResource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manager">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignResource">
+        <PropertyRef Name="Manager_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssignResources_Module">
+    <End Type="RetentionToolModel.Module" Role="Module" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.AssignResource" Role="AssignResource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignResource">
+        <PropertyRef Name="Module_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssignResources_Trainers">
+    <End Type="RetentionToolModel.Trainer" Role="Trainer" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.AssignResource" Role="AssignResource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trainer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignResource">
+        <PropertyRef Name="Trainer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssignResourcesDet_AssignResources">
+    <End Type="RetentionToolModel.AssignResource" Role="AssignResource" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.AssignResourcesDet" Role="AssignResourcesDet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssignResource">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignResourcesDet">
+        <PropertyRef Name="AssignResources_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssignResourcesDet_Employees">
+    <End Type="RetentionToolModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.AssignResourcesDet" Role="AssignResourcesDet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignResourcesDet">
+        <PropertyRef Name="Employee_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ModuleDet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Module_Id" Type="Int32" />
+    <Property Name="Topics" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="HoursRequired" Type="Time" Precision="7" />
+    <NavigationProperty Name="Module" Relationship="RetentionToolModel.FK_ModuleDet_Module" FromRole="ModuleDet" ToRole="Module" />
+  </EntityType>
+  <Association Name="FK_ModuleDet_Module">
+    <End Type="RetentionToolModel.Module" Role="Module" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.ModuleDet" Role="ModuleDet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ModuleDet">
+        <PropertyRef Name="Module_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

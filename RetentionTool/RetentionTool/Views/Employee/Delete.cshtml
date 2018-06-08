@@ -1,0 +1,58 @@
+﻿@model RetentionTool.Models.EmployeeViewModel
+@{
+    ViewBag.Title = "Delete Employee";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="card">
+<div class="card-header">
+    <h2>Delete Employee</h2>
+
+</div>
+<div class="card-body card-block">
+
+    @using (Html.BeginForm())
+    {
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+                @Html.LabelFor(m => m.Name, "Name", new { @class = " form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.DisplayFor(m => m.Name, new { @class = "form-control", style = "width:30%" })
+
+            </div>
+
+            
+          
+        </div>
+        <br />
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
+            <div class="col-12 col-md-9">
+                @if (ViewData["Message"] == null)
+                {
+                <input type="submit" value="Delete" class="btn-danger" />
+                }
+                else
+                {
+                <b style="color:red"> @ViewData["Message"]</b>
+                }
+                @Html.ActionLink("Back to List", "Index", "Employee", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+            <br />
+
+
+        </div>
+           
+
+            }
+        </div>
+
+    </div>
+
+

@@ -1,0 +1,46 @@
+﻿@model RetentionTool.Models.SkillsViewModel
+@{
+    ViewBag.Title = "Create Skills";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="card">
+
+    <div class="card-header">
+        <h2>Create Skills</h2>
+
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+        <div>
+            @Html.LabelFor(model => model.CommonFieldName)
+            @Html.DropDownListFor(model => model.selectedCommmonField, ViewData["CommField"] as SelectList, "Select", htmlAttributes: new { @class = "form-control", style = "width:30%" })
+        </div>
+                <br />
+                <div>
+                    @Html.LabelFor(model => model.SkillName)
+                    @Html.TextBoxFor(model => model.SkillName, htmlAttributes: new { @class = "form-control", style = "width:30%" })
+
+                </div><br />
+            @*@Html.CheckBox("IsActive", false)
+            @Html.LabelFor(model => model.IsActive)*@
+            <br />
+            <div>
+                <input type="submit" value="Create" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "Skills", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+        }
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<RetentionTool.Models.SkillsViewModel>
+@{
+    ViewBag.Title = "Index Skills";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Index Skills</h2>
+<div class="card-body">
+    @Html.ActionLink("Create New", "Create","Skills", null, new { @class = "btn btn-outline-primary" })
+
+
+</div>
+
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+
+@if(Model !=null)
+{
+    <div class="container" style="width:100%;margin-top:2%" >
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>CommonField Name</th>
+                <th>Skills Name</th>
+                <th>Actions</th>
+            </tr>
+
+            <tbody>
+                @foreach(var obj in Model)
+                {
+                    <tr>
+                        <td>@obj.id</td>
+                        <td>@obj.CommonFieldName</td>
+                        <td>@obj.SkillName</td>
+                            
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id=obj.id}, new { @class = "ti-pencil" })
+                            @Html.ActionLink(" ","Delete",new { id=obj.id}, new { @class = "ti-trash" })
+                        </td>
+                        
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+}

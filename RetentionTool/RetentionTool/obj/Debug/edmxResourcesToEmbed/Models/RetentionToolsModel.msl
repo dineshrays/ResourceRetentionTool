@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RetentionToolModelStoreContainer" CdmEntityContainer="RetentionToolEntities">
+    <EntitySetMapping Name="Commonfields">
+      <EntityTypeMapping TypeName="RetentionToolModel.Commonfield">
+        <MappingFragment StoreEntitySet="Commonfields">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Skills">
+      <EntityTypeMapping TypeName="RetentionToolModel.Skill">
+        <MappingFragment StoreEntitySet="Skills">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CommonField_Id" ColumnName="CommonField_Id" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="RetentionToolModel.Module">
+        <MappingFragment StoreEntitySet="Module">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="Skill_Id" ColumnName="Skill_Id" />
+          <ScalarProperty Name="Commonfield_Id" ColumnName="Commonfield_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignResources">
+      <EntityTypeMapping TypeName="RetentionToolModel.AssignResource">
+        <MappingFragment StoreEntitySet="AssignResources">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Module_Id" ColumnName="Module_Id" />
+          <ScalarProperty Name="Trainer_Id" ColumnName="Trainer_Id" />
+          <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignResourcesDets">
+      <EntityTypeMapping TypeName="RetentionToolModel.AssignResourcesDet">
+        <MappingFragment StoreEntitySet="AssignResourcesDet">
+          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+          <ScalarProperty Name="AssignResources_Id" ColumnName="AssignResources_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="RetentionToolModel.Employee">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Managers">
+      <EntityTypeMapping TypeName="RetentionToolModel.Manager">
+        <MappingFragment StoreEntitySet="Managers">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trainers">
+      <EntityTypeMapping TypeName="RetentionToolModel.Trainer">
+        <MappingFragment StoreEntitySet="Trainers">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleDets">
+      <EntityTypeMapping TypeName="RetentionToolModel.ModuleDet">
+        <MappingFragment StoreEntitySet="ModuleDet">
+          <ScalarProperty Name="HoursRequired" ColumnName="HoursRequired" />
+          <ScalarProperty Name="Topics" ColumnName="Topics" />
+          <ScalarProperty Name="Module_Id" ColumnName="Module_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

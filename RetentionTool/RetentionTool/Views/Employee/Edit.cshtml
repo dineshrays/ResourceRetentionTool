@@ -1,0 +1,48 @@
+﻿@model RetentionTool.Models.EmployeeViewModel
+@{
+    ViewBag.Title = "Employee Edit";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2>Employee Edit</h2>
+
+    </div>
+    <div class="card-body card-block">
+        @using (Html.BeginForm())
+        {
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.LabelFor(m => m.Name, new { @class = " form-control-label" })
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", style = "width:30%" })
+            </div>
+           
+
+          
+        </div>
+            <br />
+            <div class="row form-group">
+                <div class="col col-md-3">
+
+
+                </div>
+                <div class="col-12 col-md-9">
+
+                    <input type="submit" value="Save" class="btn btn-success" />
+                    @Html.ActionLink("Back to List", "Index", "Employee", null, new { @class = "btn btn-outline-link" })
+
+                </div>
+
+                           </div>
+        }
+
+    </div>
+
+</div>
+
+

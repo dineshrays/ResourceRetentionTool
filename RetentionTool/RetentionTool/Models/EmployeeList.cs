@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace RetentionTool.Models
+{
+    public class EmployeeList
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+    }
+}
