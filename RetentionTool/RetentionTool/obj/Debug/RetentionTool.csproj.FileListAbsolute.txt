@@ -232,7 +232,6 @@ C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web.Helpers.xml
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web.Mvc.xml
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CoreCompileInputs.cache
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyComplete
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
