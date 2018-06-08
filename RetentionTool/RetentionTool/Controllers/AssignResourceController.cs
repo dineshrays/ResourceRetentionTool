@@ -14,7 +14,7 @@ namespace RetentionTool.Controllers
         // GET: AssignResource
         public ActionResult Index()
         {
-            AssignResourceViewModel assignvm = new AssignResourceViewModel();
+           // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
             //var assignres;
             List<AssignResourceViewModel> assgnvm  = (from assignres in db.AssignResources 
                                 join assignresdet in db.AssignResourcesDets
