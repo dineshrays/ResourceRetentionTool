@@ -135,6 +135,12 @@
       <End Role="ModuleDet" EntitySet="ModuleDets" />
       <End Role="TrainingDet" EntitySet="TrainingDets" />
     </AssociationSet>
+    <EntitySet Name="Roles" EntityType="RetentionToolModel.Role" />
+    <EntitySet Name="UserMasters" EntityType="RetentionToolModel.UserMaster" />
+    <AssociationSet Name="FK_UserMaster_Roles" Association="RetentionToolModel.FK_UserMaster_Roles">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserMaster" EntitySet="UserMasters" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Module">
     <Key>
@@ -611,6 +617,42 @@
       </Principal>
       <Dependent Role="TrainingDet">
         <PropertyRef Name="ModuleDet_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EntryDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="UserMasters" Relationship="RetentionToolModel.FK_UserMaster_Roles" FromRole="Role" ToRole="UserMaster" />
+  </EntityType>
+  <EntityType Name="UserMaster">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Emp_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="Role_Id" Type="Int32" />
+    <Property Name="EntryDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Role" Relationship="RetentionToolModel.FK_UserMaster_Roles" FromRole="UserMaster" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_UserMaster_Roles">
+    <End Type="RetentionToolModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.UserMaster" Role="UserMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserMaster">
+        <PropertyRef Name="Role_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

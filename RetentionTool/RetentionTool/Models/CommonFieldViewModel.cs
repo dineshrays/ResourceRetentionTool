@@ -13,6 +13,8 @@ namespace RetentionTool.Models
     {
         public long id { get; set; }
         //[DisplayName("dgh")]
+        [Required]
+        //[Display(Name ="bjh")]
         public string Name { get; set; }
         public Nullable<bool> IsActive { get; set; }
        // public List<Commonfield> commList { get; set; }

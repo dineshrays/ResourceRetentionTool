@@ -30,7 +30,7 @@
         <EntityTypeShape EntityType="RetentionToolModel.Session" Width="1.5" PointX="15.125" PointY="15.375" />
         <EntityTypeShape EntityType="RetentionToolModel.SessionsDet" Width="1.5" PointX="17.375" PointY="8.75" />
         <EntityTypeShape EntityType="RetentionToolModel.Training" Width="1.5" PointX="10.625" PointY="15.5" />
-        <EntityTypeShape EntityType="RetentionToolModel.TrainingDet" Width="1.5" PointX="12.875" PointY="15.625" />
+        <EntityTypeShape EntityType="RetentionToolModel.TrainingDet" Width="1.5" PointX="12.875" PointY="15.625" IsExpanded="true" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignEvaluater_AssignResources" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignEvaluater_Trainers" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTask_AssignResources" />
@@ -46,6 +46,9 @@
         <AssociationConnector Association="RetentionToolModel.FK_SessionsDet_Sessions" />
         <AssociationConnector Association="RetentionToolModel.FK_TrainerDet_Training" />
         <AssociationConnector Association="RetentionToolModel.FK_TrainingDet_ModuleDet" />
+        <EntityTypeShape EntityType="RetentionToolModel.Role" Width="1.5" PointX="7.375" PointY="8.375" />
+        <EntityTypeShape EntityType="RetentionToolModel.UserMaster" Width="1.5" PointX="9.625" PointY="8" />
+        <AssociationConnector Association="RetentionToolModel.FK_UserMaster_Roles" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

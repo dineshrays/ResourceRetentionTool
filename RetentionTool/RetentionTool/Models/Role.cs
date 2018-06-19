@@ -12,22 +12,20 @@ namespace RetentionTool.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Training
+    public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Training()
+        public Role()
         {
-            this.TrainingDets = new HashSet<TrainingDet>();
+            this.UserMasters = new HashSet<UserMaster>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> AssignResource_Id { get; set; }
-        public Nullable<System.DateTime> FromDate { get; set; }
-        public Nullable<System.DateTime> ToDate { get; set; }
+        public string Name { get; set; }
+        public Nullable<System.DateTime> EntryDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual AssignResource AssignResource { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrainingDet> TrainingDets { get; set; }
+        public virtual ICollection<UserMaster> UserMasters { get; set; }
     }
 }

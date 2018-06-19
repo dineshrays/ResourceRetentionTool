@@ -1415,6 +1415,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RetentionToolsModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Session.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1434,6 +1437,9 @@
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TrainingDet.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserMaster.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

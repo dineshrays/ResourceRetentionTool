@@ -20,6 +20,7 @@
                 <div>
                     @Html.LabelFor(model => model.Name)
                     @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
+                    @Html.ValidationMessageFor(model=>model.Name,"", new { @class = "text-danger" })
                 </div>
                 <br />
 

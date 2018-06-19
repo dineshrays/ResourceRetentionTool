@@ -47,8 +47,4 @@ namespace RetentionTool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Training> Trainings { get; set; }
     }
-    //public  class AssignResource
-    //{
-    //    public reso
-    //}
 }
