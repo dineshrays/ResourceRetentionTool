@@ -14,25 +14,28 @@ namespace RetentionTool.Controllers
         // GET: EmployeeEvaTaskl
         public ActionResult Index()
         {
-            List<EmployeeEvalTask> empevaltask = db.EmployeeEvalTasks.Where(a => a.IsActive == true).ToList();
-           // List<EmployeeEvalViewModel> employeeEvals = empevaltask;
-                //db.EmployeeEvalTasks.Where(a => a.IsActive == true).ToList();
-            return View(empevaltask);
+            List<AssignResource> assignResources = db.AssignResources.Where(a => db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && p2.IsActive == true && a.IsActive == true)).ToList();
+            ViewBag.assResDetails = assignResources;
+           
+            List<EmployeeEvalTask> empevaltask = db.EmployeeEvalTasks.Where(a => a.IsActive == true).Distinct().ToList();
+            ViewBag.empevalDetails = empevaltask;
+            
+            return View(); 
         }
         public ActionResult Create()
         {
-            List<AssignResource> assignResources = db.AssignResources.Where(a => db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && p2.IsActive==true && a.IsActive == true)).ToList();
-            //(from ass in db.AssignResources join
-            //                                    training in db.Trainings on ass.Id equals training.AssignResource_Id
-            //                                    join trainingdet in db.TrainingDets on  training.Id equals trainingdet.Training_Id
-            //                                    join session in db.Sessions on trainingdet.Id equals session.TrainingDet_Id
-            //                                   where ass.IsActive == true && session.IsActive==true && training.IsActive==true
-            //                                    select ass
+            //List<AssignResource> assignResources = db.AssignResources.Where(a => db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && p2.IsActive==true && a.IsActive == true)).ToList();
+            ////(from ass in db.AssignResources join
+            ////                                    training in db.Trainings on ass.Id equals training.AssignResource_Id
+            ////                                    join trainingdet in db.TrainingDets on  training.Id equals trainingdet.Training_Id
+            ////                                    join session in db.Sessions on trainingdet.Id equals session.TrainingDet_Id
+            ////                                   where ass.IsActive == true && session.IsActive==true && training.IsActive==true
+            ////                                    select ass
 
-            //                                    ).ToList();
-            //db.AssignResources.Where(a=>a.IsActive==true).ToList();
-            //a=> !db.AssignResources.Any(p2=>p2.Trainer_Id==a.Id
-            ViewBag.assResDetails = assignResources;
+            ////                                    ).ToList();
+            ////db.AssignResources.Where(a=>a.IsActive==true).ToList();
+            ////a=> !db.AssignResources.Any(p2=>p2.Trainer_Id==a.Id
+            //ViewBag.assResDetails = assignResources;
           
             return View();
         }

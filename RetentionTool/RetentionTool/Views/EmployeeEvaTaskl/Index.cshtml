@@ -1,16 +1,59 @@
-﻿@model IEnumerable<RetentionTool.Models.EmployeeEvalTask>
+﻿@model RetentionTool.ViewModel.EmployeeEvalViewModel
 @{
     ViewBag.Title = "Index Employee Evaluation";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    var assResDetails = ViewBag.assResDetails;
+    var empevalDetails = ViewBag.empevalDetails;
 }
 
 <h2>Index Employee Evaluation</h2>
-<div class="card-body">
+@*<div class="card-body
     @Html.ActionLink("Create New", "Create", "EmployeeEvaTaskl", null, new { @class = "btn btn-outline-primary" })
-</div>
+</div>*@
 <div class="container" style="width:100%;margin-top:2%">
     <table class="table table-striped">
         <tr>
+            <th>@Html.DisplayNameFor(model => model.EmployeeEvalTask.AssignResource_Id)</th>
+            @*<th>
+                @Html.Label("Manager Name")
+            </th>*@
+            <th>@Html.DisplayNameFor(model => model.EmployeeEvalTask.AssignResource.Module.ModuleName)</th>
+            @*<th>@Html.Label("Trainer Name")</th>*@
+
+
+            <th>@Html.Label("Actions")</th>
+        </tr>
+        @foreach (var item in assResDetails)
+        {
+        <tr>
+            <td>@item.Id</td>
+            @*<td>@item.Manager.Name</td>*@
+            <td>@item.Module.ModuleName</td>
+            @*<td>@item.Trainer.Name</td>*@
+            <td>
+                @foreach (var empid in empevalDetails)
+                {
+                    if (empid.AssignResource_Id == item.Id)
+                    {
+                        @Html.ActionLink(" ", "Edit", new {id=@item.Id},
+                                new { @class = "ti-pencil"} )
+                        @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+
+                    }
+                    else
+                    {
+                        <a href='@Url.Action("CreateEmployeeEval", "EmployeeEvaTaskl", new {assignresid=@item.Id})'>Add Details</a>
+
+                    }
+                }
+
+
+            </td>
+
+        </tr>
+        }
+
+        @*<tr>
             <th>@Html.DisplayNameFor(model => model.Id)</th>
 
             <th>@Html.DisplayNameFor(model => model.AssignResource_Id)</th>
@@ -26,15 +69,15 @@
                 <td>@item.Trainer.Name</td>
                 <td>@item.AssignResource.Module.ModuleName</td>
 
-                
-               
+
+
                 <td>
                     @Html.ActionLink(" ", "Edit", new {id=@item.Id},
                                   new { @class = "ti-pencil"} )
                     @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
                 </td>
             </tr>
-        }
+        }*@
 
     </table>
 
