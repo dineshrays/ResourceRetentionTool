@@ -191,9 +191,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserMasters">
-      <EntityTypeMapping TypeName="RetentionToolModel.UserMaster">
-        <MappingFragment StoreEntitySet="UserMaster">
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="RetentionToolModel.UserDetail">
+        <MappingFragment StoreEntitySet="UserDetails">
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
           <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />

@@ -1439,7 +1439,7 @@
     <Compile Include="Models\TrainingDet.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserMaster.cs">
+    <Compile Include="Models\UserDetail.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

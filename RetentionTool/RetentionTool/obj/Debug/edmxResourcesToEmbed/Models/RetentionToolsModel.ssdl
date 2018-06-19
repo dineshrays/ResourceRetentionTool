@@ -172,7 +172,7 @@
     <Property Name="HoursRequired" Type="time" Precision="7" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
-  <EntityType Name="UserMaster">
+  <EntityType Name="UserDetails">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -475,12 +475,12 @@
   </Association>
   <Association Name="FK_UserMaster_Roles">
     <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
-    <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
+    <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Roles">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="UserMaster">
+      <Dependent Role="UserDetails">
         <PropertyRef Name="Role_Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -504,7 +504,7 @@
     <EntitySet Name="Trainers" EntityType="Self.Trainers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrainingDet" EntityType="Self.TrainingDet" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_AssignEvaluater_AssignResources" Association="Self.FK_AssignEvaluater_AssignResources">
       <End Role="AssignResources" EntitySet="AssignResources" />
       <End Role="AssignEvaluater" EntitySet="AssignEvaluater" />
@@ -603,7 +603,7 @@
     </AssociationSet>
     <AssociationSet Name="FK_UserMaster_Roles" Association="Self.FK_UserMaster_Roles">
       <End Role="Roles" EntitySet="Roles" />
-      <End Role="UserMaster" EntitySet="UserMaster" />
+      <End Role="UserDetails" EntitySet="UserDetails" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

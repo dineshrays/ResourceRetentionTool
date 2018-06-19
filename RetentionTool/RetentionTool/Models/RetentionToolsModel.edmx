@@ -177,7 +177,7 @@
           <Property Name="HoursRequired" Type="time" Precision="7" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
-        <EntityType Name="UserMaster">
+        <EntityType Name="UserDetails">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -480,12 +480,12 @@
         </Association>
         <Association Name="FK_UserMaster_Roles">
           <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
-          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserMaster">
+            <Dependent Role="UserDetails">
               <PropertyRef Name="Role_Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -509,7 +509,7 @@
           <EntitySet Name="Trainers" EntityType="Self.Trainers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainingDet" EntityType="Self.TrainingDet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AssignEvaluater_AssignResources" Association="Self.FK_AssignEvaluater_AssignResources">
             <End Role="AssignResources" EntitySet="AssignResources" />
             <End Role="AssignEvaluater" EntitySet="AssignEvaluater" />
@@ -608,7 +608,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_UserMaster_Roles" Association="Self.FK_UserMaster_Roles">
             <End Role="Roles" EntitySet="Roles" />
-            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="UserDetails" EntitySet="UserDetails" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -751,10 +751,10 @@
             <End Role="TrainingDet" EntitySet="TrainingDets" />
           </AssociationSet>
           <EntitySet Name="Roles" EntityType="RetentionToolModel.Role" />
-          <EntitySet Name="UserMasters" EntityType="RetentionToolModel.UserMaster" />
-          <AssociationSet Name="FK_UserMaster_Roles" Association="RetentionToolModel.FK_UserMaster_Roles">
+          <EntitySet Name="UserDetails" EntityType="RetentionToolModel.UserDetail" />
+          <AssociationSet Name="FK_UserMaster_Roles1" Association="RetentionToolModel.FK_UserMaster_Roles1">
             <End Role="Role" EntitySet="Roles" />
-            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="UserDetail" EntitySet="UserDetails" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
@@ -1243,9 +1243,9 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EntryDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="UserMasters" Relationship="RetentionToolModel.FK_UserMaster_Roles" FromRole="Role" ToRole="UserMaster" />
+          <NavigationProperty Name="UserDetails" Relationship="RetentionToolModel.FK_UserMaster_Roles1" FromRole="Role" ToRole="UserDetail" />
         </EntityType>
-        <EntityType Name="UserMaster">
+        <EntityType Name="UserDetail">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -1257,16 +1257,16 @@
           <Property Name="Role_Id" Type="Int32" />
           <Property Name="EntryDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Role" Relationship="RetentionToolModel.FK_UserMaster_Roles" FromRole="UserMaster" ToRole="Role" />
+          <NavigationProperty Name="Role" Relationship="RetentionToolModel.FK_UserMaster_Roles1" FromRole="UserDetail" ToRole="Role" />
         </EntityType>
-        <Association Name="FK_UserMaster_Roles">
+        <Association Name="FK_UserMaster_Roles1">
           <End Type="RetentionToolModel.Role" Role="Role" Multiplicity="0..1" />
-          <End Type="RetentionToolModel.UserMaster" Role="UserMaster" Multiplicity="*" />
+          <End Type="RetentionToolModel.UserDetail" Role="UserDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserMaster">
+            <Dependent Role="UserDetail">
               <PropertyRef Name="Role_Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1467,9 +1467,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserMasters">
-            <EntityTypeMapping TypeName="RetentionToolModel.UserMaster">
-              <MappingFragment StoreEntitySet="UserMaster">
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="RetentionToolModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />

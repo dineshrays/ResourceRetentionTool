@@ -12,7 +12,7 @@ namespace RetentionTool.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserMaster
+    public partial class UserDetail
     {
         public long Id { get; set; }
         public string Emp_Id { get; set; }

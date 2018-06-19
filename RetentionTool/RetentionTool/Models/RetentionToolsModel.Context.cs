@@ -43,6 +43,6 @@ namespace RetentionTool.Models
         public virtual DbSet<Training> Trainings { get; set; }
         public virtual DbSet<TrainingDet> TrainingDets { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<UserMaster> UserMasters { get; set; }
+        public virtual DbSet<UserDetail> UserDetails { get; set; }
     }
 }
