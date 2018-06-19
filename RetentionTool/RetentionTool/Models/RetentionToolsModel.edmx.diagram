@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ab0671d9afcb4fa18933fcb8535fd679" Name="Diagram1">
+      <Diagram DiagramId="ab0671d9afcb4fa18933fcb8535fd679" Name="Diagram1" ZoomLevel="85">
         <EntityTypeShape EntityType="RetentionToolModel.Commonfield" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="RetentionToolModel.Skill" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="RetentionToolModel.Module" Width="1.5" PointX="3" PointY="3.25" />
+        <EntityTypeShape EntityType="RetentionToolModel.Module" Width="1.5" PointX="2.75" PointY="3.25" />
         <AssociationConnector Association="RetentionToolModel.FK_Module_Commonfields" />
         <AssociationConnector Association="RetentionToolModel.FK_Module_Skills" />
         <EntityTypeShape EntityType="RetentionToolModel.AssignResource" Width="1.5" PointX="5.25" PointY="4" />
         <EntityTypeShape EntityType="RetentionToolModel.AssignResourcesDet" Width="1.5" PointX="7.5" PointY="4.625" />
         <EntityTypeShape EntityType="RetentionToolModel.Employee" Width="1.5" PointX="5.25" PointY="0.75" />
         <EntityTypeShape EntityType="RetentionToolModel.Manager" Width="1.5" PointX="3" PointY="8" />
-        <EntityTypeShape EntityType="RetentionToolModel.Trainer" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="RetentionToolModel.Trainer" Width="1.5" PointX="2.875" PointY="0.875" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignResources_AssignResources" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignResources_Managers" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignResources_Module" />
@@ -23,6 +23,29 @@
         <AssociationConnector Association="RetentionToolModel.FK_AssignResourcesDet_Employees" />
         <EntityTypeShape EntityType="RetentionToolModel.ModuleDet" Width="1.5" PointX="5.25" PointY="8.75" />
         <AssociationConnector Association="RetentionToolModel.FK_ModuleDet_Module" />
+        <EntityTypeShape EntityType="RetentionToolModel.AssignEvaluater" Width="1.5" PointX="13.625" PointY="8" />
+        <EntityTypeShape EntityType="RetentionToolModel.EmployeeEvalTask" Width="1.5" PointX="10.625" PointY="1.875" />
+        <EntityTypeShape EntityType="RetentionToolModel.EmployeeEvalTaskDet" Width="1.5" PointX="12.875" PointY="0.75" />
+        <EntityTypeShape EntityType="RetentionToolModel.RateEmployeeEligiability" Width="1.5" PointX="13.625" PointY="4.375" />
+        <EntityTypeShape EntityType="RetentionToolModel.Session" Width="1.5" PointX="15.125" PointY="15.375" />
+        <EntityTypeShape EntityType="RetentionToolModel.SessionsDet" Width="1.5" PointX="17.375" PointY="8.75" />
+        <EntityTypeShape EntityType="RetentionToolModel.Training" Width="1.5" PointX="10.625" PointY="15.5" />
+        <EntityTypeShape EntityType="RetentionToolModel.TrainingDet" Width="1.5" PointX="12.875" PointY="15.625" />
+        <AssociationConnector Association="RetentionToolModel.FK_AssignEvaluater_AssignResources" />
+        <AssociationConnector Association="RetentionToolModel.FK_AssignEvaluater_Trainers" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTask_AssignResources" />
+        <AssociationConnector Association="RetentionToolModel.FK_RateEmployeeEligiability_AssignResources" />
+        <AssociationConnector Association="RetentionToolModel.FK_Training_AssignResources" />
+        <AssociationConnector Association="RetentionToolModel.FK_Skills_Commonfields" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTask_Trainers" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTaskDet_EmployeeEvalTask" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTaskDet_Employees" />
+        <AssociationConnector Association="RetentionToolModel.FK_RateEmployeeEligiability_Employees" />
+        <AssociationConnector Association="RetentionToolModel.FK_SessionsDet_Employees" />
+        <AssociationConnector Association="RetentionToolModel.FK_Sessions_TrainingDet" />
+        <AssociationConnector Association="RetentionToolModel.FK_SessionsDet_Sessions" />
+        <AssociationConnector Association="RetentionToolModel.FK_TrainerDet_Training" />
+        <AssociationConnector Association="RetentionToolModel.FK_TrainingDet_ModuleDet" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

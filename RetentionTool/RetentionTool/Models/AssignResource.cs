@@ -18,6 +18,10 @@ namespace RetentionTool.Models
         public AssignResource()
         {
             this.AssignResourcesDets = new HashSet<AssignResourcesDet>();
+            this.AssignEvaluaters = new HashSet<AssignEvaluater>();
+            this.EmployeeEvalTasks = new HashSet<EmployeeEvalTask>();
+            this.RateEmployeeEligiabilities = new HashSet<RateEmployeeEligiability>();
+            this.Trainings = new HashSet<Training>();
         }
     
         public int Id { get; set; }
@@ -34,5 +38,17 @@ namespace RetentionTool.Models
         public virtual Trainer Trainer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignResourcesDet> AssignResourcesDets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignEvaluater> AssignEvaluaters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeEvalTask> EmployeeEvalTasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RateEmployeeEligiability> RateEmployeeEligiabilities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Training> Trainings { get; set; }
     }
+    //public  class AssignResource
+    //{
+    //    public reso
+    //}
 }

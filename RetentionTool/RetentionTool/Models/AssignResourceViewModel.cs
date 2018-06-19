@@ -33,7 +33,12 @@ namespace RetentionTool.Models
         public virtual Manager Manager { get; set; }
         public virtual Module Module { get; set; }
         public virtual Trainer Trainer { get; set; }
-
-
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> FromDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> ToDate { get; set; }
+       // public Training Training { get; set; }
     }
 }

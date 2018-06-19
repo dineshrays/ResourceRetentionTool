@@ -1,0 +1,354 @@
+﻿@model  RetentionTool.ViewModel.SessionSummaryViewModel
+@{
+    ViewBag.Title = "Create Session Summary";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    var trainingDetails = ViewBag.trainingDetails;
+    //var empDetails = ViewBag.empDetails;
+    // var value = 0;
+}
+@*<script src="~/Scripts/assets/js/vendor/jquery-3.3.1.js"></script>
+<script src="~/Scripts/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+<div class="card">
+    <div class="card-header">
+
+        <h2>Create Session Summary</h2>
+    </div>
+    <div class="container" style="width:50%;margin-top:2%">
+        <table class="table table-striped" id="tble">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.session.TrainingDet_Id)</th>
+                <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.Training_Id)</th>
+
+                <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.ModuleDet_Id)</th>
+                @*<th>@Html.DisplayNameFor(model => model.trainername)</th>
+                <th>@Html.DisplayNameFor(model => model.employeename)</th>
+
+                <th>@Html.DisplayNameFor(model => model.Date)</th>*@
+                <th>@Html.Label("Topics")</th>
+                <th>@Html.Label("Actions")</th>
+            </tr>
+            @foreach (var item in trainingDetails)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td style="display:none">@item.Training_Id</td>
+                    <td style="display:none;width:0%">@item.ModuleDet_Id</td>
+                    <td>@item.ModuleDet.Topics</td>
+
+                    <td>
+                        @*<div id="solTitle"> CreateSession", "SessionSummary*@
+                        <a href='@Url.Action("CreateSession", "SessionSummary", new {trainingdetid=@item.Id, trainingid = @item.Training_Id, moduledetid = @item.ModuleDet_Id})'>Add Details</a>
+
+                        @*<a href='@Url.Action("CreateSession", "SessionSummary")' onclick='naviagte(this.href,@item.Training_Id, @item.ModuleDet_Id);'>Click</a>*@
+
+
+                        @*<a href="#" id="@item.Training_Id" modeid="@item.ModuleDet_Id">Add Details</a>*@
+                        @*</div>*@
+                        @*<div id="emp" style="display:none">
+
+                            <h1>Heewleoo</h1>
+                        </div>*@
+                    </td>
+                    @*<td>
+                        @Html.ActionLink(" ", "Edit", new {id=item.Id},
+                       //new { id = item.Id }, null)
+                         new { @class = "ti-pencil"} )
+                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                    </td>*@
+                </tr>
+            }
+
+        </table>
+        <div class="card-body">
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        <div class="myclass" style="display:none;">
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.session.Date, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>
+                        @Html.EditorFor(m => m.session.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:60%" } })
+
+                        @*new { @Id = "date", @class = "form-control", style = "width:60%" })*@
+                    </div><br />
+                </div>
+            </div>
+            @*<div class="card-body">
+
+                <input type="text" id="date" style="width:30%" />
+
+            </div>*@
+            @*<br />*@
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.session.Hours, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.session.Hours, new { @Id = "hours", @class = "form-control", style = "width:60%" })</div><br />
+                </div>
+            </div>
+            @*<div class="card-body">
+                Hours:
+                <input type="text" id="hours" style="width:30%" />
+
+            </div>*@
+            @*<br />*@
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.session.Description, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:60%" })</div><br />
+                </div>
+            </div>
+            @*<div class="card-body">
+                Description:
+                <input type="text" id="desc" style="width:30%" />
+
+            </div>*@
+            @*<table>
+                <tr>
+                    <td>Date:</td>
+                    <td><input type="text" id="date" /></td>
+                    <td><br /></td>
+                </tr>
+
+                <tr>
+                    <td>Hours:</td>
+                    <td><input type="text" id="hours" /></td>
+                    <td><br /></td>
+                </tr>
+
+                <tr>
+                    <td>Description:</td>
+                    <td><input type="text" id="des" /></td>
+                    <td><br /></td>
+                </tr>
+
+            </table>*@
+            <br />
+
+
+            @*<form>
+                <input type="text" id="empname" placeholder="Employee Name">
+                <input id="empid" style="display:none" />
+                <input type="text" id="Remark" placeholder="Remark">
+                <input type="button" class="add-row" value="Add Row">
+            </form>*@
+            <br />
+            <table class="mytbl table table-striped">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th style="display:none">Employee Id</th>
+                        <th>Employee Name</th>
+                        <th>Attendance</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@if ( empDetails  != null)
+                    {
+                        foreach (var emplist in empDetails)
+                        {
+
+                            <tr>
+                                <td><input type="checkbox" name="record" /></td>
+                                <td style="display:none">@emplist.Id</td>
+                                <td>@emplist.Name</td>
+                                <td><input type="checkbox" name="attendance" /></td>
+                                <td><input type="text" name="remark" /></td>
+                            </tr>
+
+
+                        }
+                    }*@
+
+                </tbody>
+
+
+            </table>
+            <button type="button" class="delete-row">Delete Row</button>
+            @*<div class="row form-group">
+                <div class="col col-md-3">
+
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>
+                        @Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:40%" })
+
+                    </div><br />
+                </div>
+            </div>*@
+
+
+        </div>
+        @*@if(value != 0)
+        {
+            <div>Hello</div>
+        }*@
+    </div>
+
+</div>
+@*<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".add-row").click(function () {
+            var empname = $("#empname").val();
+            var empid = $("#empid").val();
+            var remark = $("#Remark").val();
+            var attendend = "True";
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td style='display:none'>" + empid + "</td><td>" + empname + "</td><td>" + attendend + "</td><td>" + remark + "</td></tr>";
+            $(".mytbl").append(markup);
+            $("#empname").val('');
+            $("#Remark").val('');
+        });
+
+        // Find and remove selected table rows
+        $(".delete-row").click(function () {
+            $(".mytbl").find('input[name="record"]').each(function () {
+                if ($(this).is(":checked")) {
+                    $(this).parents("tr").remove();
+                }
+
+            });
+        });
+    });
+
+    //function naviagte(target, id, id1) {
+    //    alert(target);
+    //    alert(id);
+    //    alert(id1);
+    //    // window.location.href = target + '?trainingid=' + id + '&moduledetid=' + id1;
+    //    $.post(target, { trainingid: id, moduledetid: id1 });
+    //   // alert("hello");
+    //}
+</script>
+<script>
+    $(document).ready(function () {
+        //$val = "1";
+        //$("#emp").hide();
+        //function onload()
+        //{
+        //    $("#emp").hide();
+
+        //}
+
+    });
+    $("abc").click(
+
+        function () {
+            var trainingid = $(this).attr("id");
+            var moduleid = $(this).attr("modeid");
+          //  alert(value2);
+            //alert(value1);
+
+            //  $(this).hide();
+            var edit = $("#tble").find("tr td");
+            //$("")
+            $.each(edit, function () {
+               $(this).prop('contenteditable', true)
+               // $(edit).find('#solTitle').prop("disabled", false);
+                     //$(this).prop('disabled', true)
+                //disabled
+               // $(this).prop('editable', false)
+            })
+
+
+             $.ajax({
+                    url: '@Url.Action("CreateSession", "SessionSummary")', 
+                 dataType: "json",
+                 data: JSON.stringify({ trainingid: trainingid, moduledetid: moduleid}),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                 success: function (result) {
+                    // $('#skill_Id').empty();
+                     //$.each(result, function (i, emp) {
+                     //    var markup = "<tr><td><input type='checkbox' name='record'></td><td style='display:none'>" + emp.Id + "</td><td>" + emp.Name + "</td><td><input type='checkbox' name='attended'></td><td><input type='text' name='remark'></td></tr>";
+                     //    $(".mytbl").append(markup);
+                     //    //$('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
+                     //});
+                   
+                   //  $(".myclass").show();
+                        //alert("success");
+                        //$("#date").val('');
+                        //$("#managerid").val('');
+                        //$("#moduleid").val('');
+                        //$("#trainerid").val('');
+                        //$("table tbody").empty();
+                        //window.location.href = newUrl;
+                    },
+                 error: function (xhr) {
+                     alert("here");
+                        alert("error");
+                    }
+                });
+           // $("#emp").show();
+           // alert(value1);
+        }
+    );
+
+    //function openSolution() {
+    //    alert('here');
+    //   // var id = $('#solTitle a', this).attr('id');
+    //    var val = $(this).attr("id");
+    //    //var divId = 'summary' + $(this).attr('id');
+    //    alert(val);
+    //    $("#solTitle").hide();
+    //    $("#emp").show();
+    //    //$("#solTitle a").click(function (evt) {
+    //    //    evt.preventDefault();
+    //    //    alert('here in');
+    //    //    var id = $('a', this).attr('id');
+    //    //    //var divId = 'summary' + $(this).attr('id');
+    //    //    alert(id);
+    //    //    // document.getElementById(divId).className = '';
+
+    //    //});
+    //}
+</script>
+
+<script>
+    $(function () {
+        $("#empname").autocomplete({
+            source: function (request, response) {
+                var param = { name: $('#empname').val() };
+                $.ajax({
+                    url: "/SessionSummary/getEmployee",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, id: item.Id }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                // prevent autocomplete from updating the textbox
+                event.preventDefault();
+                $(this).val(ui.item.label);
+                $("#empid").val(ui.item.id);
+            }    //minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+        });
+    });
+
+</script>

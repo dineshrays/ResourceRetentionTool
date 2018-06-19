@@ -1346,14 +1346,22 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AssignEvaluaterController.cs" />
     <Compile Include="Controllers\AssignResourceController.cs" />
     <Compile Include="Controllers\AssignResourceDetController.cs" />
     <Compile Include="Controllers\CommonFieldController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\EmployeeEvaTasklController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\RateEmployeeController.cs" />
+    <Compile Include="Controllers\SessionSummaryController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
+    <Compile Include="Controllers\TrainingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AssignEvaluater.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AssignResource.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
@@ -1369,6 +1377,12 @@
     <Compile Include="Models\Employee.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeEvalTask.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeEvalTaskDet.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmployeeList.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\Items.cs" />
@@ -1382,6 +1396,10 @@
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ModuleViewModel.cs" />
+    <Compile Include="Models\RateEmployeeEligiability.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RateEmployeeList.cs" />
     <Compile Include="Models\RetentionToolsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1397,6 +1415,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RetentionToolsModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Session.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SessionsDet.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SessionSummaryList.cs" />
+    <Compile Include="Models\SessionSummaryModel.cs" />
     <Compile Include="Models\Skill.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1404,9 +1430,20 @@
     <Compile Include="Models\Trainer.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Training.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrainingDet.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AssignEvaluterViewModel.cs" />
     <Compile Include="ViewModel\AssignResouViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeEvalViewModel.cs" />
     <Compile Include="ViewModel\ModuleViewModel1.cs" />
+    <Compile Include="ViewModel\RateEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\SessionSummaryViewModel.cs" />
+    <Compile Include="ViewModel\TrainingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1456,6 +1493,29 @@
     <Content Include="Views\Module\Index.cshtml" />
     <Content Include="Views\Module\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutMain.cshtml" />
+    <Content Include="Views\Training\Index.cshtml" />
+    <Content Include="Views\Training\Create.cshtml" />
+    <Content Include="Views\Training\Edit.cshtml" />
+    <Content Include="Views\Training\delete.cshtml" />
+    <Content Include="Views\RateEmployee\Index.cshtml" />
+    <Content Include="Views\RateEmployee\Create.cshtml" />
+    <Content Include="Views\RateEmployee\Edit.cshtml" />
+    <Content Include="Views\AssignEvaluater\Create.cshtml" />
+    <Content Include="Views\AssignEvaluater\CreateAssignEvaluter.cshtml" />
+    <Content Include="Views\AssignEvaluater\Delete.cshtml" />
+    <Content Include="Views\AssignEvaluater\Edit.cshtml" />
+    <Content Include="Views\AssignEvaluater\Index.cshtml" />
+    <Content Include="Views\RateEmployee\Delete.cshtml" />
+    <Content Include="Views\EmployeeEvaTaskl\Create.cshtml" />
+    <Content Include="Views\EmployeeEvaTaskl\CreateEmployeeEval.cshtml" />
+    <Content Include="Views\EmployeeEvaTaskl\Delete.cshtml" />
+    <Content Include="Views\EmployeeEvaTaskl\Edit.cshtml" />
+    <Content Include="Views\EmployeeEvaTaskl\Index.cshtml" />
+    <Content Include="Views\SessionSummary\Create.cshtml" />
+    <Content Include="Views\SessionSummary\CreateSession.cshtml" />
+    <Content Include="Views\SessionSummary\Delete.cshtml" />
+    <Content Include="Views\SessionSummary\Edit.cshtml" />
+    <Content Include="Views\SessionSummary\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

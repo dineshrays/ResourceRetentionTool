@@ -34,5 +34,13 @@ namespace RetentionTool.Models
         public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<Trainer> Trainers { get; set; }
         public virtual DbSet<ModuleDet> ModuleDets { get; set; }
+        public virtual DbSet<AssignEvaluater> AssignEvaluaters { get; set; }
+        public virtual DbSet<EmployeeEvalTask> EmployeeEvalTasks { get; set; }
+        public virtual DbSet<EmployeeEvalTaskDet> EmployeeEvalTaskDets { get; set; }
+        public virtual DbSet<RateEmployeeEligiability> RateEmployeeEligiabilities { get; set; }
+        public virtual DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<SessionsDet> SessionsDets { get; set; }
+        public virtual DbSet<Training> Trainings { get; set; }
+        public virtual DbSet<TrainingDet> TrainingDets { get; set; }
     }
 }

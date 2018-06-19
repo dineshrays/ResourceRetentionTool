@@ -24,7 +24,7 @@ namespace RetentionTool.Controllers
                                     Id = assignres.Id,
                                     Manager_Id = assignres.Manager_Id,
                                  managername=   assignres.Manager.Name,
-                                Module_Id=    assignres.Module_Id,
+                                 Module_Id=    assignres.Module_Id,
                                 modulename=    assignres.Module.ModuleName,
                                  Trainer_Id=   assignres.Trainer_Id,
                                   trainername=  assignres.Trainer.Name,

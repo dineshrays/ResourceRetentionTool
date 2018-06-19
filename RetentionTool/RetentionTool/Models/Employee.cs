@@ -18,6 +18,9 @@ namespace RetentionTool.Models
         public Employee()
         {
             this.AssignResourcesDets = new HashSet<AssignResourcesDet>();
+            this.EmployeeEvalTaskDets = new HashSet<EmployeeEvalTaskDet>();
+            this.RateEmployeeEligiabilities = new HashSet<RateEmployeeEligiability>();
+            this.SessionsDets = new HashSet<SessionsDet>();
         }
     
         public long Id { get; set; }
@@ -26,5 +29,11 @@ namespace RetentionTool.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignResourcesDet> AssignResourcesDets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeEvalTaskDet> EmployeeEvalTaskDets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RateEmployeeEligiability> RateEmployeeEligiabilities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SessionsDet> SessionsDets { get; set; }
     }
 }

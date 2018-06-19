@@ -14,11 +14,19 @@ namespace RetentionTool.Models
     
     public partial class ModuleDet
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ModuleDet()
+        {
+            this.TrainingDets = new HashSet<TrainingDet>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> Module_Id { get; set; }
         public string Topics { get; set; }
         public Nullable<System.TimeSpan> HoursRequired { get; set; }
     
         public virtual Module Module { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TrainingDet> TrainingDets { get; set; }
     }
 }

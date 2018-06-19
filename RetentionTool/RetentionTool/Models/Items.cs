@@ -7,7 +7,8 @@ namespace RetentionTool.Models
 {
     public class Item
     {
-        public string Topics { get; set; }
+        public int Id { get; set; }
+            public string Topics { get; set; }
         public Nullable<System.TimeSpan> HoursRequired { get; set; }
     }
 }

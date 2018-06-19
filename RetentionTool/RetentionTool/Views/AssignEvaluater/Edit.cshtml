@@ -1,0 +1,58 @@
+﻿@model RetentionTool.Models.AssignEvaluater
+@{
+    ViewBag.Title = "Edit Assign Evaluater";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="card">
+        <div class="card-header">
+
+            <h2>Edit Assign Evaluater</h2>
+        </div>
+        <div class="card-body card-block">
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.Label("Assign Resource Id")</div>
+
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="col-12 col-md-9">
+                        @Html.HiddenFor(m=>m.Id)
+                        @Html.DisplayTextFor(m=>m.AssignResource_Id)
+                       @Html.HiddenFor(m=>m.AssignResource_Id)
+
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.Label("Trainer Name")</div>
+
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="col-12 col-md-9">
+                       
+                        @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })
+
+
+                    </div>
+                    <br />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="card-body">
+                <input type="submit" value="Edit" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+

@@ -1,0 +1,74 @@
+﻿
+@model RetentionTool.Models.RateEmployeeEligiability
+@{
+    ViewBag.Title = "Delete Rate Employee Eligiability";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    var assign = ViewBag.assign;
+}
+@using (Html.BeginForm())
+{
+    <div class="card">
+        <div class="card-header">
+
+            <h2>Edit Rate Employee Eligiability</h2>
+
+        </div>
+
+        <div class="card-body card-block">
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.AssignResources_Id)</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.DisplayFor(m => m.AssignResources_Id, new { @id = "AssignResources_Id" })</div><br />
+                    <div>@Html.HiddenFor(m => m.Id, new { @id = "id" })</div>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.Employee_Id)</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.DisplayFor(m => m.Employee_Id, new { @id = "Employee_Id" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.Employee.Name)</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.DisplayFor(m => m.Employee.Name, new { @id = "EmployeeName" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.Grade)</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.DisplayFor(m => m.Grade, new { @id = "Grade" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.IsEligible)</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.DisplayFor(m => m.IsEligible, new { @id = "IsEligible" })</div><br />
+                </div>
+            </div>
+            <div class="card-body">
+                @*<button type="button" id="btnGet" class="btn btn-success">Save</button>*@
+                <input type="submit" value="Delete" class="btn btn-danger" />
+
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+
+        </div>
+
+    </div>
+}

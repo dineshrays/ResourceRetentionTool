@@ -1,0 +1,62 @@
+﻿@model RetentionTool.ViewModel.TrainingViewModel
+@{
+    ViewBag.Title = "delete";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    var details = ViewBag.details;
+}
+
+@using (Html.BeginForm())
+{<div class="card">
+    <div class="card-header">
+        <h2>Delete Training</h2>
+    </div>
+
+
+    <div class="card-body card-block">
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.TrainingVm.FromDate, new { @class = "form-control-label" })</div>
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.HiddenFor(m => m.TrainingVm.Id, new { @id = "trainingid" })
+                @Html.HiddenFor(m => m.TrainingVm.AssignResource_Id, new { @id = "assignresid" })
+                <div>@Html.DisplayFor(m => m.TrainingVm.FromDate, new { htmlAttributes = new { @Id = "FromDate", @class = "form-control", } })</div><br />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.TrainingVm.ToDate, new { @class = "form-control-label" })</div>
+            </div>
+            <div class="col-12 col-md-9">
+                <div>@Html.DisplayFor(m => m.TrainingVm.ToDate, new { htmlAttributes = new { @Id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <th style="display:none">Module Details Id</th>
+                <th>Topics</th>
+                <th>Hours Required</th>
+            </tr>
+
+            <tbody>
+                @foreach (var emplist1 in details)
+                {
+                    <tr>
+                        <td style="display:none" id="Id">@emplist1.Id</td>
+                        <td id="Topics">@emplist1.Topics</td>
+                        <td>@emplist1.HoursRequired</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <div class="card-body">
+            @*<button type="button" class="btn btn-danger">Delete</button>@Html.ActionLink("Back to List", "Index")*@
+            <input type="submit" value="Delete" class="btn btn-danger" /> | @Html.ActionLink("Back to List", "Index", "Training", null, new { @class = "btn btn-outline-link" })
+        </div>
+    </div>
+</div>
+
+}

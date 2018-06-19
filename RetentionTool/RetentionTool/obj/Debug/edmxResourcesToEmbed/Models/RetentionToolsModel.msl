@@ -90,5 +90,96 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AssignEvaluaters">
+      <EntityTypeMapping TypeName="RetentionToolModel.AssignEvaluater">
+        <MappingFragment StoreEntitySet="AssignEvaluater">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Trainer_Id" ColumnName="Trainer_Id" />
+          <ScalarProperty Name="AssignResource_Id" ColumnName="AssignResource_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeEvalTasks">
+      <EntityTypeMapping TypeName="RetentionToolModel.EmployeeEvalTask">
+        <MappingFragment StoreEntitySet="EmployeeEvalTask">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Trainer_Id" ColumnName="Trainer_Id" />
+          <ScalarProperty Name="AssignResource_Id" ColumnName="AssignResource_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeEvalTaskDets">
+      <EntityTypeMapping TypeName="RetentionToolModel.EmployeeEvalTaskDet">
+        <MappingFragment StoreEntitySet="EmployeeEvalTaskDet">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsEligiableMark" ColumnName="IsEligiableMark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="TaskAssigned" ColumnName="TaskAssigned" />
+          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+          <ScalarProperty Name="EmployeeEvalTask_Id" ColumnName="EmployeeEvalTask_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RateEmployeeEligiabilities">
+      <EntityTypeMapping TypeName="RetentionToolModel.RateEmployeeEligiability">
+        <MappingFragment StoreEntitySet="RateEmployeeEligiability">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsEligible" ColumnName="IsEligible" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+          <ScalarProperty Name="AssignResources_Id" ColumnName="AssignResources_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sessions">
+      <EntityTypeMapping TypeName="RetentionToolModel.Session">
+        <MappingFragment StoreEntitySet="Sessions">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="TrainingDet_Id" ColumnName="TrainingDet_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionsDets">
+      <EntityTypeMapping TypeName="RetentionToolModel.SessionsDet">
+        <MappingFragment StoreEntitySet="SessionsDet">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Attendance" ColumnName="Attendance" />
+          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+          <ScalarProperty Name="Sessions_Id" ColumnName="Sessions_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trainings">
+      <EntityTypeMapping TypeName="RetentionToolModel.Training">
+        <MappingFragment StoreEntitySet="Training">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="AssignResource_Id" ColumnName="AssignResource_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrainingDets">
+      <EntityTypeMapping TypeName="RetentionToolModel.TrainingDet">
+        <MappingFragment StoreEntitySet="TrainingDet">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="HoursRequired" ColumnName="HoursRequired" />
+          <ScalarProperty Name="ModuleDet_Id" ColumnName="ModuleDet_Id" />
+          <ScalarProperty Name="Training_Id" ColumnName="Training_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
