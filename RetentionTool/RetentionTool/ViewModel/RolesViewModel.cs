@@ -8,7 +8,8 @@ namespace RetentionTool.ViewModel
 {
     public class RolesViewModel
     {
-        public List<Role> rolevm = new List<Role>();
-        public Role role;
+        public List<Role> rolevm { get; set; }
+        public Role role { get; set; }
+        public string name { get; set; }
     }
 }

@@ -24,32 +24,60 @@ namespace RetentionTool.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Role role)
+        public ActionResult Create(RolesViewModel rolevm)
         {
+            Role role = new Role();
+            role = rolevm.role;
+            role.IsActive = true;
+            role.EntryDate = DateTime.Now;
+            db.Roles.Add(role);
+            db.SaveChanges();
+           
 
-            return View();
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
         {
-            return View();
+            Role role = db.Roles.Find(id);
+            RolesViewModel rolevm = new RolesViewModel();
+            rolevm.role = role;
+            return View(rolevm);
         }
         [HttpPost]
-        public ActionResult Edit(int id,Role role)
+        public ActionResult Edit(int id,RolesViewModel rolevm)
         {
+            Role role = new Role();
+            if(id==rolevm.role.Id)
+            {
+                role = rolevm.role;
+                db.Entry(role).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
 
-            return View();
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id)
         {
-            return View();
+            Role role = db.Roles.Find(id);
+            RolesViewModel rolevm = new RolesViewModel();
+            rolevm.role = role;
+            return View(rolevm);
         }
         [HttpPost]
-        public ActionResult Delete(int id, Role role)
+        public ActionResult Delete(int id, RolesViewModel rolevm)
         {
+            Role role = db.Roles.Find(id);
+            if(role.Id==id)
+            {
+                role.IsActive = false;
+                db.Entry(role).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
 
-            return View();
+            return RedirectToAction("Index");
         }
 
     }
