@@ -15,7 +15,7 @@ namespace RetentionTool.Models
     public partial class UserDetail
     {
         public long Id { get; set; }
-        public string Emp_Id { get; set; }
+        public Nullable<int> Emp_Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -23,6 +23,7 @@ namespace RetentionTool.Models
         public Nullable<System.DateTime> EntryDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Role Role { get; set; }
     }
 }
