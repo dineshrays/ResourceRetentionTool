@@ -41,6 +41,42 @@
           <Property Name="Name" Type="varchar" MaxLength="350" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="CurrentInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_Id" Type="int" />
+          <Property Name="Designation" Type="varchar" MaxLength="250" />
+          <Property Name="DOJ" Type="datetime" />
+          <Property Name="DateOfRelieving" Type="datetime" />
+          <Property Name="ReportingManager" Type="varchar" MaxLength="250" />
+          <Property Name="JobType" Type="varchar" MaxLength="250" />
+          <Property Name="DeployedCompanyDetails" Type="varchar" MaxLength="250" />
+          <Property Name="DeployedFromDate" Type="datetime" />
+          <Property Name="DeployedToDate" Type="datetime" />
+          <Property Name="CompanyMailId" Type="varchar" MaxLength="250" />
+          <Property Name="BankName" Type="varchar" MaxLength="50" />
+          <Property Name="IFSC" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModeOfPayment" Type="varchar" MaxLength="50" />
+          <Property Name="WorkLocation" Type="varchar" MaxLength="250" />
+          <Property Name="Department" Type="varchar" MaxLength="50" />
+          <Property Name="Grade" Type="varchar" MaxLength="50" />
+          <Property Name="Salary" Type="int" />
+          <Property Name="CTC" Type="int" />
+        </EntityType>
+        <EntityType Name="EducationQualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_Id" Type="int" />
+          <Property Name="Degree" Type="varchar" MaxLength="250" />
+          <Property Name="Board" Type="varchar" MaxLength="250" />
+          <Property Name="YearOfPassing" Type="int" />
+          <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="EmployeeEvalTask">
           <Key>
             <PropertyRef Name="Id" />
@@ -70,6 +106,33 @@
           <Property Name="Name" Type="varchar" MaxLength="250" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="EmployeeSkills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_Id" Type="int" />
+          <Property Name="CommonField_Id" Type="bigint" />
+          <Property Name="Skills_Id" Type="bigint" />
+          <Property Name="Years" Type="int" />
+          <Property Name="Months" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Experience">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_Id" Type="int" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="250" />
+          <Property Name="FromDate" Type="datetime" />
+          <Property Name="ToDate" Type="datetime" />
+          <Property Name="Designation" Type="varchar" MaxLength="250" />
+          <Property Name="ProjectWorked" Type="int" />
+          <Property Name="TechnologiesUsed" Type="varchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="Managers">
           <Key>
             <PropertyRef Name="Id" />
@@ -97,6 +160,41 @@
           <Property Name="Module_Id" Type="int" />
           <Property Name="Topics" Type="varchar" MaxLength="250" />
           <Property Name="HoursRequired" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="PersonalInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="FatherName" Type="varchar" MaxLength="250" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="PermanentAddress" Type="varchar" MaxLength="250" />
+          <Property Name="CommunicationAddress" Type="varchar" MaxLength="250" />
+          <Property Name="Contact" Type="bigint" />
+          <Property Name="Qualification" Type="varchar" MaxLength="250" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="PanNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="AadharNo" Type="bigint" />
+          <Property Name="BloodGroup" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProjectsWorked">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_Id" Type="int" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="250" />
+          <Property Name="Designation" Type="varchar" MaxLength="250" />
+          <Property Name="Responsibilities" Type="varchar" MaxLength="250" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
+          <Property Name="TeamMembers" Type="int" />
+          <Property Name="Manager_Id" Type="int" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="RateEmployeeEligiability">
           <Key>
@@ -286,6 +384,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CurrentInfo_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+          <End Role="CurrentInfo" Type="Self.CurrentInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CurrentInfo">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EducationQualification_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+          <End Role="EducationQualification" Type="Self.EducationQualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EducationQualification">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmployeeEvalTask_AssignResources">
           <End Role="AssignResources" Type="Self.AssignResources" Multiplicity="0..1" />
           <End Role="EmployeeEvalTask" Type="Self.EmployeeEvalTask" Multiplicity="*" />
@@ -334,6 +456,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmployeeSkills_Commonfields">
+          <End Role="Commonfields" Type="Self.Commonfields" Multiplicity="0..1" />
+          <End Role="EmployeeSkills" Type="Self.EmployeeSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commonfields">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeSkills">
+              <PropertyRef Name="CommonField_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSkills_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+          <End Role="EmployeeSkills" Type="Self.EmployeeSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeSkills">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSkills_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="0..1" />
+          <End Role="EmployeeSkills" Type="Self.EmployeeSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeSkills">
+              <PropertyRef Name="Skills_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Experience_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+          <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Experience">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Module_Commonfields">
           <End Role="Commonfields" Type="Self.Commonfields" Multiplicity="0..1" />
           <End Role="Module" Type="Self.Module" Multiplicity="*" />
@@ -367,6 +537,18 @@
             </Principal>
             <Dependent Role="ModuleDet">
               <PropertyRef Name="Module_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectsWorked_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+          <End Role="ProjectsWorked" Type="Self.ProjectsWorked" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectsWorked">
+              <PropertyRef Name="P_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -495,12 +677,18 @@
           <EntitySet Name="AssignResources" EntityType="Self.AssignResources" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssignResourcesDet" EntityType="Self.AssignResourcesDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Commonfields" EntityType="Self.Commonfields" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CurrentInfo" EntityType="Self.CurrentInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EducationQualification" EntityType="Self.EducationQualification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeEvalTask" EntityType="Self.EmployeeEvalTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeEvalTaskDet" EntityType="Self.EmployeeEvalTaskDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeSkills" EntityType="Self.EmployeeSkills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Managers" EntityType="Self.Managers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDet" EntityType="Self.ModuleDet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectsWorked" EntityType="Self.ProjectsWorked" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RateEmployeeEligiability" EntityType="Self.RateEmployeeEligiability" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sessions" EntityType="Self.Sessions" Schema="dbo" store:Type="Tables" />
@@ -542,6 +730,14 @@
             <End Role="Employees" EntitySet="Employees" />
             <End Role="AssignResourcesDet" EntitySet="AssignResourcesDet" />
           </AssociationSet>
+          <AssociationSet Name="FK_CurrentInfo_PersonalInfo" Association="Self.FK_CurrentInfo_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="CurrentInfo" EntitySet="CurrentInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EducationQualification_PersonalInfo" Association="Self.FK_EducationQualification_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="EducationQualification" EntitySet="EducationQualification" />
+          </AssociationSet>
           <AssociationSet Name="FK_EmployeeEvalTask_AssignResources" Association="Self.FK_EmployeeEvalTask_AssignResources">
             <End Role="AssignResources" EntitySet="AssignResources" />
             <End Role="EmployeeEvalTask" EntitySet="EmployeeEvalTask" />
@@ -558,6 +754,22 @@
             <End Role="Employees" EntitySet="Employees" />
             <End Role="EmployeeEvalTaskDet" EntitySet="EmployeeEvalTaskDet" />
           </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkills_Commonfields" Association="Self.FK_EmployeeSkills_Commonfields">
+            <End Role="Commonfields" EntitySet="Commonfields" />
+            <End Role="EmployeeSkills" EntitySet="EmployeeSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkills_PersonalInfo" Association="Self.FK_EmployeeSkills_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="EmployeeSkills" EntitySet="EmployeeSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkills_Skills" Association="Self.FK_EmployeeSkills_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="EmployeeSkills" EntitySet="EmployeeSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Experience_PersonalInfo" Association="Self.FK_Experience_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="Experience" EntitySet="Experience" />
+          </AssociationSet>
           <AssociationSet Name="FK_Module_Commonfields" Association="Self.FK_Module_Commonfields">
             <End Role="Commonfields" EntitySet="Commonfields" />
             <End Role="Module" EntitySet="Module" />
@@ -569,6 +781,10 @@
           <AssociationSet Name="FK_ModuleDet_Module" Association="Self.FK_ModuleDet_Module">
             <End Role="Module" EntitySet="Module" />
             <End Role="ModuleDet" EntitySet="ModuleDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectsWorked_PersonalInfo" Association="Self.FK_ProjectsWorked_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="ProjectsWorked" EntitySet="ProjectsWorked" />
           </AssociationSet>
           <AssociationSet Name="FK_RateEmployeeEligiability_AssignResources" Association="Self.FK_RateEmployeeEligiability_AssignResources">
             <End Role="AssignResources" EntitySet="AssignResources" />
@@ -624,6 +840,7 @@
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Modules" Relationship="RetentionToolModel.FK_Module_Commonfields" FromRole="Commonfield" ToRole="Module" />
           <NavigationProperty Name="Skills" Relationship="RetentionToolModel.FK_Skills_Commonfields" FromRole="Commonfield" ToRole="Skill" />
+          <NavigationProperty Name="EmployeeSkills" Relationship="RetentionToolModel.FK_EmployeeSkills_Commonfields" FromRole="Commonfield" ToRole="EmployeeSkill" />
         </EntityType>
         <EntityType Name="Skill">
           <Key>
@@ -635,6 +852,7 @@
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Modules" Relationship="RetentionToolModel.FK_Module_Skills" FromRole="Skill" ToRole="Module" />
           <NavigationProperty Name="Commonfield" Relationship="RetentionToolModel.FK_Skills_Commonfields" FromRole="Skill" ToRole="Commonfield" />
+          <NavigationProperty Name="EmployeeSkills" Relationship="RetentionToolModel.FK_EmployeeSkills_Skills" FromRole="Skill" ToRole="EmployeeSkill" />
         </EntityType>
         <EntityContainer Name="RetentionToolEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Commonfields" EntityType="Self.Commonfield" />
@@ -755,6 +973,40 @@
           <AssociationSet Name="FK_UserMaster_Roles1" Association="RetentionToolModel.FK_UserMaster_Roles1">
             <End Role="Role" EntitySet="Roles" />
             <End Role="UserDetail" EntitySet="UserDetails" />
+          </AssociationSet>
+          <EntitySet Name="CurrentInfoes" EntityType="RetentionToolModel.CurrentInfo" />
+          <EntitySet Name="EducationQualifications" EntityType="RetentionToolModel.EducationQualification" />
+          <EntitySet Name="EmployeeSkills" EntityType="RetentionToolModel.EmployeeSkill" />
+          <EntitySet Name="Experiences" EntityType="RetentionToolModel.Experience" />
+          <EntitySet Name="PersonalInfoes" EntityType="RetentionToolModel.PersonalInfo" />
+          <EntitySet Name="ProjectsWorkeds" EntityType="RetentionToolModel.ProjectsWorked" />
+          <AssociationSet Name="FK_EmployeeSkills_Commonfields" Association="RetentionToolModel.FK_EmployeeSkills_Commonfields">
+            <End Role="Commonfield" EntitySet="Commonfields" />
+            <End Role="EmployeeSkill" EntitySet="EmployeeSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CurrentInfo_PersonalInfo" Association="RetentionToolModel.FK_CurrentInfo_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+            <End Role="CurrentInfo" EntitySet="CurrentInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EducationQualification_PersonalInfo" Association="RetentionToolModel.FK_EducationQualification_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+            <End Role="EducationQualification" EntitySet="EducationQualifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkills_PersonalInfo" Association="RetentionToolModel.FK_EmployeeSkills_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+            <End Role="EmployeeSkill" EntitySet="EmployeeSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkills_Skills" Association="RetentionToolModel.FK_EmployeeSkills_Skills">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="EmployeeSkill" EntitySet="EmployeeSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Experience_PersonalInfo" Association="RetentionToolModel.FK_Experience_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+            <End Role="Experience" EntitySet="Experiences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectsWorked_PersonalInfo" Association="RetentionToolModel.FK_ProjectsWorked_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+            <End Role="ProjectsWorked" EntitySet="ProjectsWorkeds" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
@@ -1271,6 +1523,200 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CurrentInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_Id" Type="Int32" />
+          <Property Name="Designation" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DOJ" Type="DateTime" Precision="3" />
+          <Property Name="DateOfRelieving" Type="DateTime" Precision="3" />
+          <Property Name="ReportingManager" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="JobType" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DeployedCompanyDetails" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DeployedFromDate" Type="DateTime" Precision="3" />
+          <Property Name="DeployedToDate" Type="DateTime" Precision="3" />
+          <Property Name="CompanyMailId" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IFSC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModeOfPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Salary" Type="Int32" />
+          <Property Name="CTC" Type="Int32" />
+          <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_CurrentInfo_PersonalInfo" FromRole="CurrentInfo" ToRole="PersonalInfo" />
+        </EntityType>
+        <EntityType Name="EducationQualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_Id" Type="Int32" />
+          <Property Name="Degree" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Board" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="YearOfPassing" Type="Int32" />
+          <Property Name="Percentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_EducationQualification_PersonalInfo" FromRole="EducationQualification" ToRole="PersonalInfo" />
+        </EntityType>
+        <EntityType Name="EmployeeSkill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_Id" Type="Int32" />
+          <Property Name="CommonField_Id" Type="Int64" />
+          <Property Name="Skills_Id" Type="Int64" />
+          <Property Name="Years" Type="Int32" />
+          <Property Name="Months" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Commonfield" Relationship="RetentionToolModel.FK_EmployeeSkills_Commonfields" FromRole="EmployeeSkill" ToRole="Commonfield" />
+          <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_EmployeeSkills_PersonalInfo" FromRole="EmployeeSkill" ToRole="PersonalInfo" />
+          <NavigationProperty Name="Skill" Relationship="RetentionToolModel.FK_EmployeeSkills_Skills" FromRole="EmployeeSkill" ToRole="Skill" />
+        </EntityType>
+        <EntityType Name="Experience">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_Id" Type="Int32" />
+          <Property Name="CompanyName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FromDate" Type="DateTime" Precision="3" />
+          <Property Name="ToDate" Type="DateTime" Precision="3" />
+          <Property Name="Designation" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectWorked" Type="Int32" />
+          <Property Name="TechnologiesUsed" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_Experience_PersonalInfo" FromRole="Experience" ToRole="PersonalInfo" />
+        </EntityType>
+        <EntityType Name="PersonalInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FatherName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PermanentAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CommunicationAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="Int64" />
+          <Property Name="Qualification" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PanNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AadharNo" Type="Int64" />
+          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CurrentInfoes" Relationship="RetentionToolModel.FK_CurrentInfo_PersonalInfo" FromRole="PersonalInfo" ToRole="CurrentInfo" />
+          <NavigationProperty Name="EducationQualifications" Relationship="RetentionToolModel.FK_EducationQualification_PersonalInfo" FromRole="PersonalInfo" ToRole="EducationQualification" />
+          <NavigationProperty Name="EmployeeSkills" Relationship="RetentionToolModel.FK_EmployeeSkills_PersonalInfo" FromRole="PersonalInfo" ToRole="EmployeeSkill" />
+          <NavigationProperty Name="Experiences" Relationship="RetentionToolModel.FK_Experience_PersonalInfo" FromRole="PersonalInfo" ToRole="Experience" />
+          <NavigationProperty Name="ProjectsWorkeds" Relationship="RetentionToolModel.FK_ProjectsWorked_PersonalInfo" FromRole="PersonalInfo" ToRole="ProjectsWorked" />
+        </EntityType>
+        <EntityType Name="ProjectsWorked">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_Id" Type="Int32" />
+          <Property Name="ProjectName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Designation" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Responsibilities" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TeamMembers" Type="Int32" />
+          <Property Name="Manager_Id" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_ProjectsWorked_PersonalInfo" FromRole="ProjectsWorked" ToRole="PersonalInfo" />
+        </EntityType>
+        <Association Name="FK_EmployeeSkills_Commonfields">
+          <End Type="RetentionToolModel.Commonfield" Role="Commonfield" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.EmployeeSkill" Role="EmployeeSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commonfield">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeSkill">
+              <PropertyRef Name="CommonField_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CurrentInfo_PersonalInfo">
+          <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.CurrentInfo" Role="CurrentInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CurrentInfo">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EducationQualification_PersonalInfo">
+          <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.EducationQualification" Role="EducationQualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EducationQualification">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSkills_PersonalInfo">
+          <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.EmployeeSkill" Role="EmployeeSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeSkill">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSkills_Skills">
+          <End Type="RetentionToolModel.Skill" Role="Skill" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.EmployeeSkill" Role="EmployeeSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeSkill">
+              <PropertyRef Name="Skills_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Experience_PersonalInfo">
+          <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.Experience" Role="Experience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Experience">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectsWorked_PersonalInfo">
+          <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.ProjectsWorked" Role="ProjectsWorked" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectsWorked">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1477,6 +1923,110 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentInfoes">
+            <EntityTypeMapping TypeName="RetentionToolModel.CurrentInfo">
+              <MappingFragment StoreEntitySet="CurrentInfo">
+                <ScalarProperty Name="CTC" ColumnName="CTC" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="WorkLocation" ColumnName="WorkLocation" />
+                <ScalarProperty Name="ModeOfPayment" ColumnName="ModeOfPayment" />
+                <ScalarProperty Name="IFSC" ColumnName="IFSC" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="CompanyMailId" ColumnName="CompanyMailId" />
+                <ScalarProperty Name="DeployedToDate" ColumnName="DeployedToDate" />
+                <ScalarProperty Name="DeployedFromDate" ColumnName="DeployedFromDate" />
+                <ScalarProperty Name="DeployedCompanyDetails" ColumnName="DeployedCompanyDetails" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
+                <ScalarProperty Name="DateOfRelieving" ColumnName="DateOfRelieving" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EducationQualifications">
+            <EntityTypeMapping TypeName="RetentionToolModel.EducationQualification">
+              <MappingFragment StoreEntitySet="EducationQualification">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="YearOfPassing" ColumnName="YearOfPassing" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeSkills">
+            <EntityTypeMapping TypeName="RetentionToolModel.EmployeeSkill">
+              <MappingFragment StoreEntitySet="EmployeeSkills">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Months" ColumnName="Months" />
+                <ScalarProperty Name="Years" ColumnName="Years" />
+                <ScalarProperty Name="Skills_Id" ColumnName="Skills_Id" />
+                <ScalarProperty Name="CommonField_Id" ColumnName="CommonField_Id" />
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Experiences">
+            <EntityTypeMapping TypeName="RetentionToolModel.Experience">
+              <MappingFragment StoreEntitySet="Experience">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TechnologiesUsed" ColumnName="TechnologiesUsed" />
+                <ScalarProperty Name="ProjectWorked" ColumnName="ProjectWorked" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonalInfoes">
+            <EntityTypeMapping TypeName="RetentionToolModel.PersonalInfo">
+              <MappingFragment StoreEntitySet="PersonalInfo">
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="AadharNo" ColumnName="AadharNo" />
+                <ScalarProperty Name="PanNo" ColumnName="PanNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="CommunicationAddress" ColumnName="CommunicationAddress" />
+                <ScalarProperty Name="PermanentAddress" ColumnName="PermanentAddress" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectsWorkeds">
+            <EntityTypeMapping TypeName="RetentionToolModel.ProjectsWorked">
+              <MappingFragment StoreEntitySet="ProjectsWorked">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+                <ScalarProperty Name="TeamMembers" ColumnName="TeamMembers" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

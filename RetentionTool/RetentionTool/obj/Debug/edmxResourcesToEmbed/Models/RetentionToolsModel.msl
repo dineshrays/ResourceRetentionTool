@@ -205,5 +205,109 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CurrentInfoes">
+      <EntityTypeMapping TypeName="RetentionToolModel.CurrentInfo">
+        <MappingFragment StoreEntitySet="CurrentInfo">
+          <ScalarProperty Name="CTC" ColumnName="CTC" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="WorkLocation" ColumnName="WorkLocation" />
+          <ScalarProperty Name="ModeOfPayment" ColumnName="ModeOfPayment" />
+          <ScalarProperty Name="IFSC" ColumnName="IFSC" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="CompanyMailId" ColumnName="CompanyMailId" />
+          <ScalarProperty Name="DeployedToDate" ColumnName="DeployedToDate" />
+          <ScalarProperty Name="DeployedFromDate" ColumnName="DeployedFromDate" />
+          <ScalarProperty Name="DeployedCompanyDetails" ColumnName="DeployedCompanyDetails" />
+          <ScalarProperty Name="JobType" ColumnName="JobType" />
+          <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
+          <ScalarProperty Name="DateOfRelieving" ColumnName="DateOfRelieving" />
+          <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EducationQualifications">
+      <EntityTypeMapping TypeName="RetentionToolModel.EducationQualification">
+        <MappingFragment StoreEntitySet="EducationQualification">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="YearOfPassing" ColumnName="YearOfPassing" />
+          <ScalarProperty Name="Board" ColumnName="Board" />
+          <ScalarProperty Name="Degree" ColumnName="Degree" />
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeSkills">
+      <EntityTypeMapping TypeName="RetentionToolModel.EmployeeSkill">
+        <MappingFragment StoreEntitySet="EmployeeSkills">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="Years" ColumnName="Years" />
+          <ScalarProperty Name="Skills_Id" ColumnName="Skills_Id" />
+          <ScalarProperty Name="CommonField_Id" ColumnName="CommonField_Id" />
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Experiences">
+      <EntityTypeMapping TypeName="RetentionToolModel.Experience">
+        <MappingFragment StoreEntitySet="Experience">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TechnologiesUsed" ColumnName="TechnologiesUsed" />
+          <ScalarProperty Name="ProjectWorked" ColumnName="ProjectWorked" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonalInfoes">
+      <EntityTypeMapping TypeName="RetentionToolModel.PersonalInfo">
+        <MappingFragment StoreEntitySet="PersonalInfo">
+          <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+          <ScalarProperty Name="AadharNo" ColumnName="AadharNo" />
+          <ScalarProperty Name="PanNo" ColumnName="PanNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="CommunicationAddress" ColumnName="CommunicationAddress" />
+          <ScalarProperty Name="PermanentAddress" ColumnName="PermanentAddress" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectsWorkeds">
+      <EntityTypeMapping TypeName="RetentionToolModel.ProjectsWorked">
+        <MappingFragment StoreEntitySet="ProjectsWorked">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+          <ScalarProperty Name="TeamMembers" ColumnName="TeamMembers" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
