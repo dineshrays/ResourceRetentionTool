@@ -1352,6 +1352,7 @@
     <Compile Include="Controllers\CommonFieldController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeEvaTasklController.cs" />
+    <Compile Include="Controllers\EmployeeInformationController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\RateEmployeeController.cs" />
     <Compile Include="Controllers\SessionSummaryController.cs" />
@@ -1374,6 +1375,13 @@
     <Compile Include="Models\Commonfield.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CurrentInfo.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EducationQualification.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EducationQualificationModel.cs" />
     <Compile Include="Models\Employee.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1384,7 +1392,13 @@
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmployeeList.cs" />
+    <Compile Include="Models\EmployeeSkill.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmployeeViewModel.cs" />
+    <Compile Include="Models\Experience.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\Manager.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
@@ -1396,6 +1410,13 @@
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ModuleViewModel.cs" />
+    <Compile Include="Models\PersonalInfo.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PersonalInfoModel.cs" />
+    <Compile Include="Models\ProjectsWorked.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RateEmployeeEligiability.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1446,6 +1467,7 @@
     <Compile Include="ViewModel\AssignEvaluterViewModel.cs" />
     <Compile Include="ViewModel\AssignResouViewModel.cs" />
     <Compile Include="ViewModel\EmployeeEvalViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeInformationViewModel.cs" />
     <Compile Include="ViewModel\ModuleViewModel1.cs" />
     <Compile Include="ViewModel\RateEmployeeViewModel.cs" />
     <Compile Include="ViewModel\SessionSummaryViewModel.cs" />
@@ -1522,6 +1544,8 @@
     <Content Include="Views\SessionSummary\Delete.cshtml" />
     <Content Include="Views\SessionSummary\Edit.cshtml" />
     <Content Include="Views\SessionSummary\Index.cshtml" />
+    <Content Include="Views\EmployeeInformation\Index.cshtml" />
+    <Content Include="Views\EmployeeInformation\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

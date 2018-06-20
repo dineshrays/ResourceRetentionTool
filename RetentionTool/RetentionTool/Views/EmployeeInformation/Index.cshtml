@@ -1,0 +1,40 @@
+﻿@model RetentionTool.ViewModel.EmployeeInformationViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    var details = ViewBag.details;
+}
+
+<div class="card">
+    <div class="card-header">
+
+        <h2>Employee information Index</h2>
+
+    </div>
+    <div class="card-body">
+        @Html.ActionLink("Create New", "Create", "EmployeeInformation", null, new { @class = "btn btn-outline-primary" })
+        <div class="container" style="width:100%;margin-top:2%">
+            <table class="table table-striped" id="tble">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.PersonalInfoVm.Name)</th>
+
+                    <th>@Html.Label("Actions")</th>
+                </tr>
+                @foreach (var item in details)
+                {
+                    <tr>
+
+                        <td>@item.Name</td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+</div>
