@@ -35,9 +35,9 @@
                 {
                     if (empid.AssignResource_Id == item.Id)
                     {
-                        @Html.ActionLink(" ", "Edit", new {id=@item.Id},
+                        @Html.ActionLink(" ", "Edit", new {id= empid.Id},
                                 new { @class = "ti-pencil"} )
-                        @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+                        @Html.ActionLink(" ", "Delete", new { id = empid.Id }, new { @class = "ti-trash" })
 
                     }
                     else
