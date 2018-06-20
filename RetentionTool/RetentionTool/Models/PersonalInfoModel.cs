@@ -8,7 +8,7 @@ namespace RetentionTool.Models
     public class PersonalInfoModel
     {
         public int Id { get; set; }
-        public string EmpId { get; set; }
+        public string EmpCode { get; set; }
         public string Name { get; set; }
         public string FatherName { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
@@ -21,5 +21,6 @@ namespace RetentionTool.Models
         public string PanNo { get; set; }
         public Nullable<long> AadharNo { get; set; }
         public string BloodGroup { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

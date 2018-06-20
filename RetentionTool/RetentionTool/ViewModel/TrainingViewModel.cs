@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using RetentionTool.Models;
 
 namespace RetentionTool.ViewModel
 {
     public class TrainingViewModel
     {
+       
         public List<Training> Training { get; set; }
         public Training TrainingVm { get; set; }
 

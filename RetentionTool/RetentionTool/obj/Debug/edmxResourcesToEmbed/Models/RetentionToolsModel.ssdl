@@ -161,7 +161,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="EmpId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmpCode" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="250" />
     <Property Name="FatherName" Type="varchar" MaxLength="250" />
     <Property Name="DOB" Type="date" />
@@ -174,6 +174,7 @@
     <Property Name="PanNo" Type="nvarchar" MaxLength="50" />
     <Property Name="AadharNo" Type="bigint" />
     <Property Name="BloodGroup" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="ProjectsWorked">
     <Key>
@@ -275,7 +276,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Emp_Id" Type="nvarchar" MaxLength="50" />
+    <Property Name="Emp_Id" Type="int" />
     <Property Name="Name" Type="varchar" MaxLength="50" />
     <Property Name="Email" Type="varchar" MaxLength="350" />
     <Property Name="Password" Type="varchar" MaxLength="350" />
@@ -655,6 +656,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UserDetails_PersonalInfo">
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+    <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDetails">
+        <PropertyRef Name="Emp_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserMaster_Roles">
     <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
     <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
@@ -816,6 +829,10 @@
     <AssociationSet Name="FK_TrainingDet_ModuleDet" Association="Self.FK_TrainingDet_ModuleDet">
       <End Role="ModuleDet" EntitySet="ModuleDet" />
       <End Role="TrainingDet" EntitySet="TrainingDet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetails_PersonalInfo" Association="Self.FK_UserDetails_PersonalInfo">
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+      <End Role="UserDetails" EntitySet="UserDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_UserMaster_Roles" Association="Self.FK_UserMaster_Roles">
       <End Role="Roles" EntitySet="Roles" />

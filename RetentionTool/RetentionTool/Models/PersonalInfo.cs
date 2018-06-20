@@ -22,10 +22,11 @@ namespace RetentionTool.Models
             this.EmployeeSkills = new HashSet<EmployeeSkill>();
             this.Experiences = new HashSet<Experience>();
             this.ProjectsWorkeds = new HashSet<ProjectsWorked>();
+            this.UserDetails = new HashSet<UserDetail>();
         }
     
         public int Id { get; set; }
-        public string EmpId { get; set; }
+        public string EmpCode { get; set; }
         public string Name { get; set; }
         public string FatherName { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
@@ -38,6 +39,7 @@ namespace RetentionTool.Models
         public string PanNo { get; set; }
         public Nullable<long> AadharNo { get; set; }
         public string BloodGroup { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CurrentInfo> CurrentInfoes { get; set; }
@@ -49,5 +51,7 @@ namespace RetentionTool.Models
         public virtual ICollection<Experience> Experiences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectsWorked> ProjectsWorkeds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserDetail> UserDetails { get; set; }
     }
 }

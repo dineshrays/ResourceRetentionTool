@@ -24,7 +24,7 @@ namespace RetentionTool.Models
         public Nullable<bool> IsActive { get; set; }
     
         public virtual Commonfield Commonfield { get; set; }
-        public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Skill Skill { get; set; }
+        public virtual PersonalInfo PersonalInfo { get; set; }
     }
 }

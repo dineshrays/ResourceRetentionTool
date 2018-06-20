@@ -8,7 +8,7 @@
 <div class="card">
     <div class="card-header">
 
-        <h2>Employee information Index</h2>
+        <h2>Employee Information Index</h2>
 
     </div>
     <div class="card-body">
@@ -17,7 +17,7 @@
             <table class="table table-striped" id="tble">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.PersonalInfoVm.Name)</th>
-
+                    <th>@Html.DisplayNameFor(model=>model.PersonalInfoVm.EmpId)</th>
                     <th>@Html.Label("Actions")</th>
                 </tr>
                 @foreach (var item in details)
@@ -25,6 +25,7 @@
                     <tr>
 
                         <td>@item.Name</td>
+                        <td>@item.EmpId</td>
                         <td>
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
                             @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })

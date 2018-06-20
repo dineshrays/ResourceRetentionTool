@@ -17,15 +17,16 @@ namespace RetentionTool.Controllers
             List<PersonalInfoModel> details = (from a in db.PersonalInfoes
                                                           select new PersonalInfoModel
                                                           {
+                                                              EmpCode =a.EmpCode,
                                                               Name = a.Name
                                                          }).ToList();
-
             ViewBag.details = details;
             return View();
         }
 
         public ActionResult Create()
         {
+
             return View();
         }
     }

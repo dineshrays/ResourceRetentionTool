@@ -1371,10 +1371,10 @@
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AssignResourceViewModel.cs" />
-    <Compile Include="Models\CommonFieldViewModel.cs" />
     <Compile Include="Models\Commonfield.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CommonFieldViewModel.cs" />
     <Compile Include="Models\CurrentInfo.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1399,6 +1399,7 @@
     <Compile Include="Models\Experience.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExperienceModel.cs" />
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\Manager.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>

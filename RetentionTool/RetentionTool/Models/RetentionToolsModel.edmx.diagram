@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ab0671d9afcb4fa18933fcb8535fd679" Name="Diagram1" ZoomLevel="74">
+      <Diagram DiagramId="ab0671d9afcb4fa18933fcb8535fd679" Name="Diagram1" ZoomLevel="85">
         <EntityTypeShape EntityType="RetentionToolModel.Commonfield" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="RetentionToolModel.Skill" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="RetentionToolModel.Module" Width="1.5" PointX="2.75" PointY="3.25" />
@@ -47,21 +47,22 @@
         <AssociationConnector Association="RetentionToolModel.FK_TrainerDet_Training" />
         <AssociationConnector Association="RetentionToolModel.FK_TrainingDet_ModuleDet" />
         <EntityTypeShape EntityType="RetentionToolModel.Role" Width="1.5" PointX="7.375" PointY="8.375" />
-        <EntityTypeShape EntityType="RetentionToolModel.UserDetail" Width="1.5" PointX="9.625" PointY="19.125" />
-        <AssociationConnector Association="RetentionToolModel.FK_UserMaster_Roles1" />
         <EntityTypeShape EntityType="RetentionToolModel.CurrentInfo" Width="1.5" PointX="3" PointY="26.375" />
         <EntityTypeShape EntityType="RetentionToolModel.EducationQualification" Width="1.5" PointX="3" PointY="32" />
         <EntityTypeShape EntityType="RetentionToolModel.EmployeeSkill" Width="1.5" PointX="3.375" PointY="11.625" />
         <EntityTypeShape EntityType="RetentionToolModel.Experience" Width="1.5" PointX="3" PointY="18.625" />
-        <EntityTypeShape EntityType="RetentionToolModel.PersonalInfo" Width="1.5" PointX="0.75" PointY="20.375" />
         <EntityTypeShape EntityType="RetentionToolModel.ProjectsWorked" Width="1.5" PointX="3" PointY="22.375" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkills_Commonfields" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkills_Skills" />
+        <EntityTypeShape EntityType="RetentionToolModel.UserDetail" Width="1.5" PointX="9.625" PointY="11.5" />
+        <AssociationConnector Association="RetentionToolModel.FK_UserMaster_Roles" />
+        <EntityTypeShape EntityType="RetentionToolModel.PersonalInfo" Width="1.5" PointX="0.75" PointY="20.5" />
         <AssociationConnector Association="RetentionToolModel.FK_CurrentInfo_PersonalInfo" />
         <AssociationConnector Association="RetentionToolModel.FK_EducationQualification_PersonalInfo" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkills_PersonalInfo" />
-        <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkills_Skills" />
         <AssociationConnector Association="RetentionToolModel.FK_Experience_PersonalInfo" />
         <AssociationConnector Association="RetentionToolModel.FK_ProjectsWorked_PersonalInfo" />
+        <AssociationConnector Association="RetentionToolModel.FK_UserDetails_PersonalInfo" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
