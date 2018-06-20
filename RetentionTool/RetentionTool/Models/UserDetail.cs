@@ -23,6 +23,7 @@ namespace RetentionTool.Models
         public Nullable<System.DateTime> EntryDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Role Role { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
     }
