@@ -1,8 +1,51 @@
-﻿
+﻿@model RetentionTool.ViewModel.UserDetailsViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Index User Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Index</h2>
+<div class="card">
+    <div class="card-header">
+        <h2>Index User Details</h2>
+
+    </div>
+    <div class="card-body">
+        @Html.ActionLink("Create New", "Create", "UserDetails", null, new { @class = "btn btn-outline-primary" })
+        <div class="container" style="width:100%;margin-top:2%">
+            <table class="table table-striped" id="tble">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.userDetail.PersonalInfo.EmpCode)</th>
+                    <th>@Html.DisplayNameFor(model => model.userDetail.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.userDetail.Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.userDetail.Password)</th>
+                    <th>@Html.Label("Role Name")</th>
+                    <th>@Html.DisplayNameFor(model => model.userDetail.EntryDate)</th>
+                    <th>@Html.Label("Actions")</th>
+                </tr>
+                @foreach (var item in Model.userDetailsvm)
+                {
+                <tr>
+
+                    <td>@item.PersonalInfo.EmpCode</td>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Password</td>
+                    <td>@item.Role.Name</td>
+                    <td>@item.EntryDate</td>
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                    </td>
+
+                </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+
 
