@@ -1356,6 +1356,7 @@
     <Compile Include="Controllers\EmployeeInformationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\ProjectsDetailsController.cs" />
     <Compile Include="Controllers\ProjectWorkedController.cs" />
     <Compile Include="Controllers\RateEmployeeController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -1581,6 +1582,10 @@
     <Content Include="Views\CriticalResource\Create.cshtml" />
     <Content Include="Views\CriticalResource\Edit.cshtml" />
     <Content Include="Views\CriticalResource\Delete.cshtml" />
+    <Content Include="Views\ProjectsDetails\Create.cshtml" />
+    <Content Include="Views\ProjectsDetails\Delete.cshtml" />
+    <Content Include="Views\ProjectsDetails\Edit.cshtml" />
+    <Content Include="Views\ProjectsDetails\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
