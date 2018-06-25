@@ -18,10 +18,11 @@
     <div class="card-body card-block">
         <div class="row form-group">
             <div class="col-md-3">
-                @Html.LabelFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })
+                @Html.Label("Project Name")
+                    @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
             </div>
             <div class="col-12 col-md-9">
-                @Html.TextBoxFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
+                @Html.DropDownListFor(model => model.projects.Project_Id,ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
             </div>
         </div>
         @*<div class="row form-group">
@@ -150,7 +151,7 @@
     $("#btnSave").click(function () {
 
         var itemlist = [];
-        var projectname = $("#projectname").val();
+        var projectid = $("#projectid").val();
       //  var designation = $("#designation").val();
       //  var responsibilty = $("#responsibilty").val();
         var startdate = $("#startdate").val();
@@ -165,8 +166,8 @@
             var tdlist = $(this).find("td");
            
             var Item = {
-                P_Id: $(tdlist[3]).html(),
-                ProjectName: projectname, Manager_Id: managerid, Responsibilities: $(tdlist[5]).html(), StartDate: startdate, TeamMembers: teammember
+                PersonalInfo_Id: $(tdlist[3]).html(),
+                Project_Id: projectid, Manager_Id: managerid, Responsibilities: $(tdlist[5]).html(), StartDate: startdate, TeamMembers: teammember
                 , EndDate: enddate, Description: description, Designation: $(tdlist[4]).html()
                 //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
             };

@@ -16,7 +16,7 @@ namespace RetentionTool.Controllers
         {
             List<AssignResource> assignRes = db.AssignResources.Where(a => a.IsActive == true).ToList();
             ViewBag.assign = assignRes;
-
+            
             ViewBag.RateEmployeeEl = db.RateEmployeeEligiabilities.Select(o => o.AssignResources_Id).Distinct().ToList();
             
             return View();

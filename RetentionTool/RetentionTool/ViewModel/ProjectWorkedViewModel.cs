@@ -10,6 +10,6 @@ namespace RetentionTool.ViewModel
     {
         public List<ProjectsWorked> projectvm { get; set; }
         public ProjectsWorked projects { get; set; }
-        
+        public string projectname { get; set; }
     }
 }

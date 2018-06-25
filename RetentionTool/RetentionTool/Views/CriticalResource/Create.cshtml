@@ -1,6 +1,6 @@
 ﻿@model RetentionTool.ViewModel.ProjectWorkedViewModel
 @{
-    ViewBag.Title = "Create Critical Resource";
+    ViewBag.Title = "Identify Critical Resource";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
@@ -11,7 +11,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h2>Create Critical Resource</h2>
+        <h2>Identify\Critical Resource</h2>
 
     </div>
     <div class="card-body card-block">
@@ -20,7 +20,7 @@
                 @Html.LabelFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DisplayFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
+                @Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
             </div>
         </div>
         @*<div class="row form-group">
@@ -112,23 +112,26 @@
             <table class="table table-striped" id="tbl" style="width:50%">
                 <tr>
                     <th>Select</th>
+
                     <th>Employee Name</th>
                     <th>Employee Code</th>
                     <th style="display:none;width:0%">Employee Id</th>
                     <th>Designation</th>
                     <th>Responsibility</th>
+                    <th>IsTrainer</th>
 
                 </tr>
                 @foreach (var item in Model.projectvm)
                 {
-                    <tr>
-                        <td><input type="checkbox" class="chck"  /></td>
-                        <td>@item.PersonalInfo.Name</td>
-                        <td>@item.PersonalInfo.EmpCode</td>
-                        <td style="display:none;width:0%">@item.PersonalInfo.Id</td>
-                        <td>@item.Designation</td>
-                        <td>@item.Responsibilities</td>
-                    </tr>
+                <tr>
+                    <td><input type="checkbox" class="chck" /></td>
+                    <td>@item.PersonalInfo.Name</td>
+                    <td>@item.PersonalInfo.EmpCode</td>
+                    <td style="display:none;width:0%">@item.PersonalInfo.Id</td>
+                    <td>@item.Designation</td>
+                    <td>@item.Responsibilities</td>
+                    <td><input type="checkbox" class="chcktrainer"  /></td>
+                </tr>
                 }
             </table>
             <br />
@@ -153,10 +156,23 @@
     </div>
 </div>
 <script>
+
+    function showcheckbox() {
+       
+        if ($(this).find('input.chck').is(':checked')) {
+            $(this).find('input.chkTrainer').style.display = 'block';
+            }
+        //d('myCheck').checked) {
+        //    document.getElementById('area').style.display = 'block';
+        //} else {
+        //    document.getElementById('area').style.display = 'none';
+        //}
+    }
       $("#btnSave").click(function () {
 
 
-          var itemlist=[];
+          var itemlist = [];
+          var trainerlist = [];
           $("table tr:not(:first)").each(function () {
               //var tdlist = $(this).find("td");
               //var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html() };
@@ -166,9 +182,17 @@
                           //iseligible = true;
                           //  var p_id = $(tdlist[0]).html();
                   var tdlist = $(this).find("td");
-                          var Item = { P_Id: $(tdlist[3]).html() };
+                  var Item = { PersonalInfo_Id: $(tdlist[3]).html() };
                           itemlist.push(Item);
               }
+              if ($(this).find('input.chcktrainer').is(':checked')) {
+                  //iseligible = true;
+                  //  var p_id = $(tdlist[0]).html();
+                  var tdlist = $(this).find("td");
+                  var Item = { PersonalInfo_Id: $(tdlist[3]).html() };
+                  trainerlist.push(Item);
+              }
+              //chcktrainer
           })
           //$("#tbl").each(function () {
           //    var iseligible;
@@ -203,7 +227,7 @@
                 $.ajax({
                     url: '@Url.Action("Create", "CriticalResource")', //
                     dataType: "json",
-                    data: JSON.stringify({ list: itemlist}),
+                    data: JSON.stringify({ list: itemlist, trainerlist: trainerlist }),
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {

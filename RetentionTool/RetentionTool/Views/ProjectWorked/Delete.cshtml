@@ -17,17 +17,18 @@
                     @Html.LabelFor(model => model.projects.PersonalInfo.Name, new { @class = "form-control-label" })
                 </div>
                 <div class="col-12 col-md-9">
-                    @Html.HiddenFor(model => model.projects.P_Id)
+                    @Html.HiddenFor(model => model.projects.PersonalInfo_Id)
                     @Html.DisplayFor(model => model.projects.PersonalInfo.Name, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
                 </div>
             </div>
             <div class="row form-group">
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.projects.ProjectName, new { @class = "form-control-label" })
+                    @Html.Label("Project Name")
+                        @*For(model => model.projects.ProjectName, new { @class = "form-control-label" })*@
                 </div>
                 <div class="col-12 col-md-9">
-                    @Html.HiddenFor(model => model.projects.Id)
-                    @Html.DisplayFor(model => model.projects.ProjectName, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
+                    @Html.HiddenFor(model => model.projects.Project_Id)
+                    @Html.DisplayFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
                 </div>
             </div>
             <div class="row form-group">

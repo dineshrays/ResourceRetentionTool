@@ -14,24 +14,26 @@ namespace RetentionTool.Controllers
         // GET: CriticalResource
         public ActionResult Index()
         {
-            ViewBag.prjctDetails = db.ProjectsDetails.Where(a => a.IsActive == true).ToList();
+            List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a => a.IsActive == true).ToList();
+            ViewBag.prjctDetails = projectDet;
                 //.Select(a=>a.ProjectName).Distinct();
-          //  ProjectWorkedViewModel prjctWrkvm = new ProjectWorkedViewModel();
-        //    prjctWrkvm.
-                   return View();
+                //  ProjectWorkedViewModel prjctWrkvm = new ProjectWorkedViewModel();
+                //    prjctWrkvm.
+            return View();
         }
         public ActionResult Create(int id)
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id).ToList();
             ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
-         //   prjctwrk.ProjectsDetail.Name = ;
+            ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
+            prjctwrkvm.projectname = projectDetails.Name;
             prjctwrkvm.projects = prjctwrk;
             prjctwrkvm.projectvm = prjctwrklist;
             return View(prjctwrkvm);
         }
         [HttpPost]
-        public ActionResult Create(List<CriticalResource> list)
+        public ActionResult Create(List<CriticalResource> list,List<Trainer> trainerlist)
         {
 
             foreach(var criticalRes in list)
@@ -39,9 +41,42 @@ namespace RetentionTool.Controllers
                 criticalRes.IsActive = true;
                 db.CriticalResources.Add(criticalRes);
                 db.SaveChanges();
+               
                 
             }
+            if(trainerlist!=null)
+            {
+                foreach (var trainer in trainerlist)
+                {
+                    trainer.IsActive = true;
+                    db.Trainers.Add(trainer);
+                    db.SaveChanges();
+                }
+            }
+          
             return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id,CriticalResource criticalres)
+        {
+            return View();
+        }
+
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Delet(int id, CriticalResource criticalres)
+        {
+            return View();
         }
     }
 }

@@ -1579,6 +1579,8 @@
     <Content Include="Views\ProjectWorked\Delete.cshtml" />
     <Content Include="Views\CriticalResource\Index.cshtml" />
     <Content Include="Views\CriticalResource\Create.cshtml" />
+    <Content Include="Views\CriticalResource\Edit.cshtml" />
+    <Content Include="Views\CriticalResource\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

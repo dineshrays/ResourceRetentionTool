@@ -23,6 +23,7 @@ namespace RetentionTool.Controllers
         public ActionResult Create()
         {
             getManagers();
+            getProjectList();
             return View();
         }
         [HttpPost]
@@ -46,6 +47,7 @@ namespace RetentionTool.Controllers
             ProjectWorkedViewModel prjwrkvm = new ProjectWorkedViewModel();
             prjwrkvm.projects = prjctwrk;
             getManagers();
+            getProjectList();
             return View(prjwrkvm);
         }
         [HttpPost]
@@ -87,6 +89,10 @@ namespace RetentionTool.Controllers
         {
             var val = new SelectList(db.Managers.ToList(), "id", "Name");
             ViewData["managerslist"] = val;
+        }
+        public void getProjectList()
+        {
+            ViewData["projectlist"] = new SelectList(db.ProjectsDetails.ToList(),"Id","Name");
         }
         public JsonResult getEmployee(string name)
         {

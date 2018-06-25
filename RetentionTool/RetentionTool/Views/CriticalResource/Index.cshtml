@@ -7,25 +7,26 @@
 
 <h2>Index Critical Resource</h2>
 
-<div class="card-body">
+@*<div class="card-body">
     @Html.ActionLink("Create New", "Create", "CriticalResource", null, new { @class = "btn btn-outline-primary" })
-</div>
+</div>*@
 <div class="container" style="width:100%;margin-top:2%">
     <table class="table table-striped">
         <tr>
+            @*<th>@Html.Label("Project Id")</th>*@
             <th>@Html.Label("Project Name")</th>
-           
+
             <th>@Html.Label("Actions")</th>
-           
+
         </tr>
         @foreach (var item in prjctDetails)
         {
             <tr>
               
-                <td>@item</td>
+                <td>@item.Name</td>
                 <td>
 
-                    <a href='@Url.Action("Create", "CriticalResource", new {name=item})'>Add Details</a>
+                    <a href='@Url.Action("Create", "CriticalResource", new {id=@item.Id})'>Add Details</a>
 
                 </td>
                 <td>
