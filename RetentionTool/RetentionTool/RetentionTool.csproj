@@ -1350,14 +1350,19 @@
     <Compile Include="Controllers\AssignResourceController.cs" />
     <Compile Include="Controllers\AssignResourceDetController.cs" />
     <Compile Include="Controllers\CommonFieldController.cs" />
+    <Compile Include="Controllers\CriticalResourceController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeEvaTasklController.cs" />
     <Compile Include="Controllers\EmployeeInformationController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\ProjectWorkedController.cs" />
     <Compile Include="Controllers\RateEmployeeController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SessionSummaryController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\TrainingController.cs" />
+    <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1375,6 +1380,9 @@
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CommonFieldViewModel.cs" />
+    <Compile Include="Models\CriticalResource.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CurrentInfo.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1414,10 +1422,15 @@
     <Compile Include="Models\PersonalInfo.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PersonalInfoDetails.cs" />
     <Compile Include="Models\PersonalInfoModel.cs" />
+    <Compile Include="Models\ProjectsDetail.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProjectsWorked.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProjectWorkedModel.cs" />
     <Compile Include="Models\RateEmployeeEligiability.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1467,12 +1480,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AssignEvaluterViewModel.cs" />
     <Compile Include="ViewModel\AssignResouViewModel.cs" />
+    <Compile Include="ViewModel\CriticalResourceViewModel.cs" />
     <Compile Include="ViewModel\EmployeeEvalViewModel.cs" />
     <Compile Include="ViewModel\EmployeeInformationViewModel.cs" />
     <Compile Include="ViewModel\ModuleViewModel1.cs" />
+    <Compile Include="ViewModel\ProjectWorkedViewModel.cs" />
     <Compile Include="ViewModel\RateEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\RolesViewModel.cs" />
     <Compile Include="ViewModel\SessionSummaryViewModel.cs" />
     <Compile Include="ViewModel\TrainingViewModel.cs" />
+    <Compile Include="ViewModel\UserDetailsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1547,6 +1564,21 @@
     <Content Include="Views\SessionSummary\Index.cshtml" />
     <Content Include="Views\EmployeeInformation\Index.cshtml" />
     <Content Include="Views\EmployeeInformation\Create.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\UserDetails\Create.cshtml" />
+    <Content Include="Views\UserDetails\Delete.cshtml" />
+    <Content Include="Views\UserDetails\Edit.cshtml" />
+    <Content Include="Views\UserDetails\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\ProjectWorked\Index.cshtml" />
+    <Content Include="Views\ProjectWorked\Create.cshtml" />
+    <Content Include="Views\ProjectWorked\Edit.cshtml" />
+    <Content Include="Views\ProjectWorked\Delete.cshtml" />
+    <Content Include="Views\CriticalResource\Index.cshtml" />
+    <Content Include="Views\CriticalResource\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

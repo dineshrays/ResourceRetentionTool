@@ -59,6 +59,7 @@ namespace RetentionTool.Controllers
 
             }
             return RedirectToAction("Index");
+            
         }
         public ActionResult Delete(int id)
         {
@@ -84,6 +85,7 @@ namespace RetentionTool.Controllers
             return RedirectToAction("Index");
         }
 
+      
         public JsonResult getEmployeeCode(string name)
         {
 
@@ -99,7 +101,7 @@ namespace RetentionTool.Controllers
             //                                       EmpCode = personal.EmpCode,
             //                                       Email = personal.Email
             //                                   }).ToList();
-            List<EmployeeList> personalInfo = (from personal in db.PersonalInfo
+            List<EmployeeList> personalInfo = (from personal in db.PersonalInfoes
                                                //join userdet in db.UserDetail
                                                 
                                                where personal.EmpCode.Contains(name)
@@ -122,7 +124,7 @@ namespace RetentionTool.Controllers
         public JsonResult getPersonalInfo(int id)
         {
             // db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && p2.IsActive == true && a.IsActive == true)
-            PersonalInfo personalInfo = db.PersonalInfo.Find(id);
+            PersonalInfo personalInfo = db.PersonalInfoes.Find(id);
                 //db.PersonalInfo.FirstOrDefault(a => !db.UserDetails.Any(p2 => p2.Emp_Id == a.Id && p2.IsActive == true && a.IsActive == true && a.Id == id));
             PersonalInfoDetails personaldetails = new PersonalInfoDetails();
             personaldetails.Name = personalInfo.Name;

@@ -71,15 +71,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Trainers">
-      <EntityTypeMapping TypeName="RetentionToolModel.Trainer">
-        <MappingFragment StoreEntitySet="Trainers">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ModuleDets">
       <EntityTypeMapping TypeName="RetentionToolModel.ModuleDet">
         <MappingFragment StoreEntitySet="ModuleDet">
@@ -258,23 +249,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ProjectsWorkeds">
-      <EntityTypeMapping TypeName="RetentionToolModel.ProjectsWorked">
-        <MappingFragment StoreEntitySet="ProjectsWorked">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
-          <ScalarProperty Name="TeamMembers" ColumnName="TeamMembers" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
-          <ScalarProperty Name="Designation" ColumnName="Designation" />
-          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="UserDetails">
       <EntityTypeMapping TypeName="RetentionToolModel.UserDetail">
         <MappingFragment StoreEntitySet="UserDetails">
@@ -306,6 +280,51 @@
           <ScalarProperty Name="FatherName" ColumnName="FatherName" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CriticalResources">
+      <EntityTypeMapping TypeName="RetentionToolModel.CriticalResource">
+        <MappingFragment StoreEntitySet="CriticalResource">
+          <ScalarProperty Name="IsNotified" ColumnName="IsNotified" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PersonalInfo_Id" ColumnName="PersonalInfo_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectsDetails">
+      <EntityTypeMapping TypeName="RetentionToolModel.ProjectsDetail">
+        <MappingFragment StoreEntitySet="ProjectsDetails">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectsWorkeds">
+      <EntityTypeMapping TypeName="RetentionToolModel.ProjectsWorked">
+        <MappingFragment StoreEntitySet="ProjectsWorked">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+          <ScalarProperty Name="TeamMembers" ColumnName="TeamMembers" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Project_Id" ColumnName="Project_Id" />
+          <ScalarProperty Name="PersonalInfo_Id" ColumnName="PersonalInfo_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trainers">
+      <EntityTypeMapping TypeName="RetentionToolModel.Trainer">
+        <MappingFragment StoreEntitySet="Trainers">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PersonalInfo_Id" ColumnName="PersonalInfo_Id" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

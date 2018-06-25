@@ -12,22 +12,19 @@ namespace RetentionTool.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeEvalTask
+    public partial class ProjectsDetail
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EmployeeEvalTask()
+        public ProjectsDetail()
         {
-            this.EmployeeEvalTaskDets = new HashSet<EmployeeEvalTaskDet>();
+            this.ProjectsWorkeds = new HashSet<ProjectsWorked>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> AssignResource_Id { get; set; }
-        public Nullable<long> Trainer_Id { get; set; }
+        public string Name { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual AssignResource AssignResource { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeEvalTaskDet> EmployeeEvalTaskDets { get; set; }
-        public virtual Trainer Trainer { get; set; }
+        public virtual ICollection<ProjectsWorked> ProjectsWorkeds { get; set; }
     }
 }

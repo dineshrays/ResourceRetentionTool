@@ -12,18 +12,13 @@ namespace RetentionTool.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserDetail
+    public partial class CriticalResource
     {
-        public long Id { get; set; }
-        public Nullable<int> Emp_Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public Nullable<int> Role_Id { get; set; }
-        public Nullable<System.DateTime> EntryDate { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> PersonalInfo_Id { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<bool> IsNotified { get; set; }
     
-        public virtual Role Role { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
     }
 }

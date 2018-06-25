@@ -15,17 +15,23 @@ namespace RetentionTool.Models
     public partial class ProjectsWorked
     {
         public int Id { get; set; }
-        public Nullable<int> P_Id { get; set; }
-        public string ProjectName { get; set; }
+        public Nullable<int> PersonalInfo_Id { get; set; }
+        public Nullable<int> Project_Id { get; set; }
         public string Designation { get; set; }
         public string Responsibilities { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public string Description { get; set; }
         public Nullable<int> TeamMembers { get; set; }
-        public Nullable<int> Manager_Id { get; set; }
+        public Nullable<long> Manager_Id { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        public virtual Manager Manager { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
+        public virtual ProjectsDetail ProjectsDetail { get; set; }
+        public virtual ProjectsWorked ProjectsWorked1 { get; set; }
+        public virtual ProjectsWorked ProjectsWorked2 { get; set; }
+        public virtual ProjectsWorked ProjectsWorked11 { get; set; }
+        public virtual ProjectsWorked ProjectsWorked3 { get; set; }
     }
 }

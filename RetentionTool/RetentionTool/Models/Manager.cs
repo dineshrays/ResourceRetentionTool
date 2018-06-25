@@ -18,6 +18,7 @@ namespace RetentionTool.Models
         public Manager()
         {
             this.AssignResources = new HashSet<AssignResource>();
+            this.ProjectsWorkeds = new HashSet<ProjectsWorked>();
         }
     
         public long Id { get; set; }
@@ -26,5 +27,7 @@ namespace RetentionTool.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignResource> AssignResources { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectsWorked> ProjectsWorkeds { get; set; }
     }
 }

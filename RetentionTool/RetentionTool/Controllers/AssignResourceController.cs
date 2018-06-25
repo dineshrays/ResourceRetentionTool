@@ -27,7 +27,7 @@ namespace RetentionTool.Controllers
                                  Module_Id=    assignres.Module_Id,
                                 modulename=    assignres.Module.ModuleName,
                                  Trainer_Id=   assignres.Trainer_Id,
-                                  trainername=  assignres.Trainer.Name,
+                                  trainername=  assignres.Trainer.PersonalInfo.Name,
                                  Employee_Id=   assignresdet.Employee_Id,
                                   employeename=  assignresdet.Employee.Name,
                                   Date=  assignres.Date,
@@ -113,7 +113,7 @@ namespace RetentionTool.Controllers
             assVM.assignResource.Date = assignresourcedb.Date;
             assVM.assignResource.managername = assignresourcedb.Manager.Name;
             assVM.assignResource.Manager_Id = assignresourcedb.Manager_Id;
-            assVM.assignResource.trainername = assignresourcedb.Trainer.Name;
+            assVM.assignResource.trainername = assignresourcedb.Trainer.PersonalInfo.Name;
             assVM.assignResource.Trainer_Id = assignresourcedb.Trainer_Id;
             assVM.assignResource.modulename = assignresourcedb.Module.ModuleName;
                assVM.assignResource.Module_Id = assignresourcedb.Module_Id;
@@ -202,7 +202,7 @@ namespace RetentionTool.Controllers
                 Date = assignres.Date,
                 managername = assignres.Manager.Name,
                
-                trainername = assignres.Trainer.Name,
+                trainername = assignres.Trainer.PersonalInfo.Name,
               
                 modulename = assignres.Module.ModuleName,
                
@@ -217,7 +217,7 @@ namespace RetentionTool.Controllers
             return View(assResvm);
         }
         [HttpPost]
-        public ActionResult k(int id,AssignResourceViewModel assgnResvm)
+        public ActionResult Delete(int id,AssignResourceViewModel assgnResvm)
         {
             AssignResource assignres = db.AssignResources.Find(id);
             assignres.IsActive = false;
