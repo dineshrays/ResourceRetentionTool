@@ -15,11 +15,11 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
+    @*<script>
         $(function () {
             $("#tabs").tabs();
         });
-    </script>
+    </script>*@
 </head>
 <body>
 
@@ -169,7 +169,7 @@
                     <div>@Html.LabelFor(m => m.EducationQualificationVm.Degree, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.EducationQualificationVm.Degree, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.EducationQualificationVm.Degree, new { @id="Degree",@class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -178,7 +178,7 @@
                     <div>@Html.LabelFor(m => m.EducationQualificationVm.Board, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.EducationQualificationVm.Board, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.EducationQualificationVm.Board, new { @id="Board",@class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -187,7 +187,7 @@
                     <div>@Html.LabelFor(m => m.EducationQualificationVm.YearOfPassing, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.EducationQualificationVm.YearOfPassing, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.EducationQualificationVm.YearOfPassing, new {@id= "YearOfPassing", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -196,7 +196,7 @@
                     <div>@Html.LabelFor(m => m.EducationQualificationVm.Percentage, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.EducationQualificationVm.Percentage, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.EducationQualificationVm.Percentage, new { @id= "Percentagesss", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -209,7 +209,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.CompanyName, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.ExperienceVm.CompanyName, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.ExperienceVm.CompanyName, new {@id= "CompanyName", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -218,7 +218,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.FromDate, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.EditorFor(m => m.ExperienceVm.FromDate, new { htmlAttributes = new { @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.EditorFor(m => m.ExperienceVm.FromDate, new { htmlAttributes = new {@id= "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -227,7 +227,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.ToDate, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.EditorFor(m => m.ExperienceVm.ToDate, new { htmlAttributes = new { @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.EditorFor(m => m.ExperienceVm.ToDate, new { htmlAttributes = new { @id= "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -236,7 +236,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.Designation, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.ExperienceVm.Designation, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.ExperienceVm.Designation, new { @id= "Designation", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -245,7 +245,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.ProjectWorked, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.ExperienceVm.ProjectWorked, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.ExperienceVm.ProjectWorked, new {@id= "ProjectWorked", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -254,7 +254,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.TechnologiesUsed, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.ExperienceVm.TechnologiesUsed, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.ExperienceVm.TechnologiesUsed, new {@id= "TechnologiesUsed", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -307,8 +307,8 @@
                 </div>
             </div>
 
-            <script src="~/Scripts/assets/js/vendor/jquery-3.3.1.js"></script>
-            <script src="~/Scripts/assets/js/vendor/jquery-3.3.1.min.js"></script>
+            @*<script src="~/Scripts/assets/js/vendor/jquery-3.3.1.js"></script>
+            <script src="~/Scripts/assets/js/vendor/jquery-3.3.1.min.js"></script>*@
 
             <script type="text/javascript">
 
@@ -342,10 +342,10 @@
 
             <div class="row form-group ">
                 <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.ProjectName, new { @class = "form-control-label" })</div>
+                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Project_Id, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.ProjectsWorkedVm.ProjectName, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.ProjectsWorkedVm.Project_Id, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -594,12 +594,14 @@
                     var AadharNo = $("#AadharNo").val();
                     var BloodGroup = $("#BloodGroup").val();
 
-                    var newUrl = '@Url.Action("Index","Module")';
 
-                    var mod = { EmpCode: mod1, Name: mod2, SelectedSkills: mod3, Date: mod4 };
+
+                    //var newUrl = '@Url.Action("Index","Module")';
+
+                    var mod = { EmpCode: EmpCode, Name: Name };
                     //alert(mod);
                     $.ajax({
-                        url: '@Url.Action("Create", "Module")', //
+                        url: '@Url.Action("Create", "EmployeeInformation")', //
                         dataType: "json",
                         data: JSON.stringify({ itemlist: itemlist, mvm: mod }),
                         type: "POST",

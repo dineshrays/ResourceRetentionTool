@@ -27,7 +27,7 @@ namespace RetentionTool.Controllers
         public IEnumerable<SelectListItem> getCommonFields()
         {
             var val = db.Commonfields.ToList();
-            IEnumerable<SelectListItem> cf = new SelectList(val, "id", "Name");
+            var cf = new SelectList(val, "id", "Name");
             return cf;
 
         }
@@ -67,6 +67,12 @@ namespace RetentionTool.Controllers
             ei.Skills = getSkill();
             return View(ei);
             
+        }
+
+        [HttpPost]
+        public ActionResult Create(EmployeeInformationViewModel evm)
+        {
+            return View();
         }
 
         public ActionResult Edit()
