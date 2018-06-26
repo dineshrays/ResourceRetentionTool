@@ -1,8 +1,120 @@
-﻿
+﻿@model RetentionTool.ViewModel.ProjectWorkedViewModel
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete Critical Resource";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+@using (Html.BeginForm())
+{
 
-<h2>Delete</h2>
 
+<div class="card">
+    <div class="card-header">
+        <h2>Delete Critical Resource</h2>
+
+    </div>
+    <div class="card-body card-block">
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.HiddenFor(model => model.projects.Project_Id, new { @id = "projectId" })
+                @Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
+            </div>
+        </div>
+
+        <br />
+        <div>
+
+            <table class="table table-striped" id="tbl" style="width:50%">
+                <tr>
+                    <th>Select</th>
+
+                    <th>Employee Name</th>
+                    <th>Employee Code</th>
+                    <th style="display:none;width:0%">Employee Id</th>
+                    <th>Designation</th>
+                    <th>Responsibility</th>
+                    <th>IsTrainer</th>
+
+                </tr>
+                @foreach (var item in Model.projectvm)
+                {
+                    <tr>
+                        <td>
+                            @{ bool IsCriticalRes = false;}
+                            @foreach (var id in ViewBag.CriticalRes)
+                            {
+                                if (id == item.PersonalInfo.Id)
+                                {
+                                    IsCriticalRes = true;
+
+
+                                }
+
+                            }
+                            @if (IsCriticalRes == true)
+                            {
+                                <input type="checkbox" class="chck" checked disabled="disabled" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="chck" disabled="disabled" />
+
+                            }
+
+                        </td>
+                        <td>@item.PersonalInfo.Name</td>
+                        <td>@item.PersonalInfo.EmpCode</td>
+                        <td style="display:none;width:0%">@item.PersonalInfo.Id</td>
+                        <td>@item.Designation</td>
+                        <td>@item.Responsibilities</td>
+                        <td>
+                            @{ bool isTrainer = false;}
+
+                            @foreach (var id in ViewBag.TrainerDet)
+                            {
+                                if (id == item.PersonalInfo.Id)
+                                {
+                                    isTrainer = true;
+
+                                }
+
+                            }
+                            @if (isTrainer == true)
+
+                            {
+                                <input type="checkbox" class="chcktrainer" checked disabled="disabled"/>
+
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="chcktrainer" disabled="disabled"/>
+                            }
+
+                        </td>
+                    </tr>
+                                }
+            </table>
+            <br />
+
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                <input type="submit" value="Delete" class="btn-danger" />
+                @Html.ActionLink("Back to List", "Index", "CriticalResource", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+                                }
