@@ -1,0 +1,166 @@
+﻿@model RetentionTool.ViewModel.EmployeeInformationViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Edit</h2>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Tabs - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#tabs").tabs();
+        });
+    </script>
+</head>
+<body>
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1" rel="tab1">Personal Information</a></li>
+            <li><a href="#tabs-2" rel="tab2">Education Qualification</a></li>
+            <li><a href="#tabs-3">Experience</a></li>
+            <li><a href="#tabs-4">Employee Skills</a></li>
+            <li><a href="#tabs-5">Projects Worked</a></li>
+            <li><a href="#tabs-6">Current Company</a></li>
+        </ul>
+        <div id="tabs-1">
+
+            @*<div class="col-lg-6 card-body"  style="margin-top:10px;">*@
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Name, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Name, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.FatherName, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.FatherName, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.DOB, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.EditorFor(m => m.PersonalInfoVm.DOB, new { htmlAttributes = new { @class = "form-control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.PermanentAddress, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.PermanentAddress, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.CommunicationAddress, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.CommunicationAddress, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+            @*</div>*@
+            @*<div class="col-lg-6 card-body" style="margin-top:10px;">*@
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Contact, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Contact, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Qualification, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Qualification, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Email, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Email, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.PanNo, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.PanNo, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.AadharNo, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.AadharNo, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+</body>
+</html>

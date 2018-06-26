@@ -49,6 +49,7 @@ namespace RetentionTool.Controllers
             var val = db.Commonfields.ToList();
             var cf = new SelectList(val, "id","Name");
             return cf;
+
         }
 
         public ActionResult Create()
@@ -58,7 +59,16 @@ namespace RetentionTool.Controllers
             mv.Skill = getSkill();
             return View(mv);
         }
-        
+
+        public IEnumerable<SelectListItem> getSkill()
+        {
+            List<SelectListItem> list = new List<SelectListItem>()
+            {
+                new SelectListItem{Value=null,Text=""}
+            };
+            return list;
+
+        }
         [HttpPost]
         public ActionResult Create(Item[] itemlist,ModuleViewModel mvm)
             {
@@ -86,15 +96,7 @@ namespace RetentionTool.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
-        public IEnumerable<SelectListItem> getSkill()
-        {
-            List<SelectListItem> list = new List<SelectListItem>()
-            {
-                new SelectListItem{Value=null,Text=""}
-            };
-            return list;
-
-        }
+       
 
         public ActionResult getSkills(int skillId)
         {

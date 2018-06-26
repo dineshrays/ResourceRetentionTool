@@ -49,6 +49,6 @@ namespace RetentionTool.Models
         public virtual DbSet<Experience> Experiences { get; set; }
         public virtual DbSet<ProjectsWorked> ProjectsWorkeds { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
-        public virtual DbSet<PersonalInfo> PersonalInfoes { get; set; }
+        public virtual DbSet<PersonalInfo> PersonalInfo { get; set; }
     }
 }
