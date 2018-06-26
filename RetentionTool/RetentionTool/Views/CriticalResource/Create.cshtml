@@ -124,13 +124,66 @@
                 @foreach (var item in Model.projectvm)
                 {
                 <tr>
-                    <td><input type="checkbox" class="chck" /></td>
+                    <td>
+                        @{ bool IsCriticalRes = false;}
+                        @foreach (var id in ViewBag.CriticalRes)
+                        {
+                            if (id == item.PersonalInfo.Id)
+                            {
+                                IsCriticalRes = true;
+
+                                //<input type="checkbox" class="chck" checked />
+                            }
+                            else
+                            {
+                                // value = false;
+                                //<input type="checkbox" class="chck" />
+
+                            }
+                        }
+                        @if (IsCriticalRes == true)
+                        {
+                            <input type="checkbox" class="chck" checked />
+                        }
+                        else
+                        {
+                            <input type="checkbox" class="chck" />
+
+                        }
+
+                    </td>
                     <td>@item.PersonalInfo.Name</td>
                     <td>@item.PersonalInfo.EmpCode</td>
                     <td style="display:none;width:0%">@item.PersonalInfo.Id</td>
                     <td>@item.Designation</td>
                     <td>@item.Responsibilities</td>
-                    <td><input type="checkbox" class="chcktrainer"  /></td>
+                    <td>
+                        @{ bool isTrainer = false;}
+
+                        @foreach (var id in ViewBag.TrainerDet)
+                        {
+                            if (id == item.PersonalInfo.Id)
+                            {
+                                isTrainer = true;
+                                //<input type="checkbox" class="chcktrainer" checked/>
+                            }
+                            else
+                            {
+                                // <input type="checkbox" class="chcktrainer" />
+                            }
+                        }
+                        @if (isTrainer == true)
+
+                        {
+                            <input type="checkbox" class="chcktrainer" checked />
+
+                        }
+                        else
+                        {
+                            <input type="checkbox" class="chcktrainer"  />
+                        }
+
+                    </td>
                 </tr>
                 }
             </table>
