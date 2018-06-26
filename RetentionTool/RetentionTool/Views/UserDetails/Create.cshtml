@@ -1,8 +1,238 @@
-﻿
+﻿@model RetentionTool.ViewModel.UserDetailsViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create User Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+@*@using (Html.BeginForm())
+    {*@
 
-<h2>Create</h2>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Create User Details</h2>
+
+    </div>
+    <br />
+    <div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Employee Code")
+        </div>
+        <div class="col-12 col-md-9">
+            <input class="form-control" style="width:30%" id="searchempcode" />
+            <input id="searchid" style="display:none" />
+
+        </div>
+
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Name", new { @class = "form-control-label" })
+        </div>
+        <div class="col-12 col-md-9">
+            @Html.TextBoxFor(model => model.userDetail.Name, new { @class = "form-control", id = "empname", style = "width:30%" })
+
+        </div>
+
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Emaild", new { @class = "form-control-label" })
+        </div>
+        <div class="col-12 col-md-9">
+
+            @Html.TextBoxFor(model => model.userDetail.Email, new { @class = "form-control", id = "empemail", style = "width:30%" })
+
+        </div>
+
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Password", new { @class = "form-control-label" })
+        </div>
+        <div class="col-12 col-md-9">
+            @Html.TextBoxFor(model => model.userDetail.Password, new { @class = "form-control", id = "emppassword", style = "width:30%" })
+
+
+        </div>
+
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Role", new { @class = "form-control-label" })
+        </div>
+        <div class="col-12 col-md-9">
+            @Html.DropDownListFor(model => model.userDetail.Role_Id, ViewData["rolelist"] as SelectList, new { @class = "form-control", id = "roleid", style = "width:30%" })
+
+        </div>
+
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-12 col-md-9">
+            <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+            @Html.ActionLink("Back to List", "Index", "UserDetails", null, new { @class = "btn btn-outline-link" })
+
+        </div>
+
+    </div>
+</div>
+
+@*}*@
+
+<script>
+
+    $(function () {
+     //   debugger;
+
+        $("#searchempcode").autocomplete({
+
+            source: function (request, response) {
+                var param = { name: $('#searchempcode').val() };
+                //alert(param);
+             //   alert($('#searchempcode').val());
+                $.ajax({
+                    url: "/UserDetails/getEmployeeCode",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.Name, id: item.Id
+                                //, name: item.Name, email: item.Email
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+
+                event.preventDefault();
+                $(this).val(ui.item.label);
+                $("#searchid").val(ui.item.id);
+                var param = { id: ui.item.id };
+                $.ajax({
+                    url: "/UserDetails/getPersonalInfo",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    //dataFilter: function (data) { return data; },
+                    success: function (data) {
+                       // alert(data.Name);
+                      //  alert(data.Email);
+                        $("#empname").val(data.Name);
+                        $("#empemail").val(data.Email);
+                        //response($.map(data, function (item) {
+                        //    return { label: item.Name, id: item.Id }
+                        //}))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            }
+                //$("#empname").val(ui.item.Name);
+                //$("#empemail").val(ui.item.Email);
+                //$("empname").val(ui.item.Name);
+                //$("emppassword").val(ui.item.Email);
+            //}
+        });
+    });
+
+       $("#btnSave").click(function () {
+
+
+
+
+           var empname = $("#empname").val();
+           var pid = $("#searchid").val();
+         //  var empcode = $("searchempcode").val();
+           var email = $("#empemail").val();
+           var password = $("#emppassword").val();
+           var roleid = $("#roleid").val();
+
+                var newUrl= '@Url.Action("Index", "UserDetails")';
+
+           var mod = { Emp_Id: pid, Name: empname, Email: email, Password: password, Role_Id: roleid };
+               // alert(mod);
+                $.ajax({
+                    url: '@Url.Action("Create", "UserDetails")', //
+                    dataType: "json",
+                    data: JSON.stringify({ uservm: mod }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        //alert("success");
+
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert(xhr);
+                        alert("error");
+                    }
+                });
+            });
+
+    //$("#searchempcode").keydown(
+    //    function (event) {
+    //        if (event.which == 13) {
+    //            var id = $("#searchid").val();
+    //            alert(id);
+    //            var param = { id: id };
+    //            $.ajax({
+    //                url: "/UserDetails/getPersonalInfo",
+    //                data: JSON.stringify(param),
+    //                dataType: "json",
+    //                type: "POST",
+    //                contentType: "application/json; charset=utf-8",
+    //                dataFilter: function (data) { return data; },
+    //                success: function (data) {
+    //                   $("#empname").val(data.Name);
+    //                    $("#empemail").val(data.Email);
+    //                    //response($.map(data, function (item) {
+    //                    //    return { label: item.Name, id: item.Id }
+    //                    //}))
+    //                },
+    //                error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //                    alert(textStatus);
+    //                }
+    //            });
+    //        }
+
+    //    }
+    //);
+
+    //$("#searchempcode").keypress(
+    //    function () {
+    //        if (event.which == 13) {
+    //            alert('hello dedde');
+    //        }
+
+    //    }
+    //);
+
+    //$("#searchempcode").click(function (event) {
+    //if (event.which == 13) {
+    //    alert('hello123');
+    //}
+    //    alert("Handler for .click() called.");
+    //});
+
+    // $("#searchempcode").mouseenter(function () {
+    //    alert("Handler for .mouse() called.");
+    //});
+</script>
+
+
 

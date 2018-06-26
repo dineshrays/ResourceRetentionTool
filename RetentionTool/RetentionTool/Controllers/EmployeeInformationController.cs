@@ -14,7 +14,7 @@ namespace RetentionTool.Controllers
         // GET: EmployeeInformation
         public ActionResult Index()
         {
-            List<PersonalInfoModel> details = (from a in db.PersonalInfo
+            List<PersonalInfoModel> details = (from a in db.PersonalInfoes
                                                           select new PersonalInfoModel
                                                           {
                                                               EmpCode =a.EmpCode,

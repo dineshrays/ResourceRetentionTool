@@ -1,0 +1,122 @@
+﻿@model RetentionTool.ViewModel.ProjectWorkedViewModel
+@{
+    ViewBag.Title = "Edit Project Worked";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="card">
+        <div class="card-header">
+            <h2>Edit Project Worked</h2>
+
+        </div>
+        <div class="card-body card-block">
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.PersonalInfo.Name, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.HiddenFor(model => model.projects.PersonalInfo_Id)
+                    @Html.DisplayFor(model => model.projects.PersonalInfo.Name, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.Label("Project Name")
+                        @*For(model => model.projects.ProjectName, new { @class = "form-control-label" })*@
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.HiddenFor(model => model.projects.Id)
+                    @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.Designation, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.TextBoxFor(model => model.projects.Designation, new { @class = "form-control-label", @id = "designation", style = "width:30%" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.Responsibilities, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.TextBoxFor(model => model.projects.Responsibilities, new { @class = "form-control-label", @id = "responsibilty", style = "width:30%" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    @Html.LabelFor(model => model.projects.StartDate, new { @class = " form-control-label" })
+
+                </div>
+                <div class="col-12 col-md-9">
+                  
+                  @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
+
+                </div>
+
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    @Html.LabelFor(model => model.projects.EndDate, new { @class = " form-control-label" })
+
+                </div>
+                <div class="col-12 col-md-9">
+                   
+                    @Html.EditorFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
+
+                </div>
+
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.Description, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.TextBoxFor(model => model.projects.Description, new { @class = "form-control-label", @id = "description", style = "width:30%" })
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.TeamMembers, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.TextBoxFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.Manager_Id, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
+                </div>
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+
+
+                </div>
+                <div class="col-12 col-md-9">
+
+                    <input type="submit" value="Edit" id="btnSave" class="btn btn-success" />
+                    @Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+}
+
+

@@ -156,7 +156,6 @@ C:\Vijetha\C#\RetentionTool\RetentionTool\bin\Newtonsoft.Json.xml
 C:\Vijetha\C#\RetentionTool\RetentionTool\bin\System.Web.Optimization.xml
 C:\Vijetha\C#\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CoreCompileInputs.cache
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\RetentionTool.dll.config
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\RetentionTool.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\RetentionTool.pdb
@@ -237,3 +236,4 @@ C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Microsoft.
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyComplete
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
