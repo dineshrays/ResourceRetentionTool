@@ -16,9 +16,11 @@ namespace RetentionTool.Models
     {
         public int Id { get; set; }
         public Nullable<int> PersonalInfo_Id { get; set; }
+        public Nullable<int> Project_Id { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<bool> IsNotified { get; set; }
     
         public virtual PersonalInfo PersonalInfo { get; set; }
+        public virtual ProjectsDetail ProjectsDetail { get; set; }
     }
 }

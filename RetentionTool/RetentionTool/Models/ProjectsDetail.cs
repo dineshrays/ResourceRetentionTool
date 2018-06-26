@@ -17,6 +17,7 @@ namespace RetentionTool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProjectsDetail()
         {
+            this.CriticalResources = new HashSet<CriticalResource>();
             this.ProjectsWorkeds = new HashSet<ProjectsWorked>();
         }
     
@@ -24,6 +25,8 @@ namespace RetentionTool.Models
         public string Name { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CriticalResource> CriticalResources { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectsWorked> ProjectsWorkeds { get; set; }
     }

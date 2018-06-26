@@ -21,7 +21,7 @@ namespace RetentionTool.Models
         public Nullable<bool> IsEligible { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual AssignResource AssignResource { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual AssignResource AssignResource { get; set; }
     }
 }

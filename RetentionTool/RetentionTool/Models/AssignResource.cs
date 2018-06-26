@@ -17,8 +17,8 @@ namespace RetentionTool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AssignResource()
         {
-            this.AssignResourcesDets = new HashSet<AssignResourcesDet>();
             this.AssignEvaluaters = new HashSet<AssignEvaluater>();
+            this.AssignResourcesDets = new HashSet<AssignResourcesDet>();
             this.EmployeeEvalTasks = new HashSet<EmployeeEvalTask>();
             this.RateEmployeeEligiabilities = new HashSet<RateEmployeeEligiability>();
             this.Trainings = new HashSet<Training>();
@@ -31,20 +31,18 @@ namespace RetentionTool.Models
         public Nullable<int> Module_Id { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual AssignResource AssignResources1 { get; set; }
-        public virtual AssignResource AssignResource1 { get; set; }
-        public virtual Manager Manager { get; set; }
-        public virtual Module Module { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssignResourcesDet> AssignResourcesDets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignEvaluater> AssignEvaluaters { get; set; }
+        public virtual Manager Manager { get; set; }
+        public virtual Module Module { get; set; }
+        public virtual Trainer Trainer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignResourcesDet> AssignResourcesDets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeEvalTask> EmployeeEvalTasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RateEmployeeEligiability> RateEmployeeEligiabilities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Training> Trainings { get; set; }
-        public virtual Trainer Trainer { get; set; }
     }
 }
