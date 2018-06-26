@@ -14,11 +14,13 @@ namespace RetentionTool.Controllers
         // GET: CriticalResource
         public ActionResult Index()
         {
-            List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a => a.IsActive == true).ToList();
+            List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a => db.ProjectsWorkeds.Any(p=>p.Project_Id==a.Id && p.IsActive==true && a.IsActive == true)).ToList();
             ViewBag.prjctDetails = projectDet;
-                //.Select(a=>a.ProjectName).Distinct();
-                //  ProjectWorkedViewModel prjctWrkvm = new ProjectWorkedViewModel();
-                //    prjctWrkvm.
+
+            
+            //.Select(a=>a.ProjectName).Distinct();
+            //  ProjectWorkedViewModel prjctWrkvm = new ProjectWorkedViewModel();
+            //    prjctWrkvm.
             return View();
         }
         public ActionResult Create(int id)
@@ -30,6 +32,9 @@ namespace RetentionTool.Controllers
             prjctwrkvm.projectname = projectDetails.Name;
             prjctwrkvm.projects = prjctwrk;
             prjctwrkvm.projectvm = prjctwrklist;
+         //   List<CriticalResource> criticalRes
+                 ViewBag.CriticalRes = db.CriticalResources.Where(a=>a.IsActive==true).ToList().Select(a => a.PersonalInfo_Id).Distinct();
+            ViewBag.TrainerDet= db.Trainers.Where(a => a.IsActive == true).ToList().Select(a => a.PersonalInfo_Id).Distinct();
             return View(prjctwrkvm);
         }
         [HttpPost]

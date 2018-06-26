@@ -28,7 +28,6 @@ namespace RetentionTool.Models
         public virtual DbSet<Commonfield> Commonfields { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
-        public virtual DbSet<AssignResource> AssignResources { get; set; }
         public virtual DbSet<AssignResourcesDet> AssignResourcesDets { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
@@ -48,9 +47,10 @@ namespace RetentionTool.Models
         public virtual DbSet<Experience> Experiences { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<PersonalInfo> PersonalInfoes { get; set; }
-        public virtual DbSet<CriticalResource> CriticalResources { get; set; }
         public virtual DbSet<ProjectsDetail> ProjectsDetails { get; set; }
-        public virtual DbSet<ProjectsWorked> ProjectsWorkeds { get; set; }
         public virtual DbSet<Trainer> Trainers { get; set; }
+        public virtual DbSet<CriticalResource> CriticalResources { get; set; }
+        public virtual DbSet<AssignResource> AssignResources { get; set; }
+        public virtual DbSet<ProjectsWorked> ProjectsWorkeds { get; set; }
     }
 }

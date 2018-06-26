@@ -26,8 +26,8 @@ namespace RetentionTool.Models
         public Nullable<System.DateTime> ToDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual AssignResource AssignResource { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrainingDet> TrainingDets { get; set; }
+        public virtual AssignResource AssignResource { get; set; }
     }
 }

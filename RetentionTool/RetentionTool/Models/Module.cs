@@ -17,8 +17,8 @@ namespace RetentionTool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Module()
         {
-            this.AssignResources = new HashSet<AssignResource>();
             this.ModuleDets = new HashSet<ModuleDet>();
+            this.AssignResources = new HashSet<AssignResource>();
         }
     
         public int Id { get; set; }
@@ -31,8 +31,8 @@ namespace RetentionTool.Models
         public virtual Commonfield Commonfield { get; set; }
         public virtual Skill Skill { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssignResource> AssignResources { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ModuleDet> ModuleDets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignResource> AssignResources { get; set; }
     }
 }
