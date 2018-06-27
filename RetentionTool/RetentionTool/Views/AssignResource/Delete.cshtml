@@ -30,6 +30,20 @@
         <br />
         <div class="row form-group">
             <div class="col col-md-3">
+                @Html.Label("Project Name", new { @class = " form-control-label" })
+
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.HiddenFor(m => m.Project_Id)
+                @Html.DisplayFor(m => m.projectname)
+            </div>
+        </div>
+
+
+
+        <br />
+        <div class="row form-group">
+            <div class="col col-md-3">
                 @Html.LabelFor(m => m.managername, new { @class = " form-control-label" })
 
             </div>
@@ -79,7 +93,8 @@
 
                     @foreach (var i in assignDetails)
                     {
-                        <li>@i.Employee.Name</li>
+                        <li>@i.PersonalInfo.Name</li>
+                       
                         @*<tr>
                 <td><input type="checkbox" name="chck" /></td>
                 <td>@i.Employee.Name</td>

@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index Project Worked";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
+
 }
 
 <h2>Index Project Worked</h2>
@@ -30,8 +31,8 @@
         @foreach (var item in Model.projectvm)
         {
         <tr>
-            <td>@item.PersonalInfo.Name</td>
-            <td>@item.PersonalInfo.EmpCode</td>
+            <td>@item.PersonalInfo1.Name</td>
+            <td>@item.PersonalInfo1.EmpCode</td>
             <td>@item.ProjectsDetail.Name</td>
             <td>@item.Designation</td>
             <td>@item.Responsibilities</td>

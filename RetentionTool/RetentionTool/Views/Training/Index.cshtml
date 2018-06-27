@@ -94,16 +94,18 @@
     <div class="container">
         <table class="table table-striped">
             <tr>
-                <th>@Html.DisplayNameFor(m => m.TrainingVm.AssignResource_Id)</th>
+                <th  style="display:none">@Html.DisplayNameFor(m => m.TrainingVm.AssignResource_Id)</th>
+                <th>@Html.DisplayName("Project Name")</th>
                 <th style="display:none">@Html.DisplayNameFor(m => m.TrainingVm.AssignResource.Module_Id)</th>
-                <th>@Html.Label("Employees Name")</th>               
+                <th>@Html.Label("Employees Name")</th>
                 <th>@Html.Label("Actions")</th>
             </tr>
 
             @foreach (var item in details)
             {
             <tr>
-                <td>@item.Id</td>
+                <td style="display:none">@item.Id</td>
+                <td >@item.projectname</td>
                 <td style="display:none">@item.Module_Id</td>
                 <td>
                     <div class="popup" id="@item.Id" onclick="myFunction(@item.Id)">

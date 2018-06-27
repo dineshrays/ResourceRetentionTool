@@ -24,7 +24,13 @@ namespace RetentionTool.Models
             this.UserDetails = new HashSet<UserDetail>();
             this.Trainers = new HashSet<Trainer>();
             this.CriticalResources = new HashSet<CriticalResource>();
+            this.AssignResourcesDets = new HashSet<AssignResourcesDet>();
+            this.EmployeeEvalTaskDets = new HashSet<EmployeeEvalTaskDet>();
+            this.RateEmployeeEligiabilities = new HashSet<RateEmployeeEligiability>();
+            this.SessionsDets = new HashSet<SessionsDet>();
+            this.AssignResources = new HashSet<AssignResource>();
             this.ProjectsWorkeds = new HashSet<ProjectsWorked>();
+            this.ProjectsWorkeds1 = new HashSet<ProjectsWorked>();
         }
     
         public int Id { get; set; }
@@ -58,6 +64,18 @@ namespace RetentionTool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CriticalResource> CriticalResources { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignResourcesDet> AssignResourcesDets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeEvalTaskDet> EmployeeEvalTaskDets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RateEmployeeEligiability> RateEmployeeEligiabilities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SessionsDet> SessionsDets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignResource> AssignResources { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectsWorked> ProjectsWorkeds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectsWorked> ProjectsWorkeds1 { get; set; }
     }
 }

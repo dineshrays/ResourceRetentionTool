@@ -21,8 +21,8 @@ namespace RetentionTool.Controllers
                                                           AssignResourceId=a.Id,
                                                           modulename=a.Module.ModuleName,
                                                           Module_Id=a.Module_Id,
-                                                          employeename=ar.Employee.Name,
-                                                          Employee_Id=ar.Employee_Id
+                                                          employeename=ar.PersonalInfo.Name,
+                                                          Employee_Id=ar.Id
                                                       }).ToList();
             return View(assResDetvm);
         }
@@ -95,7 +95,7 @@ namespace RetentionTool.Controllers
 
         public void getEmployees()
         {
-            var val = new SelectList(db.Employees.Where(a => a.IsActive == true).ToList(), "id", "Name");
+            var val = new SelectList(db.PersonalInfoes.Where(a => a.IsActive == true).ToList(), "id", "Name");
             ViewData["employeeslist"] = val;
         }
     }

@@ -138,7 +138,7 @@ namespace RetentionTool.Controllers
                                           // on assResDet.AssignResources_Id equals training.AssignResource_Id
                                           //join trainingdet in db.TrainingDets
                                           //on training.Id equals trainingdet.Training_Id
-                                          join emp in db.Employees
+                                          join emp in db.PersonalInfoes
                                           on assResDet.Employee_Id equals emp.Id
 
                                           where

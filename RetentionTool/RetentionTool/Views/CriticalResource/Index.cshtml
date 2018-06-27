@@ -3,6 +3,7 @@
     ViewBag.Title = "Index Critical Resource";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
     var prjctDetails = ViewBag.prjctDetails;
+    var criticalDetails = ViewBag.CriticalResPrjct;
 }
 
 <h2>Index Critical Resource</h2>
@@ -26,7 +27,7 @@
             <td>@item.Name</td>
             <td>
                 @{ bool IsCritical = false;}
-                @foreach (var critiprjctid in ViewBag.CriticalResPrjct)
+                @foreach (var critiprjctid in criticalDetails)
                 {
                     if (critiprjctid == @item.Id)
                     {

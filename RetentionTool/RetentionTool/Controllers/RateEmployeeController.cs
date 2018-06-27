@@ -16,7 +16,10 @@ namespace RetentionTool.Controllers
         {
             List<AssignResource> assignRes = db.AssignResources.Where(a => a.IsActive == true).ToList();
             ViewBag.assign = assignRes;
-            
+            //foreach(var i in assignRes)
+            //{
+            //    i.ProjectsDetail.Name
+            //}
             ViewBag.RateEmployeeEl = db.RateEmployeeEligiabilities.Select(o => o.AssignResources_Id).Distinct().ToList();
             
             return View();
@@ -25,7 +28,7 @@ namespace RetentionTool.Controllers
         public ActionResult Create(int assignresid)
         {
             List<EmployeeList> assign = (from x in db.AssignResourcesDets
-                                         join y in db.Employees on x.Employee_Id equals y.Id
+                                         join y in db.PersonalInfoes on x.Employee_Id equals y.Id
                                   
                                              where x.AssignResources_Id == assignresid
                                              select new EmployeeList

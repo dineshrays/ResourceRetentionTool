@@ -11,6 +11,7 @@
 <div class="container" style="width:100%;margin-top:2%">
     <table class="table table-striped">
         <tr>
+            <th>@Html.DisplayNameFor(model => model.projectname)</th>
             <th>@Html.DisplayNameFor(model => model.managername)</th>
             <th>@Html.DisplayNameFor(model => model.modulename)</th>
             <th>@Html.DisplayNameFor(model => model.trainername)</th>
@@ -22,6 +23,7 @@
         @foreach (var item in Model)
         {
         <tr>
+            <td>@item.projectname</td>
             <td>@item.managername</td>
             <td>@item.modulename</td>
             <td>@item.trainername</td>

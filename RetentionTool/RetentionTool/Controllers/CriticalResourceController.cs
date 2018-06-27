@@ -31,6 +31,7 @@ namespace RetentionTool.Controllers
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
             prjctwrkvm.projectname = projectDetails.Name;
+            prjctwrk.Project_Id = projectDetails.Id;
             prjctwrkvm.projects = prjctwrk;
             prjctwrkvm.projectvm = prjctwrklist;
          //   List<CriticalResource> criticalRes

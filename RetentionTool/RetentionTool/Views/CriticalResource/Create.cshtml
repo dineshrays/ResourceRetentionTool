@@ -129,7 +129,7 @@
                         @{ bool IsCriticalRes = false;}
                         @foreach (var id in ViewBag.CriticalRes)
                         {
-                            if (id == item.PersonalInfo.Id)
+                            if (id == item.PersonalInfo1.Id)
                             {
                                 IsCriticalRes = true;
 
@@ -153,9 +153,9 @@
                         }
 
                     </td>
-                    <td>@item.PersonalInfo.Name</td>
-                    <td>@item.PersonalInfo.EmpCode</td>
-                    <td style="display:none;width:0%">@item.PersonalInfo.Id</td>
+                    <td>@item.PersonalInfo1.Name</td>
+                    <td>@item.PersonalInfo1.EmpCode</td>
+                    <td style="display:none;width:0%">@item.PersonalInfo1.Id</td>
                     <td>@item.Designation</td>
                     <td>@item.Responsibilities</td>
                     <td>
@@ -163,7 +163,7 @@
 
                         @foreach (var id in ViewBag.TrainerDet)
                         {
-                            if (id == item.PersonalInfo.Id)
+                            if (id == item.PersonalInfo1.Id)
                             {
                                 isTrainer = true;
                                 //<input type="checkbox" class="chcktrainer" checked/>

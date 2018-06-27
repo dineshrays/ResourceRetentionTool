@@ -23,8 +23,9 @@ namespace RetentionTool.Controllers
                                                      select new AssignResourceViewModel
                                                      {
                                                          Id = assignres.Id,                                                         
-                                                         Module_Id = assignres.Module_Id
-                                                         
+                                                         Module_Id = assignres.Module_Id,
+                                                         Project_Id=assignres.Project_Id,
+                                                         projectname=assignres.ProjectsDetail.Name
                                                      }).ToList();
 
             ViewBag.details = assgnvm;
@@ -37,7 +38,7 @@ namespace RetentionTool.Controllers
         public ActionResult EmpDetails(int assId)
         {
             List<EmployeeList> emplist = (from assresdet in db.AssignResourcesDets
-                                      join emp in db.Employees
+                                      join emp in db.PersonalInfoes
                                       on assresdet.Employee_Id equals emp.Id
                                       where emp.IsActive == true
                                       where assresdet.AssignResources_Id == assId

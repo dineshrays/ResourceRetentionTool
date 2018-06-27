@@ -18,6 +18,7 @@ namespace RetentionTool.Models
         public ProjectsDetail()
         {
             this.CriticalResources = new HashSet<CriticalResource>();
+            this.AssignResources = new HashSet<AssignResource>();
             this.ProjectsWorkeds = new HashSet<ProjectsWorked>();
         }
     
@@ -27,6 +28,8 @@ namespace RetentionTool.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CriticalResource> CriticalResources { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignResource> AssignResources { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectsWorked> ProjectsWorkeds { get; set; }
     }
