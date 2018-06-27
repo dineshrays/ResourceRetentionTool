@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RetentionTool.ViewModel.TrainingViewModel>
+﻿@model RetentionTool.ViewModel.TrainingViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -114,11 +114,27 @@
                     </div>
                 </td>
                 <td>
-                    <a href='@Url.Action("Create", "Training",new { moduleid=@item.Module_Id,assignresid=@item.Id})'>Add Details</a>
-                    <a></a>
+                    @{ bool added = false;}
+                    @foreach (var training in Model.Training)
+                    {
+                        if (item.Id == training.AssignResource_Id)
+                        {
+                            added = true;
+                        }
+                    }
+                    @if (added == true)
+                    {
+                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                    }
+                    else
+                    {
+                        <a href='@Url.Action("Create", "Training",new { moduleid=@item.Module_Id,assignresid=@item.Id})'>Add Details</a>
+                        <a></a>
+                    }
 
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
-                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+
+
                 </td>
             </tr>
             }

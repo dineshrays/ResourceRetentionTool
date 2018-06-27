@@ -29,10 +29,11 @@ namespace RetentionTool.Controllers
                                                      }).ToList();
 
             ViewBag.details = assgnvm;
+            List<Training> trainings = db.Trainings.ToList();
+            TrainingViewModel trainingvm = new TrainingViewModel();
+            trainingvm.Training = trainings;
 
-            
-
-            return View();
+            return View(trainingvm);
         }
         [HttpPost]
         public ActionResult EmpDetails(int assId)
