@@ -98,7 +98,7 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
                         //&& 
                         select new
                         {
-                            Id = personalInfo.Id,
+                            Id = trainer.Id,
                             Name = personalInfo.Name
                         }).ToList();
             //  var val = new SelectList(db.PersonalInfoes.ToList(), "Id", "Name");
