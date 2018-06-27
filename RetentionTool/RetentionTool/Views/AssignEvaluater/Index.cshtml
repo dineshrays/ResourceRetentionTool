@@ -11,9 +11,9 @@
 <div class="container" style="width:100%;margin-top:2%">
     <table class="table table-striped">
         <tr>
-            <th>@Html.DisplayNameFor(model => model.AssignEvaluater.Id)</th>
+            @*<th>@Html.DisplayNameFor(model => model.AssignEvaluater.Id)</th>
 
-            <th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource_Id)</th>
+            <th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource_Id)</th>*@
             <th>@Html.Label("Project Name")</th>
             <th>@Html.Label("Module Name")</th>
             <th>@Html.Label("Assigned Trainer Name")</th>
@@ -22,8 +22,8 @@
         @foreach (var item in Model.assvm)
         {
         <tr>
-            <td>@item.Id</td>
-            <td>@item.AssignResource_Id</td>
+            @*<td>@item.Id</td>
+            <td>@item.AssignResource_Id</td>*@
             <td>@item.AssignResource.ProjectsDetail.Name</td>
             <td>@item.AssignResource.Module.ModuleName</td>
 
