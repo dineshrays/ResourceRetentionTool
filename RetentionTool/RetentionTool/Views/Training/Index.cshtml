@@ -57,13 +57,14 @@
         }
 </style>
 
+
 <script>
     // When the user clicks on div, open the popup
     function myFunction(id) {
-       
-       // alert(id);
+
+        // alert(id);
         var assresid = id;
-        
+
         $("#myPopup").html("");
         $.ajax(
             {
@@ -73,16 +74,16 @@
                 contentType: 'application/json',
                 data: JSON.stringify({ assId: assresid }),
                 success: function (result) {
-                    $.each(result, function (i, empname) {                        
-                        $("#myPopup"). append("<h2>" + empname.Name + "</h2>")
-                    });                    
+                    $.each(result, function (i, empname) {
+                        $("#myPopup").append("<h2>" + empname.Name + "</h2>")
+                    });
                 },
                 error: function () { alert("Something Gone Wrong") },
             });
         var popup = document.getElementById("myPopup");
-   
+
         popup.classList.toggle("show");
-      
+
     }
 </script>
 
