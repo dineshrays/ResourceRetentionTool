@@ -25,7 +25,7 @@
     <div class="container" style="width:50%;margin-top:2%">
         <table class="table table-striped" id="tble">
             <tr>
-                <th>@Html.DisplayNameFor(model => model.session.TrainingDet_Id)</th>
+                <th>@Html.HiddenFor(model => model.session.TrainingDet_Id)</th>
                 <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.Training_Id)</th>
 
                 <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.ModuleDet_Id)</th>
@@ -39,7 +39,7 @@
             @foreach (var item in trainingDetails)
             {
                 <tr>
-                    <td>@item.Id</td>
+                    <td style="display:none">@item.Id</td>
                     <td style="display:none">@item.Training_Id</td>
                     <td style="display:none;width:0%">@item.ModuleDet_Id</td>
                     <td>@item.ModuleDet.Topics</td>

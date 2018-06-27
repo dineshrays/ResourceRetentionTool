@@ -16,7 +16,7 @@
     <div class="container" style="width:100%;margin-top:2%">
         <table class="table table-striped" id="tble">
             <tr>
-                <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.AssignResources_Id)</th>
+                <th style="display:none">@Html.HiddenFor(model => model.RateEmployeeVm.AssignResources_Id)</th>
                 <th>
                     @Html.Label("Project Name")
                 </th>
@@ -32,25 +32,34 @@
             @foreach (var item in del)
             {
             <tr>
-                <td>@item.Id</td>
+                <td style="display:none">@item.Id</td>
                 <td>@item.ProjectsDetail.Name</td>
                 <td>@item.PersonalInfo.Name</td>
                 <td>@item.Module.ModuleName</td>
                 @*<td>@item.Trainer.PersonalInfo.Name</td>*@
 
                 <td>
+                    @{ bool IsAdded = false;
+                       }
                     @foreach (var rate in rateemployeeel)
                     {
                         if (rate == item.Id)
                         {
-                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
-                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-                        }
-                        else
-                        {
-                            <a href='@Url.Action("Create", "RateEmployee", new {assignresid=@item.Id})'>Add Details</a>
+                            IsAdded = true;
 
                         }
+                      
+
+                    }
+
+                    @if (IsAdded==true)
+                    {
+                    @Html.ActionLink(" ", "Edit", new { id = @item.Id }, new { @class = "ti-pencil" })
+                    @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+                    }
+                    else
+                    {
+                    <a href='@Url.Action("Create", "RateEmployee", new {assignresid=@item.Id})'>Add Details</a>
 
                     }
                 </td>

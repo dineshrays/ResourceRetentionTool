@@ -1,121 +1,146 @@
-﻿@model RetentionTool.Models.RateEmployeeEligiability
+﻿@model RetentionTool.ViewModel.RateEmployeeViewModel
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
-   // var assign = ViewBag.assign;
+    var assign = ViewBag.assign;
 }
-@using (Html.BeginForm())
-{
-    <div class="card">
-        <div class="card-header">
+@*@using (Html.BeginForm())
+    {*@
+<div class="card">
+    <div class="card-header">
 
-            <h2>Edit Rate Employee</h2>
+        <h2>Edit Rate Employee</h2>
 
+    </div>
+
+    <div class="card-body card-block">
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.RateEmployeeVm.AssignResources_Id)</div>
+            </div>
+            <div class="col-12 col-md-9">
+                <div>
+                    @Html.DisplayFor(m => m.RateEmployeeVm.AssignResources_Id, new { @id = "AssignResources_Id" })
+
+                    @Html.HiddenFor(m => m.RateEmployeeVm.Id)
+                </div><br />
+                @*<div>@Html.HiddenFor(m => m.AssignResources_Id)</div>*@
+            </div>
         </div>
 
-        <div class="card-body card-block">
-
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.AssignResources_Id)</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.DisplayFor(m => m.AssignResources_Id, new { @id = "AssignResources_Id" })
-                        
-                        @Html.HiddenFor(m=>m.AssignResources_Id)
-                        </div><br />
-                    <div>@Html.HiddenFor(m => m.Id, new { @id = "id" })</div>
-                </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.RateEmployeeVm.Employee_Id)</div>
             </div>
-
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.Employee_Id)</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.DisplayFor(m => m.Employee_Id, new { @id = "Employee_Id" })</div><br />
-                    @Html.HiddenFor(m=>m.Employee_Id)
-                </div>
+            <div class="col-12 col-md-9">
+                <div>@Html.DisplayFor(m => m.RateEmployeeVm.PersonalInfo.Name, new { @id = "Employee_Id" })</div><br />
+                @Html.HiddenFor(m => m.RateEmployeeVm.Employee_Id)
             </div>
+        </div>
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.Employee.Name)</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.DisplayFor(m => m.Employee.Name, new { @id = "EmployeeName" })</div><br />
-                </div>
-            </div>
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.Grade)</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.EditorFor(m => m.Grade, new { @id = "Grade" })</div><br />
-                </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.Label("Project Name")</div>
             </div>
+            <div class="col-12 col-md-9">
+                <div>@Html.DisplayFor(m => m.RateEmployeeVm.AssignResource.ProjectsDetail.Name)</div><br />
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.IsEligible)</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.EditorFor(m => m.IsEligible, new { @id = "IsEligible" })</div><br />
-                </div>
             </div>
-            <div class="card-body">
-                @*<button type="button" id="btnGet" class="btn btn-success">Save</button>*@
-                <input type="submit" value="Edit" class="btn btn-success"/>
-                
-                @Html.ActionLink("Back to List", "Index")
-            </div>
+        </div>
 
+        <table class="table table-striped" id="tble">
+            <tr>
+
+                <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
+                <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
+                <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.PersonalInfo.Name)</th>
+                <th>@Html.Label("Grade")</th>
+                <th>@Html.Label("IsEligible For Evaluation")</th>
+
+            </tr>
+            @foreach (var item in Model.RateEmployee)
+            {
+                <tr>
+                    <td style="display:none">@item.Id</td>
+                    <td style="display:none">@item.Employee_Id</td>
+                    <td>@item.PersonalInfo.Name</td>
+                    <td><input type="text" name="grade" value=@item.Grade /></td>
+                    <td><input type="checkbox" class="chck" checked=@item.IsEligible /></td>
+                </tr>
+            }
+        </table>
+      
+        <div class="card-body">
+            @*<button type="button" id="btnGet" class="btn btn-success">Save</button>*@
+            <input type="submit" value="Edit" id="btnSave" class="btn btn-success" />
+
+            @Html.ActionLink("Back to List", "Index")
         </div>
 
     </div>
-}
+
+</div>
+@*}*@
 
 
 
 
-@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript">
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
 
-    $(function () {
-        $("#btnGet").click(function () {
-            debugger;
+    var assignresid;
+    $(document).ready(function () {
 
-            var id = $("#id").val();
-            alert('id');
-            var AssignResources_Id = $("#AssignResources_Id").val();
-            alert('AssignResources_Id');
-            var Employee_Id = $("#Employee_Id").val();
-
-            var EmployeeName = $("#EmployeeName").val();
-            var IsEligible = $("#IsEligible").val();
+        var assign = location.search.substring(1).split('&');
 
 
+        var ass = assign[0].split('=');
+        assignresid = ass[1];
 
-            var mod = { AssignResources_Id: AssignResources_Id, Employee_Id: Employee_Id, EmployeeName: EmployeeName, IsEligible: IsEligible };
 
-            $.ajax({
-                type: "POST",
-                url: "/RateEmployee/Edit",
-                data: JSON.stringify({ id: id, ree: mod }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    alert(success);
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
+    });
+    $("#btnSave").click(function () {
 
+
+          var itemlist=[];
+
+        $("table tr:not(:first)").each(function () {
+
+            var IsEligible;
+            var grade;
+
+              if ($(this).find('input.chck').is(':checked')) {
+                  IsEligible = true;
+              }
+              else
+              {
+                  IsEligible = false;
+            }
+
+
+              grade = $(this).find("td:eq(3) input[type='text']").val();
+                    var tdlist = $(this).find("td");
+
+            var Item = { AssignResources_Id: assignresid, Id: $(tdlist[0]).html(), Employee_Id: $(tdlist[1]).html(), Grade: grade, IsEligible: IsEligible };
+                    itemlist.push(Item);
+                })
+
+         var newUrl= '@Url.Action("Index", "RateEmployee")';
+                $.ajax({
+                    url: '@Url.Action("Edit", "RateEmployee")', //
+                    dataType: "json",
+                    data: JSON.stringify({ id: assignresid,RateEmployeeVm: itemlist }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
             });
 
-        });
-    });
-</script>*@
+</script>
