@@ -22,8 +22,8 @@
             </div>
             <div class="col-12 col-md-9">
                 <div class="col-12 col-md-9">
-                    @Html.DropDownListFor(m => m.EmployeeEvalTask.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
-
+                    @Html.DisplayFor(m => m.EmployeeEvalTask.Trainer.PersonalInfo.Name, new { @class = "form-control", style = "width:30%" })
+                    @Html.HiddenFor(m=>m.EmployeeEvalTask.Trainer_Id,new { @id = "trainerid" })
 
                 </div>
                 <br />

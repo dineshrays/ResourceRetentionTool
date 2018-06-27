@@ -152,7 +152,11 @@ namespace RetentionTool.Controllers
                                           }).ToList();
 
             ViewBag.empDetails = emplist;
-            getTrainers(assignresid);
+            //getTrainers(assignresid);
+            var trainerid= db.AssignEvaluaters.Where(a => a.AssignResource_Id == assignresid).Select(a => a.Trainer_Id); 
+
+            EmployeeEvalViewModel empvm = new EmployeeEvalViewModel();
+            //empvm.EmployeeEvalTask.Trainer_Id = trainerid;
             return View();
         }
         public void getTrainers(int? assignresid)

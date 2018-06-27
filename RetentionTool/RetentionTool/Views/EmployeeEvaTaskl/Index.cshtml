@@ -33,20 +33,28 @@
             <td>@item.Module.ModuleName</td>
             @*<td>@item.Trainer.Name</td>*@
             <td>
+                @{ bool IsAdded = false;
+                    int empeval = 0;}
                 @foreach (var empid in empevalDetails)
                 {
                     if (empid.AssignResource_Id == item.Id)
                     {
-                        @Html.ActionLink(" ", "Edit", new {id= empid.Id},
-                                new { @class = "ti-pencil"} )
-                        @Html.ActionLink(" ", "Delete", new { id = empid.Id }, new { @class = "ti-trash" })
-
+                        IsAdded = true;
                     }
-                    else
-                    {
-                        <a href='@Url.Action("CreateEmployeeEval", "EmployeeEvaTaskl", new {assignresid=@item.Id})'>Add Details</a>
 
-                    }
+
+                }
+                @if (IsAdded==true)
+                {
+                @Html.ActionLink(" ", "Edit", new {id= empeval },
+                        new { @class = "ti-pencil"} )
+                @Html.ActionLink(" ", "Delete", new { id = empeval }, new { @class = "ti-trash" })
+
+                }
+                else
+                {
+                <a href='@Url.Action("CreateEmployeeEval", "EmployeeEvaTaskl", new {assignresid=@item.Id})'>Add Details</a>
+
                 }
 
 
