@@ -114,18 +114,20 @@
                     </div>
                 </td>
                 <td>
-                    @{ bool added = false;}
+                    @{ bool added = false;
+                        int trainerid=0;}
                     @foreach (var training in Model.Training)
                     {
                         if (item.Id == training.AssignResource_Id)
                         {
                             added = true;
+                            trainerid = training.Id;
                         }
                     }
                     @if (added == true)
                     {
-                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
-                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                        @Html.ActionLink(" ", "Edit", new { id = @trainerid }, new { @class = "ti-pencil" })
+                        @Html.ActionLink(" ", "Delete", new { id = @trainerid }, new { @class = "ti-trash" })
                     }
                     else
                     {

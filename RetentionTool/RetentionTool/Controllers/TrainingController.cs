@@ -156,7 +156,7 @@ namespace RetentionTool.Controllers
                 db.TrainingDets.Add(td);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult delete(int id)

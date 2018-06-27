@@ -84,7 +84,7 @@
             })
 
             var mod = { FromDate: FromDate, ToDate: ToDate, AssignResource_Id: assignresid};
-
+              var newUrl= '@Url.Action("Index", "Training")';
                 $.ajax({
                     type: "POST",
                     url: "/Training/Createtraining",
@@ -92,7 +92,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-                        alert(success);
+                        window.location.href = newUrl;
                     },
                     failure: function (response) {
                         alert(response.responseText);
