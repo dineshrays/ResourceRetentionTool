@@ -28,16 +28,10 @@ namespace RetentionTool.Models
         public virtual DbSet<Commonfield> Commonfields { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
-        public virtual DbSet<AssignResourcesDet> AssignResourcesDets { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<ModuleDet> ModuleDets { get; set; }
         public virtual DbSet<AssignEvaluater> AssignEvaluaters { get; set; }
         public virtual DbSet<EmployeeEvalTask> EmployeeEvalTasks { get; set; }
-        public virtual DbSet<EmployeeEvalTaskDet> EmployeeEvalTaskDets { get; set; }
-        public virtual DbSet<RateEmployeeEligiability> RateEmployeeEligiabilities { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
-        public virtual DbSet<SessionsDet> SessionsDets { get; set; }
         public virtual DbSet<Training> Trainings { get; set; }
         public virtual DbSet<TrainingDet> TrainingDets { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -50,6 +44,10 @@ namespace RetentionTool.Models
         public virtual DbSet<ProjectsDetail> ProjectsDetails { get; set; }
         public virtual DbSet<Trainer> Trainers { get; set; }
         public virtual DbSet<CriticalResource> CriticalResources { get; set; }
+        public virtual DbSet<AssignResourcesDet> AssignResourcesDets { get; set; }
+        public virtual DbSet<EmployeeEvalTaskDet> EmployeeEvalTaskDets { get; set; }
+        public virtual DbSet<RateEmployeeEligiability> RateEmployeeEligiabilities { get; set; }
+        public virtual DbSet<SessionsDet> SessionsDets { get; set; }
         public virtual DbSet<AssignResource> AssignResources { get; set; }
         public virtual DbSet<ProjectsWorked> ProjectsWorkeds { get; set; }
     }

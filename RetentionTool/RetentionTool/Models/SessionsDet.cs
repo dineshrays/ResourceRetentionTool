@@ -16,12 +16,12 @@ namespace RetentionTool.Models
     {
         public int Id { get; set; }
         public Nullable<int> Sessions_Id { get; set; }
-        public Nullable<long> Employee_Id { get; set; }
+        public Nullable<int> Employee_Id { get; set; }
         public Nullable<bool> Attendance { get; set; }
         public string Remarks { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual Employee Employee { get; set; }
+        public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Session Session { get; set; }
     }
 }

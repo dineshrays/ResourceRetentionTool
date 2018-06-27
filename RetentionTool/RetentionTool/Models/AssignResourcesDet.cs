@@ -16,9 +16,9 @@ namespace RetentionTool.Models
     {
         public int Id { get; set; }
         public Nullable<int> AssignResources_Id { get; set; }
-        public Nullable<long> Employee_Id { get; set; }
+        public Nullable<int> Employee_Id { get; set; }
     
-        public virtual Employee Employee { get; set; }
+        public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual AssignResource AssignResource { get; set; }
     }
 }

@@ -32,33 +32,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="AssignResourcesDets">
-      <EntityTypeMapping TypeName="RetentionToolModel.AssignResourcesDet">
-        <MappingFragment StoreEntitySet="AssignResourcesDet">
-          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
-          <ScalarProperty Name="AssignResources_Id" ColumnName="AssignResources_Id" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Employees">
-      <EntityTypeMapping TypeName="RetentionToolModel.Employee">
-        <MappingFragment StoreEntitySet="Employees">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Managers">
-      <EntityTypeMapping TypeName="RetentionToolModel.Manager">
-        <MappingFragment StoreEntitySet="Managers">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ModuleDets">
       <EntityTypeMapping TypeName="RetentionToolModel.ModuleDet">
         <MappingFragment StoreEntitySet="ModuleDet">
@@ -89,31 +62,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="EmployeeEvalTaskDets">
-      <EntityTypeMapping TypeName="RetentionToolModel.EmployeeEvalTaskDet">
-        <MappingFragment StoreEntitySet="EmployeeEvalTaskDet">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="IsEligiableMark" ColumnName="IsEligiableMark" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="TaskAssigned" ColumnName="TaskAssigned" />
-          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
-          <ScalarProperty Name="EmployeeEvalTask_Id" ColumnName="EmployeeEvalTask_Id" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RateEmployeeEligiabilities">
-      <EntityTypeMapping TypeName="RetentionToolModel.RateEmployeeEligiability">
-        <MappingFragment StoreEntitySet="RateEmployeeEligiability">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="IsEligible" ColumnName="IsEligible" />
-          <ScalarProperty Name="Grade" ColumnName="Grade" />
-          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
-          <ScalarProperty Name="AssignResources_Id" ColumnName="AssignResources_Id" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Sessions">
       <EntityTypeMapping TypeName="RetentionToolModel.Session">
         <MappingFragment StoreEntitySet="Sessions">
@@ -122,18 +70,6 @@
           <ScalarProperty Name="Hours" ColumnName="Hours" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="TrainingDet_Id" ColumnName="TrainingDet_Id" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="SessionsDets">
-      <EntityTypeMapping TypeName="RetentionToolModel.SessionsDet">
-        <MappingFragment StoreEntitySet="SessionsDet">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-          <ScalarProperty Name="Attendance" ColumnName="Attendance" />
-          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
-          <ScalarProperty Name="Sessions_Id" ColumnName="Sessions_Id" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -301,6 +237,52 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AssignResourcesDets">
+      <EntityTypeMapping TypeName="RetentionToolModel.AssignResourcesDet">
+        <MappingFragment StoreEntitySet="AssignResourcesDet">
+          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+          <ScalarProperty Name="AssignResources_Id" ColumnName="AssignResources_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeEvalTaskDets">
+      <EntityTypeMapping TypeName="RetentionToolModel.EmployeeEvalTaskDet">
+        <MappingFragment StoreEntitySet="EmployeeEvalTaskDet">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsEligiableMark" ColumnName="IsEligiableMark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="TaskAssigned" ColumnName="TaskAssigned" />
+          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+          <ScalarProperty Name="EmployeeEvalTask_Id" ColumnName="EmployeeEvalTask_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RateEmployeeEligiabilities">
+      <EntityTypeMapping TypeName="RetentionToolModel.RateEmployeeEligiability">
+        <MappingFragment StoreEntitySet="RateEmployeeEligiability">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsEligible" ColumnName="IsEligible" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+          <ScalarProperty Name="AssignResources_Id" ColumnName="AssignResources_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionsDets">
+      <EntityTypeMapping TypeName="RetentionToolModel.SessionsDet">
+        <MappingFragment StoreEntitySet="SessionsDet">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Attendance" ColumnName="Attendance" />
+          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+          <ScalarProperty Name="Sessions_Id" ColumnName="Sessions_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="AssignResources">
       <EntityTypeMapping TypeName="RetentionToolModel.AssignResource">
         <MappingFragment StoreEntitySet="AssignResources">
@@ -308,6 +290,7 @@
           <ScalarProperty Name="Module_Id" ColumnName="Module_Id" />
           <ScalarProperty Name="Trainer_Id" ColumnName="Trainer_Id" />
           <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+          <ScalarProperty Name="Project_Id" ColumnName="Project_Id" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>

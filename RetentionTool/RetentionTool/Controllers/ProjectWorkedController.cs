@@ -17,6 +17,7 @@ namespace RetentionTool.Controllers
             ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
 
             prjctwrkvm.projectvm = prjctwrk;
+            //ViewBag.pro = prjctwrk;
             return View(prjctwrkvm);
         }
 
@@ -87,7 +88,7 @@ namespace RetentionTool.Controllers
 
         public void getManagers()
         {
-            var val = new SelectList(db.Managers.ToList(), "id", "Name");
+            var val = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
             ViewData["managerslist"] = val;
         }
         public void getProjectList()

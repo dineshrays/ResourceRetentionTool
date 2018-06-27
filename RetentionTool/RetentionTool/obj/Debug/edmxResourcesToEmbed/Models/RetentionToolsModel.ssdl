@@ -15,7 +15,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Date" Type="date" />
-    <Property Name="Manager_Id" Type="bigint" />
+    <Property Name="Project_Id" Type="int" />
+    <Property Name="Manager_Id" Type="int" />
     <Property Name="Trainer_Id" Type="bigint" />
     <Property Name="Module_Id" Type="int" />
     <Property Name="IsActive" Type="bit" />
@@ -26,7 +27,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AssignResources_Id" Type="int" />
-    <Property Name="Employee_Id" Type="bigint" />
+    <Property Name="Employee_Id" Type="int" />
   </EntityType>
   <EntityType Name="Commonfields">
     <Key>
@@ -97,18 +98,10 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="EmployeeEvalTask_Id" Type="int" />
-    <Property Name="Employee_Id" Type="bigint" />
+    <Property Name="Employee_Id" Type="int" />
     <Property Name="TaskAssigned" Type="varchar" MaxLength="50" />
     <Property Name="Status" Type="varchar" MaxLength="50" />
     <Property Name="IsEligiableMark" Type="bit" />
-    <Property Name="IsActive" Type="bit" />
-  </EntityType>
-  <EntityType Name="Employees">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="250" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="EmployeeSkills">
@@ -136,14 +129,6 @@
     <Property Name="Designation" Type="varchar" MaxLength="250" />
     <Property Name="ProjectWorked" Type="int" />
     <Property Name="TechnologiesUsed" Type="varchar" MaxLength="250" />
-    <Property Name="IsActive" Type="bit" />
-  </EntityType>
-  <EntityType Name="Managers">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="250" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Module">
@@ -207,7 +192,7 @@
     <Property Name="EndDate" Type="datetime" />
     <Property Name="Description" Type="varchar" MaxLength="250" />
     <Property Name="TeamMembers" Type="int" />
-    <Property Name="Manager_Id" Type="bigint" />
+    <Property Name="Manager_Id" Type="int" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="RateEmployeeEligiability">
@@ -216,7 +201,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AssignResources_Id" Type="int" />
-    <Property Name="Employee_Id" Type="bigint" />
+    <Property Name="Employee_Id" Type="int" />
     <Property Name="Grade" Type="varchar" MaxLength="50" />
     <Property Name="IsEligible" Type="bit" />
     <Property Name="IsActive" Type="bit" />
@@ -247,7 +232,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Sessions_Id" Type="int" />
-    <Property Name="Employee_Id" Type="bigint" />
+    <Property Name="Employee_Id" Type="int" />
     <Property Name="Attendance" Type="bit" />
     <Property Name="Remarks" Type="varchar" MaxLength="500" />
     <Property Name="IsActive" Type="bit" />
@@ -327,10 +312,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_AssignResources_Managers">
-    <End Role="Managers" Type="Self.Managers" Multiplicity="0..1" />
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="AssignResources" Type="Self.AssignResources" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Managers">
+      <Principal Role="PersonalInfo">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="AssignResources">
@@ -347,6 +332,18 @@
       </Principal>
       <Dependent Role="AssignResources">
         <PropertyRef Name="Module_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssignResources_ProjectsDetails">
+    <End Role="ProjectsDetails" Type="Self.ProjectsDetails" Multiplicity="0..1" />
+    <End Role="AssignResources" Type="Self.AssignResources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectsDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignResources">
+        <PropertyRef Name="Project_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -375,10 +372,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_AssignResourcesDet_Employees">
-    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="AssignResourcesDet" Type="Self.AssignResourcesDet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employees">
+      <Principal Role="PersonalInfo">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="AssignResourcesDet">
@@ -471,10 +468,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_EmployeeEvalTaskDet_Employees">
-    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="EmployeeEvalTaskDet" Type="Self.EmployeeEvalTaskDet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employees">
+      <Principal Role="PersonalInfo">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="EmployeeEvalTaskDet">
@@ -567,10 +564,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ProjectsWorked_Managers">
-    <End Role="Managers" Type="Self.Managers" Multiplicity="0..1" />
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="ProjectsWorked" Type="Self.ProjectsWorked" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Managers">
+      <Principal Role="PersonalInfo">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="ProjectsWorked">
@@ -615,10 +612,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_RateEmployeeEligiability_Employees">
-    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="RateEmployeeEligiability" Type="Self.RateEmployeeEligiability" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employees">
+      <Principal Role="PersonalInfo">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="RateEmployeeEligiability">
@@ -639,10 +636,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SessionsDet_Employees">
-    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="SessionsDet" Type="Self.SessionsDet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employees">
+      <Principal Role="PersonalInfo">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="SessionsDet">
@@ -744,10 +741,8 @@
     <EntitySet Name="EducationQualification" EntityType="Self.EducationQualification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeEvalTask" EntityType="Self.EmployeeEvalTask" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeEvalTaskDet" EntityType="Self.EmployeeEvalTaskDet" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeSkills" EntityType="Self.EmployeeSkills" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Managers" EntityType="Self.Managers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ModuleDet" EntityType="Self.ModuleDet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
@@ -771,11 +766,15 @@
       <End Role="AssignEvaluater" EntitySet="AssignEvaluater" />
     </AssociationSet>
     <AssociationSet Name="FK_AssignResources_Managers" Association="Self.FK_AssignResources_Managers">
-      <End Role="Managers" EntitySet="Managers" />
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
       <End Role="AssignResources" EntitySet="AssignResources" />
     </AssociationSet>
     <AssociationSet Name="FK_AssignResources_Module" Association="Self.FK_AssignResources_Module">
       <End Role="Module" EntitySet="Module" />
+      <End Role="AssignResources" EntitySet="AssignResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssignResources_ProjectsDetails" Association="Self.FK_AssignResources_ProjectsDetails">
+      <End Role="ProjectsDetails" EntitySet="ProjectsDetails" />
       <End Role="AssignResources" EntitySet="AssignResources" />
     </AssociationSet>
     <AssociationSet Name="FK_AssignResources_Trainers" Association="Self.FK_AssignResources_Trainers">
@@ -787,7 +786,7 @@
       <End Role="AssignResourcesDet" EntitySet="AssignResourcesDet" />
     </AssociationSet>
     <AssociationSet Name="FK_AssignResourcesDet_Employees" Association="Self.FK_AssignResourcesDet_Employees">
-      <End Role="Employees" EntitySet="Employees" />
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
       <End Role="AssignResourcesDet" EntitySet="AssignResourcesDet" />
     </AssociationSet>
     <AssociationSet Name="FK_CriticalResource_PersonalInfo" Association="Self.FK_CriticalResource_PersonalInfo">
@@ -819,7 +818,7 @@
       <End Role="EmployeeEvalTaskDet" EntitySet="EmployeeEvalTaskDet" />
     </AssociationSet>
     <AssociationSet Name="FK_EmployeeEvalTaskDet_Employees" Association="Self.FK_EmployeeEvalTaskDet_Employees">
-      <End Role="Employees" EntitySet="Employees" />
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
       <End Role="EmployeeEvalTaskDet" EntitySet="EmployeeEvalTaskDet" />
     </AssociationSet>
     <AssociationSet Name="FK_EmployeeSkills_Commonfields" Association="Self.FK_EmployeeSkills_Commonfields">
@@ -851,7 +850,7 @@
       <End Role="ModuleDet" EntitySet="ModuleDet" />
     </AssociationSet>
     <AssociationSet Name="FK_ProjectsWorked_Managers" Association="Self.FK_ProjectsWorked_Managers">
-      <End Role="Managers" EntitySet="Managers" />
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
       <End Role="ProjectsWorked" EntitySet="ProjectsWorked" />
     </AssociationSet>
     <AssociationSet Name="FK_ProjectsWorked_PersonalInfo" Association="Self.FK_ProjectsWorked_PersonalInfo">
@@ -867,7 +866,7 @@
       <End Role="RateEmployeeEligiability" EntitySet="RateEmployeeEligiability" />
     </AssociationSet>
     <AssociationSet Name="FK_RateEmployeeEligiability_Employees" Association="Self.FK_RateEmployeeEligiability_Employees">
-      <End Role="Employees" EntitySet="Employees" />
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
       <End Role="RateEmployeeEligiability" EntitySet="RateEmployeeEligiability" />
     </AssociationSet>
     <AssociationSet Name="FK_Sessions_TrainingDet" Association="Self.FK_Sessions_TrainingDet">
@@ -875,7 +874,7 @@
       <End Role="Sessions" EntitySet="Sessions" />
     </AssociationSet>
     <AssociationSet Name="FK_SessionsDet_Employees" Association="Self.FK_SessionsDet_Employees">
-      <End Role="Employees" EntitySet="Employees" />
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
       <End Role="SessionsDet" EntitySet="SessionsDet" />
     </AssociationSet>
     <AssociationSet Name="FK_SessionsDet_Sessions" Association="Self.FK_SessionsDet_Sessions">

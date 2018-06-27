@@ -11,7 +11,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h2>Identify\Critical Resource</h2>
+        <h2>Identify Critical Resource</h2>
 
     </div>
     <div class="card-body card-block">
@@ -20,6 +20,7 @@
                 @Html.LabelFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })
             </div>
             <div class="col-12 col-md-9">
+                @Html.HiddenFor(model => model.projects.Project_Id, new { @id = "projectId" })
                 @Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
             </div>
         </div>
@@ -128,7 +129,7 @@
                         @{ bool IsCriticalRes = false;}
                         @foreach (var id in ViewBag.CriticalRes)
                         {
-                            if (id == item.PersonalInfo.Id)
+                            if (id == item.PersonalInfo1.Id)
                             {
                                 IsCriticalRes = true;
 
@@ -152,9 +153,9 @@
                         }
 
                     </td>
-                    <td>@item.PersonalInfo.Name</td>
-                    <td>@item.PersonalInfo.EmpCode</td>
-                    <td style="display:none;width:0%">@item.PersonalInfo.Id</td>
+                    <td>@item.PersonalInfo1.Name</td>
+                    <td>@item.PersonalInfo1.EmpCode</td>
+                    <td style="display:none;width:0%">@item.PersonalInfo1.Id</td>
                     <td>@item.Designation</td>
                     <td>@item.Responsibilities</td>
                     <td>
@@ -162,7 +163,7 @@
 
                         @foreach (var id in ViewBag.TrainerDet)
                         {
-                            if (id == item.PersonalInfo.Id)
+                            if (id == item.PersonalInfo1.Id)
                             {
                                 isTrainer = true;
                                 //<input type="checkbox" class="chcktrainer" checked/>
@@ -226,6 +227,7 @@
 
           var itemlist = [];
           var trainerlist = [];
+          var projectId = $("#projectId").val();
           $("table tr:not(:first)").each(function () {
               //var tdlist = $(this).find("td");
               //var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html() };
@@ -235,7 +237,7 @@
                           //iseligible = true;
                           //  var p_id = $(tdlist[0]).html();
                   var tdlist = $(this).find("td");
-                  var Item = { PersonalInfo_Id: $(tdlist[3]).html() };
+                  var Item = { PersonalInfo_Id: $(tdlist[3]).html(), Project_Id: projectId };
                           itemlist.push(Item);
               }
               if ($(this).find('input.chcktrainer').is(':checked')) {

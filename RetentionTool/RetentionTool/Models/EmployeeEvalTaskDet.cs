@@ -16,13 +16,13 @@ namespace RetentionTool.Models
     {
         public int Id { get; set; }
         public Nullable<int> EmployeeEvalTask_Id { get; set; }
-        public Nullable<long> Employee_Id { get; set; }
+        public Nullable<int> Employee_Id { get; set; }
         public string TaskAssigned { get; set; }
         public string Status { get; set; }
         public Nullable<bool> IsEligiableMark { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
         public virtual EmployeeEvalTask EmployeeEvalTask { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual PersonalInfo PersonalInfo { get; set; }
     }
 }

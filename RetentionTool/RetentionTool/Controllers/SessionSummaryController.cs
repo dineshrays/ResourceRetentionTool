@@ -96,7 +96,7 @@ namespace RetentionTool.Controllers
                                            on assResDet.AssignResources_Id equals training.AssignResource_Id
                                           join trainingdet in db.TrainingDets
                                           on training.Id equals trainingdet.Training_Id
-                                          join emp in db.Employees
+                                          join emp in db.PersonalInfoes
                                           on assResDet.Employee_Id equals emp.Id
                                           where
                                            emp.IsActive == true && trainingdet.ModuleDet_Id == moduledetid && trainingdet.Training_Id == trainingid
@@ -126,7 +126,7 @@ namespace RetentionTool.Controllers
 
 
             List<SessionSummaryList> sessionlist = (from sessDet in db.SessionsDets
-                                          join emp in db.Employees
+                                          join emp in db.PersonalInfoes
                                          on sessDet.Employee_Id equals emp.Id
                                           where
                                            sessDet.IsActive == true &&
@@ -190,7 +190,7 @@ namespace RetentionTool.Controllers
 
 
             List<SessionSummaryList> sessionlist = (from sessDet in db.SessionsDets
-                                                    join emp in db.Employees
+                                                    join emp in db.PersonalInfoes
                                                    on sessDet.Employee_Id equals emp.Id
                                                     where
                                                      sessDet.IsActive == true &&
@@ -240,7 +240,7 @@ namespace RetentionTool.Controllers
                        on assResDet.AssignResources_Id equals training.AssignResource_Id
                       join trainingdet in db.TrainingDets
                       on training.Id equals trainingdet.Training_Id
-                      join emp in db.Employees
+                      join emp in db.PersonalInfoes
                       on assResDet.Employee_Id equals emp.Id
                       where
                        emp.IsActive == true && trainingdet.ModuleDet_Id == moduledet_id && trainingdet.Training_Id == trainingid
@@ -276,7 +276,7 @@ namespace RetentionTool.Controllers
             // var val = db.Employees.Where(a => a.Name.Contains(name)).ToList();
             //IEnumerable<SelectListItem> skilldet =  
             //  List<string> va = new List<string>();
-            List<EmployeeList> va = (from emp in db.Employees
+            List<EmployeeList> va = (from emp in db.PersonalInfoes
                                      where emp.Name.Contains(name)
 
             && emp.IsActive == true

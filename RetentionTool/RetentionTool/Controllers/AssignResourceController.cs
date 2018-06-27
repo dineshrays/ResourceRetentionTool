@@ -23,13 +23,15 @@ namespace RetentionTool.Controllers
                                 {
                                     Id = assignres.Id,
                                     Manager_Id = assignres.Manager_Id,
-                                 managername=   assignres.Manager.Name,
+                                    Project_Id=assignres.Project_Id,
+                                    projectname=assignres.ProjectsDetail.Name,
+                                 managername =   assignres.PersonalInfo.Name,
                                  Module_Id=    assignres.Module_Id,
                                 modulename=    assignres.Module.ModuleName,
                                  Trainer_Id=   assignres.Trainer_Id,
                                   trainername=  assignres.Trainer.PersonalInfo.Name,
                                  Employee_Id=   assignresdet.Employee_Id,
-                                  employeename=  assignresdet.Employee.Name,
+                                  employeename=  assignresdet.PersonalInfo.Name,
                                   Date=  assignres.Date,
                                  IsActive=   assignres.IsActive,
                                 AssignResourceId=  assignresdet.Id
@@ -74,6 +76,7 @@ namespace RetentionTool.Controllers
                 {
                     Id = assgnResvm.Id,
                     Date = assgnResvm.Date,
+                    Project_Id=assgnResvm.Project_Id,
                     Manager_Id = assgnResvm.Manager_Id,
                     Trainer_Id = assgnResvm.Trainer_Id,
                     Module_Id = assgnResvm.Module_Id,
@@ -111,7 +114,9 @@ namespace RetentionTool.Controllers
             assVM.assignResource = new AssignResourceViewModel();
             assVM.assignResource.Id = assignresourcedb.Id;
             assVM.assignResource.Date = assignresourcedb.Date;
-            assVM.assignResource.managername = assignresourcedb.Manager.Name;
+            assVM.assignResource.Project_Id = assignresourcedb.Project_Id;
+            assVM.assignResource.projectname = assignresourcedb.ProjectsDetail.Name;
+            assVM.assignResource.managername = assignresourcedb.PersonalInfo.Name;
             assVM.assignResource.Manager_Id = assignresourcedb.Manager_Id;
             assVM.assignResource.trainername = assignresourcedb.Trainer.PersonalInfo.Name;
             assVM.assignResource.Trainer_Id = assignresourcedb.Trainer_Id;
@@ -158,6 +163,7 @@ namespace RetentionTool.Controllers
             AssignResource assignRes = new AssignResource()
             {
                 Id =id,
+                Project_Id=assgnResvm.Project_Id,
             Manager_Id= assgnResvm.Manager_Id,
             Module_Id= assgnResvm.Module_Id,
             Trainer_Id= assgnResvm.Trainer_Id,
@@ -200,14 +206,16 @@ namespace RetentionTool.Controllers
             {
                 Id = assignres.Id,
                 Date = assignres.Date,
-                managername = assignres.Manager.Name,
+                projectname=assignres.ProjectsDetail.Name,
+                Project_Id=assignres.Project_Id,
+                managername = assignres.PersonalInfo.Name,
                
                 trainername = assignres.Trainer.PersonalInfo.Name,
               
                 modulename = assignres.Module.ModuleName,
                
                 AssignResourceId = assignresdet.Id,
-                employeename = assignresdet.Employee.Name
+                employeename = assignresdet.PersonalInfo.Name
 
 
             };
@@ -227,18 +235,44 @@ namespace RetentionTool.Controllers
         }
         public void getTrainers()
         {
-            var val = new SelectList(db.Trainers.ToList(), "id", "Name");
-            ViewData["trainerslist"] = val;
+            var data = (from personalInfo in db.PersonalInfoes
+                        join
+trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
+//join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+where personalInfo.IsActive==true && trainer.IsActive==true  
+//&& 
+                        select new
+                        {
+                            Id=personalInfo.Id,
+                            Name=personalInfo.Name
+                        }).ToList();
+            //  var val = new SelectList(db.PersonalInfoes.ToList(), "Id", "Name");
+            ViewData["trainerslist"] = new SelectList(data,"Id","Name");
+                //val;
         }
         public void getManagers()
         {
-            var val = new SelectList(db.Managers.ToList(), "id", "Name");
+            
+            var val = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
             ViewData["managerslist"] = val;
         }
         public void getEmployees()
         {
-            var val = new SelectList(db.Employees.Where(a => a.IsActive == true).ToList(), "id", "Name");
-            ViewData["employeeslist"] = val;
+            var data = (from personalInfo in db.PersonalInfoes
+                        join
+
+                         userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                        where personalInfo.IsActive == true && userdet.IsActive == true
+                        && userdet.Role_Id==3
+                        select new
+                        {
+                            Id = personalInfo.Id,
+                            Name = personalInfo.Name
+                        }).ToList();
+            //  var val = new SelectList(db.PersonalInfoes.ToList(), "Id", "Name");
+            ViewData["employeeslist"] = new SelectList(data, "Id", "Name");
+            //var val = new SelectList(db.PersonalInfoes.Where(a => a.IsActive == true).ToList(), "id", "Name");
+            //ViewData["employeeslist"] = val;
         }
         public void getModules()
         {
@@ -254,16 +288,72 @@ namespace RetentionTool.Controllers
             // var val = db.Employees.Where(a => a.Name.Contains(name)).ToList();
             //IEnumerable<SelectListItem> skilldet =  
           //  List<string> va = new List<string>();
-          List< EmployeeList>  va = (from emp in db.Employees where emp.Name.Contains(name)
+          List< EmployeeList>  va = (from emp in db.PersonalInfoes
+                                     join
+
+                        userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
+                                     where emp.EmpCode.Contains(name)
                                   
-                                     && emp.IsActive==true
+                                     && emp.IsActive==true  && userdet.IsActive==true && userdet.Role_Id==3
                                      select new EmployeeList
           {
               Id=emp.Id,
-              Name=emp.Name
+              Name=emp.Name,
+              EmpCode=emp.EmpCode
           }).ToList();
             return new JsonResult{ Data = va, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
+
+        public JsonResult getProjects(string name)
+        {
+            List<EmployeeList> va = (from project in db.ProjectsDetails join
+                                     projectworked in db.ProjectsWorkeds on
+                                     project.Id equals projectworked.Project_Id
+                                     //join critical in db.CriticalResources on
+                                     //projectworked.PersonalInfo_Id equals critical.PersonalInfo_Id
+
+                                     where project.Name.Contains(name)
+
+         && project.IsActive == true && projectworked.IsActive==true
+                                     select new EmployeeList
+                                     {
+                                         Id = project.Id,
+                                         Name=project.Name
+                                        
+                                     }).Distinct().ToList();
+            return new JsonResult { Data = va, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+        }
+        public JsonResult getProjectInfo(int id)
+        {
+            ProjectsWorked projectsWorked = db.ProjectsWorkeds.FirstOrDefault(a => a.IsActive == true && a.Project_Id == id);
+            //List<ProjectsWorked> projectsWorked = (from prjct in db.ProjectsWorkeds
+            //                            join critical in db.CriticalResources
+            //                            on prjct.Project_Id equals critical.Project_Id
+            //                            where prjct.Project_Id == id && prjct.IsActive == true
+            //                            && critical.IsActive == true 
+            //                            select new ProjectsWorked
+            //                            {
+            //                                Manager_Id=prjct.Manager_Id,
+            //                                PersonalInfo_Id=critical.PersonalInfo_Id
+
+            //                            }
+            //                           ).Distinct().ToList();
+            CriticalResource criticalRes = db.CriticalResources.FirstOrDefault(a => a.IsActive == true && a.Project_Id == id);
+            AssignResProjectDetails assResPrjDet = new AssignResProjectDetails();
+            assResPrjDet.Manager_Id = projectsWorked.Manager_Id;
+            if (criticalRes!=null)
+            {
+                assResPrjDet.Trainer_Id = criticalRes.PersonalInfo_Id;
+            }
+            
+           
+           
+            return new JsonResult { Data = assResPrjDet, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
     }
 }

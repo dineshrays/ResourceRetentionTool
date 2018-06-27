@@ -26,15 +26,17 @@ namespace RetentionTool.Models
     
         public int Id { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<long> Manager_Id { get; set; }
+        public Nullable<int> Project_Id { get; set; }
+        public Nullable<int> Manager_Id { get; set; }
         public Nullable<long> Trainer_Id { get; set; }
         public Nullable<int> Module_Id { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignEvaluater> AssignEvaluaters { get; set; }
-        public virtual Manager Manager { get; set; }
+        public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Module Module { get; set; }
+        public virtual ProjectsDetail ProjectsDetail { get; set; }
         public virtual Trainer Trainer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignResourcesDet> AssignResourcesDets { get; set; }

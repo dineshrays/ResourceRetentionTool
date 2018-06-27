@@ -14,7 +14,7 @@
             <th>@Html.DisplayNameFor(model => model.AssignEvaluater.Id)</th>
 
             <th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource_Id)</th>
-
+            <th>@Html.Label("Project Name")</th>
             <th>@Html.Label("Module Name")</th>
             <th>@Html.Label("Assigned Trainer Name")</th>
             <th>@Html.Label("Actions")</th>
@@ -24,6 +24,7 @@
         <tr>
             <td>@item.Id</td>
             <td>@item.AssignResource_Id</td>
+            <td>@item.AssignResource.ProjectsDetail.Name</td>
             <td>@item.AssignResource.Module.ModuleName</td>
 
             <td>@item.Trainer.PersonalInfo.Name</td>

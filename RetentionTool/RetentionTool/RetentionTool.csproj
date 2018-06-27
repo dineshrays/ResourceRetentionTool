@@ -1351,7 +1351,6 @@
     <Compile Include="Controllers\AssignResourceDetController.cs" />
     <Compile Include="Controllers\CommonFieldController.cs" />
     <Compile Include="Controllers\CriticalResourceController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeEvaTasklController.cs" />
     <Compile Include="Controllers\EmployeeInformationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -1377,6 +1376,7 @@
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AssignResourceViewModel.cs" />
+    <Compile Include="Models\AssignResProjectDetails.cs" />
     <Compile Include="Models\Commonfield.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1392,9 +1392,6 @@
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EducationQualificationModel.cs" />
-    <Compile Include="Models\Employee.cs">
-      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EmployeeEvalTask.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1412,9 +1409,6 @@
     </Compile>
     <Compile Include="Models\ExperienceModel.cs" />
     <Compile Include="Models\Items.cs" />
-    <Compile Include="Models\Manager.cs">
-      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Module.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1525,10 +1519,6 @@
     <Content Include="Scripts\README.md" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Views\Employee\Index.cshtml" />
-    <Content Include="Views\Employee\Create.cshtml" />
-    <Content Include="Views\Employee\Edit.cshtml" />
-    <Content Include="Views\Employee\Delete.cshtml" />
     <Content Include="Views\AssignResource\Index.cshtml" />
     <Content Include="Views\AssignResource\Create.cshtml" />
     <Content Include="Views\AssignResource\Edit.cshtml" />
