@@ -63,47 +63,75 @@ namespace RetentionTool.Controllers
 
         public ActionResult Edit( int id)
         {
-            RateEmployeeEligiability re = db.RateEmployeeEligiabilities.Find(id);
+            RateEmployeeEligiability re = db.RateEmployeeEligiabilities.FirstOrDefault(a=>a.AssignResources_Id==id);
 
-            
-            return View(re);
+
+            List<RateEmployeeEligiability> rateEmpEliList = db.RateEmployeeEligiabilities.Where(a => a.AssignResources_Id == id).ToList();
+            RateEmployeeViewModel rateviewmodel = new RateEmployeeViewModel();
+            rateviewmodel.RateEmployee = rateEmpEliList;
+            rateviewmodel.RateEmployeeVm = re;
+
+            return View(rateviewmodel);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id,RateEmployeeEligiability ree)
+        public ActionResult Edit(int id,List<RateEmployeeEligiability> RateEmployeeVm)
         {
-            
-                ree.IsActive = true;
-               
-                db.Entry(ree).State = System.Data.Entity.EntityState.Modified;
-            
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            foreach(var rateitem in RateEmployeeVm)
+            {
+                rateitem.AssignResources_Id = id;
+                rateitem.IsActive = true;
+                db.Entry(rateitem).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            //RateEmployeeEligiability rateempelig = db.RateEmployeeEligiabilities.FirstOrDefault(a => a.AssignResources_Id == id);
+
+            //rateempelig.Grade = ree.Grade;
+            //rateempelig.IsEligible = ree.IsEligible;
+            ////ree.IsActive = true;
+
+            //    db.Entry(rateempelig).State = System.Data.Entity.EntityState.Modified;
+
+            //db.SaveChanges();
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
 
         public ActionResult Delete(int id)
         {
-            RateEmployeeEligiability re = db.RateEmployeeEligiabilities.Find(id);
+            RateEmployeeEligiability re = db.RateEmployeeEligiabilities.FirstOrDefault(a => a.AssignResources_Id == id);
 
 
-            return View(re);
+            List<RateEmployeeEligiability> rateEmpEliList = db.RateEmployeeEligiabilities.Where(a => a.AssignResources_Id == id).ToList();
+            RateEmployeeViewModel rateviewmodel = new RateEmployeeViewModel();
+            rateviewmodel.RateEmployee = rateEmpEliList;
+            rateviewmodel.RateEmployeeVm = re;
+
+            return View(rateviewmodel);
         }
 
         [HttpPost]
         public ActionResult Delete(int id, RateEmployeeEligiability ree)
         {
-            RateEmployeeEligiability rateempelig = db.RateEmployeeEligiabilities.Find(id);
-            if(rateempelig.Id== id)
+            List<RateEmployeeEligiability> rateEmpEliList = db.RateEmployeeEligiabilities.Where(a => a.AssignResources_Id == id).ToList();
+foreach(var item in rateEmpEliList)
             {
-                rateempelig.IsActive = false;
-
-                db.Entry(rateempelig).State = System.Data.Entity.EntityState.Modified;
-
+                item.IsActive = false;
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-
-
             }
+
+            //RateEmployeeEligiability rateempelig = db.RateEmployeeEligiabilities.Find(id);
+            //if(rateempelig.Id== id)
+            //{
+            //    rateempelig.IsActive = false;
+
+            //    db.Entry(rateempelig).State = System.Data.Entity.EntityState.Modified;
+
+            //    db.SaveChanges();
+
+
+            //}
 
 
             return RedirectToAction("Index");
