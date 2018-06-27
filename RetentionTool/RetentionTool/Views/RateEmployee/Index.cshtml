@@ -21,7 +21,7 @@
                     @Html.Label("Manager Name")
                 </th>
                 <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.AssignResource.Module.ModuleName)</th>
-                <th>@Html.Label("Trainer Name")</th>
+                @*<th>@Html.Label("Trainer Name")</th>*@
 
 
                 <th>@Html.Label("Actions")</th>
@@ -32,7 +32,7 @@
                 <td>@item.Id</td>
                 <td>@item.Manager.Name</td>
                 <td>@item.Module.ModuleName</td>
-                <td>@item.Trainer.PersonalInfo.Name</td>
+                @*<td>@item.Trainer.PersonalInfo.Name</td>*@
 
                 <td>
                     @foreach(var rate in rateemployeeel)
