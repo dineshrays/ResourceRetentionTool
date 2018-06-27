@@ -127,7 +127,7 @@ namespace RetentionTool.Controllers
             db.SaveChanges();
 
             pw.PersonalInfo_Id = p.Id;
-            pw.Project_Id = ProjectsWorkedVm.Project_Id;
+            pw.Project_Id = ProjectsWorkedVm.PersonalInfo_Id;
             pw.Designation = ProjectsWorkedVm.Designation;
             pw.Responsibilities = ProjectsWorkedVm.Responsibilities;
             pw.StartDate = ProjectsWorkedVm.StartDate;

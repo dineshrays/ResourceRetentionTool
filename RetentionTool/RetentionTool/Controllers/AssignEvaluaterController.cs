@@ -87,7 +87,23 @@ namespace RetentionTool.Controllers
        
         public void getTrainers(int? assignresid)
         {
-            var val = new SelectList(db.Trainers.Where(a => !db.AssignResources.Any(p2 => p2.Trainer_Id == a.Id && p2.Id == assignresid && a.IsActive == true)).ToList(), "id", "Name");
+
+            var data = (from personalInfo in db.PersonalInfoes
+                        join
+trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
+//join assignres in db.AssignResources on personalInfo.Id 
+                        //join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                        where personalInfo.IsActive == true && trainer.IsActive == true
+
+                        //&& 
+                        select new
+                        {
+                            Id = personalInfo.Id,
+                            Name = personalInfo.Name
+                        }).ToList();
+            //  var val = new SelectList(db.PersonalInfoes.ToList(), "Id", "Name");
+            //ViewData["trainerslist"] = new SelectList(data, "Id", "Name");
+            var val = new SelectList(data.Where(a => !db.AssignResources.Any(p2 => p2.Trainer_Id == a.Id && p2.Id == assignresid )).ToList(), "id", "Name");
             ViewData["trainerslist"] = val;
         }
     }

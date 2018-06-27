@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<RetentionTool.Models.ProjectsDetail>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Index Project Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Index Project Details</h2>
+<div class="card-body">
+    @Html.ActionLink("Create New", "Create", "ProjectsDetails" , null, new { @class = "btn btn-outline-primary" }) 
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table table-striped">
     <tr>
         <th>
@@ -26,9 +26,9 @@
         </td>
         
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-           
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink(" ", "Edit", new {id=item.Id},
+                 new { @class = "ti-pencil"} )
+            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
         </td>
     </tr>
 }

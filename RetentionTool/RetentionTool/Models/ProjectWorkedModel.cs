@@ -26,7 +26,7 @@ namespace RetentionTool.Models
         public Nullable<bool> IsActive { get; set; }
         
         public virtual PersonalInfo PersonalInfo { get;set;}
-        public virtual Manager Manager { get; set; }
+        public virtual PersonalInfo PersonalInfo1 { get; set; }
         public virtual ProjectsDetail ProjectsDetail { get; set; }
     }
 }

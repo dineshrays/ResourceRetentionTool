@@ -14,22 +14,20 @@ namespace RetentionTool.Controllers
     {
         private RetentionToolEntities db = new RetentionToolEntities();
 
-        // GET: ProjectsDetails
+      
         public ActionResult Index()
         {
             return View(db.ProjectsDetails.ToList());
         }
 
        
-        // GET: ProjectsDetails/Create
+       
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ProjectsDetails/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+    
         [HttpPost]
         public ActionResult Create(ProjectsDetail projectsDetail)
         {
@@ -44,7 +42,7 @@ namespace RetentionTool.Controllers
             return View(projectsDetail);
         }
 
-        // GET: ProjectsDetails/Edit/5
+       
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -63,7 +61,6 @@ namespace RetentionTool.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,IsActive")] ProjectsDetail projectsDetail)
         {
             if (ModelState.IsValid)
@@ -91,9 +88,8 @@ namespace RetentionTool.Controllers
             return View(projectsDetail);
         }
 
-        // POST: ProjectsDetails/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+     
+        [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {
             ProjectsDetail projectsDetail = db.ProjectsDetails.Find(id);

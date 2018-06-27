@@ -8,11 +8,11 @@ namespace RetentionTool.Models
 {
     public class ProjectsWorkedmodel
     {
-        
-       
+
+
         public int Id { get; set; }
-        public Nullable<int> P_Id { get; set; }
-        public string ProjectName { get; set; }
+        public Nullable<int> PersonalInfo_Id { get; set; }
+        public Nullable<int> Project_Id { get; set; }
         public string Designation { get; set; }
         public string Responsibilities { get; set; }
         [DataType(DataType.Date)]
@@ -27,5 +27,7 @@ namespace RetentionTool.Models
         public Nullable<bool> IsActive { get; set; }
 
         public virtual PersonalInfo PersonalInfo { get; set; }
+        public virtual PersonalInfo PersonalInfo1 { get; set; }
+        public virtual ProjectsDetail ProjectsDetail { get; set; }
     }
 }
