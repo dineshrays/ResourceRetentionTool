@@ -24,7 +24,7 @@
     <div class="card-body card-block">
         @*@using (Html.BeginForm())
 
-        {*@
+            {*@
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.Date, new { @class = " form-control-label" })
@@ -39,26 +39,26 @@
 
         </div>
         <br />
-       <div class="row form-group">
-        <div class="col col-md-3">
-            @Html.Label("Project Name", new { @class = " form-control-label" })
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.Label("Project Name", new { @class = " form-control-label" })
+
+            </div>
+            <div class="col-12 col-md-9">
+                <input class="form-control" style="width:30%" id="searchproject" />
+                <input id="searchprojectid" style="display:none" />
+            </div>
+
+
 
         </div>
-        <div class="col-12 col-md-9">
-            <input class="form-control" style="width:30%" id="searchproject" />
-            <input id="searchprojectid" style="display:none" />
-        </div>
-        
-
-
-    </div>
-    <br />
+        <br />
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.managername, new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control",@id="managerid", style = "width:30%" })
+                @Html.DropDownListFor(m => m.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control", @id = "managerid", style = "width:30%" })
             </div>
         </div>
         <br />
@@ -67,7 +67,7 @@
                 @Html.LabelFor(m => m.modulename, new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.Module_Id, ViewData["moduleslist"] as SelectList, new { @class = "form-control",@id="moduleid", style = "width:30%" })
+                @Html.DropDownListFor(m => m.Module_Id, ViewData["moduleslist"] as SelectList, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
             </div>
 
 
@@ -78,7 +78,7 @@
                 @Html.LabelFor(m => m.trainername, new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control",@id="trainerid", style = "width:30%" })
+                @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
 
             </div>
 
@@ -95,7 +95,7 @@
                 <input id="searchid" style="display:none" />
                 <input id="searchempname" style="display:none" />
                 <input type="button" value="Add" class="add-emp" />
-               
+
             </div>
 
         </div>
@@ -103,7 +103,7 @@
         <br />
         <div>
 
-            <table class="table table-striped"style="width:50%">
+            <table class="table table-striped" style="width:50%">
                 <tr>
                     <th>Select</th>
                     <th>Employee Code</th>
@@ -113,10 +113,10 @@
 
             </table>
             <br />
-            <button type="button" class="del-emp">Delete</button>
+            @*<button type="button" class="del-emp">Delete</button>*@
 
         </div>
-       
+
         <div class="row form-group">
             <div class="col col-md-3">
 
@@ -139,21 +139,34 @@
 <script>
     var empid = [];
      $("#btnSave").click(function () {
-              
+
                 var itemlist = [];
 
                 //get cell values, instead of the header text.
-                $("table tr:not(:first)").each(function () {
-                    var tdlist = $(this).find("td");
-                    var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html()};
-                    itemlist.push(Item);
-                })
-              
+         $("table tr:not(:first)").each(function () {
+
+
+             if ($(this).find('input[name="chck"]').is(':checked')) {
+                 var tdlist = $(this).find("td");
+                 var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
+                 itemlist.push(Item);
+             }
+
+         })
+
+         //$("table tbody").find('input[name="chck"]').each(function () {
+         //    if ($(this).is(":checked")) {
+         //        var tdlist = $(this).find("td");
+         //        var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
+         //        itemlist.push(Item);
+         //    }
+         //});
+
          var date = $("#date").val();
          var projectid = $("#searchprojectid").val();
          var managerid = $("#managerid").val();
          var moduleid = $("#moduleid").val();
-         var trainerid = $("#trainerid").val();   
+         var trainerid = $("#trainerid").val();
 
                 var newUrl= '@Url.Action("Index", "AssignResource")';
 
@@ -172,7 +185,7 @@
                         $("#moduleid").val('');
                         $("#trainerid").val('');
                         $("table tbody").empty();
-                        window.location.href = newUrl;                       
+                        window.location.href = newUrl;
                     },
                     error: function (xhr) {
                         alert("error");
@@ -204,16 +217,40 @@
         });
 
 
-    
+
 </script>
+
+ 
 <script>
+    $(document).ready(function () {
+        $('#moduleid').change(function () {
+            var selected = $('#moduleid').val();
+            $.ajax(
+                {
+                    url: '/AssignResource/getEmployeeDetails',
+                    type: 'POST',
+                    datatype: 'application/json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ moduleid: +selected }),
+                    success: function (result) {
+                       
+                        $.each(result, function (i, Skill) {
+                            var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
+                            $("table tbody").append(markup);
+                           // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
+                        });
+                    },
+                    error: function () { alert("Something Gone Wrong") },
+                });
+        })
+    });
     $(function () {
 
         $("#searchproject").autocomplete({
 
             source: function (request, response) {
                 var param = { name: $('#searchproject').val() };
-               
+
                 $.ajax({
                     url: "/AssignResource/getProjects",
                     data: JSON.stringify(param),
@@ -225,7 +262,7 @@
                         response($.map(data, function (item) {
                             return {
                                 label: item.Name, id: item.Id
-                               
+
                             }
                         }))
                     },
@@ -246,20 +283,20 @@
                     dataType: "json",
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
-                    
+
                     success: function (data) {
-                       
+
                         $("#managerid").val(data.Manager_Id);
-                        alert(data.Trainer_Id);
-                        $("#trainerid").val(data.Trainer_Id);
                        
+                        $("#trainerid").val(data.Trainer_Id);
+
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alert(textStatus);
                     }
                 });
             }
-           
+
         });
         $("#searchemp").autocomplete({
             source: function (request, response) {
@@ -273,7 +310,7 @@
                     dataFilter: function (data) { return data; },
                     success: function (data) {
                         response($.map(data, function (item) {
-                            return { label: item.EmpCode, id: item.Id ,name:item.Name}
+                            return { label: item.EmpCode, id: item.Id, name: item.Name }
                         }))
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
