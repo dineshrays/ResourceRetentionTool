@@ -72,13 +72,14 @@ namespace RetentionTool.Controllers
            
          if(assgnResvm!=null)
             {
+                Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id && a.IsActive==true);
                 AssignResource assRes = new AssignResource()
                 {
                     Id = assgnResvm.Id,
                     Date = assgnResvm.Date,
                     Project_Id=assgnResvm.Project_Id,
                     Manager_Id = assgnResvm.Manager_Id,
-                    Trainer_Id = assgnResvm.Trainer_Id,
+                    Trainer_Id = trainer.Id,
                     Module_Id = assgnResvm.Module_Id,
                     IsActive = true
 
@@ -160,13 +161,14 @@ namespace RetentionTool.Controllers
                 db.Entry(i).State = System.Data.Entity.EntityState.Deleted;
             }
             db.SaveChanges();
+            Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id);
             AssignResource assignRes = new AssignResource()
             {
                 Id =id,
                 Project_Id=assgnResvm.Project_Id,
             Manager_Id= assgnResvm.Manager_Id,
             Module_Id= assgnResvm.Module_Id,
-            Trainer_Id= assgnResvm.Trainer_Id,
+            Trainer_Id= trainer.Id,
             Date=assgnResvm.Date,
             IsActive= true
 
@@ -255,6 +257,50 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             
             var val = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
             ViewData["managerslist"] = val;
+        }
+
+        public ActionResult getEmployeeDetails(int moduleid)
+        {
+
+            //           select p.*from PersonalInfo p
+
+            //inner
+            //                     join EmployeeSkills empskill
+
+            //               on p.Id = empskill.P_Id
+
+            //               inner Join Skills skill
+            //               on skill.id = empskill.Skills_Id
+            // inner join Module module
+            // on skill.id = module.Skill_Id
+            // where module.Id = 2003
+            List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
+                                               join empskills in db.EmployeeSkills on personal.Id equals empskills.P_Id
+                                               join skill in db.Skills on empskills.Skills_Id equals skill.id
+                                               join module in db.Modules on skill.id equals module.Skill_Id
+                                               where module.Id == moduleid
+                                               select new EmployeeList
+                                               {
+                                                   Id = personal.Id,
+                                                   Name=personal.Name,
+                                                   EmpCode=personal.EmpCode
+
+                                               }
+                                               ).ToList();
+           // IEnumerable<SelectListItem> skilldet = getSkillsField(moduleid);
+            return Json(employeeList, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public IEnumerable<SelectListItem> getSkillsField(int commonId)
+        {
+            IEnumerable<SelectListItem> rs = db.Skills.Where(s => s.CommonField_Id == commonId).Select(x => new SelectListItem
+            {
+                Value = x.id.ToString(),
+                Text = x.Name
+            }).ToList();
+
+            return new SelectList(rs, "Value", "Text");
         }
         public void getEmployees()
         {
