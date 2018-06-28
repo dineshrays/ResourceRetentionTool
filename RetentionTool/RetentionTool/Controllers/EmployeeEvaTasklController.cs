@@ -24,19 +24,7 @@ namespace RetentionTool.Controllers
         }
         public ActionResult Create()
         {
-            //List<AssignResource> assignResources = db.AssignResources.Where(a => db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && p2.IsActive==true && a.IsActive == true)).ToList();
-            ////(from ass in db.AssignResources join
-            ////                                    training in db.Trainings on ass.Id equals training.AssignResource_Id
-            ////                                    join trainingdet in db.TrainingDets on  training.Id equals trainingdet.Training_Id
-            ////                                    join session in db.Sessions on trainingdet.Id equals session.TrainingDet_Id
-            ////                                   where ass.IsActive == true && session.IsActive==true && training.IsActive==true
-            ////                                    select ass
-
-            ////                                    ).ToList();
-            ////db.AssignResources.Where(a=>a.IsActive==true).ToList();
-            ////a=> !db.AssignResources.Any(p2=>p2.Trainer_Id==a.Id
-            //ViewBag.assResDetails = assignResources;
-          
+            
             return View();
         }
         [HttpPost]
@@ -66,54 +54,45 @@ namespace RetentionTool.Controllers
         }
         public ActionResult Edit(int id)
         {
-            EmployeeEvalTask empEval = db.EmployeeEvalTasks.Find(id);
-            List<EmployeeEvalTaskDet> empevaltask = db.EmployeeEvalTaskDets.Where(a => a.EmployeeEvalTask_Id == id).ToList();
-          
-            ViewBag.empDetails = empevaltask;
-            getTrainers(empEval.AssignResource_Id);
-            return View(empEval);
+            EmployeeEvalTask empEval = db.EmployeeEvalTasks.FirstOrDefault(a=>a.AssignResource_Id== id);
+            List<EmployeeEvalTaskDet> empevaltask = db.EmployeeEvalTaskDets.Where(a => a.EmployeeEvalTask_Id == empEval.Id ).ToList();
+
+            //EmployeeEvalTask empvm = new EmployeeEvalTask();
+            //empvm.Trainer_Id = empEval.Trainer_Id;
+            EmployeeEvalViewModel empviewmodel = new EmployeeEvalViewModel();
+            empviewmodel.EmployeeEvalTask = empEval;
+            empviewmodel.empEvalTaskDetvm = empevaltask;
+
+         //   ViewBag.empDetails = empevaltask;
+         // getTrainers(empEval.AssignResource_Id);
+
+            return View(empviewmodel);
         }
         [HttpPost]
         public ActionResult Edit(int id, EmployeeEvalTask empeval, EmployeeEvalTaskDet[] list)
         {
 
-
-            //var x = (from y in db.EmployeeEvalTaskDets where y.EmployeeEvalTask_Id == id select y);
-            //foreach (var i in x)
-            //{
-            //    db.Entry(i).State = System.Data.Entity.EntityState.Deleted;
-            //}
-            //db.SaveChanges();
+           
             empeval.IsActive = true;
             db.Entry(empeval).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 
             foreach (var i in list)
             {
-                i.EmployeeEvalTask_Id = id;
+                i.EmployeeEvalTask_Id = empeval.Id;
                 i.IsActive = true;
                 db.Entry(i).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                //EmployeeEvalTaskDet empevaldet = new EmployeeEvalTaskDet()
-                //{
-                //    EmployeeEvalTask_Id = empeval.Id,
-
-                //    Employee_Id = i.Employee_Id,
-                //    Status = i.Status,
-                //    TaskAssigned = i.TaskAssigned,
-                //    IsEligiableMark = i.IsEligiableMark,
-                //    IsActive = true
-                //};
-                //db.EmployeeEvalTaskDets.Add(empevaldet);
-                //db.SaveChanges();
+                
             }
 
             return Json("", JsonRequestBehavior.AllowGet);
         }
         public ActionResult Delete(int id)
         {
-            EmployeeEvalTask empEval = db.EmployeeEvalTasks.Find(id);
-            List<EmployeeEvalTaskDet> empevaltask = db.EmployeeEvalTaskDets.Where(a => a.EmployeeEvalTask_Id == id).ToList();
+            EmployeeEvalTask empEval = db.EmployeeEvalTasks.FirstOrDefault(a => a.AssignResource_Id == id);
+            List<EmployeeEvalTaskDet> empevaltask = db.EmployeeEvalTaskDets.Where(a => a.EmployeeEvalTask_Id == empEval.Id).ToList();
+                       
             EmployeeEvalViewModel empvm = new EmployeeEvalViewModel();
             empvm.EmployeeEvalTask = empEval;
             empvm.empEvalTaskDetvm = empevaltask;
@@ -124,7 +103,7 @@ namespace RetentionTool.Controllers
         [HttpPost]
         public ActionResult Delete(int id,EmployeeEvalViewModel empvm)
         {
-            EmployeeEvalTask empeval = db.EmployeeEvalTasks.Find(id);
+            EmployeeEvalTask empeval = db.EmployeeEvalTasks.FirstOrDefault(a => a.AssignResource_Id == id);
             empeval.IsActive = false;
             db.Entry(empeval).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
@@ -152,17 +131,32 @@ namespace RetentionTool.Controllers
                                           }).ToList();
 
             ViewBag.empDetails = emplist;
-            //getTrainers(assignresid);
-            var trainerid= db.AssignEvaluaters.Where(a => a.AssignResource_Id == assignresid).Select(a => a.Trainer_Id); 
-
+          
+            AssignEvaluater ass = db.AssignEvaluaters.FirstOrDefault(a => a.AssignResource_Id == assignresid && a.IsActive == true);
             EmployeeEvalViewModel empvm = new EmployeeEvalViewModel();
-            //empvm.EmployeeEvalTask.Trainer_Id = trainerid;
-            return View();
+            EmployeeEvalTask emp1 = new EmployeeEvalTask();
+           
+            emp1.Trainer = ass.Trainer;
+
+            emp1.Trainer_Id = ass.Trainer_Id;
+            emp1.Trainer.PersonalInfo = ass.Trainer.PersonalInfo;
+            empvm.EmployeeEvalTask = emp1;
+
+            return View(empvm);
         }
         public void getTrainers(int? assignresid)
         {
-            var val = new SelectList(db.Trainers.Where(a=> !db.AssignResources.Any(p2=>p2.Trainer_Id==a.Id && p2.Id== assignresid && a.IsActive==true) ).ToList(), "id", "Name");
-            ViewData["trainerslist"] = val;
+            AssignEvaluater ass = db.AssignEvaluaters.FirstOrDefault(a => a.AssignResource_Id == assignresid && a.IsActive == true);
+            EmployeeEvalViewModel empvm = new EmployeeEvalViewModel();
+            EmployeeEvalTask emp1 = new EmployeeEvalTask();
+
+            emp1.Trainer = ass.Trainer;
+
+            emp1.Trainer_Id = ass.Trainer_Id;
+            emp1.Trainer.PersonalInfo = ass.Trainer.PersonalInfo;
+            empvm.EmployeeEvalTask = emp1;
+
+            ViewData["trainerslist"] = ass;
         }
     }
 }

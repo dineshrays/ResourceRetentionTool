@@ -24,6 +24,25 @@ namespace RetentionTool.Controllers
             return View();
         }
 
+        public ActionResult Create()
+        {
+            EmployeeInformationViewModel ei = new EmployeeInformationViewModel();
+
+            ei.CommonField = getCommonFields();
+            ei.Skill = getSkill();
+            return View(ei);
+
+        }
+
+        public ActionResult CreateEmployee()
+        {
+            EmployeeInformationViewModel ei = new EmployeeInformationViewModel();
+
+            ei.CommonField = getCommonFields();
+            ei.Skill = getSkill();
+            return View(ei);
+        }
+
         public IEnumerable<SelectListItem> getCommonFields()
         {
             var val = db.Commonfields.ToList();
@@ -38,7 +57,7 @@ namespace RetentionTool.Controllers
                 new SelectListItem{Value=null,Text=""}
             };
             return list;
-
+                        
         }
         public ActionResult getSkills(int skillId)
         {
@@ -56,18 +75,7 @@ namespace RetentionTool.Controllers
             }).ToList();
 
             return new SelectList(rs, "Value", "Text");
-        }
-
-        public ActionResult Create()
-        {
-            EmployeeInformationViewModel ei = new EmployeeInformationViewModel();
-            
-            ei.CommonField = getCommonFields();
-                
-            ei.Skills = getSkill();
-            return View(ei);
-            
-        }
+        }        
 
         [HttpPost]
         public ActionResult Create(PersonalInfoModel PersonalInfoVm, EducationQualificationModel EducationQualificationVm, ExperienceModel ExperienceVm, EmployeeSkillsModel EmployeeSkillsVm, ProjectsWorkedmodel ProjectsWorkedVm, CurrentInfoModel CurrentInfoVm)

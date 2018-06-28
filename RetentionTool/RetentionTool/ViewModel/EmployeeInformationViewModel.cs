@@ -29,7 +29,7 @@ namespace RetentionTool.ViewModel
 
         public IEnumerable<SelectListItem> CommonField { get; set; }
         public Nullable<long> SelectedCommonFields { get; set; }
-        public IEnumerable<SelectListItem> Skills { get; set; }
+        public IEnumerable<SelectListItem> Skill { get; set; }
         public Nullable<long> SelectedSkills { get; set; }
     }
 }

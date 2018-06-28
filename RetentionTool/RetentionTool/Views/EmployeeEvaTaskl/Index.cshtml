@@ -13,7 +13,7 @@
 <div class="container" style="width:100%;margin-top:2%">
     <table class="table table-striped">
         <tr>
-            <th>@Html.DisplayNameFor(model => model.EmployeeEvalTask.AssignResource_Id)</th>
+            @*<th>@Html.DisplayNameFor(model => model.EmployeeEvalTask.AssignResource_Id)</th>*@
             @*<th>
             @Html.Label("Manager Name")
         </th>*@
@@ -27,7 +27,7 @@
         @foreach (var item in assResDetails)
         {
         <tr>
-            <td>@item.Id</td>
+            @*<td>@item.Id</td>*@
             <td>@item.ProjectsDetail.Name</td>
             @*<td>@item.Manager.Name</td>*@
             <td>@item.Module.ModuleName</td>
@@ -44,16 +44,17 @@
 
 
                 }
-                @if (IsAdded==true)
+                @if (IsAdded == true)
                 {
-                @Html.ActionLink(" ", "Edit", new {id= empeval },
-                        new { @class = "ti-pencil"} )
-                @Html.ActionLink(" ", "Delete", new { id = empeval }, new { @class = "ti-trash" })
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+
+                    
 
                 }
                 else
                 {
-                <a href='@Url.Action("CreateEmployeeEval", "EmployeeEvaTaskl", new {assignresid=@item.Id})'>Add Details</a>
+                    <a href='@Url.Action("CreateEmployeeEval", "EmployeeEvaTaskl", new {assignresid=@item.Id})'>Add Details</a>
 
                 }
 

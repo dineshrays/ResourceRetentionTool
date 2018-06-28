@@ -1,8 +1,8 @@
-﻿@model RetentionTool.Models.EmployeeEvalTask
+﻿@model RetentionTool.ViewModel.EmployeeEvalViewModel
 @{
     ViewBag.Title = "Employee Evaluation Edit";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
-    var empDetails = ViewBag.empDetails;
+   // var empDetails = ViewBag.empDetails;
 }
 
 
@@ -25,10 +25,10 @@
             </div>
             <div class="col-12 col-md-9">
                 <div class="col-12 col-md-9">
-                    @Html.HiddenFor(m => m.Id, new { @id = "empevalid" })
-                    @Html.HiddenFor(m => m.AssignResource_Id, new { @id = "assresid" })
-                    @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
-
+                    @Html.HiddenFor(m => m.EmployeeEvalTask.Id, new { @id = "empevalid" })
+                    @Html.HiddenFor(m => m.EmployeeEvalTask.AssignResource_Id, new { @id = "assresid" })
+                    @Html.DisplayFor(m=>m.EmployeeEvalTask.Trainer.PersonalInfo.Name)
+                    @Html.HiddenFor(m => m.EmployeeEvalTask.Trainer_Id,new {@id="trainerid" })
 
                 </div>
                 <br />
@@ -53,13 +53,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var emplist in empDetails)
+                @foreach (var emplist in Model.empEvalTaskDetvm)
                 {
 
                 <tr>
 
                     <td style="display:none">@emplist.Employee_Id</td>
-                    <td>@emplist.Employee.Name</td>
+                    <td>@emplist.PersonalInfo.Name</td>
                     <td><input type="text" name="taskassign" value="@emplist.TaskAssigned" /></td>
                     <td><input type="text" name="status" value="@emplist.Status" /></td>
                     <td><input type="checkbox" class="chck" name="iseligible" checked="@emplist.IsEligiableMark" /></td>
@@ -76,7 +76,7 @@
 
 
         <div class="card-body">
-            <input id="btnSave" type="submit" value="Edit" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+            <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
         </div>
 
     </div>
@@ -84,10 +84,7 @@
 </div>
 <script>
     var assignresid;
-
-  
-
-
+    
     $("#btnSave").click(function () {
         assignresid = $("#assresid").val();
 
@@ -109,7 +106,7 @@
               status = $(this).find("td:eq(3) input[type='text']").val();
                     var tdlist = $(this).find("td");
 
-              var Item = { Employee_Id: $(tdlist[0]).html(), TaskAssigned: taskassign, Status: status, IsEligiableMark: iseligible, Id: $(tdlist[5]).html() };
+              var Item = { EmployeeEvalTask_Id: empevalid, Employee_Id: $(tdlist[0]).html(), TaskAssigned: taskassign, Status: status, IsEligiableMark: iseligible, Id: $(tdlist[5]).html() };
                     itemlist.push(Item);
                 })
 

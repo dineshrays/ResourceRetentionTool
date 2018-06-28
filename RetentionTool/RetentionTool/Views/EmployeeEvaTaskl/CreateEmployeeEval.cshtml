@@ -25,28 +25,11 @@
                     @Html.DisplayFor(m => m.EmployeeEvalTask.Trainer.PersonalInfo.Name, new { @class = "form-control", style = "width:30%" })
                     @Html.HiddenFor(m=>m.EmployeeEvalTask.Trainer_Id,new { @id = "trainerid" })
 
+
                 </div>
                 <br />
             </div>
         </div>
-
-        @*<div class="row form-group">
-            <div class="col col-md-3">
-                <div>@Html.LabelFor(m => m.session.Hours, new { @class = "form-control-label" })</div>
-            </div>
-            <div class="col-12 col-md-9">
-                <div>@Html.TextBoxFor(m => m.session.Hours, new { @id = "hours", @class = "form-control", style = "width:60%" })</div><br />
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col col-md-3">
-                <div>@Html.LabelFor(m => m.session.Description, new { @class = "form-control-label" })</div>
-            </div>
-            <div class="col-12 col-md-9">
-                <div>@Html.TextBoxFor(m => m.session.Description, new { @id = "descr", @class = "form-control", style = "width:60%" })</div><br />
-            </div>
-        </div>*@
 
         <br />
 
@@ -75,8 +58,6 @@
                     <td><input type="checkbox" class="chck" name="iseligible" /></td>
                   
                 </tr>
-
-
                 }
 
             </tbody>
@@ -133,6 +114,7 @@
         
           var mod = [];
           mod = { AssignResource_Id: assignresid, Trainer_Id: trainerid };
+
          var newUrl= '@Url.Action("Index", "EmployeeEvaTaskl")';
                 $.ajax({
                     url: '@Url.Action("Create", "EmployeeEvaTaskl")', //

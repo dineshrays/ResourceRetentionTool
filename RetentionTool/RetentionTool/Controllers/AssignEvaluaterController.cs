@@ -11,11 +11,16 @@ namespace RetentionTool.Controllers
     public class AssignEvaluaterController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        //public ActionResult Exception()
+        //{
+        //    int i = 0;
+        //    int x = i / i;
+        //    return View();
+        //}
 
         // GET: AssignEvaluater
         public ActionResult Index()
         {
-            
             List<AssignEvaluater> assneval = db.AssignEvaluaters.Where(a => a.IsActive == true).ToList();
             AssignEvaluterViewModel assnevalvm = new AssignEvaluterViewModel();
             assnevalvm.assvm = assneval;
@@ -23,9 +28,9 @@ namespace RetentionTool.Controllers
         }
         public ActionResult Create()
         {
-            List<AssignResource> assignResources = db.AssignResources.Where(a => a.IsActive == true).ToList();
-         
-
+            //List<AssignResource> assignResources = db.AssignResources.Where(a => a.IsActive == true).ToList();
+            List<AssignResource> assignResources = db.AssignResources.Where(a => !db.AssignEvaluaters.Any(b => b.AssignResource_Id == a.Id  && b.IsActive==true) && a.IsActive==true).ToList();
+           
             ViewBag.assResDetails = assignResources;
 
             return View();
@@ -101,8 +106,7 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
                             Id = trainer.Id,
                             Name = personalInfo.Name
                         }).ToList();
-            //  var val = new SelectList(db.PersonalInfoes.ToList(), "Id", "Name");
-            //ViewData["trainerslist"] = new SelectList(data, "Id", "Name");
+            
             var val = new SelectList(data.Where(a => !db.AssignResources.Any(p2 => p2.Trainer_Id == a.Id && p2.Id == assignresid )).ToList(), "id", "Name");
             ViewData["trainerslist"] = val;
         }
