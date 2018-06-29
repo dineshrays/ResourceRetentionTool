@@ -106,9 +106,9 @@
             <table class="table table-striped" style="width:50%">
                 <tr>
                     <th>Select</th>
-                    <th>Employee Code</th>
-                    <th style="display:none;width:0%">Employee Id</th>
                     <th>Employee Name</th>
+                    <th style="display:none;width:0%">Employee Id</th>
+                    <th>Employee Code</th>
                 </tr>
 
             </table>
@@ -233,7 +233,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify({ moduleid: +selected }),
                     success: function (result) {
-                       
+                        $("table tr:not(:first)").remove();
                         $.each(result, function (i, Skill) {
                             var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
                             $("table tbody").append(markup);

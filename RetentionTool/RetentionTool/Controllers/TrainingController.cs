@@ -60,7 +60,7 @@ namespace RetentionTool.Controllers
                 from assin in db.AssignResources
                 join mod in db.ModuleDets on assin.Module_Id equals mod.Module_Id
                 
-                    where assin.Module_Id==moduleid
+                    where assin.Module_Id==moduleid && assin.Id ==assignresid
                     select new ModuleViewModel
                     {
                         Id=mod.Id,

@@ -41,7 +41,7 @@ namespace RetentionTool.Controllers
         }
         public ActionResult Create()
         {
-            List<TrainingDet> training = db.TrainingDets.ToList();
+            List<TrainingDet> training = db.TrainingDets.Where(a=> !db.Sessions.Any(b=>b.TrainingDet_Id==a.Id && b.IsActive==true) && a.IsActive==true).ToList();
             //foreach (var i in training)
             //{
             //    //i.Training.AssignResource_Id
