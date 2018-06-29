@@ -15,6 +15,20 @@ namespace RetentionTool
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalFilters.Filters.Add(new ExceptionFilter());
+        }
+
+    }
+    public class ExceptionFilter : HandleErrorAttribute
+    {
+        public override void OnException(ExceptionContext filterContext)
+        {
+            ViewResult v = new ViewResult();
+            v.ViewName = "Error";
+            filterContext.Result = v;
+            filterContext.ExceptionHandled = true;
+            Exception e = filterContext.Exception;
+            v.TempData["ErrorMess"] = e.Message;
         }
     }
 }

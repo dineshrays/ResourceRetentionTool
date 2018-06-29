@@ -1,0 +1,106 @@
+﻿@model RetentionTool.ViewModel.EmployeeInfoViewModel
+@{
+    ViewBag.Title = "EduQualificationCreate";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h2>Education Qualification Create</h2>
+    </div>
+
+    <script src="~/Scripts/assets/js/vendor/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/assets/js/vendor/jquery-3.3.1.min.js"></script>
+
+    <div class="card-body card-block">
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.Label("Name")</div>
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.DropDownListFor(model => model.EducationQualificationVm.P_Id, ViewData["Id"] as SelectList, new { @id = "P_Id", @class = "form-control", style = "width:40%" })
+            </div>
+        </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.EducationQualificationVm.Degree, new { @class = "form-control-label" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.TextBoxFor(m => m.EducationQualificationVm.Degree, new { @id = "Degree", @class = "form-control", style = "width:40%" })</div><br />
+                        
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.EducationQualificationVm.Board, new { @class = "form-control-label" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.TextBoxFor(m => m.EducationQualificationVm.Board, new { @id = "Board", @class = "form-control", style = "width:40%" })</div><br />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.EducationQualificationVm.YearOfPassing, new { @class = "form-control-label" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.TextBoxFor(m => m.EducationQualificationVm.YearOfPassing, new { @id = "YearOfPassing", @class = "form-control", style = "width:40%" })</div><br />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.EducationQualificationVm.Percentage, new { @class = "form-control-label" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.TextBoxFor(m => m.EducationQualificationVm.Percentage, new { @id = "Percentage", @class = "form-control", style = "width:40%" })</div><br />
+                    </div>
+                </div>
+
+                <input id="btnSave" type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function () {
+                $("#btnSave").click(function () {
+                    //debugger;
+
+                    var P_Id = $("#P_Id").val();
+                    var Degree = $("#Degree").val();
+                    var Board = $("#Board").val();
+                    var YearOfPassing = $("#YearOfPassing").val();
+                    var Percentage = $("#Percentage").val();
+
+
+                    var newUrl = '@Url.Action("Index","EmployeeInfo")';
+
+                    var mod = { P_Id: P_Id, Degree: Degree, Board: Board, YearOfPassing: YearOfPassing, Percentage: Percentage};
+                    alert(mod);
+                    $.ajax({
+                        url: '@Url.Action("EduQualificationCreate", "EmployeeInfo")', //
+                        dataType: "json",
+                        data: JSON.stringify({ eqm: mod }),
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            alert("success");
+                            $("#P_Id").val('');
+                            $("#Degree").val('');
+                            $("#Board").val('');
+                            $("#YearOfPassing").val('');
+                            $("#Percentage").val('');
+
+                            window.location.href = newUrl;
+                        },
+                        error: function (xhr) {
+                            alert("error");
+                        }
+                    });
+                });
+            });
+        </script>
