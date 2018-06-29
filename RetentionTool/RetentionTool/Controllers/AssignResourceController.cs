@@ -305,11 +305,12 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         public void getEmployees()
         {
             var data = (from personalInfo in db.PersonalInfoes
-                        join
+                        //join
 
-                         userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
-                        where personalInfo.IsActive == true && userdet.IsActive == true
-                        && userdet.Role_Id==3
+                        // userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                        where personalInfo.IsActive == true 
+                        //&& userdet.IsActive == true
+                        //&& userdet.Role_Id==3
                         select new
                         {
                             Id = personalInfo.Id,
@@ -335,12 +336,13 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             //IEnumerable<SelectListItem> skilldet =  
           //  List<string> va = new List<string>();
           List< EmployeeList>  va = (from emp in db.PersonalInfoes
-                                     join
+                        //             join
 
-                        userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
+                        //userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
                                      where emp.EmpCode.Contains(name)
                                   
-                                     && emp.IsActive==true  && userdet.IsActive==true && userdet.Role_Id==3
+                                     && emp.IsActive==true 
+                                     //&& userdet.IsActive==true && userdet.Role_Id==3
                                      select new EmployeeList
           {
               Id=emp.Id,

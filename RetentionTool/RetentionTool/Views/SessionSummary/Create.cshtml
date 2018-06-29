@@ -25,7 +25,7 @@
     <div class="container" style="width:50%;margin-top:2%">
         <table class="table table-striped" id="tble">
             <tr>
-                <th>@Html.HiddenFor(model => model.session.TrainingDet_Id)</th>
+                <th  style="display:none;">@Html.HiddenFor(model => model.session.TrainingDet_Id)</th>
                 <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.Training_Id)</th>
 
                 <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.ModuleDet_Id)</th>
