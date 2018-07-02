@@ -56,6 +56,7 @@ namespace RetentionTool.Controllers
         public ActionResult Create(Session sessionVM,SessionSummaryList[] list)
         {
 
+
             //AssignResource assRes = new AssignResource()
             //{
             //    Id = assgnResvm.Id,
