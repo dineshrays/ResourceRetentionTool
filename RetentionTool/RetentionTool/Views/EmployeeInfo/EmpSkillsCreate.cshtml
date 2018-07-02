@@ -4,10 +4,6 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-
-<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 
@@ -62,6 +58,12 @@
     </div>
 </div>
 
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(".add-emp").click(function () {
 
@@ -103,10 +105,7 @@
                     var itemlist = [];
                     var P_Id = $("#P_Id").val();
                     var Common_Id = 1;
-                   // var skill_Id = $("#skillsemp").val();
-                   // var Years = $("#Years").val();
-                   //var months = $("#Months").val();
-                   // var status = $("#Status").val();
+                   
                     $("table tr:not(:first)").each(function () {
                         var tdlist = $(this).find("td");
 
@@ -117,12 +116,13 @@
 
                         itemlist.push(Item);
                     })
-                    alert(itemlist);
+                    //alert(itemlist);
 
                   //  var newUrl = '@Url.Action("Index","EmployeeInfo")';
-
-                      $.ajax({
-                    url: '@Url.Action("EmpSkillsCreate", "EmployeeInfo")', //
+                   // alert('jjj');
+                    $.ajax({
+                        url: "/EmployeeInfo/EmpSkillsCreate",
+                   // url: '@Url.Action("EmpSkillsCreate", "EmployeeInfo")',
                     dataType: "json",
                           data: JSON.stringify({ es: itemlist }),
                     type: "POST",
@@ -137,7 +137,7 @@
                        // window.location.href = newUrl;
                     },
                           error: function (xhr) {
-                              alert(xhr);
+                              alert("error");
                     }
                 });
 

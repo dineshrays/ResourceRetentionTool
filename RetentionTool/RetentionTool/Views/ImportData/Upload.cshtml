@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Upload";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Upload</h2>
+<div>
+    @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input name="uploadFile" type="file"  class="btn btn-default"/><br /><br />
+        <input type="submit" value="UploadFile" class="btn btn-success" style="margin-left: 10px;" title="Upload file" onclick="return CheckFileName();" />
+    }
+</div>
+
+
+
+@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
+
+<script type="text/javascript">
+    function CheckFileName() {
+        var fileName = document.getElementById("uploadFile").value
+        //debugger;
+        if (fileName == "") {
+            alert("Browse to upload a valid File with xls / xlsx extension");
+            return false;
+        }
+        else if (fileName.split(".")[1].toUpperCase() == "XLS" || fileName.split(".")[1].toUpperCase() == "XLSX")
+            return true;
+        else {
+            alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with xls / xlsx extensions");
+            return false;
+        }
+        return true;
+    }
+</script>
