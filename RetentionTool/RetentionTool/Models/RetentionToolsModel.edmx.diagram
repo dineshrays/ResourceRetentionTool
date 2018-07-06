@@ -30,33 +30,20 @@
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkills_Skills" />
         <EntityTypeShape EntityType="RetentionToolModel.UserDetail" Width="1.5" PointX="9.625" PointY="11.5" />
         <AssociationConnector Association="RetentionToolModel.FK_UserMaster_Roles" />
-        <EntityTypeShape EntityType="RetentionToolModel.PersonalInfo" Width="1.5" PointX="0.75" PointY="20.5" />
-        <AssociationConnector Association="RetentionToolModel.FK_CurrentInfo_PersonalInfo" />
-        <AssociationConnector Association="RetentionToolModel.FK_EducationQualification_PersonalInfo" />
-        <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkills_PersonalInfo" />
-        <AssociationConnector Association="RetentionToolModel.FK_Experience_PersonalInfo" />
-        <AssociationConnector Association="RetentionToolModel.FK_UserDetails_PersonalInfo" />
         <EntityTypeShape EntityType="RetentionToolModel.ProjectsDetail" Width="1.5" PointX="3" PointY="16.125" />
         <EntityTypeShape EntityType="RetentionToolModel.Trainer" Width="1.5" PointX="3" PointY="35.625" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignEvaluater_Trainers" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTask_Trainers" />
-        <AssociationConnector Association="RetentionToolModel.FK_Trainers_PersonalInfo" />
         <EntityTypeShape EntityType="RetentionToolModel.CriticalResource" Width="1.5" PointX="5.25" PointY="21.875" />
-        <AssociationConnector Association="RetentionToolModel.FK_CriticalResource_PersonalInfo" />
         <AssociationConnector Association="RetentionToolModel.FK_CriticalResource_ProjectsDetails" />
         <EntityTypeShape EntityType="RetentionToolModel.AssignResourcesDet" Width="1.5" PointX="10.5" PointY="23.125" />
         <EntityTypeShape EntityType="RetentionToolModel.EmployeeEvalTaskDet" Width="1.5" PointX="12.875" PointY="11.875" />
         <EntityTypeShape EntityType="RetentionToolModel.RateEmployeeEligiability" Width="1.5" PointX="10.5" PointY="19.875" />
         <EntityTypeShape EntityType="RetentionToolModel.SessionsDet" Width="1.5" PointX="17.375" PointY="19.75" />
-        <AssociationConnector Association="RetentionToolModel.FK_AssignResourcesDet_Employees" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTaskDet_EmployeeEvalTask" />
-        <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTaskDet_Employees" />
-        <AssociationConnector Association="RetentionToolModel.FK_RateEmployeeEligiability_Employees" />
-        <AssociationConnector Association="RetentionToolModel.FK_SessionsDet_Employees" />
         <AssociationConnector Association="RetentionToolModel.FK_SessionsDet_Sessions" />
         <EntityTypeShape EntityType="RetentionToolModel.AssignResource" Width="1.5" PointX="8.25" PointY="18.625" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignEvaluater_AssignResources" />
-        <AssociationConnector Association="RetentionToolModel.FK_AssignResources_Managers" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignResources_Module" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignResources_ProjectsDetails" />
         <AssociationConnector Association="RetentionToolModel.FK_AssignResources_Trainers" />
@@ -65,9 +52,22 @@
         <AssociationConnector Association="RetentionToolModel.FK_RateEmployeeEligiability_AssignResources" />
         <AssociationConnector Association="RetentionToolModel.FK_Training_AssignResources" />
         <EntityTypeShape EntityType="RetentionToolModel.ProjectsWorked" Width="1.5" PointX="5.25" PointY="16.75" />
+        <AssociationConnector Association="RetentionToolModel.FK_ProjectsWorked_ProjectsDetails" />
+        <EntityTypeShape EntityType="RetentionToolModel.PersonalInfo" Width="1.5" PointX="0.75" PointY="21.375" />
+        <AssociationConnector Association="RetentionToolModel.FK_AssignResources_Managers" />
+        <AssociationConnector Association="RetentionToolModel.FK_AssignResourcesDet_Employees" />
+        <AssociationConnector Association="RetentionToolModel.FK_CriticalResource_PersonalInfo" />
+        <AssociationConnector Association="RetentionToolModel.FK_CurrentInfo_PersonalInfo" />
+        <AssociationConnector Association="RetentionToolModel.FK_EducationQualification_PersonalInfo" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTaskDet_Employees" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkills_PersonalInfo" />
+        <AssociationConnector Association="RetentionToolModel.FK_Experience_PersonalInfo" />
         <AssociationConnector Association="RetentionToolModel.FK_ProjectsWorked_Managers" />
         <AssociationConnector Association="RetentionToolModel.FK_ProjectsWorked_PersonalInfo" />
-        <AssociationConnector Association="RetentionToolModel.FK_ProjectsWorked_ProjectsDetails" />
+        <AssociationConnector Association="RetentionToolModel.FK_RateEmployeeEligiability_Employees" />
+        <AssociationConnector Association="RetentionToolModel.FK_SessionsDet_Employees" />
+        <AssociationConnector Association="RetentionToolModel.FK_Trainers_PersonalInfo" />
+        <AssociationConnector Association="RetentionToolModel.FK_UserDetails_PersonalInfo" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

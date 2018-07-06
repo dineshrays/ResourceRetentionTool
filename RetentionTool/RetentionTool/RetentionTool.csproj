@@ -1327,6 +1327,10 @@
     <Content Include="Scripts\page-login.html" />
     <Content Include="Scripts\page-register.html" />
     <Content Include="Scripts\pages-forget.html" />
+    <Content Include="Scripts\popup\jquery.js" />
+    <Content Include="Scripts\popup\jquery.mobile-1.4.5.js" />
+    <Content Include="Scripts\popup\jquery.mobile-1.4.5.min.css" />
+    <Content Include="Scripts\popup\jquery.mobile-1.4.5.min.js" />
     <Content Include="Scripts\tables-basic.html" />
     <Content Include="Scripts\tables-data.html" />
     <Content Include="Scripts\ui-alerts.html" />
@@ -1341,6 +1345,9 @@
     <Content Include="Scripts\ui-tabs.html" />
     <Content Include="Scripts\ui-typgraphy.html" />
     <Content Include="Scripts\widgets.html" />
+    <Content Include="UserImages\CalumetbgsupportpaperRGB350.jpg" />
+    <Content Include="UserImages\logo2.png" />
+    <Content Include="UserImages\ttd.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1352,7 +1359,9 @@
     <Compile Include="Controllers\CommonFieldController.cs" />
     <Compile Include="Controllers\CriticalResourceController.cs" />
     <Compile Include="Controllers\EmployeeEvaTasklController.cs" />
+    <Compile Include="Controllers\EmployeeInfoController.cs" />
     <Compile Include="Controllers\EmployeeInformationController.cs" />
+    <Compile Include="Controllers\ImportDataController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\ProjectsDetailsController.cs" />
@@ -1481,11 +1490,13 @@
     <Compile Include="ViewModel\CriticalResourceViewModel.cs" />
     <Compile Include="ViewModel\EmployeeEvalViewModel.cs" />
     <Compile Include="ViewModel\EmployeeInformationViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeInfoViewModel.cs" />
     <Compile Include="ViewModel\ModuleViewModel1.cs" />
     <Compile Include="ViewModel\ProjectWorkedViewModel.cs" />
     <Compile Include="ViewModel\RateEmployeeViewModel.cs" />
     <Compile Include="ViewModel\RolesViewModel.cs" />
     <Compile Include="ViewModel\SessionSummaryViewModel.cs" />
+    <Compile Include="ViewModel\SessionView.cs" />
     <Compile Include="ViewModel\TrainingViewModel.cs" />
     <Compile Include="ViewModel\UserDetailsViewModel.cs" />
   </ItemGroup>
@@ -1580,6 +1591,14 @@
     <Content Include="Views\ProjectsDetails\Edit.cshtml" />
     <Content Include="Views\ProjectsDetails\Index.cshtml" />
     <Content Include="Views\EmployeeInformation\Edit.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\EmployeeInfo\EduQualificationCreate.cshtml" />
+    <Content Include="Views\EmployeeInfo\EmpSkillsCreate.cshtml" />
+    <Content Include="Views\EmployeeInfo\Index.cshtml" />
+    <Content Include="Views\EmployeeInfo\PersonalInfoCreate.cshtml" />
+    <Content Include="Views\ImportData\Upload.cshtml" />
+    <Content Include="Views\AssignResource\PopupTest.cshtml" />
+    <Content Include="Views\EmployeeInformation\CreateEmployee.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1589,6 +1608,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

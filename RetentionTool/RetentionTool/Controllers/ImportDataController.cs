@@ -27,7 +27,7 @@ namespace RetentionTool.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public string Upload(HttpPostedFileBase uploadFile)
+        public ActionResult Upload(HttpPostedFileBase uploadFile)
         {//
             StringBuilder strValidations = new StringBuilder(string.Empty);
             try
@@ -162,6 +162,10 @@ namespace RetentionTool.Controllers
                                                 " values(" + pid_empid + ",'" + designation + "'," + doj + ",'" + pid_mgridstr + "','" + worklocation + "','" + department + "')", sqlcon);
                                             sqlcmd.ExecuteNonQuery();
                                         }
+
+
+
+
                                     }
                                 }
 
@@ -173,7 +177,11 @@ namespace RetentionTool.Controllers
                 }
             }
             catch (Exception ex) { }
-            return "";
+            //finally
+            //{
+            //    return View();
+            //}
+            return View();
         }
 
         public ActionResult About()

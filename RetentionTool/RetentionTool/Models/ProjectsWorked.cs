@@ -11,8 +11,7 @@ namespace RetentionTool.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class ProjectsWorked
     {
         public int Id { get; set; }
@@ -20,19 +19,15 @@ namespace RetentionTool.Models
         public Nullable<int> Project_Id { get; set; }
         public string Designation { get; set; }
         public string Responsibilities { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> StartDate { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> EndDate { get; set; }
         public string Description { get; set; }
         public Nullable<int> TeamMembers { get; set; }
         public Nullable<int> Manager_Id { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        public virtual ProjectsDetail ProjectsDetail { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual PersonalInfo PersonalInfo1 { get; set; }
-        public virtual ProjectsDetail ProjectsDetail { get; set; }
     }
 }

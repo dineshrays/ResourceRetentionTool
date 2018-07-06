@@ -17,20 +17,20 @@ namespace RetentionTool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PersonalInfo()
         {
+            this.AssignResources = new HashSet<AssignResource>();
+            this.AssignResourcesDets = new HashSet<AssignResourcesDet>();
+            this.CriticalResources = new HashSet<CriticalResource>();
             this.CurrentInfoes = new HashSet<CurrentInfo>();
             this.EducationQualifications = new HashSet<EducationQualification>();
+            this.EmployeeEvalTaskDets = new HashSet<EmployeeEvalTaskDet>();
             this.EmployeeSkills = new HashSet<EmployeeSkill>();
             this.Experiences = new HashSet<Experience>();
-            this.UserDetails = new HashSet<UserDetail>();
-            this.Trainers = new HashSet<Trainer>();
-            this.CriticalResources = new HashSet<CriticalResource>();
-            this.AssignResourcesDets = new HashSet<AssignResourcesDet>();
-            this.EmployeeEvalTaskDets = new HashSet<EmployeeEvalTaskDet>();
-            this.RateEmployeeEligiabilities = new HashSet<RateEmployeeEligiability>();
-            this.SessionsDets = new HashSet<SessionsDet>();
-            this.AssignResources = new HashSet<AssignResource>();
             this.ProjectsWorkeds = new HashSet<ProjectsWorked>();
             this.ProjectsWorkeds1 = new HashSet<ProjectsWorked>();
+            this.RateEmployeeEligiabilities = new HashSet<RateEmployeeEligiability>();
+            this.SessionsDets = new HashSet<SessionsDet>();
+            this.Trainers = new HashSet<Trainer>();
+            this.UserDetails = new HashSet<UserDetail>();
         }
     
         public int Id { get; set; }
@@ -48,34 +48,35 @@ namespace RetentionTool.Models
         public Nullable<long> AadharNo { get; set; }
         public string BloodGroup { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string Image { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignResource> AssignResources { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignResourcesDet> AssignResourcesDets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CriticalResource> CriticalResources { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CurrentInfo> CurrentInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EducationQualification> EducationQualifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeEvalTaskDet> EmployeeEvalTaskDets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeSkill> EmployeeSkills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Experience> Experiences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserDetail> UserDetails { get; set; }
+        public virtual ICollection<ProjectsWorked> ProjectsWorkeds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Trainer> Trainers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CriticalResource> CriticalResources { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssignResourcesDet> AssignResourcesDets { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeEvalTaskDet> EmployeeEvalTaskDets { get; set; }
+        public virtual ICollection<ProjectsWorked> ProjectsWorkeds1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RateEmployeeEligiability> RateEmployeeEligiabilities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SessionsDet> SessionsDets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssignResource> AssignResources { get; set; }
+        public virtual ICollection<Trainer> Trainers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectsWorked> ProjectsWorkeds { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectsWorked> ProjectsWorkeds1 { get; set; }
+        public virtual ICollection<UserDetail> UserDetails { get; set; }
     }
 }

@@ -14,9 +14,17 @@ namespace RetentionTool.Controllers
         // GET: EmployeeEvaTaskl
         public ActionResult Index()
         {
-            List<AssignResource> assignResources = db.AssignResources.Where(a => db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && p2.IsActive == true && a.IsActive == true)).ToList();
+            List<AssignResource> assignResources = db.AssignResources.Where(a => 
+            db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && p2.IsActive == true && a.IsActive == true)
+         &&   !db.EmployeeEvalTasks.Any(
+                e => e.AssignResource_Id == a.Id && e.IsActive == true &&
+                db.EmployeeEvalTaskDets.Any(t => t.EmployeeEvalTask_Id == e.Id &&
+                t.IsEligiableMark == true && t.IsActive == true)) 
+            ).ToList();
             ViewBag.assResDetails = assignResources;
-           
+
+            List<AssignEvaluater> assignEval = db.AssignEvaluaters.Where(a => a.IsActive == true).ToList();
+            ViewBag.asseval = assignEval;
             List<EmployeeEvalTask> empevaltask = db.EmployeeEvalTasks.Where(a => a.IsActive == true).Distinct().ToList();
             ViewBag.empevalDetails = empevaltask;
             

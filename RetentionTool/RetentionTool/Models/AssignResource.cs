@@ -34,7 +34,6 @@ namespace RetentionTool.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignEvaluater> AssignEvaluaters { get; set; }
-        public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Module Module { get; set; }
         public virtual ProjectsDetail ProjectsDetail { get; set; }
         public virtual Trainer Trainer { get; set; }
@@ -46,5 +45,6 @@ namespace RetentionTool.Models
         public virtual ICollection<RateEmployeeEligiability> RateEmployeeEligiabilities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Training> Trainings { get; set; }
+        public virtual PersonalInfo PersonalInfo { get; set; }
     }
 }

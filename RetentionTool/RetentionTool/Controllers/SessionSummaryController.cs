@@ -14,48 +14,93 @@ namespace RetentionTool.Controllers
         // GET: SessionSummary
         public ActionResult Index()
         {
-//            select s.Id,s.Date,s.Hours,s.Description,m.Topics from Sessions s
-//inner join
-//TrainingDet t on s.TrainingDet_Id = t.Id
-//inner join
-//ModuleDet m on t.ModuleDet_Id = m.Id
-            List<SessionSummaryModel> sessionvm = (from session in db.Sessions
-                                                     join training in db.TrainingDets
-                                                     on session.TrainingDet_Id equals training.Id
-                                                     join moduledet in db.ModuleDets on
-                                                       training.ModuleDet_Id equals moduledet.Id
-                                                     where session.IsActive == true
-                                                     select new SessionSummaryModel
-                                                     {
-                                                         Id = session.Id,
-                                                         Topics=moduledet.Topics,
-                                                         Hours=session.Hours,
-                                                         Description=session.Description,
-                                                         Date = session.Date,
-                                                         IsActive = session.IsActive
+            
+            List<Module> modulelist = (from module in db.Modules
+                                       join moduledet in db.ModuleDets
+                                       on module.Id equals moduledet.Module_Id
+                                       join trainingdet in db.TrainingDets
+                                       on moduledet.Id equals trainingdet.ModuleDet_Id
+                                       where module.IsActive == true && trainingdet.IsActive == true
+                                       && !db.EmployeeEvalTasks.Any(a=>a.AssignResource_Id==trainingdet.Training.AssignResource_Id && a.IsActive==true &&
+                                       
+                                       db.EmployeeEvalTaskDets.Any(c=>c.EmployeeEvalTask_Id==a.Id && c.IsEligiableMark==true
+                                       && c.IsActive==true))
+                                       select module).Distinct().ToList();
+
+            ViewBag.ModuleList = modulelist;
+            List<SessionView> sessionview = (from module in modulelist
+                                             join moduledet in db.ModuleDets
+                                             on module.Id equals moduledet.Module_Id
+                                             join trainingdet in db.TrainingDets
+                                      on moduledet.Id equals trainingdet.ModuleDet_Id
+                                             join session in db.Sessions
+                                             on trainingdet.Id equals session.TrainingDet_Id
+                                             where module.IsActive == true && trainingdet.IsActive == true
+
+                                             && session.IsActive == true
+
+                                             select new SessionView
+                                             {
+                                                 moduleid = module.Id,
+                                                 modulename = module.ModuleName,
+                                                 date = session.Date
+                                             }
+                                             ).OrderByDescending(s => s.date).ToList();
+
+            List<SessionView> sessionlist = (from sess in sessionview
+                                             group sess by sess.moduleid into s
+                                             select s.OrderByDescending(t => t.date).FirstOrDefault()
+                                ).ToList();
+
+            //List<SessionSummaryModel> sessionvm = (from session in db.Sessions
+            //                                         join training in db.TrainingDets
+            //                                         on session.TrainingDet_Id equals training.Id
+            //                                         join moduledet in db.ModuleDets on
+            //                                           training.ModuleDet_Id equals moduledet.Id
+            //                                         where session.IsActive == true
+            //                                           && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == training.Training.AssignResource_Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
+
+            //                                       select new SessionSummaryModel
+            //                                         {
+            //                                             Id = session.Id,
+            //                                             Topics=moduledet.Topics,
+            //                                             Hours=session.Hours,
+            //                                             Description=session.Description,
+            //                                             Date = session.Date,
+            //                                             IsActive = session.IsActive
                             
-                                                     }).ToList();
-            return View(sessionvm);
+            //                                         }).ToList();
+            return View(sessionlist);
 
 
         }
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            List<TrainingDet> training = db.TrainingDets.Where(a=> !db.Sessions.Any(b=>b.TrainingDet_Id==a.Id && b.IsActive==true) && a.IsActive==true).ToList();
+
+            List<TrainingDet> trainingdet = (from trainindets in db.TrainingDets
+                                             join moduledet in db.ModuleDets
+                                             on trainindets.ModuleDet_Id equals moduledet.Id
+                                             where moduledet.Module_Id == id && trainindets.IsActive == true
+                                             select trainindets
+                                            ).ToList();
+          //  List<TrainingDet> training = db.TrainingDets.Where(a=> !db.Sessions.Any(b=>b.TrainingDet_Id==a.Id && b.IsActive==true) && a.IsActive==true).ToList();
             //foreach (var i in training)
             //{
+            //   // i.ModuleDet.Module.ModuleName;
             //    //i.Training.AssignResource_Id
-            //   // i.Training_Id
-            //  //  i.Training.AssignResource_Id
+            //    // i.Training_Id
+            //    //  i.Training.AssignResource_Id
             //}
 
-            ViewBag.trainingDetails = training;
-            return View();
+            ViewBag.trainingDetails = trainingdet;
+            List<Session> sessions = db.Sessions.Where(a=>a.IsActive==true).ToList();
+            SessionSummaryViewModel sessionvm = new SessionSummaryViewModel();
+            sessionvm.sessionsvm = sessions;
+            return View(sessionvm);
         }
         [HttpPost]
         public ActionResult Create(Session sessionVM,SessionSummaryList[] list)
         {
-
 
             //AssignResource assRes = new AssignResource()
             //{

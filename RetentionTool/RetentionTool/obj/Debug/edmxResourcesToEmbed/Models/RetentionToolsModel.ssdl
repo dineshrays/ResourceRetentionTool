@@ -170,6 +170,7 @@
     <Property Name="AadharNo" Type="bigint" />
     <Property Name="BloodGroup" Type="varchar" MaxLength="50" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="Image" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="ProjectsDetails">
     <Key>

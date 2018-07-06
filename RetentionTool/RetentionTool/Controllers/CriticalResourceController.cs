@@ -14,11 +14,41 @@ namespace RetentionTool.Controllers
         // GET: CriticalResource
         public ActionResult Index()
         {
-            List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a => db.ProjectsWorkeds.Any(p=>p.Project_Id==a.Id && p.IsActive==true && a.IsActive == true)).ToList();
-            ViewBag.prjctDetails = projectDet;
-            ViewBag.CriticalResPrjct = db.CriticalResources.Where(a => a.IsActive == true).Select(a=>a.Project_Id).Distinct().ToList();
 
-            
+            //            select projectdetails.*from ProjectsDetails projectdetails
+            //inner  join AssignResources assignres
+            //                on projectdetails.Id = assignres.Project_Id
+            // inner join EmployeeEvalTask empeval
+            // on assignres.Id = empeval.AssignResource_Id
+            // inner join EmployeeEvalTaskDet empevaltaskdet
+            //  on empevaltaskdet.EmployeeEvalTask_Id = empeval.Id
+            //  where empevaltaskdet.IsEligiableMark = 1
+            List<ProjectsDetail> backupprjctlist = (from projectdet in db.ProjectsDetails
+                                   join assignres in db.AssignResources
+                                   on projectdet.Id equals assignres.Project_Id
+                                   join empeval in db.EmployeeEvalTasks
+                                   on assignres.Id equals empeval.AssignResource_Id
+                                   join empevaldet in db.EmployeeEvalTaskDets
+                                   on empeval.Id equals empevaldet.EmployeeEvalTask_Id
+                                   where empevaldet.IsEligiableMark == true
+                                   && assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
+                                                    select projectdet).ToList();
+            //&& projectdet.IsActive == true
+            //&& assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
+            //select new ProjectsDetail
+            //{
+            //    Id = projectdet.Id,
+            //    Name = projectdet.Name,
+            //    IsActive = projectdet.IsActive
+            //}
+            //          ).ToList();
+            List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a => db.ProjectsWorkeds.Any
+            (p => p.Project_Id == a.Id && p.IsActive == true && a.IsActive == true)).ToList();
+         List<ProjectsDetail> projectsDetails= projectDet.Where(a=>!backupprjctlist.Any(b=>b.Id==a.Id ) && a.IsActive==true).ToList();
+            ViewBag.prjctDetails = projectsDetails;
+          List<CriticalResource> criticalres = db.CriticalResources.Where(a => a.IsActive == true).Distinct().ToList();
+
+            ViewBag.CriticalResPrjct = criticalres;
             //.Select(a=>a.ProjectName).Distinct();
             //  ProjectWorkedViewModel prjctWrkvm = new ProjectWorkedViewModel();
             //    prjctWrkvm.

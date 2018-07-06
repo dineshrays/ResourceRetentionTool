@@ -14,7 +14,7 @@
             <tr>
 
 
-                <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
+                <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
                 <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.PersonalInfo.Name)</th>
                 <th>@Html.Label("Grade")</th>
                 <th>@Html.Label("IsEligible For Evaluation")</th>
@@ -23,7 +23,7 @@
             @foreach (var item in assign)
             {
                 <tr>
-                    <td>@item.Id</td>
+                    <td style="display:none">@item.Id</td>
                     <td>@item.Name</td>
                     <td><input type="text" name="grade" /></td>
                     <td><input type="checkbox" class="chck" /></td>

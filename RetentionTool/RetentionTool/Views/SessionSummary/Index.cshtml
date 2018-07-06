@@ -1,51 +1,65 @@
-﻿@model IEnumerable<RetentionTool.Models.SessionSummaryModel>
+﻿@model IEnumerable< RetentionTool.ViewModel.SessionView>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    var moduledetails = ViewBag.ModuleList;
 }
 
 <h2>Session Summary Index</h2>
-<div class="card-body">
+@*<div class="card-body">
     @Html.ActionLink("Create New", "Create", "SessionSummary", null, new { @class = "btn btn-outline-primary" })
-</div>
+</div>*@
 <div class="container" style="width:100%;margin-top:2%">
     <table class="table table-striped">
         <tr>
-            <th style="display:none">@Html.DisplayNameFor(model => model.Id)</th>
+            @*<th style="display:none">@Html.DisplayNameFor(model => model.Id)</th>
             <th style="display:none">@Html.DisplayNameFor(model => model.TrainingDet_Id)</th>
             <th>@Html.DisplayNameFor(model => model.Topics)</th>
             <th>@Html.DisplayNameFor(model => model.Hours)</th>
             <th>@Html.DisplayNameFor(model => model.Description)</th>
 
-            <th>@Html.DisplayNameFor(model => model.Date)</th>
+            <th>@Html.DisplayNameFor(model => model.Date)</th>*@
             @*<th>@Html.Label("Link")</th>*@
-            <th>@Html.Label("Actions")</th>
+            <th>@Html.Label("Module Name")</th>
+            <th>@Html.Label("Date")</th>
+            <th>@Html.Label("Topics")</th>
         </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td style="display:none">@item.Id</td>
-                <td style="display:none">@item.TrainingDet_Id</td>
-                <td>@item.Topics</td>
-                <td>@item.Hours</td>
-                <td>@item.Description</td>
+        
+            @{ DateTime? date=null;}
+            @foreach (var modulelist in moduledetails)
+            {
+                <tr>
+    <td> @modulelist.ModuleName </td>
 
-                <td>@item.Date</td>
-                @*<td>
-                   
-                </td>*@
-                <td>
-                    @Html.ActionLink(" ", "Edit", new {id=@item.Id},
-                   //new { id = item.Id }, null)
-                     new { @class = "ti-pencil"} )
-                    @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
 
-    </table>
+    if (item.moduleid == modulelist.Id)
+    {
+    date = item.date;
 
-    @*<div data-role="popup" id="transitionExample" class="ui-content" data-theme="a">
+    }
+
+
+
+
+
+    }
+
+    <td> @date </td>
+
+    <td>
+        <a href='@Url.Action("Create", "SessionSummary", new { id = modulelist.Id })' >List</a>
+
+    </td>
+        </tr>
+    }
+
+
+
+        </table>
+
+        @*<div data-role="popup" id="transitionExample" class="ui-content" data-theme="a">
             <p>I'm a simple popup.</p>
         </div>*@
 </div>

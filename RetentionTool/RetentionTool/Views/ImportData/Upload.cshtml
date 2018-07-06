@@ -6,7 +6,7 @@
 
 <h2>Upload</h2>
 <div>
-    @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Upload", "ImportData", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <input name="uploadFile" type="file"  class="btn btn-default"/><br /><br />
         <input type="submit" value="UploadFile" class="btn btn-success" style="margin-left: 10px;" title="Upload file" onclick="return CheckFileName();" />
@@ -16,7 +16,6 @@
 
 
 @*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
-
 <script type="text/javascript">
     function CheckFileName() {
         var fileName = document.getElementById("uploadFile").value

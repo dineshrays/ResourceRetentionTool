@@ -46,7 +46,28 @@
 
                     <td>
                         @*<div id="solTitle"> CreateSession", "SessionSummary*@
-                        <a href='@Url.Action("CreateSession", "SessionSummary", new {trainingdetid=@item.Id, trainingid = @item.Training_Id, moduledetid = @item.ModuleDet_Id})'>Add Details</a>
+                        @{ bool ispresent = false;
+                            int sessionid = 0;}
+                        @foreach (var i in Model.sessionsvm)
+                        {
+                            if (i.TrainingDet_Id == item.Id)
+                            {
+                                ispresent = true;
+                                sessionid = i.Id;
+                            }
+                        }
+                        @if (ispresent == true)
+                        {
+                            @Html.ActionLink(" ", "Edit", new {id= sessionid },
+                         //new { id = item.Id }, null)
+                         new { @class = "ti-pencil"} )
+                            @Html.ActionLink(" ", "Delete", new { id = sessionid }, new { @class = "ti-trash" })
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("CreateSession", "SessionSummary", new {trainingdetid=@item.Id, trainingid = @item.Training_Id, moduledetid = @item.ModuleDet_Id})'>Add Details</a>
+
+                        }
 
                         @*<a href='@Url.Action("CreateSession", "SessionSummary")' onclick='naviagte(this.href,@item.Training_Id, @item.ModuleDet_Id);'>Click</a>*@
 
@@ -55,8 +76,8 @@
                         @*</div>*@
                         @*<div id="emp" style="display:none">
 
-                            <h1>Heewleoo</h1>
-                        </div>*@
+            <h1>Heewleoo</h1>
+        </div>*@
                     </td>
                     @*<td>
                         @Html.ActionLink(" ", "Edit", new {id=item.Id},

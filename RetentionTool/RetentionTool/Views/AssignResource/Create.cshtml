@@ -310,7 +310,7 @@
                     dataFilter: function (data) { return data; },
                     success: function (data) {
                         response($.map(data, function (item) {
-                            return { label: item.EmpCode, id: item.Id, name: item.Name }
+                            return { name: item.Name, id: item.Id, label: item.EmpCode + '-' + item.Name, lbl: item.EmpCode }
                         }))
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -321,8 +321,8 @@
             select: function (event, ui) {
                 // prevent autocomplete from updating the textbox
                 event.preventDefault();
-                $(this).val(ui.item.label);
-                $("#searchempname").val(ui.item.name);
+                $(this).val(ui.item.name);
+                $("#searchempname").val(ui.item.lbl);
                 $("#searchid").val(ui.item.id);
             }    //minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
         });

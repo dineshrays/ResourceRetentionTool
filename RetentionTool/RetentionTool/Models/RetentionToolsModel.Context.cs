@@ -40,7 +40,6 @@ namespace RetentionTool.Models
         public virtual DbSet<EmployeeSkill> EmployeeSkills { get; set; }
         public virtual DbSet<Experience> Experiences { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
-        public virtual DbSet<PersonalInfo> PersonalInfoes { get; set; }
         public virtual DbSet<ProjectsDetail> ProjectsDetails { get; set; }
         public virtual DbSet<Trainer> Trainers { get; set; }
         public virtual DbSet<CriticalResource> CriticalResources { get; set; }
@@ -50,5 +49,6 @@ namespace RetentionTool.Models
         public virtual DbSet<SessionsDet> SessionsDets { get; set; }
         public virtual DbSet<AssignResource> AssignResources { get; set; }
         public virtual DbSet<ProjectsWorked> ProjectsWorkeds { get; set; }
+        public virtual DbSet<PersonalInfo> PersonalInfoes { get; set; }
     }
 }

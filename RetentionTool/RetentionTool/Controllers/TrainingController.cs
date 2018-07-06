@@ -20,9 +20,11 @@ namespace RetentionTool.Controllers
                                                      join m in db.Modules
                                                      on assignres.Module_Id equals m.Id
                                                      where assignres.IsActive == true
+                                                     && !db.EmployeeEvalTasks.Any(a=>a.AssignResource_Id==assignres.Id && a.IsActive==true && db.EmployeeEvalTaskDets.Any(b=>b.EmployeeEvalTask_Id==a.Id && b.IsEligiableMark==true && b.IsActive==true))
                                                      select new AssignResourceViewModel
                                                      {
-                                                         Id = assignres.Id,                                                         
+                                                         Id = assignres.Id,     
+                                                         modulename= assignres.Module.ModuleName,
                                                          Module_Id = assignres.Module_Id,
                                                          Project_Id=assignres.Project_Id,
                                                          projectname=assignres.ProjectsDetail.Name

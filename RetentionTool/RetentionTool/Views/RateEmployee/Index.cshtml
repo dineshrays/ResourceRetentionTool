@@ -23,6 +23,9 @@
                 <th>
                     @Html.Label("Manager Name")
                 </th>
+                <th>
+                    @Html.Label("Employee Name")
+                </th>
                 <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.AssignResource.Module.ModuleName)</th>
                 @*<th>@Html.Label("Trainer Name")</th>*@
 
@@ -31,43 +34,130 @@
             </tr>
             @foreach (var item in del)
             {
-            <tr>
-                <td style="display:none">@item.Id</td>
-                <td>@item.ProjectsDetail.Name</td>
-                <td>@item.PersonalInfo.Name</td>
-                <td>@item.Module.ModuleName</td>
-                @*<td>@item.Trainer.PersonalInfo.Name</td>*@
+                <tr>
+                    <td style="display:none">@item.Id</td>
+                    <td>@item.ProjectsDetail.Name</td>
+                    <td>@item.PersonalInfo.Name</td>
+                    <td>
+                        <div class="popup" id="@item.Id" onclick="myFunction(@item.Id)">
+                            List Employees
+                            <span class="popuptext" id="myPopup-@item.Id"></span>
+                        </div>
+                    </td>
+                    <td>@item.Module.ModuleName</td>
+                    @*<td>@item.Trainer.PersonalInfo.Name</td>*@
 
-                <td>
-                    @{ bool IsAdded = false;
-                       }
-                    @foreach (var rate in rateemployeeel)
-                    {
-                        if (rate == item.Id)
+                    <td>
+                        @{ bool IsAdded = false;
+                        }
+                        @foreach (var rate in rateemployeeel)
                         {
-                            IsAdded = true;
+                            if (rate == item.Id)
+                            {
+                                IsAdded = true;
+
+                            }
+
 
                         }
-                      
 
-                    }
+                        @if (IsAdded == true)
+                        {
+                            @Html.ActionLink(" ", "Edit", new { id = @item.Id }, new { @class = "ti-pencil" })
+                            @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("Create", "RateEmployee", new {assignresid=@item.Id})'>Add Details</a>
 
-                    @if (IsAdded==true)
-                    {
-                    @Html.ActionLink(" ", "Edit", new { id = @item.Id }, new { @class = "ti-pencil" })
-                    @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
-                    }
-                    else
-                    {
-                    <a href='@Url.Action("Create", "RateEmployee", new {assignresid=@item.Id})'>Add Details</a>
-
-                    }
-                </td>
-            </tr>
+                        }
+                    </td>
+                </tr>
             }
 
         </table>
-      
+
     </div>
 
 </div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<style>
+    /* Popup container - can be anything you want */
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #fff;
+            color: #555;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+            font-size: 1rem
+        }
+
+            /* Popup arrow */
+            .popup .popuptext::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+            }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+</style>
+
+
+<script>
+    
+    function myFunction(id) {
+
+       
+        var assresid = id;
+      
+        $("#myPopup-" + id).html("");
+        $.ajax(
+            {
+
+                url: '/RateEmployee/EmpDetails',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({ assId: assresid }),
+                success: function (result) {
+                    $.each(result, function (i, empname) {
+                        $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
+                    });
+                },
+                error: function () { alert("Something Gone Wrong") },
+            });
+        var popup = document.getElementById("myPopup-" + id);
+
+        popup.classList.toggle("show");
+        // $('.popuptext').show();
+    }
+</script>

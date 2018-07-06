@@ -15,8 +15,10 @@ namespace RetentionTool.ViewModel
        
       public  List<SessionsDet> sessionsDetsvm { get; set; }
         public SessionsDet sessionsDet { get; set; }
+        public List<Session> sessionsvm { get; set; }
+        public Session sessions { get; set; }
 
-        
-        
+
+
     }
 }

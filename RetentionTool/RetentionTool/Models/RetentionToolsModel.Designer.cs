@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\Models\RetentionToolsModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Project Demo\RetentionTool\RetentionTool\Models\RetentionToolsModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

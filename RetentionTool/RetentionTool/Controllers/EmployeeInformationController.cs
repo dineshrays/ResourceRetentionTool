@@ -2,6 +2,7 @@
 using RetentionTool.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,30 +18,87 @@ namespace RetentionTool.Controllers
             List<PersonalInfoModel> details = (from a in db.PersonalInfoes
                                                           select new PersonalInfoModel
                                                           {
+                                                              Id = a.Id,
                                                               EmpCode =a.EmpCode,
-                                                              Name = a.Name
-                                                         }).ToList();
+                                                              Name = a.Name,
+                                                              Image= a.Image
+                                                             // "UserImages/logo2.png"
+                                                          }).OrderByDescending(a => a.Id).ToList();
             ViewBag.details = details;
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(HttpPostedFileBase file)
+        {
+
+            string path = "";
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
+
+               
+                if (pic != null && pic.ContentLength > 0)
+                    try
+                    {
+                        path = Path.Combine(Server.MapPath("~/UserImages"),
+                                                  Path.GetFileName(pic.FileName));
+                        pic.SaveAs(path);
+                        path = "/UserImages/" + pic.FileName;
+                        TempData["path"] = path;
+                        ViewBag.Message = "File uploaded successfully";
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                    }
+                else
+                {
+                    ViewBag.Message = "You have not specified a file.";
+                }
+            }
+            //return 
+            //View("Index");
+            return   Json(new { filepath = path }, JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult Create()
         {
             EmployeeInformationViewModel ei = new EmployeeInformationViewModel();
 
+            getId();
             ei.CommonField = getCommonFields();
             ei.Skill = getSkill();
             return View(ei);
 
         }
 
+        public void getId()
+        {
+            ViewData["Id"] = new SelectList(db.PersonalInfoes.ToList(), "Id", "Name");
+        }
+
         public ActionResult CreateEmployee()
         {
             EmployeeInformationViewModel ei = new EmployeeInformationViewModel();
 
+            getId();
+            getManagers();
+            getProjectList();
             ei.CommonField = getCommonFields();
             ei.Skill = getSkill();
             return View(ei);
+        }
+
+        public void getManagers()
+        {
+            ViewData["managerslist"] = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
+        }
+
+        public void getProjectList()
+        {
+            ViewData["projectlist"] = new SelectList(db.ProjectsDetails.ToList(), "Id", "Name");
         }
 
         public IEnumerable<SelectListItem> getCommonFields()
@@ -48,22 +106,21 @@ namespace RetentionTool.Controllers
             var val = db.Commonfields.ToList();
             var cf = new SelectList(val, "id", "Name");
             return cf;
-
         }
+
         public IEnumerable<SelectListItem> getSkill()
         {
             List<SelectListItem> list = new List<SelectListItem>()
             {
                 new SelectListItem{Value=null,Text=""}
             };
-            return list;
-                        
+            return list;                        
         }
+
         public ActionResult getSkills(int skillId)
         {
             IEnumerable<SelectListItem> skilldet = getSkillsField(skillId);
             return Json(skilldet,JsonRequestBehavior.AllowGet);
-            
         }
 
         public IEnumerable<SelectListItem> getSkillsField(int commonId)
@@ -73,98 +130,121 @@ namespace RetentionTool.Controllers
                 Value = x.id.ToString(),
                 Text = x.Name
             }).ToList();
-
             return new SelectList(rs, "Value", "Text");
         }        
 
         [HttpPost]
-        public ActionResult Create(PersonalInfoModel PersonalInfoVm, EducationQualificationModel EducationQualificationVm, ExperienceModel ExperienceVm, EmployeeSkillsModel EmployeeSkillsVm, ProjectsWorkedmodel ProjectsWorkedVm, CurrentInfoModel CurrentInfoVm)
+        public ActionResult Create(string path, PersonalInfo personalInfo, List<EducationQualification> eductionQualifi, List<Experience> exper, List<EmployeeSkill> empSkill, ProjectsWorked projectWorked, CurrentInfo currentInfo)
         {
+          //  string path="";
             PersonalInfo p = new PersonalInfo();
-            EducationQualification edu = new EducationQualification();
-            Experience ex = new Experience();
-            EmployeeSkill es = new EmployeeSkill();
             ProjectsWorked pw = new ProjectsWorked();
             CurrentInfo ci = new CurrentInfo();
-
-            p.EmpCode = PersonalInfoVm.EmpCode;
-            p.Name = PersonalInfoVm.Name;
-            p.FatherName = PersonalInfoVm.FatherName;
-            p.DOB = PersonalInfoVm.DOB;
-            p.Gender = PersonalInfoVm.Gender;
-            p.PermanentAddress = PersonalInfoVm.PermanentAddress;
-            p.CommunicationAddress = PersonalInfoVm.CommunicationAddress;
-            p.Contact = PersonalInfoVm.Contact;
-            p.Qualification = PersonalInfoVm.Qualification;
-            p.Email = PersonalInfoVm.Email;
-            p.PanNo = PersonalInfoVm.PanNo;
-            p.AadharNo = PersonalInfoVm.AadharNo;
-            p.BloodGroup = PersonalInfoVm.BloodGroup;
+           
+            //if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            //{
+            //    var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
+            //}
+            //if (file != null && file.ContentLength > 0)
+            //    try
+            //    {
+            //        string path = Path.Combine(Server.MapPath("~/UserImages"),
+            //                                   Path.GetFileName(file.FileName));
+            //        file.SaveAs(path);
+            //         TempData["path"] = path;
+            //        //ViewBag.Message = "File uploaded successfully";
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ViewBag.Message = "ERROR:" + ex.Message.ToString();
+            //    }
+            //else
+            //{
+            //    ViewBag.Message = "You have not specified a file.";
+            //}
+            p.EmpCode = personalInfo.EmpCode;
+            p.Name = personalInfo.Name;
+            p.FatherName = personalInfo.FatherName;
+            p.DOB = personalInfo.DOB;
+            p.Gender = personalInfo.Gender;
+            p.PermanentAddress = personalInfo.PermanentAddress;
+            p.CommunicationAddress = personalInfo.CommunicationAddress;
+            p.Contact = personalInfo.Contact;
+            p.Qualification = personalInfo.Qualification;
+            p.Email = personalInfo.Email;
+            p.PanNo = personalInfo.PanNo;
+            p.AadharNo = personalInfo.AadharNo;
+            p.BloodGroup = personalInfo.BloodGroup;
+            p.Image = path;
+                //Convert.ToString(TempData["path"]);  
             p.IsActive = true;
             db.PersonalInfoes.Add(p);
             db.SaveChanges();
 
-            edu.P_Id =p.Id;
-            edu.Degree = EducationQualificationVm.Degree;
-            edu.Board = EducationQualificationVm.Board;
-            edu.YearOfPassing = EducationQualificationVm.YearOfPassing;
-            edu.Percentage = EducationQualificationVm.Percentage;
-            edu.IsActive = true;
-            db.EducationQualifications.Add(edu);
-            db.SaveChanges();
-
-            ex.P_Id = p.Id;
-            ex.CompanyName = ExperienceVm.CompanyName;
-            ex.FromDate = ExperienceVm.FromDate;
-            ex.ToDate = ExperienceVm.ToDate;
-            ex.Designation = ExperienceVm.Designation;
-            ex.ProjectWorked = ExperienceVm.ProjectWorked;
-            ex.TechnologiesUsed = ExperienceVm.TechnologiesUsed;
-            ex.IsActive = true;
-            db.Experiences.Add(ex);
-            db.SaveChanges();
-
-            es.P_Id = p.Id;
-            es.CommonField_Id = EmployeeSkillsVm.CommonField_Id;
-            es.Skills_Id = EmployeeSkillsVm.Skills_Id;
-            es.Years = EmployeeSkillsVm.Years;
-            es.Months = EmployeeSkillsVm.Months;
-            es.Status = EmployeeSkillsVm.Status;
-            es.IsActive = true;
-            db.EmployeeSkills.Add(es);
-            db.SaveChanges();
+            if (eductionQualifi != null)
+            {
+                foreach (var equali in eductionQualifi)
+                {
+                    equali.P_Id = p.Id;
+                    equali.IsActive = true;
+                    db.EducationQualifications.Add(equali);
+                    db.SaveChanges();
+                }
+            }
+            
+            if (exper != null)
+            {
+                foreach (var exp in exper)
+                {
+                    exp.P_Id = p.Id;
+                    exp.IsActive = true;
+                    db.Experiences.Add(exp);
+                    db.SaveChanges();
+                }
+            }
+            
+            if (empSkill != null)
+            {
+                foreach (var ski in empSkill)
+                {
+                    ski.P_Id = p.Id;
+                    ski.IsActive = true;
+                    db.EmployeeSkills.Add(ski);
+                    db.SaveChanges();
+                }
+            }
 
             pw.PersonalInfo_Id = p.Id;
-            pw.Project_Id = ProjectsWorkedVm.PersonalInfo_Id;
-            pw.Designation = ProjectsWorkedVm.Designation;
-            pw.Responsibilities = ProjectsWorkedVm.Responsibilities;
-            pw.StartDate = ProjectsWorkedVm.StartDate;
-            pw.EndDate = ProjectsWorkedVm.EndDate;
-            pw.Description = ProjectsWorkedVm.Description;
-            pw.TeamMembers = ProjectsWorkedVm.TeamMembers;
-            pw.Manager_Id = ProjectsWorkedVm.Manager_Id;
+            pw.Project_Id = projectWorked.Project_Id;
+            pw.Designation = projectWorked.Designation;
+            pw.Responsibilities = projectWorked.Responsibilities;
+            pw.StartDate = projectWorked.StartDate;
+            pw.EndDate = projectWorked.EndDate;
+            pw.Description = projectWorked.Description;
+            pw.TeamMembers = projectWorked.TeamMembers;
+            pw.Manager_Id = projectWorked.Manager_Id;
             pw.IsActive = true;
             db.ProjectsWorkeds.Add(pw);
             db.SaveChanges();
 
             ci.P_Id = p.Id;
-            ci.Designation = CurrentInfoVm.Designation;
-            ci.DOJ = CurrentInfoVm.DOJ;
-            ci.DateOfRelieving = CurrentInfoVm.DateOfRelieving;
-            ci.ReportingManager = CurrentInfoVm.ReportingManager;
-            ci.JobType = CurrentInfoVm.JobType;
-            ci.DeployedCompanyDetails = CurrentInfoVm.DeployedCompanyDetails;
-            ci.DeployedFromDate = CurrentInfoVm.DeployedFromDate;
-            ci.DeployedToDate = CurrentInfoVm.DeployedToDate;
-            ci.CompanyMailId = CurrentInfoVm.CompanyMailId;
-            ci.BankName = CurrentInfoVm.BankName;
-            ci.IFSC = CurrentInfoVm.IFSC;
-            ci.ModeOfPayment = CurrentInfoVm.ModeOfPayment;
-            ci.WorkLocation = CurrentInfoVm.WorkLocation;
-            ci.Department = CurrentInfoVm.Department;
-            ci.Grade = CurrentInfoVm.Grade;
-            ci.Salary = CurrentInfoVm.Salary;
-            ci.CTC = CurrentInfoVm.CTC;
+            ci.Designation = currentInfo.Designation;
+            ci.DOJ = currentInfo.DOJ;
+            ci.DateOfRelieving = currentInfo.DateOfRelieving;
+            ci.ReportingManager = currentInfo.ReportingManager;
+            ci.JobType = currentInfo.JobType;
+            ci.DeployedCompanyDetails = currentInfo.DeployedCompanyDetails;
+            ci.DeployedFromDate = currentInfo.DeployedFromDate;
+            ci.DeployedToDate = currentInfo.DeployedToDate;
+            ci.CompanyMailId = currentInfo.CompanyMailId;
+            ci.BankName = currentInfo.BankName;
+            ci.IFSC = currentInfo.IFSC;
+            ci.ModeOfPayment = currentInfo.ModeOfPayment;
+            ci.WorkLocation = currentInfo.WorkLocation;
+            ci.Department = currentInfo.Department;
+            ci.Grade = currentInfo.Grade;
+            ci.Salary = currentInfo.Salary;
+            ci.CTC = currentInfo.CTC;
             db.CurrentInfoes.Add(ci);
             db.SaveChanges();
 

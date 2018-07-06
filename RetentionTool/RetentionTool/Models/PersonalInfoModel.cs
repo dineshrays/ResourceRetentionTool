@@ -25,5 +25,6 @@ namespace RetentionTool.Models
         public Nullable<long> AadharNo { get; set; }
         public string BloodGroup { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string  Image { get; set; }
     }
 }

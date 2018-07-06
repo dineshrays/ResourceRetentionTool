@@ -14,7 +14,39 @@ namespace RetentionTool.Controllers
         // GET: RateEmployee
         public ActionResult Index()
         {
-            List<AssignResource> assignRes = db.AssignResources.Where(a => a.IsActive == true).ToList();
+            List<AssignResource> assignRes = db.AssignResources.Where(a => !db.EmployeeEvalTasks.Any(
+                e=>e.AssignResource_Id==a.Id && e.IsActive==true && 
+                db.EmployeeEvalTaskDets.Any(t=>t.EmployeeEvalTask_Id==e.Id && 
+                t.IsEligiableMark==true && t.IsActive==true)) && a.IsActive == true
+                ).ToList();
+
+
+            //List<TrainingDet> trainingDets = db.TrainingDets.ToList();
+            List<AssignResource> assignresList = (from assignres in assignRes
+                                                  join module in db.Modules
+                                                  on assignres.Module_Id equals module.Id
+                                                  join moduledet in db.ModuleDets
+                                                 on module.Id equals moduledet.Module_Id
+                                                  join training in db.Trainings
+                                                  on assignres.Id equals training.AssignResource_Id
+                                                 
+                                                  //assignres.Module_Id equals moduledet.Module_Id
+                                                  join trainingdet in db.TrainingDets
+                                           on moduledet.Id equals trainingdet.ModuleDet_Id
+                                                  join session in db.Sessions
+                                                  on trainingdet.Id equals session.TrainingDet_Id
+                                                  where 
+                                                  db.Sessions.Any(a=>a.TrainingDet_Id==trainingdet.Id &&
+                                                  db.TrainingDets.Any(t=>t.ModuleDet_Id==moduledet.Id  && t.IsActive==true)
+                                                  && a.IsActive==true)
+                                                  && assignres.IsActive == true && trainingdet.IsActive == true
+                                                    && session.IsActive == true 
+                                                 
+                                                  select assignres).ToList();
+
+
+            //  && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
+
             ViewBag.assign = assignRes;
             //foreach(var i in assignRes)
             //{
@@ -135,6 +167,24 @@ foreach(var item in rateEmpEliList)
 
 
             return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        public ActionResult EmpDetails(int assId)
+        {
+            List<EmployeeList> emplist = (from rateemp in db.RateEmployeeEligiabilities
+                                          join emp in db.PersonalInfoes
+                                          on rateemp.Employee_Id equals emp.Id
+                                          where emp.IsActive == true
+                                          where rateemp.AssignResources_Id == assId
+                                          select new EmployeeList
+                                          {
+                                              Id = emp.Id,
+                                              Name = emp.Name
+                                          }).ToList();
+
+            return Json(emplist, JsonRequestBehavior.AllowGet);
         }
     }
 }

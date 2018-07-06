@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
 }
-
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <h2>Index Project Worked</h2>
 
 <div class="card-body">
@@ -13,13 +13,16 @@
 <div class="container" style="width:100%;margin-top:2%">
     <table class="table table-striped">
         <tr>
-            <th>@Html.DisplayName("Employee Name")</th>
-            <th>@Html.DisplayName("Employee Code")</th>
+            @*<th>@Html.DisplayName("Employee Name")</th>
+        <th>@Html.DisplayName("Employee Code")</th>*@
             <th>@Html.DisplayName("Project Name")</th>
-            <th>@Html.DisplayNameFor(model => model.projects.Designation)</th>
-            <th>@Html.DisplayNameFor(model => model.projects.Responsibilities)</th>
+            @*<th>@Html.DisplayNameFor(model => model.projects.Designation)</th>
+        <th>@Html.DisplayNameFor(model => model.projects.Responsibilities)</th>*@
             <th>@Html.DisplayNameFor(model => model.projects.StartDate)</th>
             <th>@Html.DisplayNameFor(model => model.projects.EndDate)</th>
+            <th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
+            <th>@Html.DisplayName("Employee List")</th>
+            <th>@Html.DisplayName("Manager Name")</th>
             <th>@Html.DisplayNameFor(model => model.projects.Description)</th>
             @*<th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
         <th>@Html.DisplayNameFor(model => model.projects.Manager_Id)</th>*@
@@ -30,26 +33,36 @@
         </tr>
         @foreach (var item in Model.projectvm)
         {
-        <tr>
-            <td>@item.PersonalInfo1.Name</td>
-            <td>@item.PersonalInfo1.EmpCode</td>
-            <td>@item.ProjectsDetail.Name</td>
-            <td>@item.Designation</td>
-            <td>@item.Responsibilities</td>
-            <td>@item.StartDate</td>
-            <td>@item.EndDate</td>
-            <td>@item.Description</td>
-            @*<td>@item.TeamMembers</td>
-        <td>@item.Manager_Id</td>*@
+            <tr>
+                @*<td>@item.PersonalInfo1.Name</td>
+                    <td>@item.PersonalInfo1.EmpCode</td>*@
+                <td>@item.ProjectsDetail.Name</td>
+
+                <td>@item.StartDate</td>
+                <td>@item.EndDate</td>
+                <td>
+                    @item.TeamMembers
+
+                </td>
+                <td>
+                    <div class="popup" id="@item.ProjectsDetail.Id" onclick="myFunction(@item.ProjectsDetail.Id)">
+                        View List
+                        <span class="popuptext" id="myPopup-@item.ProjectsDetail.Id"></span>
+                    </div>
+                </td>
+                <td>@item.PersonalInfo.Name</td>
+                <td>@item.Description</td>
+                @*<td>@item.TeamMembers</td>
+                    <td>@item.Manager_Id</td>*@
 
 
 
-            <td>
-                @Html.ActionLink(" ", "Edit", new {id=@item.Id},
-                              new { @class = "ti-pencil"} )
-                @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
-            </td>
-        </tr>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new {id=@item.ProjectsDetail.Id },
+                                  new { @class = "ti-pencil"} )
+                    @Html.ActionLink(" ", "Delete", new { id = @item.ProjectsDetail.Id }, new { @class = "ti-trash" })
+                </td>
+            </tr>
         }
 
     </table>
@@ -58,3 +71,82 @@
 </div>
 
 
+<style>
+    /* Popup container - can be anything you want */
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #fff;
+            color: #555;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+            font-size: 1rem
+        }
+
+            /* Popup arrow */
+            .popup .popuptext::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+            }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+</style>
+
+
+<script>
+    // When the user clicks on div, open the popup
+    function myFunction(id) {
+
+       
+        var prjctid = id;
+        
+        $("#myPopup-" + id).html("");
+        $.ajax(
+            {
+
+                url: '/ProjectWorked/EmpDetails',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({ projectid: prjctid }),
+                success: function (result) {
+                    $.each(result, function (i, empname) {
+                        $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
+                    });
+                },
+                error: function () { alert("Something Gone Wrong") },
+            });
+        var popup = document.getElementById("myPopup-" + id);
+
+        popup.classList.toggle("show");
+        // $('.popuptext').show();
+    }
+</script>

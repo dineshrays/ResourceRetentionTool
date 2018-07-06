@@ -187,27 +187,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PersonalInfoes">
-      <EntityTypeMapping TypeName="RetentionToolModel.PersonalInfo">
-        <MappingFragment StoreEntitySet="PersonalInfo">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
-          <ScalarProperty Name="AadharNo" ColumnName="AadharNo" />
-          <ScalarProperty Name="PanNo" ColumnName="PanNo" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Qualification" ColumnName="Qualification" />
-          <ScalarProperty Name="Contact" ColumnName="Contact" />
-          <ScalarProperty Name="CommunicationAddress" ColumnName="CommunicationAddress" />
-          <ScalarProperty Name="PermanentAddress" ColumnName="PermanentAddress" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="DOB" ColumnName="DOB" />
-          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ProjectsDetails">
       <EntityTypeMapping TypeName="RetentionToolModel.ProjectsDetail">
         <MappingFragment StoreEntitySet="ProjectsDetails">
@@ -309,6 +288,28 @@
           <ScalarProperty Name="Designation" ColumnName="Designation" />
           <ScalarProperty Name="Project_Id" ColumnName="Project_Id" />
           <ScalarProperty Name="PersonalInfo_Id" ColumnName="PersonalInfo_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonalInfoes">
+      <EntityTypeMapping TypeName="RetentionToolModel.PersonalInfo">
+        <MappingFragment StoreEntitySet="PersonalInfo">
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+          <ScalarProperty Name="AadharNo" ColumnName="AadharNo" />
+          <ScalarProperty Name="PanNo" ColumnName="PanNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="CommunicationAddress" ColumnName="CommunicationAddress" />
+          <ScalarProperty Name="PermanentAddress" ColumnName="PermanentAddress" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

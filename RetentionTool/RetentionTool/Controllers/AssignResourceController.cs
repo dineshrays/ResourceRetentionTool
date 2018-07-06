@@ -17,9 +17,14 @@ namespace RetentionTool.Controllers
            // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
             //var assignres;
             List<AssignResourceViewModel> assgnvm  = (from assignres in db.AssignResources 
-                                join assignresdet in db.AssignResourcesDets
-                                on assignres.Id equals assignresdet.AssignResources_Id where assignres.IsActive==true
-                                select new AssignResourceViewModel
+                               // join assignresdet in db.AssignResourcesDets
+                               // on assignres.Id equals assignresdet.AssignResources_Id
+                               
+                           
+                                                      where assignres.IsActive==true 
+                                                      && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
+
+                                                      select new AssignResourceViewModel
                                 {
                                     Id = assignres.Id,
                                     Manager_Id = assignres.Manager_Id,
@@ -30,11 +35,11 @@ namespace RetentionTool.Controllers
                                 modulename=    assignres.Module.ModuleName,
                                  Trainer_Id=   assignres.Trainer.PersonalInfo_Id,
                                   trainername=  assignres.Trainer.PersonalInfo.Name,
-                                 Employee_Id=   assignresdet.Employee_Id,
-                                  employeename=  assignresdet.PersonalInfo.Name,
+                             //    Employee_Id=   assignresdet.Employee_Id,
+                              //    employeename=  assignresdet.PersonalInfo.Name,
                                   Date=  assignres.Date,
                                  IsActive=   assignres.IsActive,
-                                AssignResourceId=  assignresdet.Id
+                             //   AssignResourceId=  assignresdet.Id
                                 }).ToList();
 
             //List<AssignResourceViewModel> assgnvm = assginmodule.Select(
@@ -339,7 +344,7 @@ where personalInfo.IsActive==true && trainer.IsActive==true
                         //             join
 
                         //userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
-                                     where emp.EmpCode.Contains(name)
+                                     where emp.Name.Contains(name)
                                   
                                      && emp.IsActive==true 
                                      //&& userdet.IsActive==true && userdet.Role_Id==3
@@ -403,5 +408,25 @@ where personalInfo.IsActive==true && trainer.IsActive==true
 
         }
 
+        public ActionResult PopupTest()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EmpDetails(int assId)
+        {
+            List<EmployeeList> emplist = (from assresdet in db.AssignResourcesDets
+                                          join emp in db.PersonalInfoes
+                                          on assresdet.Employee_Id equals emp.Id
+                                          where emp.IsActive == true
+                                          where assresdet.AssignResources_Id == assId
+                                          select new EmployeeList
+                                          {
+                                              Id = emp.Id,
+                                              Name = emp.Name
+                                          }).ToList();
+
+            return Json(emplist, JsonRequestBehavior.AllowGet);
+        }
     }
 }

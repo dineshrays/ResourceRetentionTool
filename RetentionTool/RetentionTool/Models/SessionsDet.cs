@@ -21,7 +21,7 @@ namespace RetentionTool.Models
         public string Remarks { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Session Session { get; set; }
+        public virtual PersonalInfo PersonalInfo { get; set; }
     }
 }

@@ -21,7 +21,12 @@ namespace RetentionTool.Controllers
         // GET: AssignEvaluater
         public ActionResult Index()
         {
-            List<AssignEvaluater> assneval = db.AssignEvaluaters.Where(a => a.IsActive == true).ToList();
+            List<AssignEvaluater> assneval = db.AssignEvaluaters.Where(a =>
+           !db.EmployeeEvalTasks.Any(
+                e => e.AssignResource_Id == a.AssignResource_Id && e.IsActive == true &&
+                db.EmployeeEvalTaskDets.Any(t => t.EmployeeEvalTask_Id == e.Id &&
+                t.IsEligiableMark == true && t.IsActive == true)) &&
+            a.IsActive == true).ToList();
             AssignEvaluterViewModel assnevalvm = new AssignEvaluterViewModel();
             assnevalvm.assvm = assneval;
             return View(assnevalvm);

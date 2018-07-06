@@ -104,13 +104,14 @@ namespace RetentionTool.Controllers
             List<EmployeeList> personalInfo = (from personal in db.PersonalInfoes
                                                //join userdet in db.UserDetail
                                                 
-                                               where personal.EmpCode.Contains(name)
+                                               where personal.Name.Contains(name)
 //&& personal.IsActive == true 
 && !db.UserDetails.Any(p2 => p2.Emp_Id == personal.Id && p2.IsActive==true && personal.IsActive==true)
                                                select new EmployeeList
                                                {
                                                    Id = personal.Id,
-                                                   Name = personal.EmpCode
+                                                   Name = personal.Name,
+                                                   EmpCode=personal.EmpCode
                                                }).ToList();
             return new JsonResult { Data = personalInfo, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
