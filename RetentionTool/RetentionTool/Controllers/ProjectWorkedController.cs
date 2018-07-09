@@ -40,7 +40,19 @@ namespace RetentionTool.Controllers
             ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
 
             prjctwrkvm.projectvm = result1.ToList();
+            //select   AssignResource_Id from EmployeeEvalTask
+
+            //            select assres.Project_Id from EmployeeEvalTask empeval
+            //inner join AssignResources assres on
+            //empeval.AssignResource_Id = assres.Id
+            ViewBag.CompletedAssId = (from empeval in db.EmployeeEvalTasks 
+                                      join assignres in db.AssignResources
+                                      on empeval.AssignResource_Id equals assignres.Id
+                                      where empeval.IsActive==true && assignres.IsActive==true
+                                      select assignres.Project_Id).ToList();
+            //db.EmployeeEvalTasks.ToList().Select(a => a.AssignResource_Id);
             //ViewBag.pro = prjctwrk;
+            ViewBag.CriticalRes = db.CriticalResources.Where(a => a.IsActive == true).Select(a => a.Project_Id).Distinct().ToList();
             return View(prjctwrkvm);
         }
 

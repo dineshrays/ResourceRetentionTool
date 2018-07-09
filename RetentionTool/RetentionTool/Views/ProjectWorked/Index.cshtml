@@ -27,7 +27,7 @@
             @*<th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
         <th>@Html.DisplayNameFor(model => model.projects.Manager_Id)</th>*@
 
-
+            <th>@Html.Label("Status")</th>
 
             <th>@Html.Label("Actions")</th>
         </tr>
@@ -50,13 +50,51 @@
                         <span class="popuptext" id="myPopup-@item.ProjectsDetail.Id"></span>
                     </div>
                 </td>
+                
+                @{bool completedproject=false;
+                    bool inProgress = false;
+                    bool isCritical = false;
+
+                }
+                @foreach(var compelete in ViewBag.CompletedAssId)
+                {
+                    if(compelete == item.ProjectsDetail.Id)
+                    {
+                        completedproject = true;
+                    }
+                }
+                @if(completedproject==false)
+                {
+                    foreach(var critical in ViewBag.CriticalRes)
+                    {
+                        if(critical== item.ProjectsDetail.Id)
+                        {
+                            isCritical = true;
+                        }
+                    }
+                }
                 <td>@item.PersonalInfo.Name</td>
                 <td>@item.Description</td>
                 @*<td>@item.TeamMembers</td>
                     <td>@item.Manager_Id</td>*@
+                <td>
+                    @if (completedproject == true)
+                    {
+                        @Html.Label("BackUp",
+                                  new { @class = "btn-success" })
+                    }
+                    @if (isCritical == true)
+                    {
+                        @Html.Label("Critical",
+                                 new { @class = "btn-danger" })
 
-
-
+                    }
+                    @if (completedproject == false && isCritical == false)
+                    {
+                        @Html.Label("InProgress",
+                                new { @class = "btn-warning" })
+                    }
+                </td>
                 <td>
                     @Html.ActionLink(" ", "Edit", new {id=@item.ProjectsDetail.Id },
                                   new { @class = "ti-pencil"} )
