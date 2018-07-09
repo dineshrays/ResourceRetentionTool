@@ -54,6 +54,23 @@ namespace RetentionTool.Controllers
             return Json(emplist, JsonRequestBehavior.AllowGet);
         }
 
+        
+        public ActionResult Empdetails(int assId)
+        {
+            List<EmployeeList> emplist = (from assresdet in db.AssignResourcesDets
+                                          join emp in db.PersonalInfoes
+                                          on assresdet.Employee_Id equals emp.Id
+                                          where emp.IsActive == true
+                                          where assresdet.AssignResources_Id == assId
+                                          select new EmployeeList
+                                          {
+                                              Id = emp.Id,
+                                              Name = emp.Name
+                                          }).ToList();
+
+            return PartialView("_Empdetails", emplist);
+        }
+
         public ActionResult Create(int moduleid,int assignresid)
         {
             
