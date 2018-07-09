@@ -23,8 +23,9 @@ namespace RetentionTool.Models
         public Nullable<long> Employee_Id { get; set; }
         [DisplayName("Manager Name")]
         public string managername { get; set; }
-        [DisplayName("Trainer Name")]
+        [DisplayName("Mentor Name")]
         public string trainername { get; set; }
+        //public string trainername { get; set; }
         [DisplayName("Employee Name")]
         public string employeename { get; set; }
         [DisplayName("Module Name")]

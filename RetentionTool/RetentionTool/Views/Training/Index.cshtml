@@ -8,88 +8,136 @@
 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<style>
-    /* Popup container - can be anything you want */
-    .popup {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-        /* The actual popup */
-        .popup .popuptext {
-            visibility: hidden;
-            width: 160px;
-            background-color: #fff;
-            color: #555;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px 0;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -80px;
-            font-size: 1rem
+@*<style>
+        /* Popup container - can be anything you want */
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
-            /* Popup arrow */
-            .popup .popuptext::after {
-                content: "";
+            /* The actual popup */
+            .popup .popuptext {
+                visibility: hidden;
+                width: 160px;
+                background-color: #fff;
+                color: #555;
+                text-align: center;
+                border-radius: 6px;
+                padding: 8px 0;
                 position: absolute;
-                top: 100%;
+                z-index: 1;
+                bottom: 125%;
                 left: 50%;
-                margin-left: -5px;
-                border-width: 5px;
-                border-style: solid;
-                border-color: #555 transparent transparent transparent;
+                margin-left: -80px;
+                font-size: 1rem
             }
 
-        /* Toggle this class - hide and show the popup */
-        .popup .show {
-            visibility: visible;
-            -webkit-animation: fadeIn 1s;
-            animation: fadeIn 1s;
+                /* Popup arrow */
+                .popup .popuptext::after {
+                    content: "";
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: #555 transparent transparent transparent;
+                }
+
+            /* Toggle this class - hide and show the popup */
+            .popup .show {
+                visibility: visible;
+                -webkit-animation: fadeIn 1s;
+                animation: fadeIn 1s;
+            }
+    </style>*@
+
+
+@*<script>
+        // When the user clicks on div, open the popup
+        function myFunction(id) {
+
+            // alert(id);
+            var assresid = id;
+            // alert(id);'
+            //if ($('.popuptext').show()) {
+            //    $('.popuptext').hide();
+            //}
+
+            $("#myPopup-"+id).html("");
+            $.ajax(
+                {
+
+                    url: '/Training/Empdetails',
+                    type: 'POST',
+                    datatype: 'application/json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ assId: assresid }),
+                    success: function (result) {
+                        $.each(result, function (i, empname) {
+                            $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
+                        });
+                    },
+                    error: function () { alert("Something Gone Wrong") },
+                });
+            var popup = document.getElementById("myPopup-" + id);
+
+            popup.classList.toggle("show");
+           // $('.popuptext').show();
         }
-</style>
+    </script>*@
 
+<div id='myModal' class='modal'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id='myModalContent'></div>
+            </div>
+        </div>
 
+    </div>
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
 <script>
-    // When the user clicks on div, open the popup
-    function myFunction(id) {
 
-        // alert(id);
-        var assresid = id;
-        // alert(id);'
-        //if ($('.popuptext').show()) {
-        //    $('.popuptext').hide();
-        //}
-      
-        $("#myPopup-"+id).html("");
-        $.ajax(
-            {
-                
-                url: '/Training/EmpDetails',
-                type: 'POST',
-                datatype: 'application/json',
-                contentType: 'application/json',
-                data: JSON.stringify({ assId: assresid }),
-                success: function (result) {
-                    $.each(result, function (i, empname) {
-                        $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
-                    });
+    $(function () {
+        $(".anchorDetail").click(function () {
+           // debugger;
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+           // alert(id);
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: '/Training/Empdetails',
+                contentType: "application/json; charset=utf-8",
+                data: { "assId": id },
+                datatype: "json",
+                success: function (data) {
+                    // $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
+                    debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal').modal(options);
+                    $('#myModal').modal('show');
+
                 },
-                error: function () { alert("Something Gone Wrong") },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
             });
-        var popup = document.getElementById("myPopup-" + id);
+        });
 
-        popup.classList.toggle("show");
-       // $('.popuptext').show();
-    }
+        $("#closbtn").click(function () {
+            $('#myModal').modal('hide');
+        });
+
+    });
 </script>
 
 <div class="card">
@@ -112,56 +160,51 @@
 
             @foreach (var item in details)
             {
-            <tr>
-                <td style="display:none">@item.Id</td>
-                <td>@item.projectname</td>
-                <td style="display:none">@item.Module_Id</td>
-                <td>@item.modulename</td>
+                <tr>
+                    <td style="display:none">@item.Id</td>
+                    <td>@item.projectname</td>
+                    <td style="display:none">@item.Module_Id</td>
+                    <td>@item.modulename</td>
 
-                <td>
-                    <div class="popup" id="@item.Id" onclick="myFunction(@item.Id)">
-                        List Employees
-                        <span class="popuptext" id="myPopup-@item.Id"></span>
-                    </div>
-                </td>
-                @{DateTime? fromdate = null;
-                    DateTime? todate = null;
-                }
-
-                @{ bool added = false;
-                    int trainerid = 0;}
-                @foreach (var training in Model.Training)
-                {
-                    if (item.Id == training.AssignResource_Id)
-                    {
-                        fromdate = training.FromDate;
-                        todate = training.ToDate;
-                        added = true;
-                        trainerid = training.Id;
-                    }
-                }
-                <td>@fromdate</td>
-                <td>@todate</td>
-                <td>
-                    @if (added == true)
-                    {
-                        @Html.ActionLink(" ", "Edit", new { id = @trainerid }, new { @class = "ti-pencil" })
-                        @Html.ActionLink(" ", "Delete", new { id = @trainerid }, new { @class = "ti-trash" })
-                    }
-                    else
-                    {
-                        <a href='@Url.Action("Create", "Training",new { moduleid=@item.Module_Id,assignresid=@item.Id})'>Add Details</a>
-                        <a></a>
+                    <td>
+                        <a href="javascript:void(0);" class="anchorDetail" id="myPopup" data-id="@item.Id">List Employee</a>
+                                               
+                    </td>
+                    @{DateTime? fromdate = null;
+                        DateTime? todate = null;
                     }
 
+                    @{ bool added = false;
+                        int trainerid = 0;}
+                    @foreach (var training in Model.Training)
+                    {
+                        if (item.Id == training.AssignResource_Id)
+                        {
+                            fromdate = training.FromDate;
+                            todate = training.ToDate;
+                            added = true;
+                            trainerid = training.Id;
+                        }
+                    }
+                    <td>@fromdate</td>
+                    <td>@todate</td>
+                    <td>
+                        @if (added == true)
+                        {
+                            @Html.ActionLink(" ", "Edit", new { id = @trainerid }, new { @class = "ti-pencil" })
+                            @Html.ActionLink(" ", "Delete", new { id = @trainerid }, new { @class = "ti-trash" })
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("Create", "Training",new { moduleid=@item.Module_Id,assignresid=@item.Id})'>Add Details</a>
+                            <a></a>
+                        }
 
-
-                </td>
-
-
-            </tr>
+                    </td>
+                    
+                </tr>
             }
-               
-            </table>
+
+        </table>
     </div>
 </div>
