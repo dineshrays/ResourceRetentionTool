@@ -5,6 +5,8 @@
 
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="../Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script src="../Scripts/assets/js/plugins.js"></script>
 <h2>Index Project Worked</h2>
 
 <div class="card-body">
@@ -14,10 +16,10 @@
     <table class="table table-striped">
         <tr>
             @*<th>@Html.DisplayName("Employee Name")</th>
-        <th>@Html.DisplayName("Employee Code")</th>*@
+                <th>@Html.DisplayName("Employee Code")</th>*@
             <th>@Html.DisplayName("Project Name")</th>
             @*<th>@Html.DisplayNameFor(model => model.projects.Designation)</th>
-        <th>@Html.DisplayNameFor(model => model.projects.Responsibilities)</th>*@
+                <th>@Html.DisplayNameFor(model => model.projects.Responsibilities)</th>*@
             <th>@Html.DisplayNameFor(model => model.projects.StartDate)</th>
             <th>@Html.DisplayNameFor(model => model.projects.EndDate)</th>
             <th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
@@ -25,7 +27,7 @@
             <th>@Html.DisplayName("Manager Name")</th>
             <th>@Html.DisplayNameFor(model => model.projects.Description)</th>
             @*<th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
-        <th>@Html.DisplayNameFor(model => model.projects.Manager_Id)</th>*@
+                <th>@Html.DisplayNameFor(model => model.projects.Manager_Id)</th>*@
 
             <th>@Html.Label("Status")</th>
 
@@ -40,34 +42,60 @@
 
                 <td>@item.StartDate</td>
                 <td>@item.EndDate</td>
+                <td style="text-align:center">@item.TeamMembers</td>
+                @*<td>
+                        <div class="popup" id="@item.ProjectsDetail.Id" onclick="myFunction(@item.ProjectsDetail.Id)">
+                            View List
+                            <span class="popuptext" id="myPopup-@item.ProjectsDetail.Id"></span>
+                        </div>
+                    </td>*@
                 <td>
-                    @item.TeamMembers
+                    <div class="animated">
+
+                        <p data-toggle="modal" data-target="#smallmodal" onclick="myFunction(@item.ProjectsDetail.Id)">
+                            Employee List
+                        </p>
+                        <div class="modal fade show" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" style="display: none; padding-right: 17px;">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content" style="left: 100px;top: 140px;">
+                                    <div class="modal-header">
+                                        <p class="modal-title" style='font-size:16px' id="smallmodalLabel">Employee List</p>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        
+                                        <p>
+                                            @*My Popup*@
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                 </td>
-                <td>
-                    <div class="popup" id="@item.ProjectsDetail.Id" onclick="myFunction(@item.ProjectsDetail.Id)">
-                        View List
-                        <span class="popuptext" id="myPopup-@item.ProjectsDetail.Id"></span>
-                    </div>
-                </td>
-                
-                @{bool completedproject=false;
+
+                @{bool completedproject = false;
                     bool inProgress = false;
                     bool isCritical = false;
 
                 }
-                @foreach(var compelete in ViewBag.CompletedAssId)
+                @foreach (var compelete in ViewBag.CompletedAssId)
                 {
-                    if(compelete == item.ProjectsDetail.Id)
+                    if (compelete == item.ProjectsDetail.Id)
                     {
                         completedproject = true;
                     }
                 }
-                @if(completedproject==false)
+                @if (completedproject == false)
                 {
-                    foreach(var critical in ViewBag.CriticalRes)
+                    foreach (var critical in ViewBag.CriticalRes)
                     {
-                        if(critical== item.ProjectsDetail.Id)
+                        if (critical == item.ProjectsDetail.Id)
                         {
                             isCritical = true;
                         }
@@ -80,22 +108,22 @@
                 <td>
                     @if (completedproject == true)
                     {
-<img src = "../Scripts/images/success.png" style="width:50%" />
+                        <img src="../Scripts/images/success.png" style="width:50%" />
                         @*@Html.Label("BackUp",
-                                  new { @class = "btn-success" })*@
+                            new { @class = "btn-success" })*@
                     }
                     @if (isCritical == true)
                     {
-<img src = "../Scripts/images/danger.png" style="width:50%" />
+                        <img src="../Scripts/images/danger.png" style="width:50%" />
                         @*@Html.Label("Critical",
-                                 new { @class = "btn-danger" })*@
+                            new { @class = "btn-danger" })*@
 
                     }
                     @if (completedproject == false && isCritical == false)
                     {
-<img src = "../Scripts/images/inprogress.png" style="width:50%" />
+                        <img src="../Scripts/images/inprogress.png" style="width:50%" />
                         @*@Html.Label("InProgress",
-                                new { @class = "btn-warning" })*@
+                            new { @class = "btn-warning" })*@
                     }
                 </td>
                 <td>
@@ -112,67 +140,65 @@
 </div>
 
 
-<style>
-    /* Popup container - can be anything you want */
-    .popup {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-        /* The actual popup */
-        .popup .popuptext {
-            visibility: hidden;
-            width: 160px;
-            background-color: #fff;
-            color: #555;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px 0;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -80px;
-            font-size: 1rem
+@*<style>
+        /* Popup container - can be anything you want */
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
-            /* Popup arrow */
-            .popup .popuptext::after {
-                content: "";
+            /* The actual popup */
+            .popup .popuptext {
+                visibility: hidden;
+                width: 160px;
+                background-color: #fff;
+                color: #555;
+                text-align: center;
+                border-radius: 6px;
+                padding: 8px 0;
                 position: absolute;
-                top: 100%;
+                z-index: 1;
+                bottom: 125%;
                 left: 50%;
-                margin-left: -5px;
-                border-width: 5px;
-                border-style: solid;
-                border-color: #555 transparent transparent transparent;
+                margin-left: -80px;
+                font-size: 1rem
             }
 
-        /* Toggle this class - hide and show the popup */
-        .popup .show {
-            visibility: visible;
-            -webkit-animation: fadeIn 1s;
-            animation: fadeIn 1s;
-        }
-</style>
+                /* Popup arrow */
+                .popup .popuptext::after {
+                    content: "";
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: #555 transparent transparent transparent;
+                }
+
+            /* Toggle this class - hide and show the popup */
+            .popup .show {
+                visibility: visible;
+                -webkit-animation: fadeIn 1s;
+                animation: fadeIn 1s;
+            }
+    </style>*@
 
 
 <script>
     // When the user clicks on div, open the popup
     function myFunction(id) {
 
-       
         var prjctid = id;
-        
-        $("#myPopup-" + id).html("");
+
+        $(".modal-body p").html("");
         $.ajax(
             {
-
                 url: '/ProjectWorked/EmpDetails',
                 type: 'POST',
                 datatype: 'application/json',
@@ -180,14 +206,16 @@
                 data: JSON.stringify({ projectid: prjctid }),
                 success: function (result) {
                     $.each(result, function (i, empname) {
-                        $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
+                        $(".modal-body").append("<p style='font-size:14px'>" + empname.Name + "</p>")
                     });
                 },
-                error: function () { alert("Something Gone Wrong") },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
             });
-        var popup = document.getElementById("myPopup-" + id);
 
-        popup.classList.toggle("show");
-        // $('.popuptext').show();
     }
 </script>

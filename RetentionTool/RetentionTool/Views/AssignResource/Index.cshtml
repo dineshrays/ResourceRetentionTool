@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
+<script src="../Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script src="../Scripts/assets/js/plugins.js"></script>
+
 <h2>Assign Resource Index</h2>
 <div class="card-body">
     @Html.ActionLink("Create New", "Create", "AssignResource", null, new { @class = "btn btn-outline-primary" })
@@ -22,26 +25,54 @@
         </tr>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>@item.projectname</td>
-            <td>@item.managername</td>
-            <td>@item.modulename</td>
-            <td>@item.trainername</td>
-            @*<td>@item.employeename</td>*@
-            <td>
-                <div class="popup" id="@item.Id" onclick="myFunction(@item.Id)">
-                    List Employees
-                    <span class="popuptext" id="myPopup-@item.Id"></span>
-                </div>
-            </td>
-            <td>@item.Date</td>
-            <td>
-                @Html.ActionLink(" ", "Edit", new {id=item.Id},
-               //new { id = item.Id }, null)
-                 new { @class = "ti-pencil"} )
-                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-            </td>
-        </tr>
+            <tr>
+                <td>@item.projectname</td>
+                <td>@item.managername</td>
+                <td>@item.modulename</td>
+                <td>@item.trainername</td>
+                @*<td>@item.employeename</td>*@
+                @*<td>
+                        <div class="popup" id="@item.Id" onclick="myFunction(@item.Id)">
+                            List Employees
+                            <span class="popuptext" id="myPopup-@item.Id"></span>
+                        </div>
+                    </td>*@
+                <td>
+                    <div class="animated">
+
+                        <p data-toggle="modal" data-target="#smallmodal" onclick="myFunction(@item.Id)">
+                            List Employee
+                        </p>
+                        <div class="modal fade show" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" style="display: none; padding-right: 17px;">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content" style="left: 100px;top: 140px;">
+                                    <div class="modal-header">
+                                        <p class="modal-title" style='font-size:16px' id="smallmodalLabel">Employee List</p>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <p>
+                                            @*My Popup*@
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+                <td>@item.Date</td>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new {id=item.Id},
+                   //new { id = item.Id }, null)
+                     new { @class = "ti-pencil"} )
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                </td>
+            </tr>
         }
 
     </table>
@@ -99,16 +130,14 @@
 
 
 <script>
-   
+
     function myFunction(id) {
 
-       
         var assresid = id;
-        
-        $("#myPopup-"+id).html("");
+
+        $(".modal-body").html("");
         $.ajax(
             {
-
                 url: '/AssignResource/EmpDetails',
                 type: 'POST',
                 datatype: 'application/json',
@@ -116,14 +145,15 @@
                 data: JSON.stringify({ assId: assresid }),
                 success: function (result) {
                     $.each(result, function (i, empname) {
-                        $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
+                        $(".modal-body").append("<p style='font-size:14px'>" + empname.Name + "</p>")
                     });
                 },
-                error: function () { alert("Something Gone Wrong") },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
             });
-        var popup = document.getElementById("myPopup-" + id);
-
-        popup.classList.toggle("show");
-       
     }
 </script>

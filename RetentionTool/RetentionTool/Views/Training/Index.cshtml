@@ -5,9 +5,10 @@
     var details = ViewBag.details;
     var del = ViewBag.del;
 }
+<script src="../Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script src="../Scripts/assets/js/plugins.js"></script>
 
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 @*<style>
         /* Popup container - can be anything you want */
         .popup {
@@ -40,7 +41,7 @@
                 /* Popup arrow */
                 .popup .popuptext::after {
                     content: "";
-                    position: absolute;
+                    position: absolute;l
                     top: 100%;
                     left: 50%;
                     margin-left: -5px;
@@ -92,53 +93,59 @@
         }
     </script>*@
 
-<div id='myModal' class='modal'>
+@*<div id='myModal' class='modal'>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div id='myModalContent'></div>
             </div>
         </div>
 
-    </div>
+    </div>*@
 
-@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
-<script src="~/Scripts/bootstrap.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
+@*<script>
 
-    $(function () {
-        $(".anchorDetail").click(function () {
-           // debugger;
-            var $buttonClicked = $(this);
-            var id = $buttonClicked.attr('data-id');
-           // alert(id);
-            var options = { "backdrop": "static", keyboard: true };
-            $.ajax({
-                type: "GET",
-                url: '/Training/Empdetails',
-                contentType: "application/json; charset=utf-8",
-                data: { "assId": id },
-                datatype: "json",
-                success: function (data) {
-                    // $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
-                    debugger;
-                    $('#myModalContent').html(data);
-                    $('#myModal').modal(options);
-                    $('#myModal').modal('show');
+            $(function () {
+                $(".anchorDetail").click(function () {
+                    // debugger;
+                    var $buttonClicked = $(this);
+                    var id = $buttonClicked.attr('data-id');
+                    // alert(id);
+                    var options = { "backdrop": "static", keyboard: true };
+                    $.ajax({
+                        type: "GET",
+                        url: '/Training/Empdetails',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "assId": id },
+                        datatype: "json",
+                        success: function (data) {
+                            // $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
+                            //   debugger;
+                            $('#myModalContent').html(data);
+                            $('#myModal').modal(options);
+                            $('#myModal').modal('show');
 
-                },
-                error: function () {
-                    alert("Dynamic content load failed.");
-                }
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+
+                $("#closbtn").click(function () {
+                    $('#myModal').modal('hide');
+                });
+
             });
-        });
+        </script>
 
-        $("#closbtn").click(function () {
-            $('#myModal').modal('hide');
-        });
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />*@
 
-    });
-</script>
+
 
 <div class="card">
     <div class="card-header">
@@ -167,9 +174,40 @@
                     <td>@item.modulename</td>
 
                     <td>
-                        <a href="javascript:void(0);" class="anchorDetail" id="myPopup" data-id="@item.Id">List Employee</a>
-                                               
+                        <div class="animated">
+                            @*<div class="card-body">*@
+                            @*<button type="button" class="btn btn-secondary mb-1" data-toggle="modal" data-target="#smallmodal" onclick="myPopupFun(@item.Id)">
+                                    Employee List
+                                </button>*@
+                            <p data-toggle="modal" data-target="#smallmodal" onclick="myPopupFun(@item.Id)">
+                                Employee List
+                            </p>
+                            <div class="modal fade show" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" style="display: none; padding-right: 17px;">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content" style="left: 100px;top: 140px;">
+                                        <div class="modal-header">
+                                            <p class="modal-title" style='font-size:16px' id="smallmodalLabel">Employee List</p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                @*My Popup*@
+                                            </p>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*</div>*@
+
+
+                        </div>
+                        @*<a href="javascript:;" class="anchorDetail" id="myPopup-@item.Id" data-id="@item.Id" onclick="myPopupFun(@item.Id)">List Employee</a>*@
                     </td>
+
                     @{DateTime? fromdate = null;
                         DateTime? todate = null;
                     }
@@ -201,10 +239,46 @@
                         }
 
                     </td>
-                    
+
                 </tr>
             }
 
         </table>
+        <div id="dialog" style="display: none"></div>
     </div>
 </div>
+<script type="text/javascript">
+    function myPopupFun(id) {
+        $(".modal-body p").remove();
+        //$("#dialog").dialog({
+        //    autoOpen: false,
+        //    modal: true,
+        //    title: "View Details"
+        //});
+        //$("#myPopup-" + id).click(function () {
+            //   debugger;
+          //  var $buttonClicked = $(this);
+          //  var id = $buttonClicked.attr('data-id');
+            //  alert(id);
+            $.ajax({
+                type: "GET",
+                url: '/Training/Empdetails',
+                contentType: "application/json; charset=utf-8",
+                data: { "assId": id },
+                datatype: "json",
+                success: function (result) {
+                    
+                    $.each(result, function (i, empname) {
+                        $(".modal-body").append("<p style='font-size:14px'>" + empname.Name + "</p>")
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        //});
+    };
+</script>

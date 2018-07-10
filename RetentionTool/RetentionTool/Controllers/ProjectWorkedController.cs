@@ -252,10 +252,6 @@ namespace RetentionTool.Controllers
         [HttpPost]
         public ActionResult EmpDetails(int projectid)
         {
-            //  select personalinfo.Id,personalinfo.Name from ProjectsWorked projectwork
-  //          inner join PersonalInfo personalinfo
-  //on projectwork.PersonalInfo_Id = personalinfo.Id
-  //where projectwork.Project_Id = 1
 
             List<EmployeeList> emplist = (from projectwork in db.ProjectsWorkeds
                                           join personalinfo in db.PersonalInfoes
@@ -267,17 +263,7 @@ namespace RetentionTool.Controllers
                                               Name = personalinfo.Name
                                           }
                                             ).ToList();
-            //List<EmployeeList> emplist = (from assresdet in db.AssignResourcesDets
-            //                              join emp in db.PersonalInfoes
-            //                              on assresdet.Employee_Id equals emp.Id
-            //                              where emp.IsActive == true
-            //                             // where assresdet.AssignResources_Id == assId
-            //                              select new EmployeeList
-            //                              {
-            //                                  Id = emp.Id,
-            //                                  Name = emp.Name
-            //                              }).ToList();
-
+      
             return Json(emplist, JsonRequestBehavior.AllowGet);
         }
 
