@@ -32,7 +32,7 @@ namespace RetentionTool.Controllers
                                                  
                                                   //assignres.Module_Id equals moduledet.Module_Id
                                                   join trainingdet in db.TrainingDets
-                                           on moduledet.Id equals trainingdet.ModuleDet_Id
+                                                  on moduledet.Id equals trainingdet.ModuleDet_Id
                                                   join session in db.Sessions
                                                   on trainingdet.Id equals session.TrainingDet_Id
                                                   where 
