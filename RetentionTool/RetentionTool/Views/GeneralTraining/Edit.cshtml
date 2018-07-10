@@ -142,7 +142,7 @@
                 @foreach (var i in assignDetails)
                 {
                     <tr>
-                        <td><input type="checkbox" name="chck" /></td>
+                        <td><input type="checkbox" checked name="chck" /></td>
                         <td>@i.PersonalInfo.Name</td>
                         <td style="display:none">@i.Employee_Id</td>
                         <td>@i.PersonalInfo.EmpCode</td>
@@ -235,7 +235,7 @@
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + name + "</td><td style='display: none'>" + empid + "</td><td>" + empname + "</td></tr>";
+        var markup = "<tr><td><input type='checkbox' checked  name='chck'></td><td>" + name + "</td><td style='display: none'>" + empid + "</td><td>" + empname + "</td></tr>";
         $("table tbody").append(markup);
         $("#searchemp").val('');
         $("#searchid").val('');
