@@ -80,19 +80,22 @@
                 <td>
                     @if (completedproject == true)
                     {
-                        @Html.Label("BackUp",
-                                  new { @class = "btn-success" })
+<img src = "../Scripts/images/success.png" style="width:50%" />
+                        @*@Html.Label("BackUp",
+                                  new { @class = "btn-success" })*@
                     }
                     @if (isCritical == true)
                     {
-                        @Html.Label("Critical",
-                                 new { @class = "btn-danger" })
+<img src = "../Scripts/images/danger.png" style="width:50%" />
+                        @*@Html.Label("Critical",
+                                 new { @class = "btn-danger" })*@
 
                     }
                     @if (completedproject == false && isCritical == false)
                     {
-                        @Html.Label("InProgress",
-                                new { @class = "btn-warning" })
+<img src = "../Scripts/images/inprogress.png" style="width:50%" />
+                        @*@Html.Label("InProgress",
+                                new { @class = "btn-warning" })*@
                     }
                 </td>
                 <td>
