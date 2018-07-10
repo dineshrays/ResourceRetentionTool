@@ -2,7 +2,7 @@
 @{
     /**/
 
-    ViewBag.Title = "Create Assign Resource";
+    ViewBag.Title = "Create General Training";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
@@ -18,7 +18,7 @@
 
     <div class="card-header">
 
-        <h2>Create Assign Resource</h2>
+        <h2>Create General Training</h2>
     </div>
 
     <div class="card-body card-block">
@@ -45,8 +45,9 @@
 
             </div>
             <div class="col-12 col-md-9">
-                <input class="form-control" style="width:30%" id="searchproject" />
-                <input id="searchprojectid" style="display:none" />
+                @Html.Label("Training")
+                @*<input class="form-control" style="width:30%" id="searchproject" />
+                <input id="searchprojectid" style="display:none" />*@
             </div>
 
 
@@ -125,7 +126,7 @@
             <div class="col-12 col-md-9">
 
                 <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Index", "AssignResource", null, new { @class = "btn btn-outline-link" })
+                @Html.ActionLink("Back to List", "Index", "GeneralTraining", null, new { @class = "btn btn-outline-link" })
 
             </div>
 
@@ -163,17 +164,18 @@
          //});
 
          var date = $("#date").val();
-         var projectid = $("#searchprojectid").val();
+         var projectid = '1';
+             //$("#searchprojectid").val();
          var managerid = $("#managerid").val();
          var moduleid = $("#moduleid").val();
          var trainerid = $("#trainerid").val();
 
-                var newUrl= '@Url.Action("Index", "AssignResource")';
+                var newUrl= '@Url.Action("Index", "GeneralTraining")';
 
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
                // alert(mod);
                 $.ajax({
-                    url: '@Url.Action("Create", "AssignResource")', //
+                    url: '@Url.Action("Create", "GeneralTraining")', //
                     dataType: "json",
                     data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
                     type: "POST",
@@ -198,7 +200,7 @@
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td></tr>";
+        var markup = "<tr><td><input type='checkbox' checked name='chck'></td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td></tr>";
         $("table tbody").append(markup);
         $("#searchemp").val('');
         $("#searchid").val('');
@@ -222,87 +224,87 @@
 
 
 <script>
-    $(document).ready(function () {
-        $('#moduleid').change(function () {
-            var selected = $('#moduleid').val();
-            $.ajax(
-                {
-                    url: '/AssignResource/getEmployeeDetails',
-                    type: 'POST',
-                    datatype: 'application/json',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ moduleid: +selected }),
-                    success: function (result) {
-                        $("table tr:not(:first)").remove();
-                        $.each(result, function (i, Skill) {
-                            var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
-                            $("table tbody").append(markup);
-                           // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
-                        });
-                    },
-                    error: function () { alert("Something Gone Wrong") },
-                });
-        })
-    });
+    //$(document).ready(function () {
+    //    $('#moduleid').change(function () {
+    //        var selected = $('#moduleid').val();
+    //        $.ajax(
+    //            {
+    //                url: '/AssignResource/getEmployeeDetails',
+    //                type: 'POST',
+    //                datatype: 'application/json',
+    //                contentType: 'application/json',
+    //                data: JSON.stringify({ moduleid: +selected }),
+    //                success: function (result) {
+    //                    $("table tr:not(:first)").remove();
+    //                    $.each(result, function (i, Skill) {
+    //                        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
+    //                        $("table tbody").append(markup);
+    //                       // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
+    //                    });
+    //                },
+    //                error: function () { alert("Something Gone Wrong") },
+    //            });
+    //    })
+    //});
     $(function () {
 
-        $("#searchproject").autocomplete({
+        //$("#searchproject").autocomplete({
 
-            source: function (request, response) {
-                var param = { name: $('#searchproject').val() };
+        //    source: function (request, response) {
+        //        var param = { name: $('#searchproject').val() };
 
-                $.ajax({
-                    url: "/AssignResource/getProjects",
-                    data: JSON.stringify(param),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    dataFilter: function (data) { return data; },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return {
-                                label: item.Name, id: item.Id
+        //        $.ajax({
+        //            url: "/AssignResource/getProjects",
+        //            data: JSON.stringify(param),
+        //            dataType: "json",
+        //            type: "POST",
+        //            contentType: "application/json; charset=utf-8",
+        //            dataFilter: function (data) { return data; },
+        //            success: function (data) {
+        //                response($.map(data, function (item) {
+        //                    return {
+        //                        label: item.Name, id: item.Id
 
-                            }
-                        }))
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-            },
-            select: function (event, ui) {
+        //                    }
+        //                }))
+        //            },
+        //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //                alert(textStatus);
+        //            }
+        //        });
+        //    },
+        //    select: function (event, ui) {
 
-                event.preventDefault();
-                $(this).val(ui.item.label);
-                $("#searchprojectid").val(ui.item.id);
-                var param = { id: ui.item.id };
-                $.ajax({
-                    url: "/AssignResource/getProjectInfo",
-                    data: JSON.stringify(param),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
+        //        event.preventDefault();
+        //        $(this).val(ui.item.label);
+        //        $("#searchprojectid").val(ui.item.id);
+        //        var param = { id: ui.item.id };
+        //        $.ajax({
+        //            url: "/AssignResource/getProjectInfo",
+        //            data: JSON.stringify(param),
+        //            dataType: "json",
+        //            type: "POST",
+        //            contentType: "application/json; charset=utf-8",
 
-                    success: function (data) {
+        //            success: function (data) {
 
-                        $("#managerid").val(data.Manager_Id);
+        //                $("#managerid").val(data.Manager_Id);
 
-                        $("#trainerid").val(data.Trainer_Id);
+        //                $("#trainerid").val(data.Trainer_Id);
 
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-            }
+        //            },
+        //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //                alert(textStatus);
+        //            }
+        //        });
+        //    }
 
-        });
+        //});
         $("#searchemp").autocomplete({
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
                 $.ajax({
-                    url: "/AssignResource/getEmployee",
+                    url: "/GeneralTraining/getEmployee",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",

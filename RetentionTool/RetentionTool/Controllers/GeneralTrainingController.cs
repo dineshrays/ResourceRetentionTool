@@ -23,7 +23,7 @@ namespace RetentionTool.Controllers
 
                                                      where assignres.IsActive == true
                                                      && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
-
+                                                     && assignres.ProjectsDetail.Name=="Training"
                                                      select new AssignResourceViewModel
                                                      {
                                                          Id = assignres.Id,
@@ -60,12 +60,14 @@ namespace RetentionTool.Controllers
 
             if (assgnResvm != null)
             {
+                ProjectsDetail project = db.ProjectsDetails.FirstOrDefault(a => a.Name == "Training") ;
                 Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id && a.IsActive == true);
                 AssignResource assRes = new AssignResource()
                 {
                     Id = assgnResvm.Id,
                     Date = assgnResvm.Date,
-                    Project_Id = assgnResvm.Project_Id,
+                    Project_Id = project.Id,
+                    //assgnResvm.Project_Id,
                     Manager_Id = assgnResvm.Manager_Id,
                     Trainer_Id = trainer.Id,
                     Module_Id = assgnResvm.Module_Id,

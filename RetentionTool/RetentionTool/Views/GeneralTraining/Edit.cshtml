@@ -1,6 +1,6 @@
 ﻿@model RetentionTool.ViewModel.AssignResouViewModel
 @{
-    ViewBag.Title = "Assign Resource Edit";
+    ViewBag.Title = "Edit General Training";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
     var assignDetails = ViewBag.AssignResDetails;
 }
@@ -15,7 +15,7 @@
 
     <div class="card-header">
 
-        <h2>Assign Resource Edit </h2>
+        <h2>General Training Edit </h2>
     </div>
     @*@using (Html.BeginForm())
 
@@ -54,9 +54,9 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.HiddenFor(m => m.assignResource.Project_Id, new { @id = "Project_Id" })
-                @*@Html.DisplayFor(m => m.assignResource.projectname)*@
-                <input class="form-control" style="width:30%" id="searchproject" value=@Model.assignResource.projectname />
-                <input id="searchprojectid" style="display:none" />
+                @Html.DisplayFor(m => m.assignResource.projectname)
+                @*<input class="form-control" style="width:30%" id="searchproject" value=@Model.assignResource.projectname />
+                <input id="searchprojectid" style="display:none" />*@
             </div>
         </div>
 
@@ -164,7 +164,7 @@
             <div class="col-12 col-md-9">
 
                 <input type="submit" value="Save" id="btnSave" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Index", "AssignResource", null, new { @class = "btn btn-outline-link" })
+                @Html.ActionLink("Back to List", "Index", "GeneralTraining", null, new { @class = "btn btn-outline-link" })
 
             </div>
 
@@ -205,12 +205,12 @@
          var trainerid = $("#trainerid").val();
 
          var assignresid = $("assresid").val();
-                var newUrl= '@Url.Action("Index", "AssignResource")';
+                var newUrl= '@Url.Action("Index", "GeneralTraining")';
 
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
                // alert(mod);
                 $.ajax({
-                    url: '@Url.Action("Edit", "AssignResource")', //
+                    url: '@Url.Action("Edit", "GeneralTraining")', //
                     dataType: "json",
                     data: JSON.stringify({ list: itemlist, assgnResvm: mod, id: assignresid }),
                     type: "POST",
@@ -262,7 +262,7 @@
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
                 $.ajax({
-                    url: "/AssignResource/getEmployee",
+                    url: "/GeneralTraining/getEmployee",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -289,91 +289,91 @@
         });
 
 
-        $("#searchproject").autocomplete({
+        //$("#searchproject").autocomplete({
 
-            source: function (request, response) {
-                var param = { name: $('#searchproject').val() };
+        //    source: function (request, response) {
+        //        var param = { name: $('#searchproject').val() };
 
-                $.ajax({
-                    url: "/AssignResource/getProjects",
-                    data: JSON.stringify(param),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    dataFilter: function (data) { return data; },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return {
-                                label: item.Name, id: item.Id
+        //        $.ajax({
+        //            url: "/GeneralTraining/getProjects",
+        //            data: JSON.stringify(param),
+        //            dataType: "json",
+        //            type: "POST",
+        //            contentType: "application/json; charset=utf-8",
+        //            dataFilter: function (data) { return data; },
+        //            success: function (data) {
+        //                response($.map(data, function (item) {
+        //                    return {
+        //                        label: item.Name, id: item.Id
 
-                            }
-                        }))
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-            },
-            select: function (event, ui) {
+        //                    }
+        //                }))
+        //            },
+        //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //                alert(textStatus);
+        //            }
+        //        });
+        //    },
+        //    select: function (event, ui) {
 
-                event.preventDefault();
-                $(this).val(ui.item.label);
-                $("#searchprojectid").val(ui.item.id);
-                var param = { id: ui.item.id };
-                $.ajax({
-                    url: "/AssignResource/getProjectInfo",
-                    data: JSON.stringify(param),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
+        //        event.preventDefault();
+        //        $(this).val(ui.item.label);
+        //        $("#searchprojectid").val(ui.item.id);
+        //        var param = { id: ui.item.id };
+        //        $.ajax({
+        //            url: "/AssignResource/getProjectInfo",
+        //            data: JSON.stringify(param),
+        //            dataType: "json",
+        //            type: "POST",
+        //            contentType: "application/json; charset=utf-8",
 
-                    success: function (data) {
+        //            success: function (data) {
 
-                        $("#managerid").val(data.Manager_Id);
-                        $("#trainerid").val(data.Trainer_Id);
+        //                $("#managerid").val(data.Manager_Id);
+        //                $("#trainerid").val(data.Trainer_Id);
 
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-            }
+        //            },
+        //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //                alert(textStatus);
+        //            }
+        //        });
+        //    }
 
-        });
+        //});
     });
 
 
-    $(document).ready(function () {
-        $('#moduleid').change(function () {
-            var selected = $('#moduleid').val();
-            $.ajax(
-                {
-                    url: '/AssignResource/getEmployeeDetails',
-                    type: 'POST',
-                    datatype: 'application/json',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ moduleid: +selected }),
-                    success: function (result) {
-                        $("table tr:not(:first)").remove();
-                        $.each(result, function (i, Skill) {
-//                            $("table tr:not(:first)").each(function () {
+//    $(document).ready(function () {
+//        $('#moduleid').change(function () {
+//            var selected = $('#moduleid').val();
+//            $.ajax(
+//                {
+//                    url: '/GeneralTraining/getEmployeeDetails',
+//                    type: 'POST',
+//                    datatype: 'application/json',
+//                    contentType: 'application/json',
+//                    data: JSON.stringify({ moduleid: +selected }),
+//                    success: function (result) {
+//                        $("table tr:not(:first)").remove();
+//                        $.each(result, function (i, Skill) {
+////                            $("table tr:not(:first)").each(function () {
 
-//                                    var tdlist = $(this).find("td");
-////var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
-//                                    // itemlist.push(Item);
-//                                if ($(tdlist[2].html().eq(Skill.Id))) {
-//                                }
-//                                else {
-                                    var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
-                                    $("table tbody").append(markup);
-                                //}
-                                //})
+////                                    var tdlist = $(this).find("td");
+//////var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
+////                                    // itemlist.push(Item);
+////                                if ($(tdlist[2].html().eq(Skill.Id))) {
+////                                }
+////                                else {
+//                                    var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
+//                                    $("table tbody").append(markup);
+//                                //}
+//                                //})
 
-                            // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
-                        });
-                    },
-                    error: function () { alert("Something Gone Wrong") },
-                });
-        })
-    });
+//                            // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
+//                        });
+//                    },
+//                    error: function () { alert("Something Gone Wrong") },
+//                });
+//        })
+//    });
 </script>
