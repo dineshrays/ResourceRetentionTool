@@ -11,6 +11,10 @@ namespace RetentionTool.Controllers
     public class TrainingController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        public ActionResult PopupView()
+        {
+            return View();
+        }
         // GET: Training
         public ActionResult Index()
         {
@@ -37,22 +41,22 @@ namespace RetentionTool.Controllers
 
             return View(trainingvm);
         }
-        [HttpPost]
-        public ActionResult EmpDetails(int assId)
-        {
-            List<EmployeeList> emplist = (from assresdet in db.AssignResourcesDets
-                                          join emp in db.PersonalInfoes
-                                          on assresdet.Employee_Id equals emp.Id
-                                          where emp.IsActive == true
-                                          where assresdet.AssignResources_Id == assId
-                                          select new EmployeeList
-                                          {
-                                              Id = emp.Id,
-                                              Name = emp.Name
-                                          }).ToList();
+        // [HttpPost]
+        //public ActionResult EmpDetails(int assId)
+        //{
+        //    List<EmployeeList> emplist = (from assresdet in db.AssignResourcesDets
+        //                                  join emp in db.PersonalInfoes
+        //                                  on assresdet.Employee_Id equals emp.Id
+        //                                  where emp.IsActive == true
+        //                                  where assresdet.AssignResources_Id == assId
+        //                                  select new EmployeeList
+        //                                  {
+        //                                      Id = emp.Id,
+        //                                      Name = emp.Name
+        //                                  }).ToList();
 
-            return Json(emplist, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(emplist, JsonRequestBehavior.AllowGet);
+        //}
 
         
         public ActionResult Empdetails(int assId)
@@ -68,7 +72,8 @@ namespace RetentionTool.Controllers
                                               Name = emp.Name
                                           }).ToList();
 
-            return PartialView("_Empdetails", emplist);
+            return Json(emplist, JsonRequestBehavior.AllowGet);
+                //PartialView("_Empdetails", emplist);
         }
 
         public ActionResult Create(int moduleid,int assignresid)
