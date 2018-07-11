@@ -145,6 +145,8 @@ namespace RetentionTool.Controllers
                                           join emp in db.PersonalInfoes
                                           on assResDet.Employee_Id equals emp.Id
                                           where
+                                          !db.RateEmployeeEligiabilities.Any(a=>a.AssignResources_Id==training.AssignResource_Id && 
+                                          a.IsActive==true && a.IsEligible==true && a.Employee_Id==assResDet.Employee_Id) &&
                                            emp.IsActive == true && trainingdet.ModuleDet_Id == moduledetid && trainingdet.Training_Id == trainingid
                                           select new EmployeeList
                                           {
@@ -172,9 +174,12 @@ namespace RetentionTool.Controllers
 
 
             List<SessionSummaryList> sessionlist = (from sessDet in db.SessionsDets
+                                                    
                                           join emp in db.PersonalInfoes
                                          on sessDet.Employee_Id equals emp.Id
                                           where
+                                          !db.RateEmployeeEligiabilities.Any(a=>
+                                          a.IsActive == true && a.IsEligible == true && a.Employee_Id == sessDet.Employee_Id) &&
                                            sessDet.IsActive == true &&
                                            sessDet.Sessions_Id==id
                                           select new SessionSummaryList
@@ -188,6 +193,8 @@ namespace RetentionTool.Controllers
                                           }).ToList();
 
             ViewBag.sessionDetails = sessionlist;
+
+
             return View(sessvm);
 
         }

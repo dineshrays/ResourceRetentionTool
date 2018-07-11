@@ -21,7 +21,7 @@ namespace RetentionTool.Controllers
                                // on assignres.Id equals assignresdet.AssignResources_Id
                                
                            
-                                                      where assignres.IsActive==true 
+                                                      where assignres.IsActive== true && assignres.ProjectsDetail.Name != "Training"
                                                       && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
 
                                                       select new AssignResourceViewModel
