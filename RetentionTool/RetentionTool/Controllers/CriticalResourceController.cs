@@ -70,7 +70,7 @@ namespace RetentionTool.Controllers
             return View(prjctwrkvm);
         }
         [HttpPost]
-        public ActionResult Create(List<CriticalResource> list,List<Trainer> trainerlist)
+        public ActionResult Create(List<CriticalResource> list,List<Trainer> trainerlist,List<criticalResourceAccountability> criticalacc)
         {
 
             foreach(var criticalRes in list)
@@ -78,8 +78,13 @@ namespace RetentionTool.Controllers
                 criticalRes.IsActive = true;
                 db.CriticalResources.Add(criticalRes);
                 db.SaveChanges();
-               
-                
+                foreach(var accinfo in criticalacc)
+                {
+                    accinfo.criticalresource_Id = criticalRes.Id;
+                    accinfo.IsActive = true;
+                    db.criticalResourceAccountabilities.Add(accinfo);
+                    db.SaveChanges();
+                }
             }
             if(trainerlist!=null)
             {

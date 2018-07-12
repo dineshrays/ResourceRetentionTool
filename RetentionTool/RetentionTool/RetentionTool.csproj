@@ -1361,6 +1361,7 @@
     <Compile Include="Controllers\EmployeeEvaTasklController.cs" />
     <Compile Include="Controllers\EmployeeInfoController.cs" />
     <Compile Include="Controllers\EmployeeInformationController.cs" />
+    <Compile Include="Controllers\GeneralTrainingController.cs" />
     <Compile Include="Controllers\ImportDataController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
@@ -1391,6 +1392,9 @@
     </Compile>
     <Compile Include="Models\CommonFieldViewModel.cs" />
     <Compile Include="Models\CriticalResource.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\criticalResourceAccountability.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CurrentInfo.cs">
@@ -1599,6 +1603,10 @@
     <Content Include="Views\ImportData\Upload.cshtml" />
     <Content Include="Views\AssignResource\PopupTest.cshtml" />
     <Content Include="Views\EmployeeInformation\CreateEmployee.cshtml" />
+    <Content Include="Views\GeneralTraining\Create.cshtml" />
+    <Content Include="Views\GeneralTraining\Delete.cshtml" />
+    <Content Include="Views\GeneralTraining\Edit.cshtml" />
+    <Content Include="Views\GeneralTraining\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

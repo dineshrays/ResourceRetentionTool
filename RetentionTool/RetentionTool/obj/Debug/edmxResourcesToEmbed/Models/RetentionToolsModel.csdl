@@ -201,6 +201,11 @@
       <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
       <End Role="UserDetail" EntitySet="UserDetails" />
     </AssociationSet>
+    <EntitySet Name="criticalResourceAccountabilities" EntityType="RetentionToolModel.criticalResourceAccountability" />
+    <AssociationSet Name="FK_criticalResourceAccountability_CriticalResource" Association="RetentionToolModel.FK_criticalResourceAccountability_CriticalResource">
+      <End Role="CriticalResource" EntitySet="CriticalResources" />
+      <End Role="criticalResourceAccountability" EntitySet="criticalResourceAccountabilities" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Module">
     <Key>
@@ -561,6 +566,7 @@
     <Property Name="IsNotified" Type="Boolean" />
     <NavigationProperty Name="ProjectsDetail" Relationship="RetentionToolModel.FK_CriticalResource_ProjectsDetails" FromRole="CriticalResource" ToRole="ProjectsDetail" />
     <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_CriticalResource_PersonalInfo" FromRole="CriticalResource" ToRole="PersonalInfo" />
+    <NavigationProperty Name="criticalResourceAccountabilities" Relationship="RetentionToolModel.FK_criticalResourceAccountability_CriticalResource" FromRole="CriticalResource" ToRole="criticalResourceAccountability" />
   </EntityType>
   <Association Name="FK_CriticalResource_ProjectsDetails">
     <End Type="RetentionToolModel.ProjectsDetail" Role="ProjectsDetail" Multiplicity="0..1" />
@@ -996,6 +1002,29 @@
       </Principal>
       <Dependent Role="UserDetail">
         <PropertyRef Name="Emp_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="criticalResourceAccountability">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="criticalresource_Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Value" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="CriticalResource" Relationship="RetentionToolModel.FK_criticalResourceAccountability_CriticalResource" FromRole="criticalResourceAccountability" ToRole="CriticalResource" />
+  </EntityType>
+  <Association Name="FK_criticalResourceAccountability_CriticalResource">
+    <End Type="RetentionToolModel.CriticalResource" Role="CriticalResource" Multiplicity="1" />
+    <End Type="RetentionToolModel.criticalResourceAccountability" Role="criticalResourceAccountability" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CriticalResource">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="criticalResourceAccountability">
+        <PropertyRef Name="criticalresource_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

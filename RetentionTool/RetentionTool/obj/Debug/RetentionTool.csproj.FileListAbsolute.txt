@@ -318,3 +318,4 @@ C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyC
 C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
 C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
 C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
