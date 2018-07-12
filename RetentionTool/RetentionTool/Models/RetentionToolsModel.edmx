@@ -52,6 +52,16 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="IsNotified" Type="bit" />
         </EntityType>
+        <EntityType Name="criticalResourceAccountability">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="criticalresource_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value" Type="varchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="CurrentInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -413,6 +423,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_criticalResourceAccountability_CriticalResource">
+          <End Role="CriticalResource" Type="Self.CriticalResource" Multiplicity="1" />
+          <End Role="criticalResourceAccountability" Type="Self.criticalResourceAccountability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CriticalResource">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="criticalResourceAccountability">
+              <PropertyRef Name="criticalresource_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CurrentInfo_PersonalInfo">
           <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
           <End Role="CurrentInfo" Type="Self.CurrentInfo" Multiplicity="*" />
@@ -743,6 +765,7 @@
           <EntitySet Name="AssignResourcesDet" EntityType="Self.AssignResourcesDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Commonfields" EntityType="Self.Commonfields" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriticalResource" EntityType="Self.CriticalResource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="criticalResourceAccountability" EntityType="Self.criticalResourceAccountability" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CurrentInfo" EntityType="Self.CurrentInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationQualification" EntityType="Self.EducationQualification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeEvalTask" EntityType="Self.EmployeeEvalTask" Schema="dbo" store:Type="Tables" />
@@ -802,6 +825,10 @@
           <AssociationSet Name="FK_CriticalResource_ProjectsDetails" Association="Self.FK_CriticalResource_ProjectsDetails">
             <End Role="ProjectsDetails" EntitySet="ProjectsDetails" />
             <End Role="CriticalResource" EntitySet="CriticalResource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_criticalResourceAccountability_CriticalResource" Association="Self.FK_criticalResourceAccountability_CriticalResource">
+            <End Role="CriticalResource" EntitySet="CriticalResource" />
+            <End Role="criticalResourceAccountability" EntitySet="criticalResourceAccountability" />
           </AssociationSet>
           <AssociationSet Name="FK_CurrentInfo_PersonalInfo" Association="Self.FK_CurrentInfo_PersonalInfo">
             <End Role="PersonalInfo" EntitySet="PersonalInfo" />
@@ -1116,6 +1143,11 @@
           <AssociationSet Name="FK_UserDetails_PersonalInfo" Association="RetentionToolModel.FK_UserDetails_PersonalInfo">
             <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
             <End Role="UserDetail" EntitySet="UserDetails" />
+          </AssociationSet>
+          <EntitySet Name="criticalResourceAccountabilities" EntityType="RetentionToolModel.criticalResourceAccountability" />
+          <AssociationSet Name="FK_criticalResourceAccountability_CriticalResource" Association="RetentionToolModel.FK_criticalResourceAccountability_CriticalResource">
+            <End Role="CriticalResource" EntitySet="CriticalResources" />
+            <End Role="criticalResourceAccountability" EntitySet="criticalResourceAccountabilities" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
@@ -1477,6 +1509,7 @@
           <Property Name="IsNotified" Type="Boolean" />
           <NavigationProperty Name="ProjectsDetail" Relationship="RetentionToolModel.FK_CriticalResource_ProjectsDetails" FromRole="CriticalResource" ToRole="ProjectsDetail" />
           <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_CriticalResource_PersonalInfo" FromRole="CriticalResource" ToRole="PersonalInfo" />
+          <NavigationProperty Name="criticalResourceAccountabilities" Relationship="RetentionToolModel.FK_criticalResourceAccountability_CriticalResource" FromRole="CriticalResource" ToRole="criticalResourceAccountability" />
         </EntityType>
         <Association Name="FK_CriticalResource_ProjectsDetails">
           <End Type="RetentionToolModel.ProjectsDetail" Role="ProjectsDetail" Multiplicity="0..1" />
@@ -1915,6 +1948,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="criticalResourceAccountability">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="criticalresource_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="CriticalResource" Relationship="RetentionToolModel.FK_criticalResourceAccountability_CriticalResource" FromRole="criticalResourceAccountability" ToRole="CriticalResource" />
+        </EntityType>
+        <Association Name="FK_criticalResourceAccountability_CriticalResource">
+          <End Type="RetentionToolModel.CriticalResource" Role="CriticalResource" Multiplicity="1" />
+          <End Type="RetentionToolModel.criticalResourceAccountability" Role="criticalResourceAccountability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CriticalResource">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="criticalResourceAccountability">
+              <PropertyRef Name="criticalresource_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2230,6 +2286,17 @@
                 <ScalarProperty Name="FatherName" ColumnName="FatherName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="criticalResourceAccountabilities">
+            <EntityTypeMapping TypeName="RetentionToolModel.criticalResourceAccountability">
+              <MappingFragment StoreEntitySet="criticalResourceAccountability">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="criticalresource_Id" ColumnName="criticalresource_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

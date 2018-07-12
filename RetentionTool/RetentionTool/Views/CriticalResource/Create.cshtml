@@ -24,88 +24,6 @@
                 @Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
             </div>
         </div>
-        @*<div class="row form-group">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.projects.Designation, new { @class = "form-control-label" })
-                </div>
-                <div class="col-12 col-md-9">
-                    @Html.TextBoxFor(model => model.projects.Designation, new { @class = "form-control-label", @id = "designation", style = "width:30%" })
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.projects.Responsibilities, new { @class = "form-control-label" })
-                </div>
-                <div class="col-12 col-md-9">
-                    @Html.TextBoxFor(model => model.projects.Responsibilities, new { @class = "form-control-label", @id = "responsibilty", style = "width:30%" })
-                </div>
-            </div>*@
-        @*<div class="row form-group">
-                <div class="col col-md-3">
-                    @Html.LabelFor(model => model.projects.StartDate, new { @class = " form-control-label" })
-
-                </div>
-                <div class="col-12 col-md-9">
-                    @Html.DisplayFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
-
-                </div>
-
-            </div>
-
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    @Html.LabelFor(model => model.projects.EndDate, new { @class = " form-control-label" })
-
-                </div>
-                <div class="col-12 col-md-9">
-                    @Html.DisplayFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
-
-                </div>
-
-            </div>
-
-            <div class="row form-group">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.projects.Description, new { @class = "form-control-label" })
-                </div>
-                <div class="col-12 col-md-9">
-                    @Html.DisplayFor(model => model.projects.Description, new { @class = "form-control-label", @id = "description", style = "width:30%" })
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.projects.TeamMembers, new { @class = "form-control-label" })
-                </div>
-                <div class="col-12 col-md-9">
-                    @Html.DisplayFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.projects.Manager_Id, new { @class = "form-control-label" })
-                </div>
-                <div class="col-12 col-md-9">
-                    @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
-                </div>
-            </div>*@
-        @*<div class="row form-group">
-            @*<div class="col col-md-3">
-                    @Html.LabelFor(model => model.projects.PersonalInfo.EmpCode, new { @class = " form-control-label" })
-
-
-                </div>*@
-        @*<div class="col-12 col-md-9">*@
-        @*<input class="form-control" style="width:30%" id="searchemp" placeholder="Employee Code" />
-                <input id="searchid" style="display:none" />
-                <input id="searchname" style="display:none" />
-                <input id="designation" placeholder="Designation" />
-                <input id="responsibilty" placeholder="Responsibility" />
-                <input type="button" value="Add" class="add-emp" />
-
-                @*</div>
-
-            </div>*@
 
         <br />
         <div>
@@ -124,79 +42,92 @@
                 </tr>
                 @foreach (var item in Model.projectvm)
                 {
-                <tr>
-                    <td>
-                        @{ bool IsCriticalRes = false;}
-                        @foreach (var id in ViewBag.CriticalRes)
-                        {
-                            if (id == item.PersonalInfo1.Id)
+                    <tr>
+                        <td>
+                            @{ bool IsCriticalRes = false;}
+                            @foreach (var id in ViewBag.CriticalRes)
                             {
-                                IsCriticalRes = true;
+                                if (id == item.PersonalInfo1.Id)
+                                {
+                                    IsCriticalRes = true;
 
-                                //<input type="checkbox" class="chck" checked />
+                                    //<input type="checkbox" class="chck" checked />
+                                }
+                                else
+                                {
+                                    // value = false;
+                                    //<input type="checkbox" class="chck" />
+
+                                }
+                            }
+                            @if (IsCriticalRes == true)
+                            {
+                                <input type="checkbox" class="chck" checked id="IsChecked" />
                             }
                             else
                             {
-                                // value = false;
-                                //<input type="checkbox" class="chck" />
+                                <input type="checkbox" class="chck" />
 
                             }
-                        }
-                        @if (IsCriticalRes == true)
-                        {
-                            <input type="checkbox" class="chck" checked />
-                        }
-                        else
-                        {
-                            <input type="checkbox" class="chck" />
 
-                        }
+                        </td>
+                        <td>@item.PersonalInfo1.Name</td>
+                        <td>@item.PersonalInfo1.EmpCode</td>
+                        <td style="display:none;width:0%">@item.PersonalInfo1.Id</td>
+                        <td>@item.Designation</td>
+                        <td>@item.Responsibilities</td>
+                        <td>
+                            @{ bool isTrainer = false;}
 
-                    </td>
-                    <td>@item.PersonalInfo1.Name</td>
-                    <td>@item.PersonalInfo1.EmpCode</td>
-                    <td style="display:none;width:0%">@item.PersonalInfo1.Id</td>
-                    <td>@item.Designation</td>
-                    <td>@item.Responsibilities</td>
-                    <td>
-                        @{ bool isTrainer = false;}
-
-                        @foreach (var id in ViewBag.TrainerDet)
-                        {
-                            if (id == item.PersonalInfo1.Id)
+                            @foreach (var id in ViewBag.TrainerDet)
                             {
-                                isTrainer = true;
-                                //<input type="checkbox" class="chcktrainer" checked/>
+                                if (id == item.PersonalInfo1.Id)
+                                {
+                                    isTrainer = true;
+                                }
+                                else
+                                {
+                                    // <input type="checkbox" class="chcktrainer" />
+                                }
+                            }
+                            @if (isTrainer == true)
+
+                            {
+                                <input type="checkbox" class="chcktrainer" checked />
+
                             }
                             else
                             {
-                                // <input type="checkbox" class="chcktrainer" />
+                                <input type="checkbox" class="chcktrainer" />
                             }
-                        }
-                        @if (isTrainer == true)
 
-                        {
-                            <input type="checkbox" class="chcktrainer" checked />
-
-                        }
-                        else
-                        {
-                            <input type="checkbox" class="chcktrainer"  />
-                        }
-
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 }
             </table>
             <br />
+            <div style="display:none" id="accountinfo">
+                <div class="row form-group">
+                    <input class="form-control" style="width:30%" id="reporting" placeholder="reporting" />
+                    <input id="Information" placeholder="Information" />
+                    <input type="button" value="Add" class="add-accountability" />
+                </div>
 
+                <table class="table table-striped" id="table-accountability" style="width:50%">
+                    <tr>
+                        <th>Select</th>
+                        <th>reporting</th>
+                        <th>Information</th>
+                    </tr>
+
+                </table>
+                <br />
+                <button type="button" class="del-accountability">Delete</button>
+            </div>
+            <br />
         </div>
 
         <div class="row form-group">
-            <div class="col col-md-3">
-
-
-            </div>
             <div class="col-12 col-md-9">
 
                 <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
@@ -204,85 +135,95 @@
 
             </div>
 
-
         </div>
 
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('input.chck').change(
+            
+            function() {
+                if ($('input.chck').is(':checked')) {
+                $('#accountinfo').show();
+            } else {
+                $('#accountinfo').hide();
+            }
+        });
+    });
+
+        $(".add-accountability").click(function () {
+
+            var reporting = $("#reporting").val();
+            var Information = $("#Information").val();
+
+            var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                reporting + "</td><td>" +
+                Information + "</td></tr>";
+
+            $("#table-accountability").append(Company);
+            $("#reporting").val('');
+            $("#Information").val('');
+        });
+
+        $(".del-accountability").click(function () {
+
+            $("#table-accountability").find('input[name="chck"]').each(function () {
+                if ($(this).is(":checked")) {
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+    
+</script>
+
+
 <script>
 
     function showcheckbox() {
-       
+
         if ($(this).find('input.chck').is(':checked')) {
             $(this).find('input.chkTrainer').style.display = 'block';
             }
-        //d('myCheck').checked) {
-        //    document.getElementById('area').style.display = 'block';
-        //} else {
-        //    document.getElementById('area').style.display = 'none';
-        //}
     }
       $("#btnSave").click(function () {
-
-
+    
           var itemlist = [];
           var trainerlist = [];
           var projectId = $("#projectId").val();
           $("table tr:not(:first)").each(function () {
-              //var tdlist = $(this).find("td");
-              //var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html() };
-              //itemlist.push(Item);
-
               if ($(this).find('input.chck').is(':checked')) {
-                          //iseligible = true;
-                          //  var p_id = $(tdlist[0]).html();
                   var tdlist = $(this).find("td");
                   var Item = { PersonalInfo_Id: $(tdlist[3]).html(), Project_Id: projectId };
                           itemlist.push(Item);
               }
               if ($(this).find('input.chcktrainer').is(':checked')) {
-                  //iseligible = true;
-                  //  var p_id = $(tdlist[0]).html();
+
                   var tdlist = $(this).find("td");
                   var Item = { PersonalInfo_Id: $(tdlist[3]).html() };
                   trainerlist.push(Item);
               }
-              //chcktrainer
+
           })
-          //$("#tbl").each(function () {
-          //    var iseligible;
-          //    var taskassign;
-          //    var status;
-          //    if ($(this).find('input.chck').is(':checked')) {
-          //        //iseligible = true;
-          //        //  var p_id = $(tdlist[0]).html();
-          //        var Item = { P_Id: $(tdlist[0]).html() };
-          //        itemlist.push(Item);
-          //    })
-         
-         
-              //else {
-              //    iseligible = false;
-              //}
+          var accinfo = [];
+          
+          $("#table-accountability tr:not(:first)").each(function ()
+          {
+              var tdlist = $(this).find("td");
 
-              //taskassign = $(this).find("td:eq(2) input[type='text']").val();
+              var Item = { Name: $(tdlist[1]).html(), Value: $(tdlist[2]).html()};
+              
+              accinfo.push(Item);
+             
+          })
 
-              //status = $(this).find("td:eq(3) input[type='text']").val();
-              //      var tdlist = $(this).find("td");
-
-              //var Item = { Employee_Id: $(tdlist[0]).html(), TaskAssigned: taskassign, Status: status, IsEligiableMark: iseligible };
-              //      itemlist.push(Item);
-              //  })
-
-          //var trainerid = $("#trainerid").val();
-        
-          //var mod = [];
-          //mod = { AssignResource_Id: assignresid, Trainer_Id: trainerid };
          var newUrl= '@Url.Action("Index", "CriticalResource")';
                 $.ajax({
                     url: '@Url.Action("Create", "CriticalResource")', //
                     dataType: "json",
-                    data: JSON.stringify({ list: itemlist, trainerlist: trainerlist }),
+                    data: JSON.stringify({ list: itemlist, trainerlist: trainerlist, criticalacc: accinfo }),
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
@@ -293,6 +234,7 @@
                     }
         });
         });
-    
-           
+
+
 </script>
+
