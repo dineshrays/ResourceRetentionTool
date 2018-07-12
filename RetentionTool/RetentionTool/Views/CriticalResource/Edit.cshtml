@@ -26,81 +26,95 @@
         </div>
         
              <br />
-        <div>
+             <div>
 
-            <table class="table table-striped" id="tbl" style="width:50%">
-                <tr>
-                    <th>Select</th>
+                 <table class="table table-striped" id="tbl" style="width:50%">
+                     <tr>
+                         <th>Select</th>
 
-                    <th>Employee Name</th>
-                    <th>Employee Code</th>
-                    <th style="display:none;width:0%">Employee Id</th>
-                    <th>Designation</th>
-                    <th>Responsibility</th>
-                    <th>IsTrainer</th>
+                         <th>Employee Name</th>
+                         <th>Employee Code</th>
+                         <th style="display:none;width:0%">Employee Id</th>
+                         <th>Designation</th>
+                         <th>Responsibility</th>
+                         <th>IsTrainer</th>
 
-                </tr>
-                @foreach (var item in Model.projectvm)
-                {
-                    <tr>
-                        <td>
-                            @{ bool IsCriticalRes = false;}
-                            @foreach (var id in ViewBag.CriticalRes)
-                            {
-                                if (id == item.PersonalInfo1.Id)
-                                {
-                                    IsCriticalRes = true;
+                     </tr>
+                     @foreach (var item in Model.projectvm)
+                     {
+                         <tr>
+                             <td>
+                                 @{ bool IsCriticalRes = false;}
+                                 @foreach (var id in ViewBag.CriticalRes)
+                                 {
+                                     if (id == item.PersonalInfo1.Id)
+                                     {
+                                         IsCriticalRes = true;
+                                     }
+                                 }
+                                 @if (IsCriticalRes == true)
+                                 {
+                                     <input type="checkbox" class="chck" checked onclick="showcheckbox();" />
+                                 }
+                                 else
+                                 {
+                                     <input type="checkbox" class="chck" onclick="showcheckbox();" />
+                                 }
 
-                                   
-                                }
-                                
-                            }
-                            @if (IsCriticalRes == true)
-                            {
-                                <input type="checkbox" class="chck" checked onclick="showcheckbox();" />
-                            }
-                            else
-                            {
-                                <input type="checkbox" class="chck" onclick="showcheckbox();" />
+                             </td>
+                             <td>@item.PersonalInfo1.Name</td>
+                             <td>@item.PersonalInfo1.EmpCode</td>
+                             <td style="display:none;width:0%">@item.PersonalInfo1.Id</td>
+                             <td>@item.Designation</td>
+                             <td>@item.Responsibilities</td>
+                             <td>
+                                 @{ bool isTrainer = false;}
 
-                            }
+                                 @foreach (var id in ViewBag.TrainerDet)
+                                 {
+                                     if (id == item.PersonalInfo1.Id)
+                                     {
+                                         isTrainer = true;
+                                     }
+                                 }
+                                 @if (isTrainer == true)
 
-                        </td>
-                        <td>@item.PersonalInfo1.Name</td>
-                        <td>@item.PersonalInfo1.EmpCode</td>
-                        <td style="display:none;width:0%">@item.PersonalInfo1.Id</td>
-                        <td>@item.Designation</td>
-                        <td>@item.Responsibilities</td>
-                        <td>
-                            @{ bool isTrainer = false;}
+                                 {
+                                     <input type="checkbox" class="chcktrainer" checked />
+                                 }
+                                 else
+                                 {
+                                     <input type="checkbox" class="chcktrainer" />
+                                 }
 
-                            @foreach (var id in ViewBag.TrainerDet)
-                            {
-                                if (id == item.PersonalInfo1.Id)
-                                {
-                                    isTrainer = true;
-                                    
-                                }
-                               
-                            }
-                            @if (isTrainer == true)
+                             </td>
+                         </tr>
+                     }
+                 </table>
+                 <br />
+                 <div style="display:none" id="accountinfo">
+                     <div class="row form-group">
+                         <input class="form-control" style="width:30%" id="reporting" placeholder="reporting" />
+                         <input id="Information" placeholder="Information" />
+                         <input type="button" value="Add" class="add-accountability" />
+                     </div>
 
-                            {
-                                <input type="checkbox" class="chcktrainer"  checked />
+                     <table class="table table-striped" id="table-accountability" style="width:50%">
+                         <tr>
+                             <th>Select</th>
+                             <th>reporting</th>
+                             <th>Information</th>
+                         </tr>
 
-                            }
-                            else
-                            {
-                                <input type="checkbox" class="chcktrainer"  />
-                            }
+                         @foreach(var i in)
 
-                        </td>
-                    </tr>
-                }
-            </table>
-            <br />
+                     </table>
+                     <br />
+                     <button type="button" class="del-accountability">Delete</button>
+                 </div>
+                 <br />
 
-        </div>
+             </div>
 
         <div class="row form-group">
             <div class="col col-md-3">
