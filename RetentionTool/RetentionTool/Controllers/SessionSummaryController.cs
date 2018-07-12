@@ -14,17 +14,33 @@ namespace RetentionTool.Controllers
         // GET: SessionSummary
         public ActionResult Index()
         {
-            
+
+            //List<AssignResourceViewModel> assgnvm = (from assignres in db.AssignResources
+            //                                         join m in db.Modules
+            //                                         on assignres.Module_Id equals m.Id
+            //                                         where assignres.IsActive == true
+            //                                         && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
+            //                                         select new AssignResourceViewModel
+            //                                         {
+            //                                             Id = assignres.Id,
+            //                                             modulename = assignres.Module.ModuleName,
+            //                                             Module_Id = assignres.Module_Id,
+            //                                             Project_Id = assignres.Project_Id,
+            //                                             projectname = assignres.ProjectsDetail.Name
+            //                                         }).ToList();
+
+            //ViewBag.details = assgnvm;
+
             List<Module> modulelist = (from module in db.Modules
                                        join moduledet in db.ModuleDets
                                        on module.Id equals moduledet.Module_Id
                                        join trainingdet in db.TrainingDets
                                        on moduledet.Id equals trainingdet.ModuleDet_Id
                                        where module.IsActive == true && trainingdet.IsActive == true
-                                       && !db.EmployeeEvalTasks.Any(a=>a.AssignResource_Id==trainingdet.Training.AssignResource_Id && a.IsActive==true &&
-                                       
-                                       db.EmployeeEvalTaskDets.Any(c=>c.EmployeeEvalTask_Id==a.Id && c.IsEligiableMark==true
-                                       && c.IsActive==true))
+                                       && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == trainingdet.Training.AssignResource_Id && a.IsActive == true &&
+
+                                       db.EmployeeEvalTaskDets.Any(c => c.EmployeeEvalTask_Id == a.Id && c.IsEligiableMark == true
+                                       && c.IsActive == true))
                                        select module).Distinct().ToList();
 
             ViewBag.ModuleList = modulelist;
@@ -41,6 +57,7 @@ namespace RetentionTool.Controllers
 
                                              select new SessionView
                                              {
+                                                 assignresid =trainingdet.Training.AssignResource_Id,
                                                  moduleid = module.Id,
                                                  modulename = module.ModuleName,
                                                  date = session.Date
