@@ -62,12 +62,12 @@
                             }
                             @if (IsCriticalRes == true)
                             {
-                                <input type="checkbox" class="chck" checked id="IsChecked" />
+                                <input type="radio"@*"checkbox"*@ class="chck" name="critic" checked id="IsChecked" />
                             }
                             else
                             {
-                                <input type="checkbox" class="chck" />
-
+                                <input type="radio"@*"checkbox"*@ name="critic" class="chck" />
+                               
                             }
 
                         </td>
@@ -93,12 +93,12 @@
                             @if (isTrainer == true)
 
                             {
-                                <input type="checkbox" class="chcktrainer" checked />
+                                <input type="radio"@*"checkbox"*@ name="trainer" class="chcktrainer" checked />
 
                             }
                             else
                             {
-                                <input type="checkbox" class="chcktrainer" />
+                                <input type="radio"@*"checkbox"*@ name="trainer" class="chcktrainer" />
                             }
 
                         </td>
@@ -189,15 +189,15 @@
             }
     }
       $("#btnSave").click(function () {
-    
-          var itemlist = [];
+          var cri;
+         // var itemlist = [];
           var trainerlist = [];
           var projectId = $("#projectId").val();
           $("table tr:not(:first)").each(function () {
               if ($(this).find('input.chck').is(':checked')) {
                   var tdlist = $(this).find("td");
-                  var Item = { PersonalInfo_Id: $(tdlist[3]).html(), Project_Id: projectId };
-                          itemlist.push(Item);
+                  cri= { PersonalInfo_Id: $(tdlist[3]).html(), Project_Id: projectId };
+                          //itemlist.push(Item);
               }
               if ($(this).find('input.chcktrainer').is(':checked')) {
 
@@ -223,7 +223,7 @@
                 $.ajax({
                     url: '@Url.Action("Create", "CriticalResource")', //
                     dataType: "json",
-                    data: JSON.stringify({ list: itemlist, trainerlist: trainerlist, criticalacc: accinfo }),
+                    data: JSON.stringify({ criticalR: cri, trainerlist: trainerlist, criticalacc: accinfo }),
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {

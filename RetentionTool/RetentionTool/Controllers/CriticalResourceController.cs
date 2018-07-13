@@ -70,30 +70,36 @@ namespace RetentionTool.Controllers
             return View(prjctwrkvm);
         }
         [HttpPost]
-        public ActionResult Create(List<CriticalResource> list,List<Trainer> trainerlist,List<criticalResourceAccountability> criticalacc)
+        public ActionResult Create(CriticalResource criticalR,Trainer trainerlist,List<criticalResourceAccountability> criticalacc)
         {
-
-            foreach(var criticalRes in list)
-            {
-                criticalRes.IsActive = true;
-                db.CriticalResources.Add(criticalRes);
-                db.SaveChanges();
+            criticalR.IsActive = true;
+            db.CriticalResources.Add(criticalR);
+            db.SaveChanges();
+            //foreach (var criticalRes in criticalR)
+            //{
+            //    criticalRes.IsActive = true;
+            //    db.CriticalResources.Add(criticalRes);
+            //    db.SaveChanges();
                 foreach(var accinfo in criticalacc)
                 {
-                    accinfo.criticalresource_Id = criticalRes.Id;
+                    accinfo.criticalresource_Id = criticalR.Id;
                     accinfo.IsActive = true;
                     db.criticalResourceAccountabilities.Add(accinfo);
                     db.SaveChanges();
                 }
-            }
+            //}
+
             if(trainerlist!=null)
             {
-                foreach (var trainer in trainerlist)
-                {
-                    trainer.IsActive = true;
-                    db.Trainers.Add(trainer);
-                    db.SaveChanges();
-                }
+                trainerlist.IsActive = true;
+                db.Trainers.Add(trainerlist);
+                db.SaveChanges();
+                //foreach (var trainer in trainerlist)
+                //{
+                //    trainer.IsActive = true;
+                //    db.Trainers.Add(trainer);
+                //    db.SaveChanges();
+                //}
             }
           
             return Json("", JsonRequestBehavior.AllowGet);
@@ -102,6 +108,7 @@ namespace RetentionTool.Controllers
         public ActionResult Edit(int id)
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id).ToList();
+            List<criticalResourceAccountability> criticalAccount = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id).ToList();
             ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
@@ -110,60 +117,82 @@ namespace RetentionTool.Controllers
             prjctwrkvm.projectvm = prjctwrklist;
             ViewBag.CriticalRes = db.CriticalResources.Where(a => a.IsActive == true).ToList().Select(a => a.PersonalInfo_Id).Distinct();
             ViewBag.TrainerDet = db.Trainers.Where(a => a.IsActive == true).ToList().Select(a => a.PersonalInfo_Id).Distinct();
+            ViewBag.criticalacc = criticalAccount;
             return View(prjctwrkvm);
           
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, List<CriticalResource> criticallist, List<Trainer> trainerlist)
+        public ActionResult Edit(int id, /*List<CriticalResource> criticallist,*/CriticalResource criticallist, Trainer trainerlist, List<criticalResourceAccountability> criticalacc)
         {
-            List<CriticalResource> personalIdlist = db.CriticalResources.Where(a => a.Project_Id == id && a.IsActive==true).ToList();
 
-            //var criticalResFalseList = personalIdlist.Except(criticallist).ToList();
-            //var criticalResAddList = criticallist.Except(personalIdlist).ToList();
+            //List<CriticalResource> personalIdlist = db.CriticalResources.Where(a => a.Project_Id == id && a.IsActive==true).ToList();
 
-            var criticalResFalseList = personalIdlist.Where(x => !criticallist.Any(x1 => x1.PersonalInfo_Id == x.PersonalInfo_Id)).ToList();
-            var criticalResAddList = criticallist.Where(x => !personalIdlist.Any(x1 => x1.PersonalInfo_Id == x.PersonalInfo_Id)).ToList();
-            foreach (var personalid in criticalResFalseList)
+            //var criticalResFalseList = personalIdlist.Where(x => !criticallist.Any(x1 => x1.PersonalInfo_Id == x.PersonalInfo_Id)).ToList();
+            //var criticalResAddList = criticallist.Where(x => !personalIdlist.Any(x1 => x1.PersonalInfo_Id == x.PersonalInfo_Id)).ToList();
+            //foreach (var personalid in criticalResFalseList)
+            //{
+            //    personalid.IsActive = false;
+            //    db.Entry(personalid).State = System.Data.Entity.EntityState.Modified;
+            //    db.SaveChanges();                
+            //}
+
+            //foreach (var personalinfoid in criticalResAddList)
+            //{
+            //    personalinfoid.IsActive = true;
+            //    personalinfoid.Project_Id = id;
+            //    db.CriticalResources.Add(personalinfoid);     
+            //    db.SaveChanges();
+            //    }
+            criticallist.IsActive = true;
+            db.Entry(criticallist).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            trainerlist.IsActive = true;
+            db.Entry(trainerlist).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            List<criticalResourceAccountability> criticalist = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id).ToList();
+
+            var critifalse = criticalist.Where(x => !criticalacc.Any(x1 => x1.criticalresource_Id == x.criticalresource_Id)).ToList();
+            var crititrue = criticalacc.Where(x => !criticalist.Any(x1 => x1.criticalresource_Id == x.criticalresource_Id)).ToList();
+            foreach(var acc in critifalse)
             {
-                personalid.IsActive = false;
-                db.Entry(personalid).State = System.Data.Entity.EntityState.Modified;
+                acc.IsActive = false;
+                db.Entry(acc).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                
             }
-
-            foreach (var personalinfoid in criticalResAddList)
+            foreach (var accinfo in crititrue)
             {
-                personalinfoid.IsActive = true;
-                personalinfoid.Project_Id = id;
-                db.CriticalResources.Add(personalinfoid);     
+                accinfo.IsActive = true;
+                accinfo.criticalresource_Id = criticallist.Id;
+                db.criticalResourceAccountabilities.Add(accinfo);
                 db.SaveChanges();
-
             }
-            if(trainerlist!=null)
-            {
-                List<Trainer> traineroriginlist = db.Trainers.Where(a=> db.ProjectsWorkeds.Any(p=> p.Project_Id==id  && p.IsActive==true && a.IsActive == true)).ToList();
+            //if (trainerlist!=null)
+            //{
+            //    List<Trainer> traineroriginlist = db.Trainers.Where(a=> db.ProjectsWorkeds.Any(p=> p.Project_Id==id  && p.IsActive==true && a.IsActive == true)).ToList();
 
-                var trainerFalseList = traineroriginlist.Where(x => !trainerlist.Any(x1 => x1.PersonalInfo_Id == x.PersonalInfo_Id)).ToList();
-                var trainerResAddList = trainerlist.Where(x => !traineroriginlist.Any(x1 => x1.PersonalInfo_Id == x.PersonalInfo_Id)).ToList();
-                foreach (var personalid in trainerFalseList)
-                {
-                    personalid.IsActive = false;
-                    db.Entry(personalid).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
+            //    var trainerFalseList = traineroriginlist.Where(x => !trainerlist.Any(x1 => x1.PersonalInfo_Id == x.PersonalInfo_Id)).ToList();
+            //    var trainerResAddList = trainerlist.Where(x => !traineroriginlist.Any(x1 => x1.PersonalInfo_Id == x.PersonalInfo_Id)).ToList();
+            //    foreach (var personalid in trainerFalseList)
+            //    {
+            //        personalid.IsActive = false;
+            //        db.Entry(personalid).State = System.Data.Entity.EntityState.Modified;
+            //        db.SaveChanges();
 
-                }
+            //    }
 
-                foreach (var personalinfoid in trainerResAddList)
-                {
-                    personalinfoid.IsActive = true;
+            //    foreach (var personalinfoid in trainerResAddList)
+            //    {
+            //        personalinfoid.IsActive = true;
                    
-                    db.Trainers.Add(personalinfoid);
-                    db.SaveChanges();
+            //        db.Trainers.Add(personalinfoid);
+            //        db.SaveChanges();
 
-                }
+            //    }
 
-            }
+            //}
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
