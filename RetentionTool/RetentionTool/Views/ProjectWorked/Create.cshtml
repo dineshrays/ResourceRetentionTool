@@ -19,10 +19,10 @@
         <div class="row form-group">
             <div class="col-md-3">
                 @Html.Label("Project Name")
-                    @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
+                @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(model => model.projects.Project_Id,ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
+                @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
             </div>
         </div>
         @*<div class="row form-group">
@@ -82,10 +82,11 @@
                 @Html.TextBoxFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
             </div>
         </div>
+        
         <div class="row form-group">
             <div class="col-md-3">
                 @Html.Label("Manager Name")
-                    @*For(model => model.projects.Manager_Id, new { @class = "form-control-label" })*@
+                @*For(model => model.projects.Manager_Id, new { @class = "form-control-label" })*@
             </div>
             <div class="col-12 col-md-9">
                 @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
@@ -98,12 +99,12 @@
 
             </div>*@
             @*<div class="col-12 col-md-9">*@
-                <input class="form-control" style="width:30%" id="searchemp" placeholder="Employee Code"/>
-                <input id="searchid" style="display:none" />
-                <input id="searchname" style="display:none" />
-                <input id="designation" placeholder="Designation" />
-                <input id="responsibilty" placeholder="Responsibility" />
-                <input type="button" value="Add" class="add-emp" />
+            <input class="form-control" style="width:30%" id="searchemp" placeholder="Employee Code" />
+            <input id="searchid" style="display:none" />
+            <input id="searchname" style="display:none" />
+            <input id="designation" placeholder="Designation" />
+            <input id="responsibilty" placeholder="Responsibility" />
+            <input type="button" value="Add" class="add-emp" />
 
             @*</div>*@
 
@@ -112,7 +113,7 @@
         <br />
         <div>
 
-            <table class="table table-striped" style="width:50%">
+            <table id="myTable" class="table table-striped" style="width:50%">
                 <tr>
                     <th>Select</th>
                     <th>Employee Name</th>
@@ -153,8 +154,7 @@
 
         var itemlist = [];
         var projectid = $("#projectid").val();
-      //  var designation = $("#designation").val();
-      //  var responsibilty = $("#responsibilty").val();
+      
         var startdate = $("#startdate").val();
         var enddate = $("#enddate").val();
         var description = $("#description").val();
@@ -210,21 +210,33 @@
             });
 
     $(".add-emp").click(function () {
-
         var empcode = $("#searchemp").val();
         var empid = $("#searchid").val();
         var empname = $("#searchname").val();
         var designation = $("#designation").val();
         var responsibilty = $("#responsibilty").val();
-        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
-            empname + "</td><td style='display: none'>" + empid + "</td><td>" +
-            designation + "</td><td>" +
-            responsibilty + "</td></tr>";
-        $("table tbody").append(markup);
-        $("#searchemp").val('');
-        $("#searchid").val('');
-        $("#designation").val('');
-        $("#responsibilty").val('');
+        var teamcount = $('#teammember').val();
+        var rowCount = $('#myTable tr').length;
+       
+        if (rowCount <= teamcount) {
+            var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
+                empname + "</td><td style='display: none'>" + empid + "</td><td>" +
+                designation + "</td><td>" +
+                responsibilty + "</td></tr>";
+            $("table tbody").append(markup);
+            $("#searchemp").val('');
+            $("#searchid").val('');
+            $("#designation").val('');
+            $("#responsibilty").val('');
+        }
+        else {
+            alert("You cannot select more than the team size !");
+            $("#searchemp").val('');
+            $("#searchid").val('');
+            $("#designation").val('');
+            $("#responsibilty").val('');
+        }
+       
     });
 
     $(".del-emp").click(function () {
