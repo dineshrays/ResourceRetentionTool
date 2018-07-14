@@ -13,13 +13,14 @@
     <table class="table table-striped">
         <tr>
             @*<th style="display:none">@Html.DisplayNameFor(model => model.Id)</th>
-            <th style="display:none">@Html.DisplayNameFor(model => model.TrainingDet_Id)</th>
-            <th>@Html.DisplayNameFor(model => model.Topics)</th>
-            <th>@Html.DisplayNameFor(model => model.Hours)</th>
-            <th>@Html.DisplayNameFor(model => model.Description)</th>
+        <th style="display:none">@Html.DisplayNameFor(model => model.TrainingDet_Id)</th>
+        <th>@Html.DisplayNameFor(model => model.Topics)</th>
+        <th>@Html.DisplayNameFor(model => model.Hours)</th>
+        <th>@Html.DisplayNameFor(model => model.Description)</th>
 
-            <th>@Html.DisplayNameFor(model => model.Date)</th>*@
+        <th>@Html.DisplayNameFor(model => model.Date)</th>*@
             @*<th>@Html.Label("Link")</th>*@
+            <th>@Html.Label("Project Name")</th>
             <th>@Html.Label("Module Name")</th>
             <th>@Html.Label("Date")</th>
             <th>@Html.Label("Topics")</th>
@@ -28,30 +29,31 @@
             @{ DateTime? date=null;}
             @foreach (var modulelist in moduledetails)
             {
-                <tr>
-    <td> @modulelist.ModuleName </td>
+        <tr>
+            <td> @modulelist.projectname </td>
+            <td> @modulelist.modulename </td>
 
-    @foreach (var item in Model)
-    {
+            @foreach (var item in Model)
+            {
 
-    if (item.moduleid == modulelist.Id)
-    {
-    date = item.date;
+                if (item.assignresid == modulelist.Id)
+                {
+                    date = item.date;
 
-    }
-
-
-
+                }
 
 
-    }
 
-    <td> @date </td>
 
-    <td>
-        <a href='@Url.Action("Create", "SessionSummary", new { id = modulelist.Id })' >List</a>
 
-    </td>
+            }
+
+            <td> @date </td>
+
+            <td>
+                <a href='@Url.Action("Create", "SessionSummary", new { id = modulelist.Id })'>List</a>
+
+            </td>
         </tr>
     }
 

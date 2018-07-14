@@ -33,6 +33,7 @@ namespace RetentionTool.Models
         [DisplayName("Project Name")]
         public string projectname { get; set; }
         public int[] empid { get; set; }
+        public Nullable<int> TrainingId { get; set; }
         
         public virtual PersonalInfo Employee { get; set; }
         public virtual PersonalInfo Manager { get; set; }

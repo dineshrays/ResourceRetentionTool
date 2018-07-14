@@ -31,35 +31,56 @@ namespace RetentionTool.Controllers
 
             //ViewBag.details = assgnvm;
 
-            List<Module> modulelist = (from module in db.Modules
-                                       join moduledet in db.ModuleDets
+            List<AssignResourceViewModel> assignreslist = (from assignres in db.AssignResources
+                                                           join   module in db.Modules
+                                                           on assignres.Module_Id equals module.Id
+                                                           join moduledet in db.ModuleDets
+
                                        on module.Id equals moduledet.Module_Id
+                                    
+                                       
                                        join trainingdet in db.TrainingDets
                                        on moduledet.Id equals trainingdet.ModuleDet_Id
                                        where module.IsActive == true && trainingdet.IsActive == true
-                                       && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == trainingdet.Training.AssignResource_Id && a.IsActive == true &&
+                                       && db.Trainings.Any(a=>a.AssignResource_Id==assignres.Id && a.IsActive==true)
+                                       && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true &&
 
                                        db.EmployeeEvalTaskDets.Any(c => c.EmployeeEvalTask_Id == a.Id && c.IsEligiableMark == true
                                        && c.IsActive == true))
-                                       select module).Distinct().ToList();
+                                       select new AssignResourceViewModel
+                                       {
+                                           Id=assignres.Id,
+                                           Module_Id=module.Id,
+                                           modulename=module.ModuleName,
+                                           Project_Id=assignres.Project_Id,
+                                           projectname=assignres.ProjectsDetail.Name
+                                          // TrainingId = trainingdet.Training_Id
+                                           
+                                       }).Distinct().ToList();
 
-            ViewBag.ModuleList = modulelist;
-            List<SessionView> sessionview = (from module in modulelist
-                                             join moduledet in db.ModuleDets
-                                             on module.Id equals moduledet.Module_Id
+            ViewBag.ModuleList = assignreslist;
+            List<SessionView> sessionview = (from assignres in assignreslist
+                                             join training in db.Trainings
+                                             on assignres.Id equals training.AssignResource_Id
                                              join trainingdet in db.TrainingDets
-                                      on moduledet.Id equals trainingdet.ModuleDet_Id
+                                      on training.Id equals trainingdet.Training_Id
+                                             //join moduledet in db.ModuleDets
+                                             //on trainingdet.ModuleDet_Id equals moduledet.Id
+                                             //assignres.Module_Id equals moduledet.Module_Id
+                                             
                                              join session in db.Sessions
                                              on trainingdet.Id equals session.TrainingDet_Id
-                                             where module.IsActive == true && trainingdet.IsActive == true
-
+                                             where 
+                                             //assignres.IsActive == true &&
+                                             trainingdet.IsActive == true
+                                            && training.IsActive==true
                                              && session.IsActive == true
 
                                              select new SessionView
                                              {
-                                                 assignresid =trainingdet.Training.AssignResource_Id,
-                                                 moduleid = module.Id,
-                                                 modulename = module.ModuleName,
+                                                 assignresid =assignres.Id,
+                                                 moduleid = assignres.Module_Id,
+                                                 modulename = assignres.modulename,
                                                  date = session.Date
                                              }
                                              ).OrderByDescending(s => s.date).ToList();
@@ -94,12 +115,19 @@ namespace RetentionTool.Controllers
         public ActionResult Create(int id)
         {
 
-            List<TrainingDet> trainingdet = (from trainindets in db.TrainingDets
-                                             join moduledet in db.ModuleDets
-                                             on trainindets.ModuleDet_Id equals moduledet.Id
-                                             where moduledet.Module_Id == id && trainindets.IsActive == true
-                                             select trainindets
-                                            ).ToList();
+            List<TrainingDet> trainingdet = (from traindet in db.TrainingDets
+                                             join training in db.Trainings
+                                             on traindet.Training_Id equals training.Id
+                                             where training.AssignResource_Id == id && training.IsActive == true
+                                             select traindet).ToList();
+                //db.TrainingDets.Where(a => a.Training_Id == id && a.IsActive == true).ToList();
+                //(from trainindets in db.TrainingDets
+                //                            // join moduledet in db.ModuleDets
+                //                            // on trainindets.ModuleDet_Id equals moduledet.Id
+                //                             where
+                //                             //moduledet.Module_Id == id && trainindets.IsActive == true
+                //                             select trainindets
+                //                            ).ToList();
           //  List<TrainingDet> training = db.TrainingDets.Where(a=> !db.Sessions.Any(b=>b.TrainingDet_Id==a.Id && b.IsActive==true) && a.IsActive==true).ToList();
             //foreach (var i in training)
             //{
