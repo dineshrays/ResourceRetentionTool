@@ -32,17 +32,20 @@ namespace RetentionTool.Controllers
             //ViewBag.details = assgnvm;
 
             List<AssignResourceViewModel> assignreslist = (from assignres in db.AssignResources
-                                                           join   module in db.Modules
-                                                           on assignres.Module_Id equals module.Id
-                                                           join moduledet in db.ModuleDets
+                                       //                    join   module in db.Modules
+                                       //                    on assignres.Module_Id equals module.Id
+                                       //                    join moduledet in db.ModuleDets
 
-                                       on module.Id equals moduledet.Module_Id
+                                       //on module.Id equals moduledet.Module_Id
                                     
                                        
-                                       join trainingdet in db.TrainingDets
-                                       on moduledet.Id equals trainingdet.ModuleDet_Id
-                                       where module.IsActive == true && trainingdet.IsActive == true
-                                       && db.Trainings.Any(a=>a.AssignResource_Id==assignres.Id && a.IsActive==true)
+                                       //join trainingdet in db.TrainingDets
+                                       //on moduledet.Id equals trainingdet.ModuleDet_Id
+                                       where 
+                                       //module.IsActive == true 
+                                       //&& trainingdet.IsActive == true
+                                       //&& 
+                                       db.Trainings.Any(a=>a.AssignResource_Id==assignres.Id && a.IsActive==true)
                                        && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true &&
 
                                        db.EmployeeEvalTaskDets.Any(c => c.EmployeeEvalTask_Id == a.Id && c.IsEligiableMark == true
@@ -50,11 +53,11 @@ namespace RetentionTool.Controllers
                                        select new AssignResourceViewModel
                                        {
                                            Id=assignres.Id,
-                                           Module_Id=module.Id,
-                                           modulename=module.ModuleName,
+                                           Module_Id=assignres.Module_Id,
+                                           modulename=assignres.Module.ModuleName,
                                            Project_Id=assignres.Project_Id,
                                            projectname=assignres.ProjectsDetail.Name
-                                          // TrainingId = trainingdet.Training_Id
+                                         //  TrainingId = trainingdet.Training_Id
                                            
                                        }).Distinct().ToList();
 

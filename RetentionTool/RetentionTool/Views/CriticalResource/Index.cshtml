@@ -23,7 +23,8 @@
         @foreach (var item in prjctDetails)
         {
         <tr>
-            @{ string criticalname = "";}
+            @{ string criticalname = "";
+                int criticalid=0;}
 
             <td>@item.Name</td>
 
@@ -34,6 +35,7 @@
                 {
                     IsCritical = true;
                     criticalname = critiprjctid.PersonalInfo.Name;
+                    criticalid = critiprjctid.Id;
                 }
 
             }
@@ -42,8 +44,8 @@
                 @if (IsCritical == true)
                 {
 
-                    @Html.ActionLink(" ", "Edit", new { id = @item.Id }, new { @class = "ti-pencil" })
-                    @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+                    @Html.ActionLink(" ", "Edit", new { id =item.Id }, new { @class = "ti-pencil" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
 
                 }
                 else

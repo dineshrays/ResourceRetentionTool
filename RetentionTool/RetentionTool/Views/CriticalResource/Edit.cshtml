@@ -21,7 +21,8 @@
                 @Html.LabelFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.HiddenFor(model => model.projects.Project_Id, new { @id="projectId", @class="project"})
+                @*@Html.HiddenFor(model=>model)*@
+                @Html.HiddenFor(model => model.projects.Project_Id, new { @id= "projectId", @class="project"})
                 @Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
             </div>
         </div>
@@ -45,14 +46,16 @@
                      {
                          <tr>
                              <td>
-                                 @{ bool IsCriticalRes = false;}
-                                 @foreach (var id in ViewBag.CriticalRes)
-                                 {
-                                     if (id == item.PersonalInfo1.Id)
+                                 @{ bool IsCriticalRes = false;
+                                     int criticalId = 0;
+                                     }
+                                 @*@foreach (var id in ViewBag.CriticalRes)
+                                 {*@
+                                     @if (ViewBag.CriticalRes.PersonalInfo_Id == item.PersonalInfo1.Id)
                                      {
                                          IsCriticalRes = true;
                                      }
-                                 }
+                                 @*}*@
                                  @if (IsCriticalRes == true)
                                  {
                                      <input type="radio"@*"checkbox"*@ name="critical" class="chck" checked onclick="showcheckbox();" />
@@ -71,13 +74,13 @@
                              <td>
                                  @{ bool isTrainer = false;}
 
-                                 @foreach (var id in ViewBag.TrainerDet)
-                                 {
-                                     if (id == item.PersonalInfo1.Id)
+                                 @*@foreach (var id in ViewBag.TrainerDet)
+                                 {*@
+                                     @if (ViewBag.TrainerDet.PersonalInfo_Id == item.PersonalInfo1.Id)
                                      {
                                          isTrainer = true;
                                      }
-                                 }
+                                 @*}*@
                                  @if (isTrainer == true)
 
                                  {
@@ -211,7 +214,9 @@
                 $.ajax({
                     url: '@Url.Action("Edit", "CriticalResource")', //
                     dataType: "json",
-                    data: JSON.stringify({ projectId: projectId, criticallist: criticallist, trainerlist: trainerlist, criticalacc: accinfo}),
+                    data: JSON.stringify({
+                        criticallist: criticallist, trainerlist: trainerlist, criticalacc: accinfo
+                    }),
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {

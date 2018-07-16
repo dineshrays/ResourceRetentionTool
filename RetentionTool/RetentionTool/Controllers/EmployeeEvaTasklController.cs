@@ -16,7 +16,7 @@ namespace RetentionTool.Controllers
         {
             List<AssignResource> assignResources = db.AssignResources.Where(a => 
             db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && p2.IsActive == true && a.IsActive == true)
-         &&   !db.EmployeeEvalTasks.Any(
+         ||   db.EmployeeEvalTasks.Any(
                 e => e.AssignResource_Id == a.Id && e.IsActive == true &&
                 db.EmployeeEvalTaskDets.Any(t => t.EmployeeEvalTask_Id == e.Id &&
                 t.IsEligiableMark == true && t.IsActive == true)) 
@@ -41,6 +41,16 @@ namespace RetentionTool.Controllers
             empeval.IsActive = true;
             db.EmployeeEvalTasks.Add(empeval);
             db.SaveChanges();
+            AssignResource assignRes = db.AssignResources.Find(empeval.AssignResource_Id);
+            CriticalResource critcal = db.CriticalResources.FirstOrDefault(a => a.Project_Id == assignRes.Project_Id && a.IsActive == true);
+            critcal.IsActive = false;
+           
+            Trainer trainer = db.Trainers.FirstOrDefault(a=>a.CriticalResource_Id==critcal.Id && a.IsActive==true);
+            trainer.IsActive = false;
+            db.Entry(trainer).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            db.Entry(critcal).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
 
             foreach (var i in list)
             {
@@ -56,7 +66,11 @@ namespace RetentionTool.Controllers
                 db.EmployeeEvalTaskDets.Add(empevaldet);
                 db.SaveChanges();
             }
-
+            //Trainer t = db.Trainers.Find(empeval.Trainer_Id);
+            //t.IsActive = false;
+            //db.Entry(t).State = System.Data.Entity.EntityState.Modified;
+            //db.SaveChanges();
+            
             return Json("", JsonRequestBehavior.AllowGet);
         
         }
@@ -79,7 +93,8 @@ namespace RetentionTool.Controllers
         [HttpPost]
         public ActionResult Edit(int id, EmployeeEvalTask empeval, EmployeeEvalTaskDet[] list)
         {
-
+            EmployeeEvalTask empevaltask = db.EmployeeEvalTasks.Find(id);
+          
            
             empeval.IsActive = true;
             db.Entry(empeval).State = System.Data.Entity.EntityState.Modified;
@@ -93,12 +108,16 @@ namespace RetentionTool.Controllers
                 db.SaveChanges();
                 
             }
-
+            //Trainer t = db.Trainers.Find(empeval.Trainer_Id);
+            //t.IsActive = false;
+            //db.Entry(t).State = System.Data.Entity.EntityState.Modified;
+            //db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
         }
         public ActionResult Delete(int id)
         {
             EmployeeEvalTask empEval = db.EmployeeEvalTasks.FirstOrDefault(a => a.AssignResource_Id == id);
+        
             List<EmployeeEvalTaskDet> empevaltask = db.EmployeeEvalTaskDets.Where(a => a.EmployeeEvalTask_Id == empEval.Id).ToList();
                        
             EmployeeEvalViewModel empvm = new EmployeeEvalViewModel();
@@ -113,8 +132,18 @@ namespace RetentionTool.Controllers
         {
             EmployeeEvalTask empeval = db.EmployeeEvalTasks.FirstOrDefault(a => a.AssignResource_Id == id);
             empeval.IsActive = false;
-            db.Entry(empeval).State = System.Data.Entity.EntityState.Modified;
+            AssignResource assignRes = db.AssignResources.Find(empeval.AssignResource_Id);
+            CriticalResource critcal = db.CriticalResources.FirstOrDefault(a=> a.Project_Id == assignRes.Project_Id);
+            critcal.IsActive = true;
+
+            Trainer trainer = db.Trainers.FirstOrDefault(a => a.CriticalResource_Id == critcal.Id );
+            trainer.IsActive = true;
+            db.Entry(trainer).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            db.Entry(critcal).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+
             return RedirectToAction("Index");
         }
         public ActionResult CreateEmployeeEval(int assignresid)

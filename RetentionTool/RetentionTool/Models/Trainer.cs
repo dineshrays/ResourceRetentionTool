@@ -18,20 +18,22 @@ namespace RetentionTool.Models
         public Trainer()
         {
             this.AssignEvaluaters = new HashSet<AssignEvaluater>();
-            this.EmployeeEvalTasks = new HashSet<EmployeeEvalTask>();
             this.AssignResources = new HashSet<AssignResource>();
+            this.EmployeeEvalTasks = new HashSet<EmployeeEvalTask>();
         }
     
         public long Id { get; set; }
         public Nullable<int> PersonalInfo_Id { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> CriticalResource_Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignEvaluater> AssignEvaluaters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeEvalTask> EmployeeEvalTasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignResource> AssignResources { get; set; }
+        public virtual CriticalResource CriticalResource { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeEvalTask> EmployeeEvalTasks { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
     }
 }

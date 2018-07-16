@@ -363,8 +363,8 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             List<EmployeeList> va = (from project in db.ProjectsDetails join
                                      projectworked in db.ProjectsWorkeds on
                                      project.Id equals projectworked.Project_Id
-                                     //join critical in db.CriticalResources on
-                                     //projectworked.PersonalInfo_Id equals critical.PersonalInfo_Id
+                                     join critical in db.CriticalResources on
+                                     projectworked.PersonalInfo_Id equals critical.PersonalInfo_Id
 
                                      where project.Name.Contains(name)
 

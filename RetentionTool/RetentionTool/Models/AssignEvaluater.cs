@@ -19,7 +19,7 @@ namespace RetentionTool.Models
         public Nullable<long> Trainer_Id { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual Trainer Trainer { get; set; }
         public virtual AssignResource AssignResource { get; set; }
+        public virtual Trainer Trainer { get; set; }
     }
 }

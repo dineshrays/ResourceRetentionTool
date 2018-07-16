@@ -1367,6 +1367,7 @@
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\ProjectsDetailsController.cs" />
     <Compile Include="Controllers\ProjectWorkedController.cs" />
+    <Compile Include="Controllers\PromoteEmployeeController.cs" />
     <Compile Include="Controllers\RateEmployeeController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SessionSummaryController.cs" />
@@ -1497,6 +1498,7 @@
     <Compile Include="ViewModel\EmployeeInfoViewModel.cs" />
     <Compile Include="ViewModel\ModuleViewModel1.cs" />
     <Compile Include="ViewModel\ProjectWorkedViewModel.cs" />
+    <Compile Include="ViewModel\PromoteEmployeeModel.cs" />
     <Compile Include="ViewModel\RateEmployeeViewModel.cs" />
     <Compile Include="ViewModel\RolesViewModel.cs" />
     <Compile Include="ViewModel\SessionSummaryViewModel.cs" />
@@ -1607,6 +1609,8 @@
     <Content Include="Views\GeneralTraining\Delete.cshtml" />
     <Content Include="Views\GeneralTraining\Edit.cshtml" />
     <Content Include="Views\GeneralTraining\Index.cshtml" />
+    <Content Include="Views\PromoteEmployee\Index.cshtml" />
+    <Content Include="Views\CriticalResource\DemoView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

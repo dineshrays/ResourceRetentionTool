@@ -18,6 +18,7 @@ namespace RetentionTool.Models
         public CriticalResource()
         {
             this.criticalResourceAccountabilities = new HashSet<criticalResourceAccountability>();
+            this.Trainers = new HashSet<Trainer>();
         }
     
         public int Id { get; set; }
@@ -30,5 +31,7 @@ namespace RetentionTool.Models
         public virtual PersonalInfo PersonalInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<criticalResourceAccountability> criticalResourceAccountabilities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Trainer> Trainers { get; set; }
     }
 }

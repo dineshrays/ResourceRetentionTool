@@ -142,7 +142,7 @@
                         @foreach (var i in assignDetails)
                         {
                         <tr>
-                            <td><input type="checkbox" name="chck" /></td>
+                            <td><input type="checkbox" name="chck" checked /></td>
                             <td>@i.PersonalInfo.Name</td>
                             <td style="display:none">@i.Employee_Id</td>
                             <td>@i.PersonalInfo.EmpCode</td>
@@ -235,7 +235,7 @@
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + name + "</td><td style='display: none'>" + empid + "</td><td>" + empname + "</td></tr>";
+        var markup = "<tr><td><input type='checkbox'  name='chck' checked></td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td></tr>";
         $("table tbody").append(markup);
         $("#searchemp").val('');
         $("#searchid").val('');
@@ -270,7 +270,7 @@
                     dataFilter: function (data) { return data; },
                     success: function (data) {
                         response($.map(data, function (item) {
-                            return { label: item.EmpCode, id: item.Id, name: item.Name }
+                            return { name: item.Name, id: item.Id, label: item.EmpCode + '-' + item.Name, lbl: item.EmpCode }
                         }))
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -281,9 +281,12 @@
             select: function (event, ui) {
                 // prevent autocomplete from updating the textbox
                 event.preventDefault();
-                $(this).val(ui.item.label);
-                $("#searchempname").val(ui.item.name);
+                $(this).val(ui.item.name);
+                $("#searchempname").val(ui.item.lbl);
                 $("#searchid").val(ui.item.id);
+                //$(this).val(ui.item.label);
+                //$("#searchempname").val(ui.item.name);
+                //$("#searchid").val(ui.item.id);
                 //ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
             }
         });

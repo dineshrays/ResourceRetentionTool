@@ -196,15 +196,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Trainers">
-      <EntityTypeMapping TypeName="RetentionToolModel.Trainer">
-        <MappingFragment StoreEntitySet="Trainers">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="PersonalInfo_Id" ColumnName="PersonalInfo_Id" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="CriticalResources">
       <EntityTypeMapping TypeName="RetentionToolModel.CriticalResource">
         <MappingFragment StoreEntitySet="CriticalResource">
@@ -321,6 +312,16 @@
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="criticalresource_Id" ColumnName="criticalresource_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trainers">
+      <EntityTypeMapping TypeName="RetentionToolModel.Trainer">
+        <MappingFragment StoreEntitySet="Trainers">
+          <ScalarProperty Name="CriticalResource_Id" ColumnName="CriticalResource_Id" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PersonalInfo_Id" ColumnName="PersonalInfo_Id" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

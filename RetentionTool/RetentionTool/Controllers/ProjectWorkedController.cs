@@ -224,7 +224,7 @@ namespace RetentionTool.Controllers
         }
         public void getProjectList()
         {
-            ViewData["projectlist"] = new SelectList(db.ProjectsDetails.ToList(),"Id","Name");
+            ViewData["projectlist"] = new SelectList(db.ProjectsDetails.Where(a=>a.IsActive==true && !db.AssignResources.Any(b=>b.IsActive==true && b.Project_Id==a.Id)).ToList(),"Id","Name");
         }
         public JsonResult getEmployee(string name)
         {

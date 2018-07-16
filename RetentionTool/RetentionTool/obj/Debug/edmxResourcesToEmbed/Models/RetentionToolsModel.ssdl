@@ -264,6 +264,7 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PersonalInfo_Id" Type="int" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="CriticalResource_Id" Type="int" />
   </EntityType>
   <EntityType Name="Training">
     <Key>
@@ -694,6 +695,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Trainers_CriticalResource">
+    <End Role="CriticalResource" Type="Self.CriticalResource" Multiplicity="0..1" />
+    <End Role="Trainers" Type="Self.Trainers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CriticalResource">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trainers">
+        <PropertyRef Name="CriticalResource_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Trainers_PersonalInfo">
     <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="Trainers" Type="Self.Trainers" Multiplicity="*" />
@@ -912,6 +925,10 @@
     <AssociationSet Name="FK_TrainerDet_Training" Association="Self.FK_TrainerDet_Training">
       <End Role="Training" EntitySet="Training" />
       <End Role="TrainingDet" EntitySet="TrainingDet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trainers_CriticalResource" Association="Self.FK_Trainers_CriticalResource">
+      <End Role="CriticalResource" EntitySet="CriticalResource" />
+      <End Role="Trainers" EntitySet="Trainers" />
     </AssociationSet>
     <AssociationSet Name="FK_Trainers_PersonalInfo" Association="Self.FK_Trainers_PersonalInfo">
       <End Role="PersonalInfo" EntitySet="PersonalInfo" />

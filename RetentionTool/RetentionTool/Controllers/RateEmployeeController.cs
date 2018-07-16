@@ -18,9 +18,21 @@ namespace RetentionTool.Controllers
                 e=>e.AssignResource_Id==a.Id && e.IsActive==true && 
                 db.EmployeeEvalTaskDets.Any(t=>t.EmployeeEvalTask_Id==e.Id && 
                 t.IsEligiableMark==true && t.IsActive==true)) && a.IsActive == true
+                && (db.Trainings.Any(t => t.AssignResource_Id == a.Id &&
+                t.IsActive == true 
+
+                //db.TrainingDets.Any(d => d.Training_Id == t.Id && d.IsActive == true &&
+                //db.Sessions.Any(s => s.TrainingDet_Id == d.Id && s.IsActive == true))
+                 && db.TrainingDets.Count(d => d.Training_Id == t.Id && d.IsActive==true).Equals(
+                     db.Sessions.Count(s => s.TrainingDet.Training_Id == t.Id && s.IsActive == true))
+
+                )
+                || db.RateEmployeeEligiabilities.Any(b=>b.AssignResources_Id==a.Id && b.IsActive==true)
+            )
+
                 ).ToList();
 
-
+            
             //List<TrainingDet> trainingDets = db.TrainingDets.ToList();
             List<AssignResource> assignresList = (from assignres in assignRes
                                                   join module in db.Modules
@@ -32,16 +44,18 @@ namespace RetentionTool.Controllers
                                                  
                                                   //assignres.Module_Id equals moduledet.Module_Id
                                                   join trainingdet in db.TrainingDets
-                                                  on moduledet.Id equals trainingdet.ModuleDet_Id
+                                                  on training.Id equals trainingdet.Training_Id
+                                                 // on moduledet.Id equals trainingdet.ModuleDet_Id
                                                   join session in db.Sessions
                                                   on trainingdet.Id equals session.TrainingDet_Id
                                                   where 
-                                                  db.Sessions.Any(a=>a.TrainingDet_Id==trainingdet.Id &&
-                                                  db.TrainingDets.Any(t=>t.ModuleDet_Id==moduledet.Id  && t.IsActive==true)
-                                                  && a.IsActive==true)
-                                                  && assignres.IsActive == true && trainingdet.IsActive == true
+                                                  //db.Sessions.Any(a=>a.TrainingDet_Id==trainingdet.Id &&
+                                                  //db.TrainingDets.Any(t=>t.ModuleDet_Id==moduledet.Id  && t.IsActive==true)
+                                                  //&& a.IsActive==true)
+                                                  //&& 
+                                                  assignres.IsActive == true && trainingdet.IsActive == true
                                                     && session.IsActive == true 
-                                                 
+                                                
                                                   select assignres).ToList();
 
 

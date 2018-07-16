@@ -26,6 +26,7 @@ namespace RetentionTool.Controllers
                 e => e.AssignResource_Id == a.AssignResource_Id && e.IsActive == true &&
                 db.EmployeeEvalTaskDets.Any(t => t.EmployeeEvalTask_Id == e.Id &&
                 t.IsEligiableMark == true && t.IsActive == true)) &&
+           
             a.IsActive == true).ToList();
             AssignEvaluterViewModel assnevalvm = new AssignEvaluterViewModel();
             assnevalvm.assvm = assneval;
@@ -34,7 +35,11 @@ namespace RetentionTool.Controllers
         public ActionResult Create()
         {
             //List<AssignResource> assignResources = db.AssignResources.Where(a => a.IsActive == true).ToList();
-            List<AssignResource> assignResources = db.AssignResources.Where(a => !db.AssignEvaluaters.Any(b => b.AssignResource_Id == a.Id  && b.IsActive==true) && a.IsActive==true).ToList();
+            List<AssignResource> assignResources = db.AssignResources.Where(a => 
+            !db.AssignEvaluaters.Any(b => b.AssignResource_Id == a.Id  && b.IsActive==true) &&
+                db.RateEmployeeEligiabilities.Any(r => r.AssignResources_Id == a.Id && r.IsActive == true) &&
+
+            a.IsActive==true).ToList();
            
             ViewBag.assResDetails = assignResources;
 
