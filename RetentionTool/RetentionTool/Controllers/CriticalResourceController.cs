@@ -110,7 +110,7 @@ namespace RetentionTool.Controllers
         public ActionResult Edit(int id)
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id).ToList();
-            List<criticalResourceAccountability> criticalAccount = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id).ToList();
+            List<criticalResourceAccountability> criticalAccount = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true ).ToList();
             ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
@@ -131,7 +131,6 @@ namespace RetentionTool.Controllers
         [HttpPost]
         public ActionResult Edit(int id, /*List<CriticalResource> criticallist,*/CriticalResource criticallist, Trainer trainerlist, List<criticalResourceAccountability> criticalacc)
         {
-
             //List<CriticalResource> personalIdlist = db.CriticalResources.Where(a => a.Project_Id == id && a.IsActive==true).ToList();
 
             //var criticalResFalseList = personalIdlist.Where(x => !criticallist.Any(x1 => x1.PersonalInfo_Id == x.PersonalInfo_Id)).ToList();
@@ -164,10 +163,11 @@ namespace RetentionTool.Controllers
             db.Entry(trainer).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 
-            List<criticalResourceAccountability> criticalist = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id).ToList();
+            List<criticalResourceAccountability> criticalist = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true ).ToList();
 
-            var critifalse = criticalist.Where(x => !criticalacc.Any(x1 => x1.criticalresource_Id == x.criticalresource_Id)).ToList();
-            var crititrue = criticalacc.Where(x => !criticalist.Any(x1 => x1.criticalresource_Id == x.criticalresource_Id)).ToList();
+            var critifalse = criticalist.Where(a => !criticalacc.Any(c => c.Name == a.Name && c.Value==a.Value)).ToList();
+                //criticalist.Where(x => !criticalacc.Any(x1 => x1.criticalresource_Id == x.criticalresource_Id && x1.IsActive==true ) && x.IsActive == true).ToList();
+            var crititrue = criticalacc.Where(x => !criticalist.Any(x1 => x1.Name==x.Name && x1.Value==x.Value )).ToList();
             foreach(var acc in critifalse)
             {
                 acc.IsActive = false;

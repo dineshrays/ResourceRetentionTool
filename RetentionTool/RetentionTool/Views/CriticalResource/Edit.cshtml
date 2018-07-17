@@ -42,18 +42,22 @@
                          <th>IsTrainer</th>
 
                      </tr>
+                     @{ 
+                         int criticalId = 0;
+                     }
                      @foreach (var item in Model.projectvm)
                      {
                          <tr>
                              <td>
                                  @{ bool IsCriticalRes = false;
-                                     int criticalId = 0;
+                                     
                                      }
                                  @*@foreach (var id in ViewBag.CriticalRes)
                                  {*@
                                      @if (ViewBag.CriticalRes.PersonalInfo_Id == item.PersonalInfo1.Id)
                                      {
                                          IsCriticalRes = true;
+                                         criticalId = ViewBag.CriticalRes.Id;
                                      }
                                  @*}*@
                                  @if (IsCriticalRes == true)
@@ -95,6 +99,7 @@
                          </tr>
                      }
                  </table>
+                 <input type="hidden" id="criticalId" value=@criticalId />
                  <br />
                  <div  id="accountinfo">
                      <div class="row form-group">
@@ -113,7 +118,7 @@
                          @foreach (var i in criticalacc)
                          {
                             <tr>
-                                <td><input type="checkbox" class="chck" /></td>
+                                <td><input type="checkbox" name="chck" /></td>
                                 <td>@i.Name</td>
                                 <td>@i.Value</td>
                             </tr>
@@ -156,8 +161,6 @@
                 $(this).find('input.chcktrainer').prop('checked', false);
             }
         //});
-        
-     
     }
 
     $(".add-accountability").click(function () {
@@ -202,11 +205,11 @@
                   //trainerlist.push(Item);
               } 
           })
-       
+          var criticalid = $("#criticalId").val();
           var accinfo = [];
           $("#table-accountability tr:not(:first)").each(function () {
               var tdlist = $(this).find("td");
-              var Item = { Name: $(tdlist[1]).html(), Value: $(tdlist[2]).html() };
+              var Item = { criticalresource_Id: criticalid, Name: $(tdlist[1]).html(), Value: $(tdlist[2]).html() };
               accinfo.push(Item);
           })
               
