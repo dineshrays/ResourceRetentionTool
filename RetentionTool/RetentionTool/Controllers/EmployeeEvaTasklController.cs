@@ -45,10 +45,14 @@ namespace RetentionTool.Controllers
             CriticalResource critcal = db.CriticalResources.FirstOrDefault(a => a.Project_Id == assignRes.Project_Id && a.IsActive == true);
             critcal.IsActive = false;
            
-            Trainer trainer = db.Trainers.FirstOrDefault(a=>a.CriticalResource_Id==critcal.Id && a.IsActive==true);
-            trainer.IsActive = false;
-            db.Entry(trainer).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+           List< Trainer> trainer = db.Trainers.Where(a=>a.CriticalResource_Id==critcal.Id && a.IsActive==true).ToList();
+            foreach( var tra in trainer)
+            {
+                tra.IsActive = false;
+                db.Entry(tra).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+           
             db.Entry(critcal).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 
@@ -135,11 +139,17 @@ namespace RetentionTool.Controllers
             AssignResource assignRes = db.AssignResources.Find(empeval.AssignResource_Id);
             CriticalResource critcal = db.CriticalResources.FirstOrDefault(a=> a.Project_Id == assignRes.Project_Id);
             critcal.IsActive = true;
-
-            Trainer trainer = db.Trainers.FirstOrDefault(a => a.CriticalResource_Id == critcal.Id );
-            trainer.IsActive = true;
-            db.Entry(trainer).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+            List<Trainer> trainer = db.Trainers.Where(a => a.CriticalResource_Id == critcal.Id && a.IsActive == true).ToList();
+            foreach (var tra in trainer)
+            {
+                tra.IsActive = true;
+                db.Entry(tra).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            //Trainer trainer = db.Trainers.FirstOrDefault(a => a.CriticalResource_Id == critcal.Id );
+            //trainer.IsActive = true;
+            //db.Entry(trainer).State = System.Data.Entity.EntityState.Modified;
+            //db.SaveChanges();
             db.Entry(critcal).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 

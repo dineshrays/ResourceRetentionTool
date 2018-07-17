@@ -8,7 +8,9 @@ namespace RetentionTool.ViewModel
 {
     public class AssignEvaluterViewModel
     {
-       public List<AssignEvaluater> assvm = new List<AssignEvaluater>();
-       public AssignEvaluater AssignEvaluater;
+        public List<AssignEvaluater> assvm  { get;set; }
+       public AssignEvaluater AssignEvaluater { get; set; }
+
+       
     }
 }

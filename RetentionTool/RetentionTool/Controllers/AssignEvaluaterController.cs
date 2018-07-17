@@ -46,12 +46,28 @@ namespace RetentionTool.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(AssignEvaluater assigneval)
+        public ActionResult Create(AssignEvaluater assigneval,bool isemp,int empid)
         {
+            //assigneval.IsActive = true;
+            //db.AssignEvaluaters.Add(assigneval);
+            //db.SaveChanges();
+            if(isemp==true)
+            {
+                AssignResource assRes = db.AssignResources.Find(assigneval.AssignResource_Id);
+
+                CriticalResource criticalRes = db.CriticalResources.FirstOrDefault(a => a.Project_Id == assRes.Project_Id && a.IsActive == true);
+                Trainer trainer = new Trainer();
+                trainer.PersonalInfo_Id = empid;
+                trainer.CriticalResource_Id = criticalRes.Id;
+                trainer.IsActive = true;
+                db.Trainers.Add(trainer);
+                db.SaveChanges();
+                assigneval.Trainer_Id = trainer.Id;
+            }
             assigneval.IsActive = true;
             db.AssignEvaluaters.Add(assigneval);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json("", JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult Edit(int id)
@@ -62,15 +78,39 @@ namespace RetentionTool.Controllers
             return View(empEval);
         }
         [HttpPost]
-        public ActionResult Edit(int id, AssignEvaluater asseval)
+        public ActionResult Edit(int id, AssignEvaluater asseval, bool isemp, int empid)
         {
-            
+            AssignEvaluater assEv = db.AssignEvaluaters.FirstOrDefault(a => a.AssignResource_Id == id && a.IsActive == true);
+
+            if (isemp == true)
+            {
+               
+                Trainer tr = db.Trainers.Find(assEv.Trainer_Id);
+                tr.IsActive = false;
+                db.Entry(tr).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+
+                AssignResource assRes = db.AssignResources.Find(id);
+
+                CriticalResource criticalRes = db.CriticalResources.FirstOrDefault(a => a.Project_Id == assRes.Project_Id && a.IsActive == true);
+                Trainer trainer = new Trainer();
+                trainer.PersonalInfo_Id = empid;
+                trainer.CriticalResource_Id = criticalRes.Id;
+                trainer.IsActive = true;
+                db.Trainers.Add(trainer);
+                db.SaveChanges();
+                asseval.Trainer_Id = trainer.Id;
+            }
+
             asseval.IsActive = true;
-            db.Entry(asseval).State = System.Data.Entity.EntityState.Modified;
+            asseval.Id = assEv.Id;
+            db.Entry(assEv).CurrentValues.SetValues(asseval);
+           // db.Entry(asseval).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 
 
-            return RedirectToAction("Index");
+            return Json("", JsonRequestBehavior.AllowGet);
         }
         public ActionResult Delete(int id)
         {
