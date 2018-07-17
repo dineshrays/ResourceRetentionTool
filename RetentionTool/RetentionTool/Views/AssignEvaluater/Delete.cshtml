@@ -15,14 +15,13 @@
         <div class="card-body card-block">
             <div class="row form-group">
                 <div class="col col-md-3">
-                    <div>@Html.Label("Assign Resource Id")</div>
+                    <div>@Html.Label("Project Name")</div>
 
                 </div>
                 <div class="col-12 col-md-9">
                     <div class="col-12 col-md-9">
                         @Html.HiddenFor(m => m.Id)
-                        @Html.DisplayTextFor(m => m.AssignResource_Id)
-
+                        @Html.DisplayTextFor(m => m.AssignResource.ProjectsDetail.Name)
 
                     </div>
                     <br />

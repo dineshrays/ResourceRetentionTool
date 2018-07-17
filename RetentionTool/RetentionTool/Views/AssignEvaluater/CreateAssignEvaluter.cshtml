@@ -17,15 +17,16 @@
         <div class="row form-group">
             <div class="col col-md-3">
                 <div>
-                    <input type="radio" value="employee" name="type" class="chck" />Employee
+                    @Html.HiddenFor(m => m.AssignResource_Id, new { @id = "assresid" })
+
+                    <input type="radio" value="employee" name="type" class="chckEmp" checked />Employee
                 </div>
 
             </div>
             <div class="col-12 col-md-9">
                 <div class="col-12 col-md-9">
-                    <input type="radio" value="trainer" name="type" class="chckemp" />Trainer
-                    @Html.HiddenFor(m => m.AssignResource_Id)
-
+                    <input type="radio" value="trainer" name="type" class="chckTrain" />Trainer
+                   
                 </div>
                 <br />
             </div>
@@ -37,8 +38,8 @@
             </div>
             <div class="col-12 col-md-9">
                 <div class="col-12 col-md-9">
-                    @Html.HiddenFor(m => m.AssignResource_Id)
-                    @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })
+                    @*@Html.HiddenFor(m => m.AssignResource_Id)*@
+                    @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control",@id="trainerid", style = "width:30%" })
 
 
                 </div>
@@ -46,7 +47,7 @@
             </div>
         </div>
 
-        <div class="row form-group" id="employeeview" style="display:none">
+        <div class="row form-group" id="employeeview" >
             <div class="col col-md-3">
                 <div>@Html.Label("Employee Name")</div>
 
@@ -68,7 +69,7 @@
         @*@using (Html.BeginForm("Create", "AssignEvaluater"))
         {*@
             <div class="card-body">
-                <input type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+                <input type="submit" value="Create" id="btnSave" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
             </div>
         @*}*@
     </div>
@@ -77,7 +78,41 @@
 
 <script>
     $(function () {
+        $("#btnSave").click(function () {
+            var isEmp;
+            var trainerid;
+            var empid = 0;
+            if ($('input.chckEmp').is(':checked')) {
+                isEmp = true;
+                empid = $("#searchid").val();
+            }
 
+            if ($('input.chckTrain').is(':checked')) {
+
+                isEmp = false;
+                trainerid = $("#trainerid").val();
+            }
+           // var trainerid = $("#trainerid").val();
+            var assresid = $("#assresid").val();
+                var newUrl= '@Url.Action("Index", "AssignEvaluater")';
+
+            var mod = { AssignResource_Id: assresid, Trainer_Id: trainerid };
+               
+                $.ajax({
+                    url: '@Url.Action("Create", "AssignEvaluater")', //
+                    dataType: "json",
+                    data: JSON.stringify({ assigneval: mod, isemp: isEmp, empid: empid}),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                       
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+        });
         $("#searchemp").autocomplete({
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
@@ -106,22 +141,24 @@
                 $("#searchid").val(ui.item.id);
             }
         });
-        $('input.chck').change(
+        $('input.chckEmp').change(
 
             function () {
-                if ($('input.chck').is(':checked')) {
+                if ($('input.chckEmp').is(':checked')) {
                     $('#employeeview').show();
                     $('#trainerview').hide();
                 } else {
                     $('#employeeview').hide();
                     $('#trainerview').show();
+                    $("#searchid").val('');
+                    $("#searchemp").val('');
                 }
             });
 
-        $('input.chckemp').change(
+        $('input.chckTrain').change(
 
             function () {
-                if ($('input.chckemp').is(':checked')) {
+                if ($('input.chckTrain').is(':checked')) {
                     $('#trainerview').show();
                     $('#employeeview').hide();
                 } else {
