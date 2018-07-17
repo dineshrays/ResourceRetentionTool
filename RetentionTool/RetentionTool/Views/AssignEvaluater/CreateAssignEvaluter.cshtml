@@ -3,39 +3,132 @@
     ViewBag.Title = "Create Assign Evaluter";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-@using (Html.BeginForm("Create", "AssignEvaluater"))
-{
-    <div class="card">
-        <div class="card-header">
+<div class="card">
+    <div class="card-header">
 
-            <h2>Create Assign Evaluation</h2>
-        </div>
-        <div class="card-body card-block">
+        <h2>Create Assign Evaluation</h2>
+    </div>
+    <div class="card-body card-block">
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.Label("Trainer Name")</div>
-
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>
+                    <input type="radio" value="employee" name="type" class="chck" />Employee
                 </div>
-                <div class="col-12 col-md-9">
-                    <div class="col-12 col-md-9">
-                        @Html.HiddenFor(m=>m.AssignResource_Id)
-                        @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control",  style = "width:30%" })
 
-
-                    </div>
-                    <br />
-                </div>
             </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    <input type="radio" value="trainer" name="type" class="chckemp" />Trainer
+                    @Html.HiddenFor(m => m.AssignResource_Id)
 
-            <br />
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row form-group" id="trainerview" style="display:none">
+            <div class="col col-md-3">
+                <div>@Html.Label("Trainer Name")</div>
 
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    @Html.HiddenFor(m => m.AssignResource_Id)
+                    @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })
+
+
+                </div>
+                <br />
+            </div>
+        </div>
+
+        <div class="row form-group" id="employeeview" style="display:none">
+            <div class="col col-md-3">
+                <div>@Html.Label("Employee Name")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    @Html.HiddenFor(m => m.AssignResource_Id)
+                    <input class="form-control" style="width:30%" id="searchemp" />
+                    <input id="searchid" style="display:none" />
+                    @*@Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })*@
+
+
+                </div>
+                <br />
+            </div>
+        </div>
+
+        <br />
+        @*@using (Html.BeginForm("Create", "AssignEvaluater"))
+        {*@
             <div class="card-body">
                 <input type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
             </div>
-
-        </div>
-
+        @*}*@
     </div>
-}
+
+</div>
+
+<script>
+    $(function () {
+
+        $("#searchemp").autocomplete({
+            source: function (request, response) {
+                var param = { name: $('#searchemp').val() };
+                $.ajax({
+                    url: "/GeneralTraining/getEmployee",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { name: item.Name, id: item.Id, label: item.EmpCode + '-' + item.Name, lbl: item.EmpCode }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                // prevent autocomplete from updating the textbox
+                event.preventDefault();
+                $(this).val(ui.item.name);
+
+                $("#searchid").val(ui.item.id);
+            }
+        });
+        $('input.chck').change(
+
+            function () {
+                if ($('input.chck').is(':checked')) {
+                    $('#employeeview').show();
+                    $('#trainerview').hide();
+                } else {
+                    $('#employeeview').hide();
+                    $('#trainerview').show();
+                }
+            });
+
+        $('input.chckemp').change(
+
+            function () {
+                if ($('input.chckemp').is(':checked')) {
+                    $('#trainerview').show();
+                    $('#employeeview').hide();
+                } else {
+                    $('#trainerview').hide();
+                    $('#employeeview').show();
+                }
+            });
+    });
+    //trainerview
+</script>
