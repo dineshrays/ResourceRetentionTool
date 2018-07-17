@@ -211,16 +211,23 @@ namespace RetentionTool.Controllers
         public ActionResult Delete(int id)
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id).ToList();
+            List<criticalResourceAccountability> criticalAccount = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true).ToList();
             ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
             prjctwrkvm.projectname = projectDetails.Name;
             prjctwrkvm.projects = db.ProjectsWorkeds.FirstOrDefault(a => a.Project_Id == id);
             prjctwrkvm.projectvm = prjctwrklist;
-            ViewBag.CriticalRes = db.CriticalResources.Where(a => a.IsActive == true).ToList().Select(a => a.PersonalInfo_Id).Distinct();
-            ViewBag.TrainerDet = db.Trainers.Where(a => a.IsActive == true).ToList().Select(a => a.PersonalInfo_Id).Distinct();
+            CriticalResource critcalRes = db.CriticalResources.FirstOrDefault(a => a.IsActive == true && a.Project_Id == id);
+            //.ToList().Select(a => a.PersonalInfo_Id).Distinct();
+            ViewBag.CriticalRes = critcalRes;
+            Trainer trainer = db.Trainers.FirstOrDefault(a => a.IsActive == true && a.CriticalResource_Id == critcalRes.Id);
+            //.ToList().Select(a => a.PersonalInfo_Id).Distinct();
+            ViewBag.TrainerDet = trainer;
+            ViewBag.criticalacc = criticalAccount;
             return View(prjctwrkvm);
-            
+
+
         }
 
         [HttpPost]
