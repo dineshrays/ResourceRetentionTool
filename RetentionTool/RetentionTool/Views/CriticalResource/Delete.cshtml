@@ -15,7 +15,7 @@
             <div class="col-12 col-md-9">
                 @*@Html.HiddenFor(model=>model)*@
                 @Html.HiddenFor(model => model.projects.Project_Id, new { @id = "projectId", @class = "project" })
-                @Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
+                <strong>@Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })</strong>
             </div>
         </div>
 
@@ -99,17 +99,18 @@
                     <input type="button" value="Add" class="add-accountability" />
                 </div>*@
                 <h4>Responsibilities</h4>
+                <br />
                 <table class="table table-striped" id="table-accountability" style="width:100%">
                     <tr>
-                        <th>Select</th>
-                        <th>reporting</th>
+                        @*<th>Select</th>*@
+                        <th>Reporting</th>
                         <th>Information</th>
                     </tr>
 
                     @foreach (var i in criticalacc)
                     {
                         <tr>
-                            <td><input type="checkbox" name="chck" disabled="disabled"/></td>
+                            @*<td><input type="checkbox" name="chck" disabled="disabled"/></td>*@
                             <td>@i.Name</td>
                             <td>@i.Value</td>
                         </tr>
