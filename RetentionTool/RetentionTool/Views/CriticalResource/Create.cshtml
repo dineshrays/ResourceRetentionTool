@@ -191,7 +191,8 @@
       $("#btnSave").click(function () {
           var cri;
          // var itemlist = [];
-          var trainerlist = [];
+          var trainerlist;
+              //= [];
           var projectId = $("#projectId").val();
           $("table tr:not(:first)").each(function () {
               if ($(this).find('input.chck').is(':checked')) {
@@ -202,8 +203,8 @@
               if ($(this).find('input.chcktrainer').is(':checked')) {
 
                   var tdlist = $(this).find("td");
-                  var Item = { PersonalInfo_Id: $(tdlist[3]).html() };
-                  trainerlist.push(Item);
+                  trainerlist = { PersonalInfo_Id: $(tdlist[3]).html() };
+                  //trainerlist.push(Item);
               }
 
           })

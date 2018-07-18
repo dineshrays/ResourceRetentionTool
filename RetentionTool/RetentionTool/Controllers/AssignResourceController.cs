@@ -381,6 +381,7 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         }
         public JsonResult getProjectInfo(int id)
         {
+           
             ProjectsWorked projectsWorked = db.ProjectsWorkeds.FirstOrDefault(a => a.IsActive == true && a.Project_Id == id);
             //List<ProjectsWorked> projectsWorked = (from prjct in db.ProjectsWorkeds
             //                            join critical in db.CriticalResources
@@ -396,12 +397,13 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             //                           ).Distinct().ToList();
             CriticalResource criticalRes = db.CriticalResources.FirstOrDefault(a => a.IsActive == true && a.Project_Id == id);
             AssignResProjectDetails assResPrjDet = new AssignResProjectDetails();
+            Trainer trainer = db.Trainers.FirstOrDefault(a=>a.CriticalResource_Id==criticalRes.Id && a.IsActive==true);
             assResPrjDet.Manager_Id = projectsWorked.Manager_Id;
-            if (criticalRes!=null)
-            {
-                assResPrjDet.Trainer_Id = criticalRes.PersonalInfo_Id;
-            }
-            
+            //if (criticalRes!=null)
+            //{
+            //    assResPrjDet.Trainer_Id = criticalRes.PersonalInfo_Id;
+            //}
+            assResPrjDet.Trainer_Id = trainer.PersonalInfo_Id;
            
            
             return new JsonResult { Data = assResPrjDet, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

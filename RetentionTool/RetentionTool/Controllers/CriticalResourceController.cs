@@ -162,7 +162,7 @@ namespace RetentionTool.Controllers
             trainer.PersonalInfo_Id = trainerlist.PersonalInfo_Id;
             db.Entry(trainer).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
-
+            
             List<criticalResourceAccountability> criticalist = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true ).ToList();
 
             var critifalse = criticalist.Where(a => !criticalacc.Any(c => c.Name == a.Name && c.Value==a.Value)).ToList();
