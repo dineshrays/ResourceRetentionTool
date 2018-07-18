@@ -534,6 +534,7 @@
     <Content Include="Scripts\images\avatar\4.jpg" />
     <Content Include="Scripts\images\avatar\5.jpg" />
     <Content Include="Scripts\images\avatar\6.jpg" />
+    <Content Include="Scripts\images\danger.png" />
     <Content Include="Scripts\images\delete.png" />
     <Content Include="Scripts\images\edit.png" />
     <Content Include="Scripts\images\flags\1x1\ad.svg" />
@@ -1302,9 +1303,11 @@
     <Content Include="Scripts\images\flag\fr.png" />
     <Content Include="Scripts\images\flag\it.png" />
     <Content Include="Scripts\images\flag\us.png" />
+    <Content Include="Scripts\images\inprogress.png" />
     <Content Include="Scripts\images\logo.png" />
     <Content Include="Scripts\images\logo2.png" />
     <Content Include="Scripts\images\placeholder.png" />
+    <Content Include="Scripts\images\success.png" />
     <Content Include="Scripts\images\twitter_corner_black.png" />
     <Content Include="Scripts\images\twitter_corner_blue.png" />
     <Content Include="Scripts\index.html" />
