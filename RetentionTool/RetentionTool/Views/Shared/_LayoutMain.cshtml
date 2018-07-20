@@ -6,7 +6,10 @@
     <title>@ViewBag.Title</title>
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
+    @{ 
+        var roleid = Session["RoleId"].ToString();
 
+    }
 
     <link href="~/Scripts/assets/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Scripts/assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -47,76 +50,110 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     @*<li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
-                        </ul>
-                    </li>*@
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
+            <ul class="sub-menu children dropdown-menu">
+                <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
+                <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+            </ul>
+        </li>*@
+                    @if (roleid == "5")
+                    {
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Modules</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                @*@if (roleid == "3")
+                    {
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Modules</a>
-                        <ul class="sub-menu children dropdown-menu">
+                    }
+                    @if(roleid=="2")
+                    {
 
-                            <li><a href="@Url.Action( "Index","CommonField")">Primary Skills</a></li>
-                            <li><a href="@Url.Action( "Index","Skills")">Secondary Skills</a></li>
-                            <li><a href="@Url.Action( "Index","Module")">Modules</a></li>
-                        </ul>
-                    </li>
+                    }*@
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Projects</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><a href="@Url.Action( "Index","ProjectsDetails")">New Project</a></li>
-                            <li><a href="@Url.Action( "Index","ProjectWorked")">Assign Team Members</a></li>
-                        </ul>
-                    </li>
+                                <li><a href="@Url.Action( "Index","CommonField")">Primary Skills</a></li>
+                                <li><a href="@Url.Action( "Index","Skills")">Secondary Skills</a></li>
+                                <li><a href="@Url.Action( "Index","Module")">Modules</a></li>
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Retention</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><a href="@Url.Action( "Index","CriticalResource")"> Critical Resource</a></li>
-                            <li><a href="@Url.Action( "Index","AssignResource")">Create Backup</a></li>
-                            <li><a href="@Url.Action( "Index","PromoteEmployee")">Promote Employee</a></li>
-                        </ul>
-                    </li>
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Mentor</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><a href="@Url.Action( "Index","Training")">Schedule Topics</a></li>
-                            <li><a href="@Url.Action( "Index","SessionSummary")">Session Summary</a></li>
-                            <li><a href="@Url.Action( "Index","RateEmployee")">Rate Employee</a></li>
-                            <li><a href="@Url.Action( "Index","EmployeeEvaTaskl")">Evaluation</a></li>
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (roleid == "5" || roleid == "1")
+                    {
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Projects</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><a href="@Url.Action( "Index","ProjectsDetails")">New Project</a></li>
+                                <li><a href="@Url.Action( "Index","ProjectWorked")">Assign Team Members</a></li>
+                            </ul>
+                        </li>
+                    }
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Cross Training</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><a href="@Url.Action( "Index","GeneralTraining")">Plan Training</a></li>
-                            <li><a href="@Url.Action( "Index","Training")">Schedule Topics</a></li>
-                            <li><a href="@Url.Action( "Index","SessionSummary")">Session Summary</a></li>
-                            <li><a href="@Url.Action( "Index","RateEmployee")">Rate Employee </a></li>
-                            <li><a href="@Url.Action( "Index","EmployeeEvaTaskl")">Evaluation</a></li>
-                        </ul>
-                    </li>
+                    @if (roleid == "5" || roleid == "1")
+                    {
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Retention</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><a href="@Url.Action("Index", "CriticalResource")"> Critical Resource</a></li>
+                                <li><a href="@Url.Action("Index", "AssignResource")">Create Backup</a></li>
+                                <li><a href="@Url.Action("Index", "PromoteEmployee")">Promote Employee</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (roleid == "5" || roleid == "2")
+                    {
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Employee</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><a href="@Url.Action( "Index","EmployeeInformation")">Employee Information</a></li>
-                        </ul>
-                    </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Mentor</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><a href="@Url.Action("Index", "Training")">Schedule Topics</a></li>
+                                <li><a href="@Url.Action("Index", "SessionSummary")">Session Summary</a></li>
+                                <li><a href="@Url.Action("Index", "RateEmployee")">Rate Employee</a></li>
+                                <li><a href="@Url.Action("Index", "EmployeeEvaTaskl")">Evaluation</a></li>
+                            </ul>
+                        </li>
+                    }
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Plugin</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><a href="@Url.Action( "Upload","ImportData")">Import Employees</a></li>
-                        </ul>
-                    </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Cross Training</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                @if (roleid == "5" || roleid == "1")
+                                {
+                                    <li><a href="@Url.Action("Index", "GeneralTraining")">Plan Training</a></li>
+                                }
+                                @if (roleid == "5" || roleid == "2")
+                                {
+                                    <li><a href="@Url.Action( "Index","Training")">Schedule Topics</a></li>
+                                    <li><a href="@Url.Action( "Index","SessionSummary")">Session Summary</a></li>
+                                    <li><a href="@Url.Action( "Index","RateEmployee")">Rate Employee </a></li>
+                                    <li><a href="@Url.Action( "Index","EmployeeEvaTaskl")">Evaluation</a></li>
 
-                </ul>
+                                }
+
+
+
+                            </ul>
+                        </li>
+                    @if(roleid=="5")
+                    {
+
+                  
+
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Employee</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><a href="@Url.Action( "Index","EmployeeInformation")">Employee Information</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Plugin</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><a href="@Url.Action( "Upload","ImportData")">Import Employees</a></li>
+                            </ul>
+                        </li>
+                    }
+                    </ul>
 
             </div>
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -133,7 +170,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>UI Elements</a>
                     <ul class="sub-menu children dropdown-menu">*@
 
-                        <li><a href="@Url.Action( "Index","CommonField")">CommonFields</a></li>
+                        @*<li><a href="@Url.Action( "Index","CommonField")">CommonFields</a></li>
                         <li><a href="@Url.Action( "Index","Skills")">Skills</a></li>
                         <li><a href="@Url.Action( "Index","Module")">Modules</a></li>
 
@@ -152,7 +189,7 @@
                         <li><a href="@Url.Action( "Index","EmployeeEvaTaskl")">Employee Eval Task</a></li>
                         <li><a href="@Url.Action( "Upload","ImportData")">Import Data</a></li>
                         <li><a href="@Url.Action( "Index","EmployeeInformation")">Employee Information</a></li>
-                        <li><a href="@Url.Action( "Index","UserDetails")">User Details</a></li>
+                        <li><a href="@Url.Action( "Index","UserDetails")">User Details</a></li>*@
                         @*</ul>
                     </li>*@
 
