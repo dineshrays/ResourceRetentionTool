@@ -26,12 +26,12 @@
 
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Personal Information</a></li>
-            <li><a href="#tabs-2">Education Qualification</a></li>
-            <li><a href="#tabs-3">Experience</a></li>
-            <li><a href="#tabs-4">Employee Skills</a></li>
-            <li><a href="#tabs-5">Projects Worked</a></li>
-            <li><a href="#tabs-6">Current Company</a></li>
+            <li id='tb1'><a href="#tabs-1">Personal Information</a></li>
+            <li id='tb2'><a href="#tabs-2">Education Qualification</a></li>
+            <li id='tb3'><a href="#tabs-3">Experience</a></li>
+            <li id='td4'><a href="#tabs-4">Employee Skills</a></li>
+            <li id='td5'><a href="#tabs-5">Projects Worked</a></li>
+            <li id='td6'><a href="#tabs-6">Current Company</a></li>
         </ul>
         <div id="tabs-1">
 
@@ -153,21 +153,7 @@
                 </div>
             </div>
 
-            
-            
-            @*@using (Html.BeginForm("Index",
-                                    "EmployeeInformation",
-                                    FormMethod.Post,
-                                    new { enctype = "multipart/form-data" }))
-            {
-                <label for="file">Upload Image:</label>
-                <input type="file" name="file" id="file" /><br><br>
-                <input type="submit" value="Upload Image" />
-                <br><br>
-                @ViewBag.Message
-            }*@
-
-            <input type="file" id="uploadEditorImage"  enctype="multipart/form-data" />
+            <input type="file" id="uploadEditorImage" enctype="multipart/form-data" />
 
             <script>
          $(function () {
@@ -200,9 +186,26 @@
                  });
              });
          });
-        </script>
+            </script>
+            <div class="row card-footer">
+
+                <input type="button" id="my-text-link" style="float:right" class="btn btn-success" value="Next" onclick="" />
+            </div>
+
+            <script>
+                function changetab(id) {
+                   // alert(id);
+
+                    $("#tabs-1").hide();
+                    $("#tabs-2").show();
+                   
+                    $("#tb1").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+                    $("#tb2").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
 
 
+                }
+                
+            </script>
             <br><br>
 
         </div>
@@ -234,23 +237,23 @@
             <script>
                 $(".add-quali").click(function () {
 
-                var Degree = $("#Degree").val();
-                var Board = $("#Board").val();
-                var YearOfPassing = $("#YearOfPassing").val();
-                var Percentage = $("#Percentage").val();
+                    var Degree = $("#Degree").val();
+                    var Board = $("#Board").val();
+                    var YearOfPassing = $("#YearOfPassing").val();
+                    var Percentage = $("#Percentage").val();
 
-                var Qualification = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-                    Degree + "</td><td>" +
-                    Board + "</td><td>" +
-                    YearOfPassing + "</td><td>" +
-                    Percentage + "</td></tr>";
+                    var Qualification = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                        Degree + "</td><td>" +
+                        Board + "</td><td>" +
+                        YearOfPassing + "</td><td>" +
+                        Percentage + "</td></tr>";
 
                     $("#table-quali").append(Qualification);
                     $("#Degree").val('');
                     $("#Board").val('');
                     $("#YearOfPassing").val('');
                     $("#Percentage").val('');
-            });
+                });
 
                 $(".del-quali").click(function () {
 
@@ -262,9 +265,26 @@
                 });
 
             </script>
+            <div class="row card-footer">
 
+                <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab2(2)" />
+            </div>
+
+            <script>
+            function changetab2(id) {
+               // alert(id);
+
+                $("#tabs-2").hide();
+                $("#tabs-3").show();
+
+                $("#tb2").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+                $("#tb3").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+
+
+            }
+            </script>
         </div>
-
+       
         <div id="tabs-3">
 
             <div class="row form-group">
@@ -376,10 +396,27 @@
                 });
 
             </script>
+            <div class="row card-footer">
 
+                <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab3(3)" />
+            </div>
+
+            <script>
+                function changetab3(id) {
+                   // alert(id);
+
+                    $("#tabs-3").hide();
+                    $("#tabs-4").show();
+
+                    $("#tb3").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+                    $("#tb4").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+
+
+                }
+            </script>
 
         </div>
-
+       
         <div id="tabs-4">
 
             <div class="card-body card-block">
@@ -446,11 +483,11 @@
 
             @*<div class="col-12 col-md-9">
 
-                    <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-                    @Html.ActionLink("Back to List", "Index", "EmployeeInfo", null, new { @class = "btn btn-outline-link" })
+                <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "EmployeeInfo", null, new { @class = "btn btn-outline-link" })
 
-                </div>
-            </div>*@
+            </div>
+        </div>*@
 
 
             <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -493,6 +530,24 @@
 
             </script>
 
+            <div class="row card-footer">
+
+                <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab4(4)" />
+            </div>
+
+            <script>
+                function changetab4(id) {
+                   // alert(id);
+
+                    $("#tabs-4").hide();
+                    $("#tabs-5").show();
+
+                    $("#tb4").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+                    $("#tb5").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+
+
+                }
+            </script>
 
         </div>
 
@@ -569,7 +624,24 @@
                     @Html.DropDownListFor(m => m.ProjectsWorkedVm.Manager_Id, ViewData["managerslist"] as SelectList, new { @id = "Manager_Id", @class = "form-control", style = "width:40%" })
                 </div>
             </div>
+            <div class="row card-footer">
 
+                <input type="button" style="float:right" class="btn btn-success" value="Next" id="td" onclick="changetab5" />
+            </div>
+
+            <script>
+               function changetab5(id) {
+              //  alert(id);
+
+                $("#tabs-5").hide();
+                $("#tabs-6").show();
+
+                $("#tb5").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+                $("#tb6").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+            }
+                
+        </script>
+            
         </div>
 
         <div id="tabs-6">
@@ -642,7 +714,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedToDate, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.EditorFor(m => m.CurrentInfoVm.DeployedToDate, new { htmlAttributes = new { @id = "DeployedToDate", @class = "form -control", style = "width:40%" } })</div><br />
+                    <div>@Html.EditorFor(m => m.CurrentInfoVm.DeployedToDate, new { htmlAttributes = new { @id = "DeployedToDate", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -651,7 +723,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.CompanyMailId, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.CompanyMailId, new { @id = "CompanyMailId", @class = "form -control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.CompanyMailId, new { @id = "CompanyMailId", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -660,7 +732,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.BankName, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.BankName, new { @id = "BankName", @class = "form -control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.BankName, new { @id = "BankName", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -883,7 +955,7 @@
 
             </script>
         </div>
-        
+
     </div>
 
 </body>

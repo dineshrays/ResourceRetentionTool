@@ -136,32 +136,11 @@ namespace RetentionTool.Controllers
         [HttpPost]
         public ActionResult Create(string path, PersonalInfo personalInfo, List<EducationQualification> eductionQualifi, List<Experience> exper, List<EmployeeSkill> empSkill, ProjectsWorked projectWorked, CurrentInfo currentInfo)
         {
-          //  string path="";
+          
             PersonalInfo p = new PersonalInfo();
             ProjectsWorked pw = new ProjectsWorked();
             CurrentInfo ci = new CurrentInfo();
            
-            //if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
-            //{
-            //    var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
-            //}
-            //if (file != null && file.ContentLength > 0)
-            //    try
-            //    {
-            //        string path = Path.Combine(Server.MapPath("~/UserImages"),
-            //                                   Path.GetFileName(file.FileName));
-            //        file.SaveAs(path);
-            //         TempData["path"] = path;
-            //        //ViewBag.Message = "File uploaded successfully";
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        ViewBag.Message = "ERROR:" + ex.Message.ToString();
-            //    }
-            //else
-            //{
-            //    ViewBag.Message = "You have not specified a file.";
-            //}
             p.EmpCode = personalInfo.EmpCode;
             p.Name = personalInfo.Name;
             p.FatherName = personalInfo.FatherName;
@@ -251,9 +230,47 @@ namespace RetentionTool.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Edit(int id,string path)
+        {
+            getManagers();
+            getProjectList();
+            PersonalInfo p = db.PersonalInfoes.Find(id);
+            PersonalInfoModel pm = new PersonalInfoModel();
+            EmployeeInformationViewModel Eivw = new EmployeeInformationViewModel();
+
+            Eivw.PersonalInfoVm = new PersonalInfoModel();
+
+            Eivw.PersonalInfoVm.EmpCode = p.EmpCode;
+            Eivw.PersonalInfoVm.Name = p.Name;
+            Eivw.PersonalInfoVm.FatherName = p.FatherName;
+            Eivw.PersonalInfoVm.DOB = p.DOB;
+            Eivw.PersonalInfoVm.Gender = p.Gender;
+            Eivw.PersonalInfoVm.PermanentAddress = p.PermanentAddress;
+            Eivw.PersonalInfoVm.CommunicationAddress = p.CommunicationAddress;
+            Eivw.PersonalInfoVm.Contact = p.Contact;
+            Eivw.PersonalInfoVm.Qualification = p.Qualification;
+            Eivw.PersonalInfoVm.Email = p.Email;
+            Eivw.PersonalInfoVm.PanNo = p.PanNo;
+            Eivw.PersonalInfoVm.AadharNo = p.AadharNo;
+            Eivw.PersonalInfoVm.BloodGroup = p.BloodGroup;
+            Eivw.PersonalInfoVm.Image = path;
+
+            //List<EducationQualification> edu = (from education in db.EducationQualifications
+            //                                    join persoanl in db.PersonalInfoes
+            //                                    on education.P_Id equals persoanl.Id
+            //                                    where 
+            //                                    )
+           
+
+
+            
+            return View(Eivw);
+        }
+        [HttpPost]
         public ActionResult Edit()
         {
-            return View();
+            return Json("", JsonRequestBehavior.AllowGet);
+
         }
     }
 }
