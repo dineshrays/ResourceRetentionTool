@@ -30,9 +30,17 @@ namespace RetentionTool.Controllers
 
 
                 //});
-               
+                Session["userId"] = userResult.Emp_Id;
+                Session["RoleId"] = userResult.Role_Id;
+                return RedirectToAction("Index", "Module");
+
             }
-            return RedirectToAction("Index", "UserDetails");
+            else
+            {
+                return RedirectToAction("Index", "UserDetails");
+
+            }
+
         }
         public void getRoleDetails()
         {
