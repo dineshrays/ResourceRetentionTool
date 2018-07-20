@@ -25,13 +25,17 @@ namespace RetentionTool.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(UserDetail uservm)
+        public ActionResult Create(List<UserDetail> uservm)
         {
            // if(!ModelState.IsValid)
-            uservm.IsActive = true;
-            uservm.EntryDate = DateTime.Now;
-            db.UserDetails.Add(uservm);
-            db.SaveChanges();
+           foreach(var user in uservm)
+            {
+                user.IsActive = true;
+                user.EntryDate = DateTime.Now;
+                db.UserDetails.Add(user);
+                db.SaveChanges();
+            }
+         
             return Json("", JsonRequestBehavior.AllowGet);
         }
         public ActionResult Edit(int id)
@@ -111,7 +115,8 @@ namespace RetentionTool.Controllers
                                                {
                                                    Id = personal.Id,
                                                    Name = personal.Name,
-                                                   EmpCode=personal.EmpCode
+                                                   EmpCode=personal.EmpCode,
+                                                   Email=personal.Email
                                                }).ToList();
             return new JsonResult { Data = personalInfo, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

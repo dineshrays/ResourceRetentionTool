@@ -328,8 +328,16 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         }
         public void getModules()
         {
-            var val = new SelectList(db.Modules.ToList(), "id", "ModuleName");
-            ViewData["moduleslist"] = val;
+            List<SelectListItem> list = (from module in db.Modules
+                                     select new SelectListItem()
+                                     {
+                                         Value = module.Id.ToString(),
+                                         Text = module.ModuleName
+                                     }).ToList();
+            //db.Modules;
+            list.Insert(0, new SelectListItem() { Value = "0", Text = "Select Module" });
+           // var val = new SelectList(db.Modules.ToList(), "id", "ModuleName");
+            ViewData["moduleslist"] = list;
         }
         public JsonResult getEmployee(string name)
        {

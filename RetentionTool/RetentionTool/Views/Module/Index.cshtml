@@ -7,9 +7,12 @@
 
 <h2>Module Index</h2>
 
-    <div class="card-body">
-        @Html.ActionLink("Create New", "Create", "Module", null, new { @class = "btn btn-outline-primary" })
-    </div>
+<div class="card-body">
+    @Html.ActionLink("Create New", "Create", "Module", null, new { @class = "btn btn-outline-primary" })
+    @Session["userId"]
+
+    @Session["RoleId"]
+</div>
 
     @if (Model != null)
     {

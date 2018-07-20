@@ -67,7 +67,8 @@
                 @Html.LabelFor(m => m.modulename, new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.Module_Id, ViewData["moduleslist"] as SelectList, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+                @*"Select Module",*@
+                @Html.DropDownListFor(m => m.Module_Id, ViewData["moduleslist"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
             </div>
 
 
