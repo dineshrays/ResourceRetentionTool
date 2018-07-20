@@ -155,7 +155,40 @@
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
+            <input type="file" id="uploadEditorImage" enctype="multipart/form-data" />
 
+            <script>
+         $(function () {
+             $("#uploadEditorImage").change(function () {
+                 var data = new FormData();
+                 var files = $("#uploadEditorImage").get(0).files;
+                 if (files.length > 0) {
+                     data.append("HelpSectionImages", files[0]);
+                 }
+                 fileValue = data;
+               //  alert(fileValue);
+                 $.ajax({
+                     url: '@Url.Action("Index", "EmployeeInformation")',
+                     type: "POST",
+                     processData: false,
+                     async: false,
+                     cache: false,
+                     contentType: false,
+                     data: data,
+                     success: function (response) {
+                       //  alert(response.filepath)
+                         filepath = response.filepath;
+                         //code after success
+
+                     },
+                     error: function (er) {
+                         alert(er);
+                     }
+
+                 });
+             });
+         });
+            </script>
 
 
         </div>
