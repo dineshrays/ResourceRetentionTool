@@ -16,33 +16,70 @@ namespace RetentionTool.Controllers
         {
             // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
             //var assignres;
-            List<AssignResourceViewModel> assgnvm = (from assignres in db.AssignResources
-                                                         // join assignresdet in db.AssignResourcesDets
-                                                         // on assignres.Id equals assignresdet.AssignResources_Id
+            List<AssignResourceViewModel> assgnvm;
+         if (Session["RoleId"].ToString()=="5")
+            {
+                assgnvm = (from assignres in db.AssignResources
+                                                             // join assignresdet in db.AssignResourcesDets
+                                                             // on assignres.Id equals assignresdet.AssignResources_Id
 
 
-                                                     where assignres.IsActive == true
-                                                     && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
-                                                     && assignres.ProjectsDetail.Name=="Training"
-                                                     select new AssignResourceViewModel
-                                                     {
-                                                         Id = assignres.Id,
-                                                         Manager_Id = assignres.Manager_Id,
-                                                         Project_Id = assignres.Project_Id,
-                                                         projectname = assignres.ProjectsDetail.Name,
-                                                         managername = assignres.PersonalInfo.Name,
-                                                         Module_Id = assignres.Module_Id,
-                                                         modulename = assignres.Module.ModuleName,
-                                                         Trainer_Id = assignres.Trainer.PersonalInfo_Id,
-                                                         trainername = assignres.Trainer.PersonalInfo.Name,
-                                                         //    Employee_Id=   assignresdet.Employee_Id,
-                                                         //    employeename=  assignresdet.PersonalInfo.Name,
-                                                         Date = assignres.Date,
-                                                         IsActive = assignres.IsActive,
-                                                         //   AssignResourceId=  assignresdet.Id
-                                                     }).ToList();
+                                                         where assignres.IsActive == true
+                                                         && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
+                                                         && assignres.ProjectsDetail.Name == "Training"
+                                                         select new AssignResourceViewModel
+                                                         {
+                                                             Id = assignres.Id,
+                                                             Manager_Id = assignres.Manager_Id,
+                                                             Project_Id = assignres.Project_Id,
+                                                             projectname = assignres.ProjectsDetail.Name,
+                                                             managername = assignres.PersonalInfo.Name,
+                                                             Module_Id = assignres.Module_Id,
+                                                             modulename = assignres.Module.ModuleName,
+                                                             Trainer_Id = assignres.Trainer.PersonalInfo_Id,
+                                                             trainername = assignres.Trainer.PersonalInfo.Name,
+                                                             //    Employee_Id=   assignresdet.Employee_Id,
+                                                             //    employeename=  assignresdet.PersonalInfo.Name,
+                                                             Date = assignres.Date,
+                                                             IsActive = assignres.IsActive,
+                                                             //   AssignResourceId=  assignresdet.Id
+                                                         }).ToList();
 
-            
+
+            }
+            else
+            {
+                int id = int.Parse(Session["userId"].ToString());
+                assgnvm = (from assignres in db.AssignResources
+                               // join assignresdet in db.AssignResourcesDets
+                               // on assignres.Id equals assignresdet.AssignResources_Id
+
+
+                           where assignres.IsActive == true
+                           && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
+                           && assignres.ProjectsDetail.Name == "Training" 
+                           && assignres.Manager_Id== id
+                           select new AssignResourceViewModel
+                           {
+                               Id = assignres.Id,
+                               Manager_Id = assignres.Manager_Id,
+                               Project_Id = assignres.Project_Id,
+                               projectname = assignres.ProjectsDetail.Name,
+                               managername = assignres.PersonalInfo.Name,
+                               Module_Id = assignres.Module_Id,
+                               modulename = assignres.Module.ModuleName,
+                               Trainer_Id = assignres.Trainer.PersonalInfo_Id,
+                               trainername = assignres.Trainer.PersonalInfo.Name,
+                               //    Employee_Id=   assignresdet.Employee_Id,
+                               //    employeename=  assignresdet.PersonalInfo.Name,
+                               Date = assignres.Date,
+                               IsActive = assignres.IsActive,
+                               //   AssignResourceId=  assignresdet.Id
+                           }).ToList();
+
+            }
+
+
             return View(assgnvm);
         }
 
