@@ -1373,6 +1373,7 @@
     <Compile Include="Controllers\PromoteEmployeeController.cs" />
     <Compile Include="Controllers\RateEmployeeController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SearchEmpSkillController.cs" />
     <Compile Include="Controllers\SessionSummaryController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\TrainingController.cs" />
@@ -1614,6 +1615,7 @@
     <Content Include="Views\GeneralTraining\Index.cshtml" />
     <Content Include="Views\PromoteEmployee\Index.cshtml" />
     <Content Include="Views\CriticalResource\DemoView.cshtml" />
+    <Content Include="Views\SearchEmpSkill\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

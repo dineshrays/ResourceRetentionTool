@@ -1,6 +1,15 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
+    "",
+    "\\RetentionTool",
+    "\\RetentionTool\\RetentionTool",
+    "\\RetentionTool\\RetentionTool\\Controllers"
+  ],
+  "SelectedNode": "\\RetentionTool\\RetentionTool\\Controllers\\LoginController.cs",
+=======
     ""
   ],
+>>>>>>> e03017e4ed6e9b7856a2ee3f2e07f338e8d99611
   "PreviewInSolutionExplorer": false
 }
