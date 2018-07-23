@@ -6,10 +6,23 @@
     <title>@ViewBag.Title</title>
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
-    @{ 
+    @{
         var roleid = Session["RoleId"].ToString();
 
     }
+
+
+    @*<link rel="stylesheet" href="assets/css/normalize.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/css/themify-icons.css">
+        <link rel="stylesheet" href="assets/css/flag-icon.min.css">
+        <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">*@
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less">
+    <link rel="stylesheet" href="assets/scss/style.css">-->
+    <link href="~/Scripts/assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <link href="~/Scripts/assets/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Scripts/assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -23,9 +36,9 @@
 
     <script src="~/Scripts/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>*@
 
 </head>
 
@@ -56,20 +69,12 @@
                 <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
             </ul>
         </li>*@
-                    @if (roleid == "5")
-                    {
+                    @*@if (roleid == "5")
+                    {*@
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Modules</a>
                             <ul class="sub-menu children dropdown-menu">
-                                @*@if (roleid == "3")
-                    {
-
-                    }
-                    @if(roleid=="2")
-                    {
-
-                    }*@
-
+                              
                                 <li><a href="@Url.Action( "Index","CommonField")">Primary Skills</a></li>
                                 <li><a href="@Url.Action( "Index","Skills")">Secondary Skills</a></li>
                                 <li><a href="@Url.Action( "Index","Module")">Modules</a></li>
@@ -77,9 +82,9 @@
 
                             </ul>
                         </li>
-                    }
+                    @*}
                     @if (roleid == "5" || roleid == "1")
-                    {
+                    {*@
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Projects</a>
                             <ul class="sub-menu children dropdown-menu">
@@ -87,10 +92,10 @@
                                 <li><a href="@Url.Action( "Index","ProjectWorked")">Assign Team Members</a></li>
                             </ul>
                         </li>
-                    }
+                    @*}
 
                     @if (roleid == "5" || roleid == "1")
-                    {
+                    {*@
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Retention</a>
                             <ul class="sub-menu children dropdown-menu">
@@ -99,9 +104,9 @@
                                 <li><a href="@Url.Action("Index", "PromoteEmployee")">Promote Employee</a></li>
                             </ul>
                         </li>
-                    }
+                    @*}
                     @if (roleid == "5" || roleid == "2")
-                    {
+                    {*@
 
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Mentor</a>
@@ -112,30 +117,30 @@
                                 <li><a href="@Url.Action("Index", "EmployeeEvaTaskl")">Evaluation</a></li>
                             </ul>
                         </li>
-                    }
+                    @*}*@
 
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Cross Training</a>
                             <ul class="sub-menu children dropdown-menu">
-                                @if (roleid == "5" || roleid == "1")
-                                {
+                                @*@if (roleid == "5" || roleid == "1")
+                                {*@
                                     <li><a href="@Url.Action("Index", "GeneralTraining")">Plan Training</a></li>
-                                }
+                                @*}
                                 @if (roleid == "5" || roleid == "2")
-                                {
+                                {*@
                                     <li><a href="@Url.Action( "Index","Training")">Schedule Topics</a></li>
                                     <li><a href="@Url.Action( "Index","SessionSummary")">Session Summary</a></li>
                                     <li><a href="@Url.Action( "Index","RateEmployee")">Rate Employee </a></li>
                                     <li><a href="@Url.Action( "Index","EmployeeEvaTaskl")">Evaluation</a></li>
 
-                                }
+                                @*}*@
 
 
 
                             </ul>
                         </li>
-                    @if(roleid=="5")
-                    {
+                    @*@if(roleid=="5")
+                    {*@
 
                   
 
@@ -152,7 +157,7 @@
                                 <li><a href="@Url.Action( "Upload","ImportData")">Import Employees</a></li>
                             </ul>
                         </li>
-                    }
+                    @*}*@
                     </ul>
 
             </div>
@@ -165,12 +170,12 @@
                     </li>*@
 
 
-                        @*<h3 class="menu-title">UI elements</h3>*@<!-- /.menu-title -->
+                        @*<h3 class="menu-title">UI elements</h3>*@ /.menu-title 
                         @*<li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>UI Elements</a>
-                    <ul class="sub-menu children dropdown-menu">*@
+                    <ul class="sub-menu children dropdown-menu">
 
-                        @*<li><a href="@Url.Action( "Index","CommonField")">CommonFields</a></li>
+                        <li><a href="@Url.Action( "Index","CommonField")">CommonFields</a></li>
                         <li><a href="@Url.Action( "Index","Skills")">Skills</a></li>
                         <li><a href="@Url.Action( "Index","Module")">Modules</a></li>
 
@@ -189,8 +194,8 @@
                         <li><a href="@Url.Action( "Index","EmployeeEvaTaskl")">Employee Eval Task</a></li>
                         <li><a href="@Url.Action( "Upload","ImportData")">Import Data</a></li>
                         <li><a href="@Url.Action( "Index","EmployeeInformation")">Employee Information</a></li>
-                        <li><a href="@Url.Action( "Index","UserDetails")">User Details</a></li>*@
-                        @*</ul>
+                        <li><a href="@Url.Action( "Index","UserDetails")">User Details</a></li>
+                        </ul>
                     </li>*@
 
                         @*<li class="menu-item-has-children dropdown">
@@ -379,30 +384,43 @@
             </div>
         </header><!-- /header -->
         <!-- Header-->
-        
         @*<div class="content mt-3">
-            <div class="col-sm-12">
-                <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                    <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>*@
-
-
-            <div>
-                @RenderBody()
+        <div class="col-sm-12">
+            <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+        </div>*@
+
+
+        <div>
+            @RenderBody()
+        </div>
 
 
 
-            @*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
-            <script src="~/Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
-            <script src="~/Scripts/assets/js/main.js"></script>
+        @*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
+        <script src="~/Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
+        <script src="~/Scripts/assets/js/main.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="~/Scripts/assets/js/plugins.js"></script>
+       
+
+
+        <script src="~/Scripts/assets/js/lib/chart-js/Chart.bundle.js"></script>
+        <script src="~/Scripts/assets/js/dashboard.js"></script>
+        <script src="~/Scripts/assets/js/widgets.js"></script>
+        <script src="~/Scripts/assets/js/lib/vector-map/jquery.vmap.js"></script>
+        <script src="~/Scripts/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
+        <script src="~/Scripts/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
+        <script src="~/Scripts/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
 
 
 
+    </div>
 </body>
 
 </html>
