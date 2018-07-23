@@ -7,7 +7,13 @@
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
     @{
-        var roleid = Session["RoleId"].ToString();
+        var roleid = "0";
+        if (Session["RoleId"]!=null)
+        {
+             roleid = Session["RoleId"].ToString();
+
+        }
+       
 
     }
 
@@ -122,8 +128,10 @@
                             </ul>
                         </li>
                     }
+
                     @if (roleid == "5" || roleid == "1" || roleid == "2")
                     {
+
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Cross Training</a>
                             <ul class="sub-menu children dropdown-menu">
@@ -142,7 +150,9 @@
                                 }
                             </ul>
                         </li>
+
                     }
+
 
                     @if (roleid == "5" || roleid == "1")
                     {
@@ -173,7 +183,8 @@
                             </ul>
                         </li>
                     }
-                </ul>
+
+                    </ul>
 
             </div>
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
