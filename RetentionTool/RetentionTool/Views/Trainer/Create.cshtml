@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 @using (Html.BeginForm())
 {
     <div class="card">
@@ -16,12 +20,12 @@
                     @Html.LabelFor(model => model.Name, new { @class = "form-control-label" })
                 </div>
                 <div class="col-12 col-md-9">
-                    <input class="form-control" style="width:30%" id="searchproject" />
-                    <input id="searchprojectid" style="display:none" />
+                    <input class="form-control" style="width:30%" id="Trainername" />
+                    <input id="searchTrainerid" style="display:none" />
                 </div>
                 @*<div class="col-12 col-md-9">
-                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
-                </div>*@
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
+                    </div>*@
             </div>
             <div class="row form-group">
                 <div class="col-12 col-md-9">
@@ -34,15 +38,17 @@
 
 }
 <script>
+
     $(function () {
 
-        $("#searchproject").autocomplete({
+        $("#Trainername").autocomplete({
 
             source: function (request, response) {
-                var param = { name: $('#searchproject').val() };
+                $(".emplist").hide();
+                var param = { name: $('#Trainername').val() };
 
                 $.ajax({
-                    url: "/Trainer/Create",
+                    url: "/Trainer/getTrainerName",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -50,7 +56,9 @@
                     dataFilter: function (data) { return data; },
                     success: function (data) {
                         response($.map(data, function (item) {
+
                             return {
+
                                 label: item.Name, id: item.Id
 
                             }
@@ -61,8 +69,36 @@
                     }
                 });
             },
+            select: function (event, ui) {
+
+                event.preventDefault();
+                $(this).val(ui.item.label);
+                $("#SearchTrainerid").val(ui.item.id);
+                //var param = { id: ui.item.id };
+                //$.ajax({
+                //    url: "/SearchEmpSkill/getEmployeeDetails",
+                //    data: JSON.stringify(param),
+                //    dataType: "json",
+                //    type: "POST",
+                //    contentType: "application/json; charset=utf-8",
+
+                //    success: function (data) {
+                //        $(".emplist").show();
+                //        $("table tr:not(:first)").remove();
+                //        $.each(result, function (i, Skill) {
+                //            var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
+                //            $("table tbody").append(markup);
+
+                //        })
+                //        },
+                //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //                alert(textStatus);
+                //            }});
+                //});
+            }
+
         });
-       
+
     });
 
 </script>
