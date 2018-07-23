@@ -1,0 +1,32 @@
+﻿@model IEnumerable<RetentionTool.Models.TrainerModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Index</h2>
+<div class="card-body">
+    @Html.ActionLink("Create New", "Create", "Trainer", null, new { @class = "btn btn-outline-primary" })
+    </div>
+    <div class="container" style="width:100%;margin-top:2%">
+        <table class="table table-striped">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.PersonalInfo.Name)</th>
+
+                <th>@Html.Label("Actions")</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>

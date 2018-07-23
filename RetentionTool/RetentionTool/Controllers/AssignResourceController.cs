@@ -266,19 +266,6 @@ where personalInfo.IsActive==true && trainer.IsActive==true
 
         public ActionResult getEmployeeDetails(int moduleid)
         {
-
-            //           select p.*from PersonalInfo p
-
-            //inner
-            //                     join EmployeeSkills empskill
-
-            //               on p.Id = empskill.P_Id
-
-            //               inner Join Skills skill
-            //               on skill.id = empskill.Skills_Id
-            // inner join Module module
-            // on skill.id = module.Skill_Id
-            // where module.Id = 2003
             List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
                                                join empskills in db.EmployeeSkills on personal.Id equals empskills.P_Id
                                                join skill in db.Skills on empskills.Skills_Id equals skill.id

@@ -1,0 +1,69 @@
+﻿@model RetentionTool.Models.TrainerModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="card">
+        <div class="card-header">
+            <h2>Create Trainer </h2>
+        </div>
+        <div class="card-body card-block">
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Name, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    <input class="form-control" style="width:30%" id="searchproject" />
+                    <input id="searchprojectid" style="display:none" />
+                </div>
+                @*<div class="col-12 col-md-9">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
+                </div>*@
+            </div>
+            <div class="row form-group">
+                <div class="col-12 col-md-9">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script>
+    $(function () {
+
+        $("#searchproject").autocomplete({
+
+            source: function (request, response) {
+                var param = { name: $('#searchproject').val() };
+
+                $.ajax({
+                    url: "/Trainer/Create",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.Name, id: item.Id
+
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+        });
+       
+    });
+
+</script>
+
