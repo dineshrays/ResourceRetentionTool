@@ -30,17 +30,23 @@ namespace RetentionTool.Controllers
 
 
                 //});
-                if(userResult.Emp_Id!=null)
+                Session["RoleId"] = userResult.Role_Id;
+
+                if (userResult.Emp_Id!=null)
                 {
                     Session["userId"] = userResult.Emp_Id;
+                    //return RedirectToAction("")
+                    return RedirectToAction("Index", "SearchEmpSkill", new { Area = "Manager" });
                 }
                 else
                 {
                     Session["userId"] = "1";
+                    return RedirectToAction("Index", "SearchEmpSkill",new { Area= "Admin" });
+                        //View("~/Views/Admin/SearchEmpSkill/Index.cshtml");
+                        //RedirectToAction("Index", "Module");
                 }
                
-                Session["RoleId"] = userResult.Role_Id;
-                return RedirectToAction("Index", "Module");
+               
 
             }
             else
