@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using RetentionTool.Models;
 
 
-namespace RetentionTool.Controllers
+namespace RetentionTool.Areas.Manager.Controllers
 {
     public class SearchEmpSkillController : Controller
     {

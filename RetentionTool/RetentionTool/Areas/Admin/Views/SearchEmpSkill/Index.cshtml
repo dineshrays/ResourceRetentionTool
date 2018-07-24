@@ -1,0 +1,136 @@
+﻿@model RetentionTool.Models.CommonFieldViewModel
+@{
+    ViewBag.Title = "Search Employee Based on Skills";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Admin Search Employee Based on Skills </h2>
+
+    </div>
+    <div class="card-body">
+
+
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.Label("Skill Name", new { @class = " form-control-label" })
+
+            </div>
+            <div class="col-12 col-md-9">
+                <input class="form-control" style="width:30%" id="skillname" />
+                <input id="skillid" style="display:none" />
+            </div>
+
+
+
+        </div>
+        <br />
+
+
+
+        <div>
+
+            <input type="submit" value="Search" id="btnSearch" class="btn btn-success" />
+        </div>
+
+        <div class="emplist" style="display:none">
+
+            <table class="table table-striped" id="emptable" style="width:50%">
+                <tr>
+                  
+                    <th>Employee Name</th>
+                    <th style="display:none;width:0%">Employee Id</th>
+                    <th>Employee Code</th>
+                </tr>
+
+            </table>
+            <br />
+            @*<button type="button" class="del-emp">Delete</button>*@
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<script>
+
+    $(function () {
+
+        $("#skillname").autocomplete({
+
+            source: function (request, response) {
+                $(".emplist").hide();
+                var param = { name: $('#skillname').val() };
+
+                $.ajax({
+                    url: "/SearchEmpSkill/getSkillName",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                           
+                            return {
+
+                                label: item.SkillName, skillid: item.id
+
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+
+                event.preventDefault();
+                $(this).val(ui.item.label);
+                $("#skillid").val(ui.item.skillid);
+               
+                //});
+            }
+
+        });
+
+        $("#btnSearch").click(function () {
+            var skillid = $("#skillid").val();
+            var param = { id: skillid };
+            $.ajax({
+                url: "/SearchEmpSkills/getEmployeeDetails",
+                data: JSON.stringify(param),
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+
+                success: function (data) {
+                    $(".emplist").show();
+                    $("table tr:not(:first)").remove();
+                    $.each(data, function (i, employeeList) {
+                        var markup = "<tr><td>" + employeeList.Name + "</td><td style='display: none'>" + employeeList.Id + "</td><td>" + employeeList.EmpCode + "</td></tr>";
+                        $("#emptable").append(markup);
+
+                    })
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        });
+      
+    });
+
+</script>

@@ -12,12 +12,18 @@ namespace RetentionTool
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+           // routes.MapMvcAttributeRoutes();
+            //AreaRegistration.RegisterAllAreas();
 
             routes.MapRoute(
+                namespaces:new string[] { "RetentionTool.Controllers" },
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }
             );
+           // routes.RouteData.DataTokens["UseNamespaceFallback"] = false;
+
+
         }
     }
 }
