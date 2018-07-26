@@ -36,12 +36,14 @@ namespace RetentionTool.Controllers
                 {
                     Session["userId"] = userResult.Emp_Id;
                     //return RedirectToAction("")
-                    return RedirectToAction("Index", "SearchEmpSkill", new { Area = "Manager" });
+                    //return RedirectToAction("Index", "Module", new { Area = "Admin" });
+                    //return RedirectToAction("Index", "EmployeeInformation", new { Area="Employee"});
+                    return RedirectToAction("Index", "Training", new { Area = "Trainer" });
                 }
                 else
                 {
                     Session["userId"] = "1";
-                    return RedirectToAction("Index", "SearchEmpSkill",new { Area= "Admin" });
+                    return RedirectToAction("Index", "SearchEmpSkill", new { Area= "Admin" });
                         //View("~/Views/Admin/SearchEmpSkill/Index.cshtml");
                         //RedirectToAction("Index", "Module");
                 }

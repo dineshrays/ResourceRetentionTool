@@ -1,0 +1,106 @@
+﻿@model RetentionTool.ViewModel.TrainingViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Trainer/Views/Shared/_LayoutMain.cshtml";
+    //Layout ="~/Views/Shared/_LayoutMain.cshtml";
+    var Topics = ViewBag.Topics;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h2>Create Training</h2>
+    </div>
+
+
+    <div class="card-body card-block">
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.TrainingVm.FromDate, new { @class = "form-control-label" })</div>
+            </div>
+            <div class="col-12 col-md-9">
+                <div>@Html.EditorFor(m => m.TrainingVm.FromDate, new { htmlAttributes = new { @Id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.TrainingVm.ToDate, new { @class = "form-control-label" })</div>
+            </div>
+            <div class="col-12 col-md-9">
+                <div>@Html.EditorFor(m => m.TrainingVm.ToDate, new { htmlAttributes = new { @Id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Topics</th>
+                <th>Hours Required</th>
+            </tr>
+
+            <tbody>
+                @foreach (var emplist1 in Topics)
+                {
+                    <tr>
+                        <td style="display:none" id="Id">@emplist1.Id</td>
+                        <td id="Topics">@emplist1.Topics</td>
+                        <td><input type="text" id="hours"/></td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <div class="card-body">
+            <button type="button" id="btnGet" class="btn btn-success">Create</button>@Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    var assignresid;
+    $(document).ready(function () {
+    
+        var assign = location.search.substring(1).split('&');
+     
+      
+        var ass = assign[1].split('=');
+        assignresid = ass[1];
+        //alert(assignresid);
+       
+    });
+    $(function () {
+        $("#btnGet").click(function () {
+            
+            
+            var FromDate = $("#FromDate").val();
+          
+            var ToDate = $("#ToDate").val();
+       
+
+            var itemlist1 = [];
+            $("table tr:not(:first)").each(function () {
+                var tdlist = $(this).find("td");               
+                var Item = { Training_Id: $('Id').val(), Topics: $(tdlist[0]).html(), HoursRequired: $('#hours').val()};
+                itemlist1.push(Item);
+            })
+
+            var mod = { FromDate: FromDate, ToDate: ToDate, AssignResource_Id: assignresid};
+              var newUrl= '@Url.Action("Index", "Training")';
+                $.ajax({
+                    type: "POST",
+                    url: "/Training/Createtraining",
+                    data: JSON.stringify({ itemlist: itemlist1 , TrainingVM: mod }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        window.location.href = newUrl;
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+
+                });
+            
+        });
+    });
+</script>

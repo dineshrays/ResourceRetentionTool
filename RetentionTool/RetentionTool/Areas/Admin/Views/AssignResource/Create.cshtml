@@ -1,0 +1,333 @@
+﻿@model RetentionTool.Models.AssignResourceViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Create Assign Resource";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>Create Assign Resource</h2>
+    </div>
+
+    <div class="card-body card-block">
+        @*@using (Html.BeginForm())
+
+            {*@
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.LabelFor(m => m.Date, new { @class = " form-control-label" })
+
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.EditorFor(m => m.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
+
+            </div>
+
+
+
+        </div>
+        <br />
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.Label("Project Name", new { @class = " form-control-label" })
+
+            </div>
+            <div class="col-12 col-md-9">
+                <input class="form-control" style="width:30%" id="searchproject" />
+                <input id="searchprojectid" style="display:none" />
+            </div>
+
+
+
+        </div>
+        <br />
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.LabelFor(m => m.managername, new { @class = " form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.DropDownListFor(m => m.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control", @id = "managerid", style = "width:30%" })
+            </div>
+        </div>
+        <br />
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.LabelFor(m => m.modulename, new { @class = " form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @*"Select Module",*@
+                @Html.DropDownListFor(m => m.Module_Id, ViewData["moduleslist"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+            </div>
+
+
+        </div>
+        <br />
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.LabelFor(m => m.trainername, new { @class = " form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
+
+            </div>
+
+        </div>
+        <br />
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.LabelFor(m => m.employeename, new { @class = " form-control-label" })
+
+
+            </div>
+            <div class="col-12 col-md-9">
+                <input class="form-control" style="width:30%" id="searchemp" />
+                <input id="searchid" style="display:none" />
+                <input id="searchempname" style="display:none" />
+                <input type="button" value="Add" class="add-emp" />
+
+            </div>
+
+        </div>
+
+        <br />
+        <div>
+
+            <table class="table table-striped" style="width:50%">
+                <tr>
+                    <th>Select</th>
+                    <th>Employee Name</th>
+                    <th style="display:none;width:0%">Employee Id</th>
+                    <th>Employee Code</th>
+                </tr>
+
+            </table>
+            <br />
+            @*<button type="button" class="del-emp">Delete</button>*@
+
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "AssignResource", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+
+        </div>
+        @*}*@
+    </div>
+
+</div>
+
+<script>
+    var empid = [];
+     $("#btnSave").click(function () {
+
+                var itemlist = [];
+
+                //get cell values, instead of the header text.
+         $("table tr:not(:first)").each(function () {
+
+
+             if ($(this).find('input[name="chck"]').is(':checked')) {
+                 var tdlist = $(this).find("td");
+                 var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
+                 itemlist.push(Item);
+             }
+
+         })
+
+         //$("table tbody").find('input[name="chck"]').each(function () {
+         //    if ($(this).is(":checked")) {
+         //        var tdlist = $(this).find("td");
+         //        var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
+         //        itemlist.push(Item);
+         //    }
+         //});
+
+         var date = $("#date").val();
+         var projectid = $("#searchprojectid").val();
+         var managerid = $("#managerid").val();
+         var moduleid = $("#moduleid").val();
+         var trainerid = $("#trainerid").val();
+
+                var newUrl= '@Url.Action("Index", "AssignResource")';
+
+         var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
+               // alert(mod);
+                $.ajax({
+                    url: '@Url.Action("Create", "AssignResource")', //
+                    dataType: "json",
+                    data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        //alert("success");
+                        $("#date").val('');
+                        $("#managerid").val('');
+                        $("#moduleid").val('');
+                        $("#trainerid").val('');
+                        $("table tbody").empty();
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+            });
+
+    $(".add-emp").click(function () {
+
+        var empname = $("#searchemp").val();
+        var empid = $("#searchid").val();
+        var name = $("#searchempname").val();
+        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td></tr>";
+        $("table tbody").append(markup);
+        $("#searchemp").val('');
+        $("#searchid").val('');
+        $("#searchempname").val('');
+    });
+
+    $(".del-emp").click(
+
+        function () {
+
+            $("table tbody").find('input[name="chck"]').each(function () {
+                if ($(this).is(":checked")) {
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+
+
+
+</script>
+
+ 
+<script>
+    $(document).ready(function () {
+        $('#moduleid').change(function () {
+            var selected = $('#moduleid').val();
+            $.ajax(
+                {
+                    url: '/AssignResource/getEmployeeDetails',
+                    type: 'POST',
+                    datatype: 'application/json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ moduleid: +selected }),
+                    success: function (result) {
+                        $("table tr:not(:first)").remove();
+                        $.each(result, function (i, Skill) {
+                            var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
+                            $("table tbody").append(markup);
+                           // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
+                        });
+                    },
+                    error: function () { alert("Something Gone Wrong") },
+                });
+        })
+    });
+    $(function () {
+
+        $("#searchproject").autocomplete({
+
+            source: function (request, response) {
+                var param = { name: $('#searchproject').val() };
+
+                $.ajax({
+                    url: "/AssignResource/getProjects",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.Name, id: item.Id
+
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+
+                event.preventDefault();
+                $(this).val(ui.item.label);
+                $("#searchprojectid").val(ui.item.id);
+                var param = { id: ui.item.id };
+                $.ajax({
+                    url: "/AssignResource/getProjectInfo",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+
+                    success: function (data) {
+
+                        $("#managerid").val(data.Manager_Id);
+                       
+                        $("#trainerid").val(data.Trainer_Id);
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            }
+
+        });
+        $("#searchemp").autocomplete({
+            source: function (request, response) {
+                var param = { name: $('#searchemp').val() };
+                $.ajax({
+                    url: "/AssignResource/getEmployee",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { name: item.Name, id: item.Id, label: item.EmpCode + '-' + item.Name, lbl: item.EmpCode }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                // prevent autocomplete from updating the textbox
+                event.preventDefault();
+                $(this).val(ui.item.name);
+                $("#searchempname").val(ui.item.lbl);
+                $("#searchid").val(ui.item.id);
+            }    //minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+        });
+    });
+
+</script>

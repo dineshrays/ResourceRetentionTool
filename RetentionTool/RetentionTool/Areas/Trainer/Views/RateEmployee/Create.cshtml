@@ -1,0 +1,93 @@
+﻿@model RetentionTool.ViewModel.RateEmployeeViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Trainer/Views/Shared/_LayoutMain.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    var assign=ViewBag.assign;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2>Create RateEmployee</h2>
+    </div>
+    <div class="container" style="width:100%;margin-top:2%">
+        <table class="table table-striped" id="tble">
+            <tr>
+
+
+                <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
+                <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.PersonalInfo.Name)</th>
+                <th>@Html.Label("Grade")</th>
+                <th>@Html.Label("IsEligible For Evaluation")</th>
+
+            </tr>
+            @foreach (var item in assign)
+            {
+                <tr>
+                    <td style="display:none">@item.Id</td>
+                    <td>@item.Name</td>
+                    <td><input type="text" name="grade" /></td>
+                    <td><input type="checkbox" class="chck" /></td>
+                </tr>
+            }
+        </table>
+        <input type="button" class="btn btn-success" id="btnSave" value="Create" /> @Html.ActionLink("Back to List", "Index")
+    </div>       
+    </div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>    
+    var assignresid;
+    $(document).ready(function () {
+
+        var assign = location.search.substring(1).split('&');
+
+
+        var ass = assign[0].split('=');
+        assignresid = ass[1];
+        
+
+    });
+    $("#btnSave").click(function () {
+
+
+          var itemlist=[];
+
+        $("table tr:not(:first)").each(function () {
+
+            var IsEligible;
+            var grade;
+            
+              if ($(this).find('input.chck').is(':checked')) {
+                  IsEligible = true;
+              }
+              else
+              {
+                  IsEligible = false;
+            }
+            
+
+              grade = $(this).find("td:eq(2) input[type='text']").val();
+                    var tdlist = $(this).find("td");
+
+            var Item = { AssignResources_Id: assignresid, Employee_Id: $(tdlist[0]).html(), Name: $(tdlist[1]).html(), Grade: grade, IsEligible: IsEligible };
+                    itemlist.push(Item);
+                })
+         
+         var newUrl= '@Url.Action("Index", "RateEmployee")';
+                $.ajax({
+                    url: '@Url.Action("Create", "RateEmployee")', //
+                    dataType: "json",
+                    data: JSON.stringify({ RateEmployeeVm: itemlist }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+            });
+
+</script>

@@ -1319,6 +1319,72 @@
     <Content Include="Areas\Manager\Views\Emp\Index.cshtml" />
     <Content Include="Areas\Manager\Views\SearchEmpSkill\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SearchEmpSkill\Index.cshtml" />
+    <Content Include="Areas\Trainer\Views\web.config" />
+    <Content Include="Areas\Trainer\Views\Training\Create.cshtml" />
+    <Content Include="Areas\Trainer\Views\Training\delete.cshtml" />
+    <Content Include="Areas\Trainer\Views\Training\Edit.cshtml" />
+    <Content Include="Areas\Trainer\Views\Training\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\web.config" />
+    <Content Include="Areas\Trainer\Views\Shared\_LayoutMain.cshtml" />
+    <Content Include="Areas\Trainer\Views\SessionSummary\Create.cshtml" />
+    <Content Include="Areas\Trainer\Views\SessionSummary\CreateSession.cshtml" />
+    <Content Include="Areas\Trainer\Views\SessionSummary\Delete.cshtml" />
+    <Content Include="Areas\Trainer\Views\SessionSummary\Edit.cshtml" />
+    <Content Include="Areas\Trainer\Views\SessionSummary\Index.cshtml" />
+    <Content Include="Areas\Trainer\Views\RateEmployee\Create.cshtml" />
+    <Content Include="Areas\Trainer\Views\RateEmployee\Delete.cshtml" />
+    <Content Include="Areas\Trainer\Views\RateEmployee\Edit.cshtml" />
+    <Content Include="Areas\Trainer\Views\RateEmployee\Index.cshtml" />
+    <Content Include="Areas\Trainer\Views\EmployeeEvaTaskl\Create.cshtml" />
+    <Content Include="Areas\Trainer\Views\EmployeeEvaTaskl\CreateEmployeeEval.cshtml" />
+    <Content Include="Areas\Trainer\Views\EmployeeEvaTaskl\Delete.cshtml" />
+    <Content Include="Areas\Trainer\Views\EmployeeEvaTaskl\Edit.cshtml" />
+    <Content Include="Areas\Trainer\Views\EmployeeEvaTaskl\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_LayoutMain.cshtml" />
+    <Content Include="Areas\Employee\Views\EmployeeInformation\Create.cshtml" />
+    <Content Include="Areas\Employee\Views\EmployeeInformation\CreateEmployee.cshtml" />
+    <Content Include="Areas\Employee\Views\EmployeeInformation\Edit.cshtml" />
+    <Content Include="Areas\Employee\Views\EmployeeInformation\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\EmployeeInfo\EduQualificationCreate.cshtml" />
+    <Content Include="Areas\Employee\Views\EmployeeInfo\EmpSkillsCreate.cshtml" />
+    <Content Include="Areas\Employee\Views\EmployeeInfo\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\EmployeeInfo\PersonalInfoCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutMain.cshtml" />
+    <Content Include="Areas\Admin\Views\CommonField\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CommonField\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CommonField\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CommonField\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Skills\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Skills\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Skills\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Skills\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Module\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Module\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Module\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Module\Edit1.cshtml" />
+    <Content Include="Areas\Admin\Views\Module\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectsDetails\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectsDetails\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectsDetails\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectsDetails\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectWorked\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectWorked\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectWorked\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectWorked\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CriticalResource\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CriticalResource\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CriticalResource\DemoView.cshtml" />
+    <Content Include="Areas\Admin\Views\CriticalResource\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CriticalResource\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AssignResource\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\AssignResource\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\AssignResource\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\AssignResource\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AssignResource\PopupTest.cshtml" />
+    <Content Include="Areas\Admin\Views\AssignResource\TestAutocomp.cshtml" />
+    <Content Include="Areas\Admin\Views\AssignResource\TestAutocomplete.cshtml" />
+    <Content Include="Areas\Admin\Views\PromoteEmployee\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1362,11 +1428,27 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AssignResourceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommonFieldController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CriticalResourceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ModuleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProjectsDetailsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProjectWorkedController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PromoteEmployeeController.cs" />
     <Compile Include="Areas\Admin\Controllers\SearchEmpSkillController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SkillsController.cs" />
+    <Compile Include="Areas\Employee\Controllers\EmployeeInfoController.cs" />
+    <Compile Include="Areas\Employee\Controllers\EmployeeInformationController.cs" />
+    <Compile Include="Areas\Employee\EmployeeAreaRegistration.cs" />
     <Compile Include="Areas\Manager\Controllers\EmpController.cs" />
     <Compile Include="Areas\Manager\Controllers\EmpSearchController.cs" />
     <Compile Include="Areas\Manager\Controllers\SearchEmpSkillController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
+    <Compile Include="Areas\Trainer\Controllers\EmployeeEvaTasklController.cs" />
+    <Compile Include="Areas\Trainer\Controllers\RateEmployeeController.cs" />
+    <Compile Include="Areas\Trainer\Controllers\SessionSummaryController.cs" />
+    <Compile Include="Areas\Trainer\Controllers\TrainingController.cs" />
+    <Compile Include="Areas\Trainer\TrainerAreaRegistration.cs" />
     <Compile Include="Controllers\AssignEvaluaterController.cs" />
     <Compile Include="Controllers\AssignResourceController.cs" />
     <Compile Include="Controllers\AssignResourceDetController.cs" />
@@ -1386,6 +1468,7 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SessionSummaryController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
+    <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Controllers\TrainingController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1494,6 +1577,7 @@
     <Compile Include="Models\Trainer.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TrainerModel.cs" />
     <Compile Include="Models\Training.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1630,6 +1714,10 @@
     <Content Include="Views\Admin\Emp\Index.cshtml" />
     <Content Include="Views\Admin\SearchEmpSkill\Index.cshtml" />
     <Content Include="Views\Manager\SearchEmpSkill\Index.cshtml" />
+    <Content Include="Views\Trainer\Create.cshtml" />
+    <Content Include="Views\Trainer\Delete.cshtml" />
+    <Content Include="Views\Trainer\Edit.cshtml" />
+    <Content Include="Views\Trainer\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1640,10 +1728,11 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Employee\Models\" />
     <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\Manager\Views\EmpSearch\" />
     <Folder Include="Areas\Manager\Views\Shared\" />
+    <Folder Include="Areas\Trainer\Models\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
