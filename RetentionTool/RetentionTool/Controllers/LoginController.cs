@@ -36,7 +36,7 @@ namespace RetentionTool.Controllers
                 {
                     Session["userId"] = userResult.Emp_Id;
                     //return RedirectToAction("")
-                    return RedirectToAction("Index", "SearchEmpSkill", new { Area = "Manager" });
+                    return RedirectToAction("Index", "ProjectWorked", new { Area = "Manager" });
                 }
                 else
                 {

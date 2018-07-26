@@ -8,61 +8,82 @@
 
 <link href="~/Scripts/assets/css/bootstrap.css" rel="stylesheet" />
 <link href="~/Scripts/assets/css/font-awesome.min.css" rel="stylesheet" />
+
+<style>
+    .allign {
+        margin-left: 100px;
+    }
+</style>
 @using (Html.BeginForm())
-{<div class="card">
-        <div class="card-header">
-            <strong>Login Form</strong>
-        </div>
-        <div class="card-body card-block">
-            <form action="" method="post" class="form-horizontal">
-                <div class="row form-group">
-
-
-                    <div class="col col-md-3">  @Html.LabelFor(model => model.userDetail.Email, new { @class = "form-control-label" })</div>
-                    <div class="col-12 col-md-9">
-                        @Html.TextBoxFor(model => model.userDetail.Email, new { @class = "form-control", style = "width:30%", @placeholder = "Enter Email" })
-
-
-                        <span class="help-block">Please enter your email</span>
-
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col col-md-3">
-                        @Html.LabelFor(model => model.userDetail.Password, new { @class = "form-control-label" })
-                    </div>
-                    <div class="col-12 col-md-9">
-                        @Html.PasswordFor(model => model.userDetail.Password, new { @class = "form-control", style = "width:30%", @placeholder = "Enter Password" })
-
-                        <span class="help-block">Please enter your password</span>
-                    </div>
-                </div>
-
-
-                <div class="row form-group">
-                    <div class="col col-md-3">
-                        @Html.Label("User Type", new { @class = "form-control-label" })
-                    </div>
-                    <div class="col-12 col-md-9">
-                        @Html.DropDownListFor(model => model.userDetail.Role_Id, ViewData["roledetails"] as SelectList, new { @class = "form-control", style = "width:30%" })
-                        @*<span class="help-block">Please enter your password</span>*@
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="card-footer">
-            @*<input type="submit" value="Submit" class="btn btn-primary btn-sm" />*@
-            <button type="submit" class="btn btn-primary btn-sm">
-                <i class="fa fa-dot-circle-o"></i> Login
-
-            </button>
-            <button type="reset" class="btn btn-danger btn-sm">
-                <i class="fa fa-ban"></i> Reset
-
-            </button>
-        </div>
+{
+    <div class="card">
+    <div class="card-header">
+        <strong>Login Form</strong>
     </div>
+   
+    <div class="card-body card-block">
+        <table>
+            <tr>
+                <td > <img src="~/Scripts/images/logo.png" style="width:100%; margin-bottom: 60px;" /></td>
+                <td >
+                    <form action="" method="post" class="form-horizontal">
+                        <div class="row form-group allign" >
 
+
+                            <div class="col col-md-3">  @Html.LabelFor(model => model.userDetail.Email, new { @class = "form-control-label" })</div>
+                            <div class="col-12 col-md-9">
+                                @Html.TextBoxFor(model => model.userDetail.Email, new { @class = "form-control", style = "width:100%", @placeholder = "Enter Email" })
+
+
+                                <span class="help-block">Please enter your email</span>
+
+                            </div>
+                        </div>
+                        <div class="row form-group allign">
+                            <div class="col col-md-3">
+                                @Html.LabelFor(model => model.userDetail.Password, new { @class = "form-control-label" })
+                            </div>
+                            <div class="col-12 col-md-9">
+                                @Html.PasswordFor(model => model.userDetail.Password, new { @class = "form-control", style = "width:100%", @placeholder = "Enter Password" })
+
+                                <span class="help-block">Please enter your password</span>
+                            </div>
+                        </div>
+
+
+                        <div class="row form-group allign">
+                            <div class="col col-md-3">
+                                @Html.Label("User Type", new { @class = "form-control-label",style="width:150%" })
+                            </div>
+                            <div class="col-12 col-md-9">
+                                @Html.DropDownListFor(model => model.userDetail.Role_Id, ViewData["roledetails"] as SelectList, new { @class = "form-control", style = "width:100%" })
+                                @*<span class="help-block">Please enter your password</span>*@
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+
+        </table>
+       
+            @*<img src="~/Scripts/images/logo.png" />*@
+
+        
+          
+        
+    <div class="card-footer" style="margin-left: 30%;width:15%">
+        @*<input type="submit" value="Submit" class="btn btn-primary btn-sm" />*@
+        <button type="submit" class="btn btn-primary btn-sm">
+            <i class="fa fa-dot-circle-o"></i> Login
+
+        </button>
+        <button type="reset" class="btn btn-danger btn-sm">
+            <i class="fa fa-ban"></i> Reset
+
+        </button>
+    </div>
+</div>
+        </div>
 }
 
 

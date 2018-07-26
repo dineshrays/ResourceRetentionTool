@@ -1,0 +1,145 @@
+﻿@model RetentionTool.ViewModel.ProjectWorkedViewModel
+@{
+    ViewBag.Title = "Delete Critical Resource";
+    Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
+    var criticalacc = ViewBag.criticalacc;
+}
+@using (Html.BeginForm())
+{
+
+    <div class="card-body card-block">
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @*@Html.HiddenFor(model=>model)*@
+                @Html.HiddenFor(model => model.projects.Project_Id, new { @id = "projectId", @class = "project" })
+                <strong>@Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })</strong>
+            </div>
+        </div>
+
+        <br />
+        <div>
+
+            <table class="table table-striped" id="tbl" style="width:100%">
+                <tr>
+                    <th>Select</th>
+
+                    <th>Employee Name</th>
+                    <th>Employee Code</th>
+                    <th style="display:none;width:0%">Employee Id</th>
+                    <th>Designation</th>
+                    <th>Responsibility</th>
+                    <th>IsTrainer</th>
+
+                </tr>
+                @{
+                    int criticalId = 0;
+                }
+                @foreach (var item in Model.projectvm)
+                {
+                    <tr>
+                        <td>
+                            @{ bool IsCriticalRes = false;
+
+                            }
+                           
+                            @if (ViewBag.CriticalRes.PersonalInfo_Id == item.PersonalInfo1.Id)
+                            {
+                                IsCriticalRes = true;
+                                criticalId = ViewBag.CriticalRes.Id;
+                            }
+                            
+                            @if (IsCriticalRes == true)
+                            {
+                                <input type="radio" @*"checkbox"*@ name="critical" class="chck" checked disabled="disabled"  />
+                            }
+                            else
+                            {
+                                <input type="radio" @*"checkbox"*@ name="critical" class="chck" disabled="disabled"  />
+                            }
+
+                        </td>
+                        <td>@item.PersonalInfo1.Name</td>
+                        <td>@item.PersonalInfo1.EmpCode</td>
+                        <td style="display:none;width:0%">@item.PersonalInfo1.Id</td>
+                        <td>@item.Designation</td>
+                        <td>@item.Responsibilities</td>
+                        <td>
+                            @{ bool isTrainer = false;}
+
+                            @*@foreach (var id in ViewBag.TrainerDet)
+                                {*@
+                            @if (ViewBag.TrainerDet.PersonalInfo_Id == item.PersonalInfo1.Id)
+                            {
+                                isTrainer = true;
+                            }
+                            @*}*@
+                            @if (isTrainer == true)
+
+                            {
+                                <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" checked disabled="disabled" />
+                            }
+                            else
+                            {
+                                <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" disabled="disabled" />
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </table>
+            @*<input type="hidden" id="criticalId" value=@criticalId />*@
+            <br />
+            <div id="accountinfo">
+                @*<div class="row form-group">
+                    <input class="form-control" style="width:30%" id="reporting" placeholder="reporting" />
+                    <input id="Information" placeholder="Information" />
+                    <input type="button" value="Add" class="add-accountability" />
+                </div>*@
+                <h4>Responsibilities</h4>
+                <br />
+                <table class="table table-striped" id="table-accountability" style="width:100%">
+                    <tr>
+                        @*<th>Select</th>*@
+                        <th>Reporting</th>
+                        <th>Information</th>
+                    </tr>
+
+                    @foreach (var i in criticalacc)
+                    {
+                        <tr>
+                            @*<td><input type="checkbox" name="chck" disabled="disabled"/></td>*@
+                            <td>@i.Name</td>
+                            <td>@i.Value</td>
+                        </tr>
+                    }
+
+                </table>
+                
+
+                <br />
+                @*<button type="button" class="del-accountability">Delete</button>*@
+            </div>
+            <br />
+
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                <input type="submit" value="Delete" id="btnSave" class="btn btn-danger" />
+                @Html.ActionLink("Back to List", "Index", "CriticalResource", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+
+        </div>
+
+    </div>
+}
