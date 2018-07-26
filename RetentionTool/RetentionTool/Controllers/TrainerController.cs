@@ -36,6 +36,7 @@ namespace RetentionTool.Controllers
         {
             if (ModelState.IsValid)
             {
+                trainer.CriticalResource_Id = 18;
                 trainer.IsActive = true;
                 db.Trainers.Add(trainer);
                 db.SaveChanges();
@@ -44,6 +45,74 @@ namespace RetentionTool.Controllers
             }
 
             return View(trainer);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            
+            Trainer train = db.Trainers.Find(id);
+            TrainerModel trainvm = new TrainerModel();
+            trainvm.Id = train.Id;
+            trainvm.CriticalResource_Id = train.CriticalResource_Id;
+            trainvm.IsActive = train.IsActive;
+            trainvm.Name = train.PersonalInfo.Name;
+            return View(trainvm);
+        }
+        
+        [HttpPost]
+        public ActionResult Edit(int id, TrainerModel trainvm)
+        {
+            try
+            {
+                // TODO: Add update logic here
+                Trainer train = new Trainer();
+                train.Id = trainvm.Id;
+                train.PersonalInfo_Id = trainvm.PersonalInfo_Id;
+                train.CriticalResource_Id = trainvm.CriticalResource_Id;
+                train.IsActive = true;// trainvm.IsActive;
+                db.Entry(train).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+       
+        public ActionResult Delete(int id)
+
+        {
+            Trainer train = db.Trainers.Find(id);
+            TrainerModel trainvm = new TrainerModel();
+            trainvm.Id = train.Id;
+            trainvm.PersonalInfo_Id = train.PersonalInfo_Id;
+            trainvm.IsActive = train.IsActive;
+            trainvm.CriticalResource_Id = train.CriticalResource_Id;
+            
+            return View(trainvm);
+        }
+
+      
+        [HttpPost]
+        public ActionResult Delete(int id, TrainerModel trainvm)
+        {
+            try
+            {
+                Trainer train = db.Trainers.Find(id);
+                train.IsActive = false;                
+                db.Entry(train).State = System.Data.Entity.EntityState.Modified;                
+                db.SaveChanges();
+                ViewBag.Message = "Successfully Deleted";
+                return RedirectToAction("Index");
+            
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         public ActionResult getTrainerName(string name)
@@ -60,5 +129,7 @@ namespace RetentionTool.Controllers
                                      }).ToList();
             return new JsonResult { Data = va, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+       
     }
 }

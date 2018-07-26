@@ -1,6 +1,6 @@
 ﻿@model RetentionTool.Models.TrainerModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
@@ -8,36 +8,40 @@
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-@using (Html.BeginForm())
-{
-    <div class="card">
-        <div class="card-header">
-            <h2>Create Trainer </h2>
-        </div>
-        <div class="card-body card-block">
-            <div class="row form-group">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Name, new { @class = "form-control-label" })
-                </div>
-                <div class="col-12 col-md-9">
-                    <input class="form-control" style="width:30%" id="Trainername" />
-                    @*<input id="searchTrainerid" style="display:none" />*@
-                    @Html.HiddenFor(model => model.PersonalInfo_Id, new { @id= "PersonalInfo_Id" })
-                </div>
-                @*<div class="col-12 col-md-9">
-                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
-                    </div>*@
-            </div>
-            <div class="row form-group">
-                <div class="col-12 col-md-9">
-                    <input type="submit" value="Create" class="btn btn-success" />
-                    @Html.ActionLink("Back to List", "Index")
-                </div>
-            </div>
-        </div>
-    </div>
+<h2>Edit</h2>
 
-}
+
+<div class="card-body">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div>
+
+                @Html.LabelFor(model => model.Name)
+                @Html.TextBoxFor(model => model.Name, new { @id = "Trainername", @class = "form-control", style = "width:30%" })
+                @Html.HiddenFor(model => model.PersonalInfo_Id, new { @id = "PersonalInfo_Id" })
+
+            </div>
+
+            @*<div>
+                    @Html.CheckBox("IsActive")
+                    @Html.LabelFor(model => model.IsActive)
+                </div>*@
+            <div>
+
+                <input type="submit" value="Save" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+        </div>
+
+
+    }
+
+</div>
+
 <script>
 
     $(function () {
@@ -103,4 +107,3 @@
     });
 
 </script>
-
