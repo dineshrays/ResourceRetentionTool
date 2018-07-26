@@ -11,6 +11,7 @@ namespace RetentionTool.Controllers
     public class UserDetailsController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: UserDetails
         public ActionResult Index()
         {
@@ -32,6 +33,19 @@ namespace RetentionTool.Controllers
             {
                 user.IsActive = true;
                 user.EntryDate = DateTime.Now;
+                // Role role = db.Roles.FirstOrDefault(a => a.Name == "Trainer" && a.IsActive == true);
+                int roleid = fetchdet.getDefaultTrainerRoleId();
+                if(roleid==user.Role_Id)
+                {
+                    // CriticalResource criticalResource = db.CriticalResources.FirstOrDefault(a=>a.PersonalInfo.Name== "Admin" && a.ProjectsDetail.Name== "Training");
+                    int criticaId = fetchdet.getDefaultCriticalResourceId();
+                    Trainer training = new Trainer();
+                    training.PersonalInfo_Id = user.Emp_Id;
+                    training.CriticalResource_Id = criticaId;
+                    training.IsActive = true;
+                    db.Trainers.Add(training);
+                    db.SaveChanges();
+                }
                 db.UserDetails.Add(user);
                 db.SaveChanges();
             }

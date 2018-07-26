@@ -1,0 +1,241 @@
+﻿@model RetentionTool.ViewModel.ProjectWorkedViewModel
+@{
+    ViewBag.Title = "Identify Critical Resource";
+    Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<div class="card">
+    <div class="card-header">
+        <h2>Identify Critical Resource</h2>
+
+    </div>
+    <div class="card-body card-block">
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.HiddenFor(model => model.projects.Project_Id, new { @id = "projectId" })
+                @Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
+            </div>
+        </div>
+
+        <br />
+        <div>
+
+            <table class="table table-striped" id="tbl" style="width:50%">
+                <tr>
+                    <th>Select</th>
+
+                    <th>Employee Name</th>
+                    <th>Employee Code</th>
+                    <th style="display:none;width:0%">Employee Id</th>
+                    <th>Designation</th>
+                    <th>Responsibility</th>
+                    <th>IsTrainer</th>
+
+                </tr>
+                @foreach (var item in Model.projectvm)
+                {
+                    <tr>
+                        <td>
+                            @{ bool IsCriticalRes = false;}
+                            @foreach (var id in ViewBag.CriticalRes)
+                            {
+                                if (id == item.PersonalInfo1.Id)
+                                {
+                                    IsCriticalRes = true;
+
+                                    //<input type="checkbox" class="chck" checked />
+                                }
+                                else
+                                {
+                                    // value = false;
+                                    //<input type="checkbox" class="chck" />
+
+                                }
+                            }
+                            @if (IsCriticalRes == true)
+                            {
+                                <input type="radio"@*"checkbox"*@ class="chck" name="critic" checked id="IsChecked" />
+                            }
+                            else
+                            {
+                                <input type="radio"@*"checkbox"*@ name="critic" class="chck" />
+                               
+                            }
+
+                        </td>
+                        <td>@item.PersonalInfo1.Name</td>
+                        <td>@item.PersonalInfo1.EmpCode</td>
+                        <td style="display:none;width:0%">@item.PersonalInfo1.Id</td>
+                        <td>@item.Designation</td>
+                        <td>@item.Responsibilities</td>
+                        <td>
+                            @{ bool isTrainer = false;}
+
+                            @foreach (var id in ViewBag.TrainerDet)
+                            {
+                                if (id == item.PersonalInfo1.Id)
+                                {
+                                    isTrainer = true;
+                                }
+                                else
+                                {
+                                    // <input type="checkbox" class="chcktrainer" />
+                                }
+                            }
+                            @if (isTrainer == true)
+
+                            {
+                                <input type="radio"@*"checkbox"*@ name="trainer" class="chcktrainer" checked />
+
+                            }
+                            else
+                            {
+                                <input type="radio"@*"checkbox"*@ name="trainer" class="chcktrainer" />
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </table>
+            <br />
+            <div style="display:none" id="accountinfo">
+                <div class="row form-group">
+                    <input class="form-control" style="width:30%" id="reporting" placeholder="Reporting" />  &nbsp;
+                    <input id="Information" placeholder="Information" />
+                    <input type="button" value="Add" class="add-accountability" />
+                </div>
+
+                <table class="table table-striped" id="table-accountability" style="width:50%">
+                    <tr>
+                        <th>Select</th>
+                        <th>Reporting</th>
+                        <th>Information</th>
+                    </tr>
+
+                </table>
+                <br />
+                <button type="button" class="del-accountability">Delete</button>
+            </div>
+            <br />
+        </div>
+
+        <div class="row form-group">
+            <div class="col-12 col-md-9">
+
+                <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "CriticalResource", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('input.chck').change(
+            
+            function() {
+                if ($('input.chck').is(':checked')) {
+                $('#accountinfo').show();
+            } else {
+                $('#accountinfo').hide();
+            }
+        });
+    });
+
+        $(".add-accountability").click(function () {
+
+            var reporting = $("#reporting").val();
+            var Information = $("#Information").val();
+
+            var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                reporting + "</td><td>" +
+                Information + "</td></tr>";
+
+            $("#table-accountability").append(Company);
+            $("#reporting").val('');
+            $("#Information").val('');
+        });
+
+        $(".del-accountability").click(function () {
+
+            $("#table-accountability").find('input[name="chck"]').each(function () {
+                if ($(this).is(":checked")) {
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+    
+</script>
+
+
+<script>
+
+    function showcheckbox() {
+
+        if ($(this).find('input.chck').is(':checked')) {
+            $(this).find('input.chkTrainer').style.display = 'block';
+            }
+    }
+      $("#btnSave").click(function () {
+          var cri;
+         // var itemlist = [];
+          var trainerlist;
+              //= [];
+          var projectId = $("#projectId").val();
+          $("table tr:not(:first)").each(function () {
+              if ($(this).find('input.chck').is(':checked')) {
+                  var tdlist = $(this).find("td");
+                  cri= { PersonalInfo_Id: $(tdlist[3]).html(), Project_Id: projectId };
+                          //itemlist.push(Item);
+              }
+              if ($(this).find('input.chcktrainer').is(':checked')) {
+
+                  var tdlist = $(this).find("td");
+                  trainerlist = { PersonalInfo_Id: $(tdlist[3]).html() };
+                  //trainerlist.push(Item);
+              }
+
+          })
+          var accinfo = [];
+          
+          $("#table-accountability tr:not(:first)").each(function ()
+          {
+              var tdlist = $(this).find("td");
+
+              var Item = { Name: $(tdlist[1]).html(), Value: $(tdlist[2]).html()};
+              
+              accinfo.push(Item);
+             
+          })
+
+         var newUrl= '@Url.Action("Index", "CriticalResource")';
+                $.ajax({
+                    url: '@Url.Action("Create", "CriticalResource")', //
+                    dataType: "json",
+                    data: JSON.stringify({ criticalR: cri, trainerlist: trainerlist, criticalacc: accinfo }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+        });
+        });
+
+
+</script>
+
