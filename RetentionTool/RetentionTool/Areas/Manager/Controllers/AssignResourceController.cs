@@ -11,17 +11,22 @@ namespace RetentionTool.Areas.Manager.Controllers
     public class AssignResourceController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        public static FetchDefaultIds fetchdet = new FetchDefaultIds();
+        int managerid = fetchdet.getUserId();
         // GET: AssignResource
         public ActionResult Index()
         {
-           // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
+            // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
             //var assignres;
+            int projectid = fetchdet.getDefaultProjectId();
             List<AssignResourceViewModel> assgnvm  = (from assignres in db.AssignResources 
                                // join assignresdet in db.AssignResourcesDets
                                // on assignres.Id equals assignresdet.AssignResources_Id
                                
                            
-                                                      where assignres.IsActive== true && assignres.ProjectsDetail.Name != "Training"
+                                                      where assignres.IsActive== true && assignres.Project_Id!= projectid
+                                                      && assignres.Manager_Id==managerid 
+                                                      //ProjectsDetail.Name != "Training"
                                                       && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
 
                                                       select new AssignResourceViewModel
@@ -65,11 +70,15 @@ namespace RetentionTool.Areas.Manager.Controllers
 
         public ActionResult Create()
         {
+            AssignResourceViewModel assignRes = new AssignResourceViewModel();
+            PersonalInfo personalInfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == managerid && a.IsActive == true);
+            assignRes.Manager_Id = personalInfo.Id;
+            assignRes.managername = personalInfo.Name;
             getEmployees();
-            getManagers();
+           // getManagers();
             getModules();
             getTrainers();
-            return View();
+            return View(assignRes);
         }
         [HttpPost]
         public ActionResult Create(AssignResourceViewModel assgnResvm,EmployeeList[] list)
@@ -83,7 +92,7 @@ namespace RetentionTool.Areas.Manager.Controllers
                     Id = assgnResvm.Id,
                     Date = assgnResvm.Date,
                     Project_Id=assgnResvm.Project_Id,
-                    Manager_Id = assgnResvm.Manager_Id,
+                    Manager_Id = managerid,
                     Trainer_Id = trainer.Id,
                     Module_Id = assgnResvm.Module_Id,
                     IsActive = true
@@ -266,11 +275,13 @@ where personalInfo.IsActive==true && trainer.IsActive==true
 
         public ActionResult getEmployeeDetails(int moduleid)
         {
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
             List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
                                                join empskills in db.EmployeeSkills on personal.Id equals empskills.P_Id
                                                join skill in db.Skills on empskills.Skills_Id equals skill.id
                                                join module in db.Modules on skill.id equals module.Skill_Id
-                                               where module.Id == moduleid
+                                               join userdet in db.UserDetails on personal.Id equals userdet.Emp_Id
+                                               where module.Id == moduleid && userdet.Role_Id == emproleid && userdet.IsActive == true
                                                select new EmployeeList
                                                {
                                                    Id = personal.Id,
@@ -296,12 +307,11 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         }
         public void getEmployees()
         {
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
             var data = (from personalInfo in db.PersonalInfoes
-                        //join
-
-                        // userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                        join  userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
                         where personalInfo.IsActive == true 
-                        //&& userdet.IsActive == true
+                      && userdet.Role_Id == emproleid && userdet.IsActive == true
                         //&& userdet.Role_Id==3
                         select new
                         {
@@ -316,14 +326,15 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         public void getModules()
         {
             List<SelectListItem> list = (from module in db.Modules
-                                     select new SelectListItem()
-                                     {
-                                         Value = module.Id.ToString(),
-                                         Text = module.ModuleName
-                                     }).ToList();
-            //db.Modules;
+                                         select new SelectListItem()
+                                         {
+                                             Value = module.Id.ToString(),
+                                             Text = module.ModuleName
+                                         }).ToList();
+          
             list.Insert(0, new SelectListItem() { Value = "0", Text = "Select Module" });
-           // var val = new SelectList(db.Modules.ToList(), "id", "ModuleName");
+            // var list = new SelectList(db.Modules.ToList(), "id", "ModuleName");
+            // list.Insert(0, new SelectListItem() { Value = "0", Text = "Select Module" });
             ViewData["moduleslist"] = list;
         }
         public JsonResult getEmployee(string name)
@@ -334,15 +345,14 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             //select new { e.Name });
             // var val = db.Employees.Where(a => a.Name.Contains(name)).ToList();
             //IEnumerable<SelectListItem> skilldet =  
-          //  List<string> va = new List<string>();
-          List< EmployeeList>  va = (from emp in db.PersonalInfoes
-                        //             join
-
-                        //userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
+            //  List<string> va = new List<string>();
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
+            List< EmployeeList>  va = (from emp in db.PersonalInfoes
+                                   join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
                                      where emp.Name.Contains(name)
                                   
                                      && emp.IsActive==true 
-                                     //&& userdet.IsActive==true && userdet.Role_Id==3
+                                     && userdet.IsActive==true && userdet.Role_Id==emproleid
                                      select new EmployeeList
           {
               Id=emp.Id,
@@ -412,11 +422,14 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         [HttpPost]
         public ActionResult EmpDetails(int assId)
         {
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
             List<EmployeeList> emplist = (from assresdet in db.AssignResourcesDets
                                           join emp in db.PersonalInfoes
                                           on assresdet.Employee_Id equals emp.Id
+                                          join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
                                           where emp.IsActive == true
                                           where assresdet.AssignResources_Id == assId
+                                          && userdet.Role_Id == emproleid && userdet.IsActive == true
                                           select new EmployeeList
                                           {
                                               Id = emp.Id,

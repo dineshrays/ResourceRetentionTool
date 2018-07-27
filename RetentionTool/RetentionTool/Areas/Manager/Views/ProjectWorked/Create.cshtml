@@ -89,7 +89,9 @@
                 @*For(model => model.projects.Manager_Id, new { @class = "form-control-label" })*@
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
+                @Html.DisplayFor(model => model.managername)
+                @Html.HiddenFor(model=>model.projects.Manager_Id,new {@id= "managerid" })
+              
             </div>
         </div>
         <div class="row form-group">

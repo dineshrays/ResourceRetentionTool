@@ -11,8 +11,9 @@ namespace RetentionTool.Areas.Manager.Controllers
     public class AssignEvaluaterController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
-        FetchDefaultIds fetchdet = new FetchDefaultIds();
-      
+       public static FetchDefaultIds fetchdet = new FetchDefaultIds();
+        int managerid = fetchdet.getUserId();
+
         //public ActionResult Exception()
         //{
         //    int i = 0;
@@ -23,7 +24,6 @@ namespace RetentionTool.Areas.Manager.Controllers
         // GET: AssignEvaluater
         public ActionResult Index()
         {
-            int managerid = fetchdet.getUserId();
             
             List<AssignEvaluater> assneval = db.AssignEvaluaters.Where(a =>
            !db.EmployeeEvalTasks.Any(
@@ -39,7 +39,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         }
         public ActionResult Create()
         {
-            int managerid = fetchdet.getUserId();
+            
             //List<AssignResource> assignResources = db.AssignResources.Where(a => a.IsActive == true).ToList();
             List<AssignResource> assignResources = db.AssignResources.Where(a => 
             !db.AssignEvaluaters.Any(b => b.AssignResource_Id == a.Id  && b.IsActive==true) &&

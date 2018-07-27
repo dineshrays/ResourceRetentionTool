@@ -11,6 +11,8 @@ namespace RetentionTool.Areas.Manager.Controllers
     public class CriticalResourceController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        public static FetchDefaultIds fetchdet = new FetchDefaultIds();
+        int managerid = fetchdet.getUserId();
         // GET: CriticalResource
         public ActionResult Index()
         {
@@ -32,6 +34,7 @@ namespace RetentionTool.Areas.Manager.Controllers
                                    on empeval.Id equals empevaldet.EmployeeEvalTask_Id
                                    where empevaldet.IsEligiableMark == true
                                    && assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
+                                   && assignres.Manager_Id==managerid
                                                     select projectdet).ToList();
             //&& projectdet.IsActive == true
             //&& assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
@@ -43,10 +46,10 @@ namespace RetentionTool.Areas.Manager.Controllers
             //}
             //          ).ToList();
             List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a => db.ProjectsWorkeds.Any
-            (p => p.Project_Id == a.Id && p.IsActive == true && a.IsActive == true)).ToList();
+            (p => p.Project_Id == a.Id && p.IsActive == true && a.IsActive == true && p.Manager_Id==managerid) ).ToList();
          List<ProjectsDetail> projectsDetails= projectDet.Where(a=>!backupprjctlist.Any(b=>b.Id==a.Id ) && a.IsActive==true).ToList();
             ViewBag.prjctDetails = projectsDetails;
-          List<CriticalResource> criticalres = db.CriticalResources.Where(a => a.IsActive == true).Distinct().ToList();
+          List<CriticalResource> criticalres = db.CriticalResources.Where(a => backupprjctlist.Any(b => b.Id == a.Id) && a.IsActive == true).ToList();
 
             ViewBag.CriticalResPrjct = criticalres;
            
@@ -242,9 +245,6 @@ namespace RetentionTool.Areas.Manager.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult DemoView()
-        {
-            return View();
-        }
+        
     }
 }

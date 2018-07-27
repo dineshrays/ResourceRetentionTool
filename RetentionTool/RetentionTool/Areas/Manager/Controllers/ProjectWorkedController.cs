@@ -10,10 +10,12 @@ namespace RetentionTool.Areas.Manager.Controllers
     public class ProjectWorkedController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        public static FetchDefaultIds fetchdet = new FetchDefaultIds();
+        int managerid = fetchdet.getUserId();
         // GET: ProjectWorked
         public ActionResult Index()
         {
-              List<ProjectsWorked> prjctwrk = db.ProjectsWorkeds.ToList();
+              List<ProjectsWorked> prjctwrk = db.ProjectsWorkeds.Where(a=>a.Manager_Id==managerid && a.IsActive==true).ToList();
 
             var result1 = prjctwrk.Where(a => a.IsActive == true).GroupBy(p => p.Project_Id).Select(grp => grp.FirstOrDefault());
             //var result = prjctwrk.Select(s => s.Project_Id).Distinct();
@@ -49,6 +51,7 @@ namespace RetentionTool.Areas.Manager.Controllers
                                       join assignres in db.AssignResources
                                       on empeval.AssignResource_Id equals assignres.Id
                                       where empeval.IsActive==true && assignres.IsActive==true
+                                      && assignres.Manager_Id==managerid
                                       select assignres.Project_Id).ToList();
             //db.EmployeeEvalTasks.ToList().Select(a => a.AssignResource_Id);
             //ViewBag.pro = prjctwrk;
@@ -58,9 +61,18 @@ namespace RetentionTool.Areas.Manager.Controllers
 
         public ActionResult Create()
         {
-            getManagers();
+            ProjectWorkedViewModel prjctwrkdvm = new ProjectWorkedViewModel();
+            ProjectsWorked prjctswrkd = new ProjectsWorked();
+            prjctswrkd.Manager_Id = managerid;
+           
+           // prjctwrkdvm.projects.Manager_Id = managerid;
+            PersonalInfo personalInfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == managerid && a.IsActive == true);
+
+            prjctwrkdvm.managername = personalInfo.Name;
+            // getManagers();
+            prjctwrkdvm.projects = prjctswrkd;
             getProjectList();
-            return View();
+            return View(prjctwrkdvm);
         }
         [HttpPost]
         public ActionResult Create(List<ProjectsWorked> prjctwrkvm)
@@ -84,7 +96,10 @@ namespace RetentionTool.Areas.Manager.Controllers
             ProjectWorkedViewModel prjwrkvm = new ProjectWorkedViewModel();
             prjwrkvm.projectvm = prjctwrk;
             prjwrkvm.projects = prjctwrok;
-            getManagers();
+            PersonalInfo personalInfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == managerid && a.IsActive == true);
+
+            prjwrkvm.managername = personalInfo.Name;
+            //   getManagers();
             getProjectList();
             return View(prjwrkvm);
         }
@@ -228,6 +243,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         }
         public JsonResult getEmployee(string name)
         {
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
             //List<string> employee = new List<string>();
             //var val = (from e in db.Employees
             //where e.Name.Contains(name)
@@ -236,9 +252,10 @@ namespace RetentionTool.Areas.Manager.Controllers
             //IEnumerable<SelectListItem> skilldet =  
             //  List<string> va = new List<string>();
             List<EmployeeList> va = (from emp in db.PersonalInfoes
+                                     join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
                                      where emp.Name.Contains(name)
 
-            && emp.IsActive == true
+            && emp.IsActive == true && userdet.Role_Id == emproleid && userdet.IsActive == true
                                      select new EmployeeList
                                      {
                                          Id = emp.Id,
@@ -252,11 +269,14 @@ namespace RetentionTool.Areas.Manager.Controllers
         [HttpPost]
         public ActionResult EmpDetails(int projectid)
         {
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
 
             List<EmployeeList> emplist = (from projectwork in db.ProjectsWorkeds
                                           join personalinfo in db.PersonalInfoes
                                           on projectwork.PersonalInfo_Id equals personalinfo.Id
+                                          join userdet in db.UserDetails on personalinfo.Id equals userdet.Emp_Id
                                           where projectwork.Project_Id == projectid
+                                          && userdet.Role_Id == emproleid && userdet.IsActive == true
                                           select new EmployeeList
                                           {
                                               Id = personalinfo.Id,

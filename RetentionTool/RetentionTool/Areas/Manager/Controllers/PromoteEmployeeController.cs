@@ -10,6 +10,8 @@ namespace RetentionTool.Areas.Manager.Controllers
     public class PromoteEmployeeController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        public static FetchDefaultIds fetchdet = new FetchDefaultIds();
+        int managerid = fetchdet.getUserId();
         // GET: PromoteEmployee
         public ActionResult Index()
         {
@@ -19,6 +21,7 @@ namespace RetentionTool.Areas.Manager.Controllers
                                                      join m in db.Modules
                                                      on assignres.Module_Id equals m.Id
                                                      where assignres.IsActive == true
+                                                     && assignres.Manager_Id==managerid
                                                      && !db.RateEmployeeEligiabilities.Any(a => a.IsEligible==true && a.Employee_Id==assignresdet.Employee_Id && a.AssignResources_Id==assignres.Id && a.IsActive==true)
                                                      && db.Trainings.Any(a=>a.AssignResource_Id==assignres.Id && a.IsActive==true)
                                                      && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
