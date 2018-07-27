@@ -15,7 +15,10 @@ namespace RetentionTool.Areas.Employee.Controllers
         // GET: EmployeeInformation
         public ActionResult Index()
         {
-            List<PersonalInfoModel> details = (from a in db.PersonalInfoes
+            int td = int.Parse(Session["userid"].ToString());
+
+            List<PersonalInfoModel> details = (from a in db.PersonalInfoes where a.Id == td
+                                               
                                                           select new PersonalInfoModel
                                                           {
                                                               Id = a.Id,

@@ -17,6 +17,10 @@ namespace RetentionTool.Controllers
             getRoleDetails();
             return View();
         }
+        public ActionResult loginIndex()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Index(UserDetailsViewModel uservm)
         {
@@ -37,9 +41,9 @@ namespace RetentionTool.Controllers
                     Session["userId"] = userResult.Emp_Id;
                     //return RedirectToAction("")
 
-                    //return RedirectToAction("Index", "Module", new { Area = "Admin" });
+                    return RedirectToAction("Index", "Module", new { Area = "Admin" });
                     //return RedirectToAction("Index", "EmployeeInformation", new { Area="Employee"});
-                    return RedirectToAction("Index", "Training", new { Area = "Trainer" });
+                    //return RedirectToAction("Index", "Training", new { Area = "Trainer" });
 
                     //return RedirectToAction("Index", "ProjectWorked", new { Area = "Manager" });
 

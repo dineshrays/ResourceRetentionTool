@@ -22,8 +22,8 @@ namespace RetentionTool.Areas.Trainer.Controllers
                                                                         && (db.Trainings.Any(t => t.AssignResource_Id == a.Id &&
                                                                         t.IsActive == true && db.TrainingDets.Count(d => d.Training_Id == t.Id && d.IsActive==true).Equals(
                                                                         db.Sessions.Count(s => s.TrainingDet.Training_Id == t.Id && s.IsActive == true)))
-                                                                        || db.RateEmployeeEligiabilities.Any(b=>b.AssignResources_Id==a.Id && b.IsActive==true))
-                                                                        && db.Trainers.Any(t=>t.Id ==a.Trainer_Id && t.IsActive==true && t.PersonalInfo_Id==td)
+                                                                        || db.RateEmployeeEligiabilities.Any(b=>b.AssignResources_Id==a.Id && b.IsActive==true))                                                                       
+                                                                         && db.Trainers.Any(t=>t.Id ==a.Trainer_Id && t.IsActive==true && t.PersonalInfo_Id==td)
                                                                         ).ToList();
 
             List<AssignResource> assignresList = (from assignres in assignRes
