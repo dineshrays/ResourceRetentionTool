@@ -1,0 +1,272 @@
+﻿@model RetentionTool.ViewModel.ProjectWorkedViewModel
+@{
+    ViewBag.Title = "Edit Project Worked";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Edit Project Worked</h2>
+
+    </div>
+    <div class="card-body card-block">
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.Label("Project Name")
+                @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.LabelFor(model => model.projects.StartDate, new { @class = " form-control-label" })
+
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
+
+            </div>
+
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.LabelFor(model => model.projects.EndDate, new { @class = " form-control-label" })
+
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.EditorFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
+
+            </div>
+
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.projects.Description, new { @class = "form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.TextBoxFor(model => model.projects.Description, new { @class = "form-control-label", @id = "description", style = "width:30%" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.projects.TeamMembers, new { @class = "form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.TextBoxFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.projects.Manager_Id, new { @class = "form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
+            </div>
+        </div>
+        <div class="row form-group">
+
+            <input class="form-control" style="width:30%" id="searchemp" placeholder="Employee Code" />
+            <input id="searchid" style="display:none" />
+            <input id="searchname" style="display:none" />
+            <input id="designation" placeholder="Designation" />
+            <input id="responsibilty" placeholder="Responsibility" />
+            <input type="button" value="Add" class="add-emp" />
+
+
+
+        </div>
+
+        <br />
+        <div>
+
+            <table class="table table-striped" style="width:50%">
+                <tr>
+                    <th>Select</th>
+                    <th>Employee Name</th>
+                    <th>Employee Code</th>
+                    <th style="display:none;width:0%">Employee Id</th>
+                    <th>Designation</th>
+                    <th>Responsibility</th>
+                    <th style="display:none;width:0%">ProjectWorked Id</th>
+                </tr>
+                @foreach (var i in Model.projectvm)
+                {
+                <tr>
+                    <td><input type="checkbox" name="chck" /></td>
+                    <td>@i.PersonalInfo1.Name</td>
+                    <td>@i.PersonalInfo1.EmpCode</td>
+                    <td style="display:none">@i.PersonalInfo_Id</td>
+                    <td>@i.Designation</td>
+                    <td>@i.Responsibilities</td>
+                    <td style="display:none">@i.Id</td>
+                </tr>
+                }
+
+            </table>
+            <br />
+            <button type="button" class="del-emp">Delete</button>
+
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                <input type="submit" value="Save" id="btnSave" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    var empid = [];
+    $("#btnSave").click(function () {
+
+        var itemlist = [];
+        var projectid = $("#projectid").val();
+      //  var designation = $("#designation").val();
+      //  var responsibilty = $("#responsibilty").val();
+        var startdate = $("#startdate").val();
+        var enddate = $("#enddate").val();
+        var description = $("#description").val();
+
+        var managerid = $("#managerid").val();
+        var teammember = $("#teammember").val();
+
+        //get cell values, instead of the header text.
+        $("table tr:not(:first)").each(function () {
+            var tdlist = $(this).find("td");
+
+            var Item = {
+                PersonalInfo_Id: $(tdlist[3]).html(),
+                Project_Id: projectid, Manager_Id: managerid, Responsibilities: $(tdlist[5]).html(), StartDate: startdate, TeamMembers: teammember
+                , EndDate: enddate, Description: description, Designation: $(tdlist[4]).html(), Id: $(tdlist[6]).html()
+                //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
+            };
+            //    { Name: $(tdlist[1]).html(), Id: $(tdlist[3]).html(), EmpCode: $(tdlist[2]).html() };
+            itemlist.push(Item);
+        })
+
+
+
+
+
+        var newUrl = '@Url.Action("Index", "ProjectWorked")';
+
+        //var mod = {
+        //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
+        //    , EndDate: enddate,Description: description,Designation: designation
+        //     //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
+        // };
+               // alert(mod);
+                $.ajax({
+                    url: '@Url.Action("Edit", "ProjectWorked")', //
+                    dataType: "json",
+                    data: JSON.stringify({ prjctwrkvm: itemlist, id: projectid }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        //alert("success");
+                        //$("#date").val('');
+                        //$("#managerid").val('');
+                        //$("#moduleid").val('');
+                        //$("#trainerid").val('');
+                        //$("table tbody").empty();
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+            });
+
+    $(".add-emp").click(function () {
+
+        var empcode = $("#searchemp").val();
+        var empid = $("#searchid").val();
+        var empname = $("#searchname").val();
+        var designation = $("#designation").val();
+        var responsibilty = $("#responsibilty").val();
+        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
+            empname + "</td><td style='display: none'>" + empid + "</td><td>" +
+            designation + "</td><td>" +
+            responsibilty + "</td><td style='display: none'>0</td></tr>";
+        $("table tbody").append(markup);
+        $("#searchemp").val('');
+        $("#searchid").val('');
+        $("#designation").val('');
+        $("#responsibilty").val('');
+    });
+
+    $(".del-emp").click(
+
+        function () {
+
+            $("table tbody").find('input[name="chck"]').each(function () {
+                if ($(this).is(":checked")) {
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+
+
+
+</script>
+<script>
+    $(function () {
+        $("#searchemp").autocomplete({
+            source: function (request, response) {
+                var param = { name: $('#searchemp').val() };
+                $.ajax({
+                    url: "/ProjectWorked/getEmployee",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { name: item.Name, id: item.Id, label: item.EmpCode + '-' + item.Name, lbl: item.EmpCode }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                // prevent autocomplete from updating the textbox
+                event.preventDefault();
+                // var value = ui.item.label
+                $(this).val(ui.item.name);
+                $("#searchid").val(ui.item.id);
+                $("#searchname").val(ui.item.lbl);
+            }    //minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+        });
+    });
+
+</script>
+
+

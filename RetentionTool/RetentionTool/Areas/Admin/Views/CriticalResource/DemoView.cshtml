@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "DemoView";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>DemoView</h2>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<div>
+
+    <input type="text" id="rowId" placeholder="Row Number" />
+    <br />
+
+    <input type="submit" value="Add" id="btnSave"/>
+</div>
+<div style="display:none" id="displayview">
+
+    <input type="text" id="rowName" placeholder="Row Name" disabled="disabled" />
+    <br />
+    <input type="text" id="seatCount" placeholder="Seat Count" />
+    <br />
+    <input type="submit" value="Add Seat" id="btnSeat" />
+    <br />
+  <div id="se">
+
+
+  </div>
+</div>
+<table>
+ 
+
+</table>
+<script>
+    var arr = ["A", "B", "C", "D", "E", "F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+    var curr_count = 0;
+    $("#btnSave").click(function () {
+        var rowno = $("#rowId").val();
+        $("#displayview").show(); $("#rowName").val(arr[curr_count]);
+        //function repeat(fn, times) {
+        //    for (var i = 0; i < times; i++) fn();
+        //}
+       // for (var i = 0; i < rowno; i++)$("#rowName").val(arr[i]);
+           
+    //    for (int i = 0; i < rowno; i++)
+    //{
+
+    //})
+         
+    });
+    $("#btnSeat").click(function () {
+        var rowno = $("#rowId").val();
+        var count = [];
+        var rowname = $("#rowName").val();
+        var seatcount = $("#seatCount").val();
+        for (var i = 1; i <= seatcount; i++)count[i - 1] = i;
+
+
+     //   $("#se").append("<p>" + count + "</p>");
+
+          //  
+            //"<td>" + i + "</td>");
+        var val = "";
+        //$.each(count, function (index, value) {
+        //    $("#se").append("<td>" +  + "</td>");
+        //});
+        var a = "";
+        $.map(count, function (val, i) {
+           // a += ("<td>&nbsp;</td><td>" + rowname+val + "</td>");
+            a += ("<td>&nbsp;</td><td><input type ='checkbox' name='fruit' value = " + rowname + val +"/>" + rowname + val + "</td>");
+
+        })
+
+
+        $("table").append("<tr><td>" + rowname + "</td>"+
+           // < td > " + seatcount + "</td > " +
+            // $.each(count, function (i, val) {
+            ////"<td>" + count[i] + "</td>"
+            ////              )
+            // for(var i = 1; i <= seatcount; i++) 
+            //$.map(count, function (val, i) {
+            //    a += ("<td>" + val + "</td>");
+            //}))
+          
+         a +  "</tr>");
+        if (curr_count < rowno-1) {
+            curr_count++;
+            $("#rowName").val(arr[curr_count]);
+            $("#seatCount").val('');
+        }
+        else {
+            $("#displayview").hide();
+        }
+    });
+</script>

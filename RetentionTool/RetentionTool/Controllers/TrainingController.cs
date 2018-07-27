@@ -19,12 +19,14 @@ namespace RetentionTool.Controllers
         public ActionResult Index()
         {
 
+           // int trainerid = int.Parse(Session["userid"].ToString());
 
             List<AssignResourceViewModel> assgnvm = (from assignres in db.AssignResources
                                                      join m in db.Modules
                                                      on assignres.Module_Id equals m.Id
                                                      where assignres.IsActive == true
                                                      && !db.EmployeeEvalTasks.Any(a=>a.AssignResource_Id==assignres.Id && a.IsActive==true && db.EmployeeEvalTaskDets.Any(b=>b.EmployeeEvalTask_Id==a.Id && b.IsEligiableMark==true && b.IsActive==true))
+                                                     //  && assignres.Trainer_Id == trainerid
                                                      select new AssignResourceViewModel
                                                      {
                                                          Id = assignres.Id,     
