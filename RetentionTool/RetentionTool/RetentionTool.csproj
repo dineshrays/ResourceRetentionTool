@@ -1314,11 +1314,30 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Manager\Views\web.config" />
-    <Content Include="Areas\Manager\Views\Emp\Index.cshtml" />
     <Content Include="Areas\Manager\Views\SearchEmpSkill\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\SearchEmpSkill\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\AssignEvaluater\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\AssignEvaluater\CreateAssignEvaluter.cshtml" />
+    <Content Include="Areas\Manager\Views\AssignEvaluater\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\AssignEvaluater\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\AssignEvaluater\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\AssignResource\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\AssignResource\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\AssignResource\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\AssignResource\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\CriticalResource\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\CriticalResource\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\CriticalResource\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\CriticalResource\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\GeneralTraining\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\GeneralTraining\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\GeneralTraining\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\GeneralTraining\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\ProjectWorked\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\ProjectWorked\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\ProjectWorked\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\ProjectWorked\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\PromoteEmployee\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1361,10 +1380,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\SearchEmpSkillController.cs" />
-    <Compile Include="Areas\Manager\Controllers\EmpController.cs" />
-    <Compile Include="Areas\Manager\Controllers\EmpSearchController.cs" />
+    <Compile Include="Areas\Manager\Controllers\AssignEvaluaterController.cs" />
+    <Compile Include="Areas\Manager\Controllers\AssignResourceController.cs" />
+    <Compile Include="Areas\Manager\Controllers\CriticalResourceController.cs" />
+    <Compile Include="Areas\Manager\Controllers\GeneralTrainingController.cs" />
+    <Compile Include="Areas\Manager\Controllers\ProjectWorkedController.cs" />
+    <Compile Include="Areas\Manager\Controllers\PromoteEmployeeController.cs" />
     <Compile Include="Areas\Manager\Controllers\SearchEmpSkillController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Controllers\AssignEvaluaterController.cs" />
@@ -1639,10 +1660,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Manager\Models\" />
-    <Folder Include="Areas\Manager\Views\EmpSearch\" />
     <Folder Include="Areas\Manager\Views\Shared\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
