@@ -243,7 +243,6 @@ C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyC
 C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
 C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
 C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CoreCompileInputs.cache
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\RetentionTool.dll.config
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\RetentionTool.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\RetentionTool.pdb
@@ -261,12 +260,16 @@ C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\Mic
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\Microsoft.Win32.Primitives.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.AppContext.dll
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Collections.Immutable.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Console.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Diagnostics.Process.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.IO.FileSystem.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.IO.FileSystem.Primitives.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.IO.Pipes.dll
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Reflection.Metadata.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Security.AccessControl.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Security.Claims.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Security.Cryptography.Algorithms.dll
@@ -311,6 +314,90 @@ C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web.Helpers.xml
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web.Mvc.xml
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CoreCompileInputs.cache
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyComplete
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\RetentionTool.dll.config
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\RetentionTool.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\RetentionTool.pdb
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\csc.exe
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\csc.exe.config
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\csc.rsp
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\csi.exe
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\csi.exe.config
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\csi.rsp
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\Microsoft.Win32.Primitives.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.AppContext.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Collections.Immutable.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Console.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Diagnostics.Process.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Diagnostics.StackTrace.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.IO.Compression.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.IO.FileSystem.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.IO.FileSystem.Primitives.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.IO.Pipes.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Reflection.Metadata.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Security.AccessControl.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Security.Claims.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Security.Cryptography.Encoding.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Security.Cryptography.Primitives.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Security.Principal.Windows.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Text.Encoding.CodePages.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Threading.Thread.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.ValueTuple.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Xml.ReaderWriter.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Xml.XmlDocument.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Xml.XPath.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\System.Xml.XPath.XDocument.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\vbc.exe
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\vbc.exe.config
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\vbc.rsp
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\VBCSCompiler.exe
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\roslyn\VBCSCompiler.exe.config
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\Antlr3.Runtime.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\EntityFramework.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\EntityFramework.SqlServer.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\Microsoft.Web.Infrastructure.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\Newtonsoft.Json.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Helpers.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Mvc.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Optimization.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Razor.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Webpages.Deployment.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Webpages.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Webpages.Razor.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\WebGrease.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\Antlr3.Runtime.pdb
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\EntityFramework.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\EntityFramework.SqlServer.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\Newtonsoft.Json.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Optimization.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Razor.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Webpages.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Webpages.Deployment.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Webpages.Razor.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Helpers.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\System.Web.Mvc.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CoreCompileInputs.cache
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyComplete
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
+F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
