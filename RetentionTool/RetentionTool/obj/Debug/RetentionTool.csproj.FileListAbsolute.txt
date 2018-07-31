@@ -243,6 +243,7 @@ C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyC
 C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
 C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
 C:\Project Demo\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CoreCompileInputs.cache
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\RetentionTool.dll.config
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\RetentionTool.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\RetentionTool.pdb
@@ -260,16 +261,12 @@ C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\Mic
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\Microsoft.Win32.Primitives.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.AppContext.dll
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Collections.Immutable.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Console.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Diagnostics.Process.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Diagnostics.StackTrace.dll
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.IO.FileSystem.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.IO.FileSystem.Primitives.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.IO.Pipes.dll
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Reflection.Metadata.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Security.AccessControl.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Security.Claims.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Security.Cryptography.Algorithms.dll
@@ -314,8 +311,6 @@ C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web.Helpers.xml
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web.Mvc.xml
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CoreCompileInputs.cache
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyComplete
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
