@@ -1,0 +1,132 @@
+﻿@model RetentionTool.ViewModel.EmployeeEvalViewModel
+@{
+    ViewBag.Title = "Employee Evaluation Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+    // var empDetails = ViewBag.empDetails;
+}
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div class="card">
+    <div class="card-header">
+
+        <h2>Employee Evaluation Edit</h2>
+    </div>
+    <div class="card-body card-block">
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.Label("Trainer Name")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    @Html.HiddenFor(m => m.EmployeeEvalTask.Id, new { @id = "empevalid" })
+                    @Html.HiddenFor(m => m.EmployeeEvalTask.AssignResource_Id, new { @id = "assresid" })
+                    @Html.DisplayFor(m=>m.EmployeeEvalTask.Trainer.PersonalInfo.Name)
+                    @Html.HiddenFor(m => m.EmployeeEvalTask.Trainer_Id,new {@id="trainerid" })
+
+                </div>
+                <br />
+            </div>
+        </div>
+
+      
+
+        <br />
+
+
+        <table class="mytbl table table-striped">
+            <thead>
+                <tr>
+
+                    <th style="display:none">Employee Id</th>
+                    <th>Employee Name</th>
+                    <th>Task Assigned</th>
+                    <th>Status</th>
+                    <th>IsEligibleMark</th>
+                    <th style="display:none">Id</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var emplist in Model.empEvalTaskDetvm)
+                {
+
+                <tr>
+
+                    <td style="display:none">@emplist.Employee_Id</td>
+                    <td>@emplist.PersonalInfo.Name</td>
+                    <td><input type="text" name="taskassign" value="@emplist.TaskAssigned" /></td>
+                    <td><input type="text" name="status" value="@emplist.Status" /></td>
+                    <td><input type="checkbox" class="chck" name="iseligible" checked="@emplist.IsEligiableMark" /></td>
+                    <td style="display:none">@emplist.Id</td>
+                </tr>
+
+
+                }
+
+            </tbody>
+
+
+        </table>
+
+
+        <div class="card-body">
+            <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+        </div>
+
+    </div>
+
+</div>
+<script>
+    var assignresid;
+    
+    $("#btnSave").click(function () {
+        assignresid = $("#assresid").val();
+
+          var itemlist=[];
+
+          $("table tr:not(:first)").each(function () {
+              var iseligible;
+              var taskassign;
+              var status;
+              if ($(this).find('input.chck').is(':checked')) {
+                  iseligible = true;
+              }
+              else {
+                  iseligible = false;
+              }
+
+              taskassign = $(this).find("td:eq(2) input[type='text']").val();
+
+              status = $(this).find("td:eq(3) input[type='text']").val();
+                    var tdlist = $(this).find("td");
+
+              var Item = { EmployeeEvalTask_Id: empevalid, Employee_Id: $(tdlist[0]).html(), TaskAssigned: taskassign, Status: status, IsEligiableMark: iseligible, Id: $(tdlist[5]).html() };
+                    itemlist.push(Item);
+                })
+
+        var trainerid = $("#trainerid").val();
+        var empevalid = $("#empevalid").val();
+        var mod = [];
+        mod = { Id: empevalid, AssignResource_Id: assignresid, Trainer_Id: trainerid };
+         var newUrl= '@Url.Action("Index", "EmployeeEvaTaskl")';
+                $.ajax({
+                    url: '@Url.Action("Edit", "EmployeeEvaTaskl")', //
+                    dataType: "json",
+                    data: JSON.stringify({ list: itemlist, empeval: mod }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+            });
+</script>

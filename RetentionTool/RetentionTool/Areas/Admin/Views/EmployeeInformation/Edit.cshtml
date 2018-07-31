@@ -1,0 +1,871 @@
+﻿@model RetentionTool.ViewModel.EmployeeInformationViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Edit</h2>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Tabs - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#tabs").tabs();
+        });
+    </script>
+</head>
+<body>
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1" rel="tab1">Personal Information</a></li>
+            <li><a href="#tabs-2" rel="tab2">Education Qualification</a></li>
+            <li><a href="#tabs-3">Experience</a></li>
+            <li><a href="#tabs-4">Employee Skills</a></li>
+            <li><a href="#tabs-5">Projects Worked</a></li>
+            <li><a href="#tabs-6">Current Company</a></li>
+        </ul>
+        <div id="tabs-1">
+
+            @*<div class="col-lg-6 card-body"  style="margin-top:10px;">*@
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Name, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Name, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.FatherName, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.FatherName, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.DOB, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.EditorFor(m => m.PersonalInfoVm.DOB, new { htmlAttributes = new { @class = "form-control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.PermanentAddress, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.PermanentAddress, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.CommunicationAddress, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.CommunicationAddress, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+            @*</div>*@
+            @*<div class="col-lg-6 card-body" style="margin-top:10px;">*@
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Contact, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Contact, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Qualification, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Qualification, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Email, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Email, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.PanNo, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.PanNo, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.AadharNo, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.AadharNo, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+            <input type="file" id="uploadEditorImage" enctype="multipart/form-data" />
+
+            <script>
+         $(function () {
+             $("#uploadEditorImage").change(function () {
+                 var data = new FormData();
+                 var files = $("#uploadEditorImage").get(0).files;
+                 if (files.length > 0) {
+                     data.append("HelpSectionImages", files[0]);
+                 }
+                 fileValue = data;
+               //  alert(fileValue);
+                 $.ajax({
+                     url: '@Url.Action("Index", "EmployeeInformation")',
+                     type: "POST",
+                     processData: false,
+                     async: false,
+                     cache: false,
+                     contentType: false,
+                     data: data,
+                     success: function (response) {
+                       //  alert(response.filepath)
+                         filepath = response.filepath;
+                         //code after success
+
+                     },
+                     error: function (er) {
+                         alert(er);
+                     }
+
+                 });
+             });
+         });
+            </script>
+
+
+        </div>
+
+        <div id="tabs-2">
+            <div class="row form-group">
+
+                <input class="form-control" style="width:30%" id="Degree" placeholder="Degree" />
+                <input id="Board" placeholder="Board" />
+                <input id="YearOfPassing" placeholder="Year Of Passing" />
+                <input id="Percentage" placeholder="Percentage" />
+
+                <input type="button" value="Add" class="add-quali" />
+            </div>
+
+            <table class="table table-striped" id="table-quali" style="width:50%">
+                <tr>
+                    <th>Select</th>
+                    <th> Degree</th>
+                    <th>Board</th>
+                    <th>Year Of Passing</th>
+                    <th>Percentage</th>
+                </tr>
+
+            </table>
+            <br />
+            <button type="button" class="del-quali">Delete</button>
+
+            <script>
+                $(".add-quali").click(function () {
+
+                    var Degree = $("#Degree").val();
+                    var Board = $("#Board").val();
+                    var YearOfPassing = $("#YearOfPassing").val();
+                    var Percentage = $("#Percentage").val();
+
+                    var Qualification = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                        Degree + "</td><td>" +
+                        Board + "</td><td>" +
+                        YearOfPassing + "</td><td>" +
+                        Percentage + "</td></tr>";
+
+                    $("#table-quali").append(Qualification);
+                    $("#Degree").val('');
+                    $("#Board").val('');
+                    $("#YearOfPassing").val('');
+                    $("#Percentage").val('');
+                });
+
+                $(".del-quali").click(function () {
+
+                    $("#table-quali").find('input[name="chck"]').each(function () {
+                        if ($(this).is(":checked")) {
+                            $(this).parents("tr").remove();
+                        }
+                    });
+                });
+
+            </script>
+
+        </div>
+
+        <div id="tabs-3">
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ExperienceVm.CompanyName, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.ExperienceVm.CompanyName, new { @id = "CompanyName", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ExperienceVm.FromDate, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.EditorFor(m => m.ExperienceVm.FromDate, new { htmlAttributes = new { @id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ExperienceVm.ToDate, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.EditorFor(m => m.ExperienceVm.ToDate, new { htmlAttributes = new { @id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ExperienceVm.Designation, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.ExperienceVm.Designation, new { @id = "Designation", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ExperienceVm.ProjectWorked, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.ExperienceVm.ProjectWorked, new { @id = "ProjectWorked", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ExperienceVm.TechnologiesUsed, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.ExperienceVm.TechnologiesUsed, new { @id = "TechnologiesUsed", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+
+            <input type="button" value="Add" class="add-exp" />
+
+            <table class="table table-striped" id="table-exp" style="width:50%">
+                <tr>
+                    <th>Select</th>
+                    <th> CompanyName</th>
+                    <th>FromDate</th>
+                    <th>ToDate</th>
+                    <th>Designation</th>
+                    <th>ProjectWorked</th>
+                    <th>TechnologiesUsed</th>
+                </tr>
+
+            </table>
+            <br />
+            <button type="button" class="del-exp">Delete</button>
+
+            <script>
+                $(".add-exp").click(function () {
+
+                    var CompanyName = $("#CompanyName").val();
+                    var FromDate = $("#FromDate").val();
+                    var ToDate = $("#ToDate").val();
+                    var Designation = $("#Designation").val();
+                    var ProjectWorked = $("#ProjectWorked").val();
+                    var TechnologiesUsed = $("#TechnologiesUsed").val();
+
+                    var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                        CompanyName + "</td><td>" +
+                        FromDate + "</td><td>" +
+                        ToDate + "</td><td>" +
+                        Designation + "</td><td>" +
+                        ProjectWorked + "</td><td>" +
+                        TechnologiesUsed + "</td></tr>";
+
+                    $("#table-exp").append(Company);
+                    $("#CompanyName").val('');
+                    $("#FromDate").val('');
+                    $("#ToDate").val('');
+                    $("#Designation").val('');
+                    $("#ProjectWorked").val('');
+                    $("#TechnologiesUsed").val('');
+                });
+
+                $(".del-exp").click(function () {
+
+                    $("#table-exp").find('input[name="chck"]').each(function () {
+                        if ($(this).is(":checked")) {
+                            $(this).parents("tr").remove();
+                        }
+                    });
+                });
+
+            </script>
+
+
+        </div>
+
+        <div id="tabs-4">
+
+            <div class="card-body card-block">
+
+                <div class="row form-group">
+                    <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />
+                    <input id="searchid" style="display:none" />
+                    <input id="Years" placeholder="Years" />
+                    <input id="Months" placeholder="Months" />
+                    <input id="Status" placeholder="Status" />
+                    <input type="button" value="Add" class="add-skill" />
+                </div>
+
+                <table class="table table-striped" id="table-skill" style="width:50%">
+                    <tr>
+                        <th>Select</th>
+                        <th> Skills</th>
+                        <th style="display:none;width:0%">Skill Id</th>
+                        <th>Years</th>
+                        <th>Months</th>
+                        <th>Status</th>
+                    </tr>
+
+                </table>
+                <br />
+                <button type="button" class="del-emp">Delete</button>
+
+                <script>
+                    $(".add-skill").click(function () {
+
+                        var skillname = $("#searchskill").val();
+
+                        var skillid = $("#searchid").val();
+
+                        var Years = $("#Years").val();
+                        var Months = $("#Months").val();
+                        var Status = $("#Status").val();
+                        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                            skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
+                            Years + "</td><td>" +
+                            Months + "</td><td>" +
+                            Status + "</td></tr>";
+                        $("#table-skill").append(markup);
+                        $("#searchskill").val('');
+                        $("#searchid").val('');
+                        $("#Years").val('');
+                        $("#Months").val('');
+                        $("#Status").val('');
+                    });
+
+                    $(".del-emp").click(function () {
+
+                        $("#table-skill").find('input[name="chck"]').each(function () {
+                            if ($(this).is(":checked")) {
+                                $(this).parents("tr").remove();
+                            }
+                        });
+                    });
+
+                </script>
+
+
+            </div>
+
+            @*<div class="col-12 col-md-9">
+
+                    <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+                    @Html.ActionLink("Back to List", "Index", "EmployeeInfo", null, new { @class = "btn btn-outline-link" })
+
+                </div>
+            </div>*@
+
+
+            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+            <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+            <script>
+                $(function () {
+                    $("#searchskill").autocomplete({
+                        source: function (request, response) {
+                            var param = { name: $('#searchskill').val() };
+                            $.ajax({
+                                url: "/EmployeeInfo/getSkills",
+                                data: JSON.stringify(param),
+                                dataType: "json",
+                                type: "POST",
+                                contentType: "application/json; charset=utf-8",
+                                dataFilter: function (data) { return data; },
+                                success: function (data) {
+                                    response($.map(data, function (item) {
+                                        return { label: item.SkillName, id: item.id }
+                                    }))
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    alert(textStatus);
+                                }
+                            });
+                        },
+                        select: function (event, ui) {
+                            // prevent autocomplete from updating the textbox
+                            event.preventDefault();
+                            $(this).val(ui.item.label);
+                            $("#searchid").val(ui.item.id);
+                            // $("#searchskill").val(ui.item.name);
+                        }    //minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+                    });
+                });
+
+            </script>
+
+
+        </div>
+
+        <div id="tabs-5">
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Project_Id, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    @Html.DropDownListFor(m => m.ProjectsWorkedVm.Project_Id, ViewData["projectlist"] as SelectList, new { @id = "Project_Id", @class = "form-control", style = "width:40%" })
+                </div>
+            </div>
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Designation, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.ProjectsWorkedVm.Designation, new { @id = "PwDesignation", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Responsibilities, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.ProjectsWorkedVm.Responsibilities, new { @id = "Responsibilities", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.StartDate, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    <div>@Html.EditorFor(m => m.ProjectsWorkedVm.StartDate, new { htmlAttributes = new { @id = "StartDate", @class = "form-control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.EndDate, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    <div>@Html.EditorFor(m => m.ProjectsWorkedVm.EndDate, new { htmlAttributes = new { @id = "EndDate", @class = "form-control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Description, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.ProjectsWorkedVm.Description, new { @id = "Description", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.TeamMembers, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.ProjectsWorkedVm.TeamMembers, new { @id = "TeamMembers", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group ">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Manager_Id, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-6 col-md-9">
+                    @Html.DropDownListFor(m => m.ProjectsWorkedVm.Manager_Id, ViewData["managerslist"] as SelectList, new { @id = "Manager_Id", @class = "form-control", style = "width:40%" })
+                </div>
+            </div>
+
+        </div>
+
+        <div id="tabs-6">
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.Designation, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.Designation, new { @id = "Designation2", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DOJ, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.EditorFor(m => m.CurrentInfoVm.DOJ, new { htmlAttributes = new { @id = "DOJ", @class = "form-control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DateOfRelieving, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.EditorFor(m => m.CurrentInfoVm.DateOfRelieving, new { htmlAttributes = new { @id = "DateOfRelieving", @class = "form-control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.ReportingManager, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.ReportingManager, new { @id = "ReportingManager", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.JobType, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.JobType, new { @id = "JobType", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedCompanyDetails, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.DeployedCompanyDetails, new { @id = "DeployedCompanyDetails", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedFromDate, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.EditorFor(m => m.CurrentInfoVm.DeployedFromDate, new { htmlAttributes = new { @id = "DeployedFromDate", @class = "form-control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedToDate, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.EditorFor(m => m.CurrentInfoVm.DeployedToDate, new { htmlAttributes = new { @id = "DeployedToDate", @class = "form -control", style = "width:40%" } })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.CompanyMailId, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.CompanyMailId, new { @id = "CompanyMailId", @class = "form -control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.BankName, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.BankName, new { @id = "BankName", @class = "form -control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.IFSC, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.IFSC, new { @id = "IFSC", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.ModeOfPayment, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.ModeOfPayment, new { @id = "ModeOfPayment", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.WorkLocation, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.WorkLocation, new { @id = "WorkLocation", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.Department, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.Department, new { @id = "Department", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.Grade, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.Grade, new { @id = "Grade", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.Salary, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.Salary, new { @id = "Salary", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.CurrentInfoVm.CTC, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.CurrentInfoVm.CTC, new { @id = "CTC", @class = "form-control", style = "width:40%" })</div><br />
+                </div>
+            </div>
+
+            <input id="btnSave" type="submit" value="Create" class="btn btn-success" />
+
+            <script type="text/javascript">
+
+                $("#btnSave").click(function () {
+                     // debugger;
+
+                    var EmpCode = $("#EmpCode").val();
+                    var Name = $("#Name").val();
+                    var FName = $("#FName").val();
+                    var DOB = $("#DOB").val();
+                    var Gender = $("#Gender").val();
+                    var PermntAdd = $("#PermntAdd").val();
+                    var CommAdd = $("#CommAdd").val();
+                    var Contact = $("#Contact").val();
+                    var Qualification = $("#Qualification").val();
+                    var Email = $("#Email").val();
+                    var PanNo = $("#PanNo").val();
+                    var AadharNo = $("#AadharNo").val();
+                    var BloodGroup = $("#BloodGroup").val();
+
+                    var mod = {
+                        EmpCode: EmpCode, Name: Name, FatherName: FName, DOB: DOB, Gender: Gender, PermanentAddress: PermntAdd, CommunicationAddress: CommAdd,
+                        Contact: Contact, Qualification: Qualification, Email: Email, PanNo: PanNo, AadharNo: AadharNo, BloodGroup: BloodGroup
+                    };
+
+
+                    var itemlist1 = [];
+
+                    $("#table-quali tr:not(:first)").each(function () {
+                        var tdlist = $(this).find("td");
+
+                        var Degree = $(tdlist[1]).html();
+                        var Board = $(tdlist[2]).html();
+                        var YearOfPassing = $(tdlist[3]).html();
+                        var Percentage = $(tdlist[4]).html();
+
+                        var mod1 = {
+                            Degree: Degree, Board: Board, YearOfPassing: YearOfPassing, Percentage: Percentage
+                        };
+
+                        itemlist1.push(mod1);
+                        //alert(itemlist);
+                    })
+
+
+
+                    var itemlist2 = [];
+
+                    $("#table-exp tr:not(:first)").each(function () {
+                        var tdlist1 = $(this).find("td");
+
+                        var CompanyName = $(tdlist1[1]).html();
+                        var FromDate = $(tdlist1[2]).html();
+                        var ToDate = $(tdlist1[3]).html();
+                        var Designation1 = $(tdlist1[4]).html();
+                        var ProjectWorked = $(tdlist1[5]).html();
+                        var TechnologiesUsed = $(tdlist1[6]).html();
+
+                        var mod2 = {CompanyName: CompanyName, FromDate: FromDate, ToDate: ToDate, Designation: Designation1, ProjectWorked: ProjectWorked, TechnologiesUsed: TechnologiesUsed };
+
+                        itemlist2.push(mod2);
+                    })
+                    
+
+                    var itemlist3 = [];
+                    var Common_Id = "3";
+
+                    $("#table-skill tr:not(:first)").each(function () {
+                        var tdlist2 = $(this).find("td");
+
+                        var skill_id = $(tdlist2[2]).html();
+                        var years = $(tdlist2[3]).html();
+                        var months = $(tdlist2[4]).html();
+                        var status = $(tdlist2[5]).html();
+
+                        var mod3 = {CommonField_Id: Common_Id, Skills_Id: skill_id, Years: years, Months: months, Status: status };
+
+                        itemlist3.push(mod3);
+                    })
+
+                    var Project_Id = $("#Project_Id").val();
+                    var PwDesignation = $("#PwDesignation").val();
+                    var Responsibilities = $("#Responsibilities").val();
+                    var StartDate = $("#StartDate").val();
+                    var EndDate = $("#EndDate").val();
+                    var Description = $("#Description").val();
+                    var TeamMembers = $("#TeamMembers").val();
+                    var Manager_Id = $("#Manager_Id").val();
+
+                    var mod4 = {
+                        Project_Id: Project_Id, Designation: PwDesignation, Responsibilities: Responsibilities, StartDate: StartDate, EndDate: EndDate, Description: Description
+                        , TeamMembers: TeamMembers, Manager_Id: Manager_Id
+                    };
+
+
+                    var Designation = $("#Designation2").val();
+                    var DOJ = $("#DOJ").val();
+                    var DateOfRelieving = $("#DateOfRelieving").val();
+                    var ReportingManager = $("#ReportingManager").val();
+                    var JobType = $("#JobType").val();
+                    var DeployedCompanyDetails = $("#DeployedCompanyDetails").val();
+                    var DeployedFromDate = $("#DeployedFromDate").val();
+                    var DeployedToDate = $("#DeployedToDate").val();
+                    var CompanyMailId = $("#CompanyMailId").val();
+                    var BankName = $("#BankName").val();
+                    var IFSC = $("#IFSC").val();
+                    var ModeOfPayment = $("#ModeOfPayment").val();
+                    var WorkLocation = $("#WorkLocation").val();
+                    var Department = $("#Department").val();
+                    var Grade = $("#Grade").val();
+                    var Salary = $("#Salary").val();
+                    var CTC = $("#CTC").val();
+
+                    var mod5 = {
+                        Designation: Designation, DOJ: DOJ, DateOfRelieving: DateOfRelieving, ReportingManager: ReportingManager, JobType: JobType,
+                        DeployedCompanyDetails: DeployedCompanyDetails, DeployedFromDate: DeployedFromDate, DeployedToDate: DeployedToDate, CompanyMailId: CompanyMailId,
+                        BankName: BankName, IFSC: IFSC, ModeOfPayment: ModeOfPayment, WorkLocation: WorkLocation, Department: Department, Grade: Grade, Salary: Salary, CTC: CTC
+                    };
+
+                    var data = new FormData();
+                    var files = $("#uploadEditorImage").get(0).files;
+                  //  alert(files[0]);
+                    if (files.length > 0) {
+                        data.append("HelpSectionImages", files[0]);
+                    }
+                    //file
+                    //var datavalue = fileValue;
+                    //alert(datavalue);
+
+                    $.ajax({
+
+                        url: '@Url.Action("Create", "EmployeeInformation")',  //'/EmployeeInformation/CreateEmployee',
+                        dataType: "json",
+                        data: JSON.stringify({path:filepath, personalInfo: mod, eductionQualifi: itemlist1, exper: itemlist2, empSkill: itemlist3, projectWorked: mod4, currentInfo: mod5 }),
+                        type: 'POST',
+                        //processData: false,
+                       // contentType: false,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            alert("Successfully Added");
+                            window.location.href = '@Url.Action("Index", "EmployeeInformation")';
+                        },
+                        error: function (xhr) {
+                            alert("error");
+                        }
+                    });
+                });
+
+            </script>
+        </div>
+    </div>
+
+
+</body>
+</html>

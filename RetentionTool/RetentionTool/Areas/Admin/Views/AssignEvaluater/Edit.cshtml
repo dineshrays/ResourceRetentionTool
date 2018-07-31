@@ -1,0 +1,203 @@
+﻿@model RetentionTool.Models.AssignEvaluater
+@{
+    ViewBag.Title = "Edit Assign Evaluater";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<div class="card">
+    <div class="card-header">
+
+        <h2>Edit Assign Evaluater</h2>
+    </div>
+    <div class="card-body card-block">
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.Label("Project Name")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.DisplayTextFor(m => m.AssignResource.ProjectsDetail.Name)
+                    @Html.HiddenFor(m => m.AssignResource_Id)
+
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.Label("Trainer Name")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(m => m.Trainer.PersonalInfo.Name)
+                    @*@Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })*@
+
+
+                </div>
+                <br />
+            </div>
+        </div>
+
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>
+                    @Html.HiddenFor(m => m.AssignResource_Id, new { @id = "assresid" })
+
+                    <input type="radio" value="employee" name="type" class="chckEmp" />Employee
+                </div>
+
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    <input type="radio" value="trainer" name="type" class="chckTrain" />Trainer
+
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row form-group" id="trainerview" style="display:none">
+            <div class="col col-md-3">
+                <div>@Html.Label("Trainer Name")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    @*@Html.HiddenFor(m => m.AssignResource_Id)*@
+                    @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
+
+
+                </div>
+                <br />
+            </div>
+        </div>
+
+        <div class="row form-group" id="employeeview" style="display:none">
+            <div class="col col-md-3">
+                <div>@Html.Label("Employee Name")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    @Html.HiddenFor(m => m.AssignResource_Id)
+                    <input class="form-control" style="width:30%" id="searchemp" />
+                    <input id="searchid" style="display:none" />
+                    @*@Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })*@
+
+
+                </div>
+                <br />
+            </div>
+        </div>
+
+        <br />
+
+        <div class="card-body">
+            <input type="submit" value="Edit" id="btnSave" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+    $(function () {
+        $("#btnSave").click(function () {
+            var isEmp;
+            var trainerid;
+            var empid = 0;
+            if ($('input.chckEmp').is(':checked')) {
+                isEmp = true;
+                empid = $("#searchid").val();
+            }
+
+            if ($('input.chckTrain').is(':checked')) {
+
+                isEmp = false;
+                trainerid = $("#trainerid").val();
+            }
+           // var trainerid = $("#trainerid").val();
+            var assresid = $("#assresid").val();
+                var newUrl= '@Url.Action("Index", "AssignEvaluater")';
+
+            var mod = { AssignResource_Id: assresid, Trainer_Id: trainerid };
+
+                $.ajax({
+                    url: '@Url.Action("Edit", "AssignEvaluater")', //
+                    dataType: "json",
+                    data: JSON.stringify({ asseval: mod, isemp: isEmp, empid: empid, id: assresid }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                       
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+        });
+        $("#searchemp").autocomplete({
+            source: function (request, response) {
+                var param = { name: $('#searchemp').val() };
+                $.ajax({
+                    url: "/GeneralTraining/getEmployee",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { name: item.Name, id: item.Id, label: item.EmpCode + '-' + item.Name, lbl: item.EmpCode }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                // prevent autocomplete from updating the textbox
+                event.preventDefault();
+                $(this).val(ui.item.name);
+
+                $("#searchid").val(ui.item.id);
+            }
+        });
+        $('input.chckEmp').change(
+
+            function () {
+                if ($('input.chckEmp').is(':checked')) {
+                    $('#employeeview').show();
+                    $('#trainerview').hide();
+                } else {
+                    $('#employeeview').hide();
+                    $('#trainerview').show();
+                    $("#searchid").val('');
+                    $("#searchemp").val('');
+                }
+            });
+
+        $('input.chckTrain').change(
+
+            function () {
+                if ($('input.chckTrain').is(':checked')) {
+                    $('#trainerview').show();
+                    $('#employeeview').hide();
+                } else {
+                    $('#trainerview').hide();
+                    $('#employeeview').show();
+                }
+            });
+    });
+    //trainerview
+</script>
