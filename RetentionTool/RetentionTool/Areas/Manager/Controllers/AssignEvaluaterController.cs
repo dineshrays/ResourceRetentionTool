@@ -11,8 +11,9 @@ namespace RetentionTool.Areas.Manager.Controllers
     public class AssignEvaluaterController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
-        FetchDefaultIds fetchdet = new FetchDefaultIds();
-      
+       public static FetchDefaultIds fetchdet = new FetchDefaultIds();
+        int managerid = fetchdet.getUserId();
+
         //public ActionResult Exception()
         //{
         //    int i = 0;
@@ -23,7 +24,6 @@ namespace RetentionTool.Areas.Manager.Controllers
         // GET: AssignEvaluater
         public ActionResult Index()
         {
-            int managerid = fetchdet.getUserId();
             
             List<AssignEvaluater> assneval = db.AssignEvaluaters.Where(a =>
            !db.EmployeeEvalTasks.Any(
@@ -39,7 +39,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         }
         public ActionResult Create()
         {
-            int managerid = fetchdet.getUserId();
+            
             //List<AssignResource> assignResources = db.AssignResources.Where(a => a.IsActive == true).ToList();
             List<AssignResource> assignResources = db.AssignResources.Where(a => 
             !db.AssignEvaluaters.Any(b => b.AssignResource_Id == a.Id  && b.IsActive==true) &&
@@ -63,7 +63,7 @@ namespace RetentionTool.Areas.Manager.Controllers
                 AssignResource assRes = db.AssignResources.Find(assigneval.AssignResource_Id);
 
                 CriticalResource criticalRes = db.CriticalResources.FirstOrDefault(a => a.Project_Id == assRes.Project_Id && a.IsActive == true);
-                Trainer trainer = new Trainer();
+                RetentionTool.Models.Trainer trainer = new RetentionTool.Models.Trainer();
                 trainer.PersonalInfo_Id = empid;
                 trainer.CriticalResource_Id = criticalRes.Id;
                 trainer.IsActive = true;
@@ -92,7 +92,7 @@ namespace RetentionTool.Areas.Manager.Controllers
             if (isemp == true)
             {
                
-                Trainer tr = db.Trainers.Find(assEv.Trainer_Id);
+               RetentionTool.Models.Trainer tr = db.Trainers.Find(assEv.Trainer_Id);
                 tr.IsActive = false;
                 db.Entry(tr).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
@@ -101,7 +101,7 @@ namespace RetentionTool.Areas.Manager.Controllers
                 AssignResource assRes = db.AssignResources.Find(id);
 
                 CriticalResource criticalRes = db.CriticalResources.FirstOrDefault(a => a.Project_Id == assRes.Project_Id && a.IsActive == true);
-                Trainer trainer = new Trainer();
+                RetentionTool.Models.Trainer trainer = new RetentionTool.Models.Trainer();
                 trainer.PersonalInfo_Id = empid;
                 trainer.CriticalResource_Id = criticalRes.Id;
                 trainer.IsActive = true;

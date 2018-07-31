@@ -61,21 +61,24 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                   
-                        <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Modules</a>
-                            <ul class="sub-menu children dropdown-menu">
+                    <li class="menu-item-has-children dropdown">
 
-                                <li><a href="@Url.Action( "Index","CommonField")">Primary Skills</a></li>
-                                <li><a href="@Url.Action( "Index","Skills")">Secondary Skills</a></li>
-                                <li><a href="@Url.Action( "Index","Module")">Modules</a></li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-spinner"></i>Modules</a>
+
+                        @* <img src="~/Scripts/images/modules.png" width="20%" height="20%" />Modules</a>*@
+                        <ul class="sub-menu children dropdown-menu">
+
+                            <li><a href="@Url.Action( "Index","CommonField")">Primary Skills</a></li>
+                            <li><a href="@Url.Action( "Index","Skills")">Secondary Skills</a></li>
+                            <li><a href="@Url.Action( "Index","Module")">Modules</a></li>
 
 
-                            </ul>
-                        </li>
+                        </ul>
+                    </li>
                     
                    
                         <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Projects</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-language"></i>Projects</a>
                             <ul class="sub-menu children dropdown-menu">
                                 
                                     <li><a href="@Url.Action( "Index","ProjectsDetails")">New Project</a></li>
@@ -86,7 +89,7 @@
 
                     
                         <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Retention</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-street-view"></i>Retention</a>
                             <ul class="sub-menu children dropdown-menu">
                                 <li><a href="@Url.Action("Index", "CriticalResource")"> Critical Resource</a></li>
                                 <li><a href="@Url.Action("Index", "AssignResource")">Create Backup</a></li>
@@ -96,7 +99,7 @@
                     
 
                         <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Mentor</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-male"></i>Mentor</a>
                             <ul class="sub-menu children dropdown-menu">
                                 <li><a href="@Url.Action("Index", "Training")">Schedule Topics</a></li>
                                 <li><a href="@Url.Action("Index", "SessionSummary")">Session Summary</a></li>
@@ -109,7 +112,7 @@
                  
 
                         <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Cross Training</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap"></i>Cross Training</a>
                             <ul class="sub-menu children dropdown-menu">
                                
                                     <li><a href="@Url.Action("Index", "GeneralTraining")">Plan Training</a></li>
@@ -129,7 +132,7 @@
 
                    
                         <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Employee</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Employee</a>
                             <ul class="sub-menu children dropdown-menu">
                                
                                     <li><a href="@Url.Action("Index", "EmployeeInformation")"> Create Employee/</a></li>
@@ -144,7 +147,7 @@
 
                   
                         <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Plugin</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-plug"></i>Plugin</a>
                             <ul class="sub-menu children dropdown-menu">
                                 <li><a href="@Url.Action( "Upload","ImportData")">Import Employees</a></li>
                                 <li><a href="@Url.Action( "Upload","ImportData")">Export Employees</a></li>
@@ -347,13 +350,13 @@
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="~/Scripts/images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src='@Session["userpath"].ToString()' alt="User Image" height="70%">
                         </a>
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href='@Url.Action("Index","Login",new {area=""})'><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
                     <div class="language-select dropdown" id="language-select">

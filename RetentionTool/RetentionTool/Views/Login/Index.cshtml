@@ -1,93 +1,211 @@
 ﻿@model RetentionTool.ViewModel.UserDetailsViewModel
 @{
-                /**/
-
-                ViewBag.Title = "Index";
-                Layout = null;
+    ViewBag.Title = "loginIndex";
+    Layout = null;
 }
-
-<link href="~/Scripts/assets/css/bootstrap.css" rel="stylesheet" />
-<link href="~/Scripts/assets/css/font-awesome.min.css" rel="stylesheet" />
-
-<style>
-    .allign {
-        margin-left: 100px;
-    }
-</style>
-@using (Html.BeginForm())
+@if (!string.IsNullOrEmpty(ViewBag.Message))
 {
-    <div class="card">
-    <div class="card-header">
-        <strong>Login Form</strong>
-    </div>
-   
-    <div class="card-body card-block">
-        <table>
-            <tr>
-                <td > <img src="~/Scripts/images/logo.png" style="width:100%; margin-bottom: 60px;" /></td>
-                <td >
-                    <form action="" method="post" class="form-horizontal">
-                        <div class="row form-group allign" >
+    <script type="text/javascript">
+        alert("@ViewBag.Message");
+        $("#email").val('');
+     
 
-
-                            <div class="col col-md-3">  @Html.LabelFor(model => model.userDetail.Email, new { @class = "form-control-label" })</div>
-                            <div class="col-12 col-md-9">
-                                @Html.TextBoxFor(model => model.userDetail.Email, new { @class = "form-control", style = "width:100%", @placeholder = "Enter Email" })
-
-
-                                <span class="help-block">Please enter your email</span>
-
-                            </div>
-                        </div>
-                        <div class="row form-group allign">
-                            <div class="col col-md-3">
-                                @Html.LabelFor(model => model.userDetail.Password, new { @class = "form-control-label" })
-                            </div>
-                            <div class="col-12 col-md-9">
-                                @Html.PasswordFor(model => model.userDetail.Password, new { @class = "form-control", style = "width:100%", @placeholder = "Enter Password" })
-
-                                <span class="help-block">Please enter your password</span>
-                            </div>
-                        </div>
-
-
-                        <div class="row form-group allign">
-                            <div class="col col-md-3">
-                                @Html.Label("User Type", new { @class = "form-control-label",style="width:150%" })
-                            </div>
-                            <div class="col-12 col-md-9">
-                                @Html.DropDownListFor(model => model.userDetail.Role_Id, ViewData["roledetails"] as SelectList, new { @class = "form-control", style = "width:100%" })
-                                @*<span class="help-block">Please enter your password</span>*@
-                            </div>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-
-        </table>
-       
-            @*<img src="~/Scripts/images/logo.png" />*@
-
-        
-          
-        
-    <div class="card-footer" style="margin-left: 30%;width:15%">
-        @*<input type="submit" value="Submit" class="btn btn-primary btn-sm" />*@
-        <button type="submit" class="btn btn-primary btn-sm">
-            <i class="fa fa-dot-circle-o"></i> Login
-
-        </button>
-        <button type="reset" class="btn btn-danger btn-sm">
-            <i class="fa fa-ban"></i> Reset
-
-        </button>
-    </div>
-</div>
-        </div>
+    </script>
 }
+@*<h2>loginIndex</h2>*@
 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
 
+<link href="~/Scripts/assets/css/lib/Login-font-awesome.css" rel="stylesheet" />
+<!------ Include the above in your HEAD tag ---------->
+<section class="login-block">
+    @using (Html.BeginForm())
+    {
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 login-sec">
+                    <h2 class="text-center">Login Now</h2>
+                    <form class="login-form">
+                        <div class="form-group">
+                            @*<label for="exampleInputEmail1" class="text-uppercase">Username</label>
+                                <input type="text" class="form-control" placeholder="">*@
+                            @Html.LabelFor(model => model.userDetail.Email, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(model => model.userDetail.Email, new { @class = "form-control",@id="email", style = "width:100%", @placeholder = "Enter Email" })
+                        </div>
 
+                        <div class="form-group">
+                            @*<label for="exampleInputPassword1" class="text-uppercase">Password</label>
+                                <input type="password" class="form-control" placeholder="">*@
+                            @Html.LabelFor(model => model.userDetail.Password, new { @class = "form-control-label" })
+                            @Html.PasswordFor(model => model.userDetail.Password, new { @class = "form-control", style = "width:100%", @placeholder = "Enter Password" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("User Type", new { @class = "form-control-label", style = "width:150%" })
+                            @Html.DropDownListFor(model => model.userDetail.Role_Id, ViewData["roledetails"] as SelectList, new { @class = "form-control", style = "width:100%" })
+                        </div>
 
+                        <div class="form-check">
+                            @*<label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input">
+                                    <small>Remember Me</small>
+                                </label>*@
+                            <button type="submit" class="btn btn-login float-right">Submit</button>
+                        </div>
 
+                    </form>
+                    <div class="copy-text">Created  <i class="fa fa-heart"></i> by <a href="http://groupten.com">Group10 Technologies Pvt Ltd</a></div>
+                </div>
+                <div class="col-md-8 banner-sec">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <div class="banner-text">
+                                        @*<h2>This is Heaven</h2>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block img-fluid" src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="First slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <div class="banner-text">
+                                        @*<h2>This is Heaven</h2>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block img-fluid" src="https://images.pexels.com/photos/872957/pexels-photo-872957.jpeg" alt="First slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <div class="banner-text">
+                                        @*<h2>This is Heaven</h2>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<style type="text/css">
+
+    .login-block {
+        background: #DE6262; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #FFB88C, #DE6262); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        float: left;
+        width: 100%;
+        padding: 50px 0;
+    }
+
+    .banner-sec {
+        background: url(https://static.pexels.com/photos/33972/pexels-photo.jpg) no-repeat left bottom;
+        background-size: cover;
+        min-height: 500px;
+        border-radius: 0 10px 10px 0;
+        padding: 0;
+    }
+
+    .container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 15px 20px 0px rgba(0,0,0,0.1);
+    }
+
+    .carousel-inner {
+        border-radius: 0 10px 10px 0;
+    }
+
+    .carousel-caption {
+        text-align: left;
+        left: 5%;
+    }
+
+    .login-sec {
+        padding: 50px 30px;
+        position: relative;
+    }
+
+        .login-sec .copy-text {
+            position: absolute;
+            width: 80%;
+            bottom: 20px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+            .login-sec .copy-text i {
+                color: #FEB58A;
+            }
+
+            .login-sec .copy-text a {
+                color: #E36262;
+            }
+
+        .login-sec h2 {
+            margin-bottom: 30px;
+            font-weight: 800;
+            font-size: 30px;
+            color: #DE6262;
+        }
+
+            .login-sec h2:after {
+                content: " ";
+                width: 100px;
+                height: 5px;
+                background: #FEB58A;
+                display: block;
+                margin-top: 20px;
+                border-radius: 3px;
+                margin-left: auto;
+                margin-right: auto
+            }
+
+    .btn-login {
+        background: #DE6262;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .banner-text {
+        width: 70%;
+        position: absolute;
+        bottom: 40px;
+        padding-left: 20px;
+    }
+
+        .banner-text h2 {
+            color: #fff;
+            font-weight: 600;
+        }
+
+            .banner-text h2:after {
+                content: " ";
+                width: 100px;
+                height: 5px;
+                background: #FFF;
+                display: block;
+                margin-top: 20px;
+                border-radius: 3px;
+            }
+
+        .banner-text p {
+            color: #fff;
+        }
+</style>

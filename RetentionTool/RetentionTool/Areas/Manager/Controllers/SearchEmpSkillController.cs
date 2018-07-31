@@ -11,6 +11,7 @@ namespace RetentionTool.Areas.Manager.Controllers
     public class SearchEmpSkillController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        public static FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: SearchEmpSkill
         public ActionResult Index()
         {
@@ -20,12 +21,13 @@ namespace RetentionTool.Areas.Manager.Controllers
         public ActionResult getEmployeeDetails(int id)
         {
 
-           
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
             List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
                                                join empskills in db.EmployeeSkills on personal.Id equals empskills.P_Id
                                                join skill in db.Skills on empskills.Skills_Id equals skill.id
-                                              
-                                               where skill.id==id
+                                               join userdet in db.UserDetails on personal.Id equals userdet.Emp_Id
+
+                                               where skill.id==id && userdet.Role_Id == emproleid && userdet.IsActive == true
                                                select new EmployeeList
                                                {
                                                    Id = personal.Id,

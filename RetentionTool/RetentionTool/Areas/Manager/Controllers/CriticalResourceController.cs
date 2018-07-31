@@ -11,6 +11,8 @@ namespace RetentionTool.Areas.Manager.Controllers
     public class CriticalResourceController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        public static FetchDefaultIds fetchdet = new FetchDefaultIds();
+        int managerid = fetchdet.getUserId();
         // GET: CriticalResource
         public ActionResult Index()
         {
@@ -32,6 +34,7 @@ namespace RetentionTool.Areas.Manager.Controllers
                                    on empeval.Id equals empevaldet.EmployeeEvalTask_Id
                                    where empevaldet.IsEligiableMark == true
                                    && assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
+                                   && assignres.Manager_Id==managerid
                                                     select projectdet).ToList();
             //&& projectdet.IsActive == true
             //&& assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
@@ -43,10 +46,10 @@ namespace RetentionTool.Areas.Manager.Controllers
             //}
             //          ).ToList();
             List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a => db.ProjectsWorkeds.Any
-            (p => p.Project_Id == a.Id && p.IsActive == true && a.IsActive == true)).ToList();
+            (p => p.Project_Id == a.Id && p.IsActive == true && a.IsActive == true && p.Manager_Id==managerid) ).ToList();
          List<ProjectsDetail> projectsDetails= projectDet.Where(a=>!backupprjctlist.Any(b=>b.Id==a.Id ) && a.IsActive==true).ToList();
             ViewBag.prjctDetails = projectsDetails;
-          List<CriticalResource> criticalres = db.CriticalResources.Where(a => a.IsActive == true).Distinct().ToList();
+          List<CriticalResource> criticalres = db.CriticalResources.Where(a => backupprjctlist.Any(b => b.Id == a.Id) && a.IsActive == true).ToList();
 
             ViewBag.CriticalResPrjct = criticalres;
            
@@ -71,7 +74,7 @@ namespace RetentionTool.Areas.Manager.Controllers
             return View(prjctwrkvm);
         }
         [HttpPost]
-        public ActionResult Create(CriticalResource criticalR,Trainer trainerlist,List<criticalResourceAccountability> criticalacc)
+        public ActionResult Create(CriticalResource criticalR, RetentionTool.Models.Trainer trainerlist,List<criticalResourceAccountability> criticalacc)
         {
             criticalR.IsActive = true;
             db.CriticalResources.Add(criticalR);
@@ -120,7 +123,7 @@ namespace RetentionTool.Areas.Manager.Controllers
          CriticalResource critcalRes = db.CriticalResources.FirstOrDefault(a => a.IsActive == true && a.Project_Id==id);
             //.ToList().Select(a => a.PersonalInfo_Id).Distinct();
             ViewBag.CriticalRes = critcalRes;
-            Trainer trainer = db.Trainers.FirstOrDefault(a => a.IsActive == true && a.CriticalResource_Id==critcalRes.Id);
+            RetentionTool.Models.Trainer trainer = db.Trainers.FirstOrDefault(a => a.IsActive == true && a.CriticalResource_Id==critcalRes.Id);
             //.ToList().Select(a => a.PersonalInfo_Id).Distinct();
             ViewBag.TrainerDet = trainer;
             ViewBag.criticalacc = criticalAccount;
@@ -129,7 +132,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, /*List<CriticalResource> criticallist,*/CriticalResource criticallist, Trainer trainerlist, List<criticalResourceAccountability> criticalacc)
+        public ActionResult Edit(int id, /*List<CriticalResource> criticallist,*/CriticalResource criticallist, RetentionTool.Models.Trainer trainerlist, List<criticalResourceAccountability> criticalacc)
         {
             //List<CriticalResource> personalIdlist = db.CriticalResources.Where(a => a.Project_Id == id && a.IsActive==true).ToList();
 
@@ -156,7 +159,7 @@ namespace RetentionTool.Areas.Manager.Controllers
             db.Entry(critcial).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 
-            Trainer trainer = db.Trainers.FirstOrDefault(a => a.CriticalResource_Id == critcial.Id && a.IsActive == true);
+            RetentionTool.Models.Trainer trainer = db.Trainers.FirstOrDefault(a => a.CriticalResource_Id == critcial.Id && a.IsActive == true);
             //trainerlist.IsActive = true;
             // trainerlist.CriticalResource_Id = critcial.Id;
             trainer.PersonalInfo_Id = trainerlist.PersonalInfo_Id;
@@ -221,7 +224,7 @@ namespace RetentionTool.Areas.Manager.Controllers
             CriticalResource critcalRes = db.CriticalResources.FirstOrDefault(a => a.IsActive == true && a.Project_Id == id);
             //.ToList().Select(a => a.PersonalInfo_Id).Distinct();
             ViewBag.CriticalRes = critcalRes;
-            Trainer trainer = db.Trainers.FirstOrDefault(a => a.IsActive == true && a.CriticalResource_Id == critcalRes.Id);
+            RetentionTool.Models.Trainer trainer = db.Trainers.FirstOrDefault(a => a.IsActive == true && a.CriticalResource_Id == critcalRes.Id);
             //.ToList().Select(a => a.PersonalInfo_Id).Distinct();
             ViewBag.TrainerDet = trainer;
             ViewBag.criticalacc = criticalAccount;
@@ -242,9 +245,6 @@ namespace RetentionTool.Areas.Manager.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult DemoView()
-        {
-            return View();
-        }
+        
     }
 }

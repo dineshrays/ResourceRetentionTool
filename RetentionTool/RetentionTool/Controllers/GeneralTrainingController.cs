@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
 
-namespace RetentionTool.Controllers
+namespace RetentionTool.Areas.Admin.Controllers
 {
     public class GeneralTrainingController : Controller
     {
@@ -98,7 +98,7 @@ namespace RetentionTool.Controllers
             if (assgnResvm != null)
             {
                 ProjectsDetail project = db.ProjectsDetails.FirstOrDefault(a => a.Name == "Training") ;
-                Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id && a.IsActive == true);
+               RetentionTool.Models.Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id && a.IsActive == true);
                 AssignResource assRes = new AssignResource()
                 {
                     Id = assgnResvm.Id,
@@ -188,7 +188,7 @@ namespace RetentionTool.Controllers
                 db.Entry(i).State = System.Data.Entity.EntityState.Deleted;
             }
             db.SaveChanges();
-            Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id);
+           RetentionTool.Models.Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id);
             AssignResource assignRes = new AssignResource()
             {
                 Id = id,

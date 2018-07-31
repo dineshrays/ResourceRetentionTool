@@ -11,6 +11,7 @@ namespace RetentionTool.Controllers
     public class LoginController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: Login
         public ActionResult Index()
         {
@@ -19,11 +20,13 @@ namespace RetentionTool.Controllers
         }
         public ActionResult loginIndex()
         {
+            getRoleDetails();
             return View();
         }
         [HttpPost]
         public ActionResult Index(UserDetailsViewModel uservm)
         {
+            ViewBag.Message = null;
             //  UserDetail userdetails = new UserDetail();
             //  userdetails = uservm.userDetail;
             UserDetail userResult = db.UserDetails.FirstOrDefault(a => a.Email == uservm.userDetail.Email && a.Password==uservm.userDetail.Password && a.IsActive==true && a.Role_Id==uservm.userDetail.Role_Id);
@@ -35,33 +38,59 @@ namespace RetentionTool.Controllers
 
                 //});
                 Session["RoleId"] = userResult.Role_Id;
+               // Session["userpath"] = userResult.;
+                int empRoleId = fetchdet.getDefaultEmployeeRoleId();
+                int managerRoleid = fetchdet.getDefaultManagerRoleId();
+                int adminRoleid = fetchdet.getDefaultAdminRoleId();
+                int trainerRoleid = fetchdet.getDefaultTrainerRoleId();
 
-                if (userResult.Emp_Id!=null)
+                int internRoleid = fetchdet.getDefaultInternRoleId();
+                Session["userId"] = userResult.Emp_Id;
+                PersonalInfo personalInfo = db.PersonalInfoes.Find(userResult.Emp_Id);
+                Session["userpath"] = personalInfo.Image;
+                if (empRoleId==userResult.Role_Id)
                 {
-                    Session["userId"] = userResult.Emp_Id;
+                    
                     //return RedirectToAction("")
 
-                    return RedirectToAction("Index", "Module", new { Area = "Admin" });
-                    //return RedirectToAction("Index", "EmployeeInformation", new { Area="Employee"});
+                   // return RedirectToAction("Index", "Module", new { Area = "Admin" });
+                    return RedirectToAction("Index", "EmployeeInformation", new { Area="Employee"});
                     //return RedirectToAction("Index", "Training", new { Area = "Trainer" });
 
                     //return RedirectToAction("Index", "ProjectWorked", new { Area = "Manager" });
 
                 }
+                else if (managerRoleid == userResult.Role_Id)
+                {
+                    return RedirectToAction("Index", "ProjectWorked", new { Area = "Manager" });
+
+                }
+                else if (adminRoleid == userResult.Role_Id)
+                {
+                    return RedirectToAction("Index", "Module", new { Area = "Admin" });
+
+                }else if (trainerRoleid == userResult.Role_Id)
+                {
+                    return RedirectToAction("Index", "Training", new { Area = "Trainer" });
+                }
+                else if (internRoleid == userResult.Role_Id)
+                {
+                    return RedirectToAction("Index", "Training", new { Area = "Trainer" });
+                }
                 else
                 {
-                    Session["userId"] = "1";
-                    return RedirectToAction("Index", "SearchEmpSkill", new { Area= "Admin" });
-                        //View("~/Views/Admin/SearchEmpSkill/Index.cshtml");
-                        //RedirectToAction("Index", "Module");
+                    ViewBag.Message = "Invalid Username or Password or Role";
+                    getRoleDetails();
+                    return View();
+                        //Content("<script language='javascript' type='text/javascript'>alert('Invalid Username or Password or Role');</script>");
                 }
-               
-               
 
             }
             else
             {
-                return RedirectToAction("Index", "UserDetails");
+                ViewBag.Message = "Invalid Username or Password";
+                getRoleDetails();
+                return View();
 
             }
 

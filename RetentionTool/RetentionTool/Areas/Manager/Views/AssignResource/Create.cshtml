@@ -58,7 +58,9 @@
                 @Html.LabelFor(m => m.managername, new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control", @id = "managerid", style = "width:30%" })
+                @Html.DisplayFor(m=>m.managername, new { @class = "form-control" })
+
+                    
             </div>
         </div>
         <br />

@@ -138,7 +138,8 @@
         $(".modal-body p").html("");
         $.ajax(
             {
-                url: '/AssignResource/EmpDetails',
+                url:'@Url.Action("EmpDetails", "AssignResource")',
+                    //'/AssignResource/EmpDetails',
                 type: 'POST',
                 datatype: 'application/json',
                 contentType: 'application/json',
