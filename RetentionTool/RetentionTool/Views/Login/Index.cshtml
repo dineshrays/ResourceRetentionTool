@@ -8,23 +8,21 @@
     <script type="text/javascript">
         alert("@ViewBag.Message");
         $("#email").val('');
-     
+
 
     </script>
 }
 @*<h2>loginIndex</h2>*@
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="~/Scripts/assets/css/lib/Login-font-awesome.css" rel="stylesheet" />
 <!------ Include the above in your HEAD tag ---------->
 <section class="login-block">
     @using (Html.BeginForm())
     {
-        
+
         <div class="container">
             <div class="row">
                 <div class="col-md-4 login-sec">
@@ -34,7 +32,7 @@
                             @*<label for="exampleInputEmail1" class="text-uppercase">Username</label>
                                 <input type="text" class="form-control" placeholder="">*@
                             @Html.LabelFor(model => model.userDetail.Email, new { @class = "form-control-label" })
-                            @Html.TextBoxFor(model => model.userDetail.Email, new { @class = "form-control",@id="email", style = "width:100%", @placeholder = "Enter Email" })
+                            @Html.TextBoxFor(model => model.userDetail.Email, new { @class = "form-control", @id = "email", style = "width:100%", @placeholder = "Enter Email" })
                         </div>
 
                         <div class="form-group">
@@ -57,45 +55,59 @@
                         </div>
 
                     </form>
-                    <div class="copy-text">Created  <i class="fa fa-heart"></i> by <a href="http://groupten.com">Group10 Technologies Pvt Ltd</a></div>
+                    <div class="copy-text">Created by <a href="http://groupten.com">Group10 Technologies Pvt Ltd</a></div>
                 </div>
                 <div class="col-md-8 banner-sec">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
                         <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
                         </ol>
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <div class="banner-text">
-                                        @*<h2>This is Heaven</h2>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>*@
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block img-fluid" src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <div class="banner-text">
-                                        @*<h2>This is Heaven</h2>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>*@
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block img-fluid" src="https://images.pexels.com/photos/872957/pexels-photo-872957.jpeg" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <div class="banner-text">
-                                        @*<h2>This is Heaven</h2>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>*@
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
+                        <!-- Wrapper for slides -->
+                        <center>
+
+
+
+                            <div class="carousel-inner">
+
+                                <div class="item active">
+                                    <img src="~/Scripts/images/group10logo.jpg" alt="Group10">
+                                  
+
+                                </div>
+
+                                <div class="item">
+                                    <img src="~/Scripts/images/vendor-management.jpg" alt="Group10 Image">
+                                   
+                                </div>
+
+                                <div class="item">
+                                    <img src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="Group10">
+
+                                </div>
+
+                                <div class="item">
+                                    <img src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="Group10">
+
+
+                                </div>
+
+                            </div>
+                        </center>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -106,9 +118,9 @@
 <style type="text/css">
 
     .login-block {
-        background: #DE6262; /* fallback for old browsers */
-        background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262); /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to bottom, #FFB88C, #DE6262); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: #ccb3ff; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #aa80ff, #ccb3ff); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #aa80ff, #ccb3ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         float: left;
         width: 100%;
         padding: 50px 0;
