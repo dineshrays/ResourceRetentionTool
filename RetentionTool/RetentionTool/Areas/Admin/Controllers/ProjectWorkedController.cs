@@ -10,6 +10,7 @@ namespace RetentionTool.Areas.Admin.Controllers
     public class ProjectWorkedController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: ProjectWorked
         public ActionResult Index()
         {
@@ -219,8 +220,21 @@ namespace RetentionTool.Areas.Admin.Controllers
 
         public void getManagers()
         {
-            var val = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
+            int managerroleid = fetchdet.getDefaultManagerRoleId();
+            var val = (from personalInfo in db.PersonalInfoes
+
+                       join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                       where personalInfo.IsActive == true && userdet.IsActive == true
+                       && userdet.Role_Id == managerroleid
+                       select new
+                       {
+                           Id = personalInfo.Id,
+                           Name = personalInfo.Name
+                       }).ToList();
+
             ViewData["managerslist"] = val;
+            //var val = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
+            //ViewData["managerslist"] = val;
         }
         public void getProjectList()
         {

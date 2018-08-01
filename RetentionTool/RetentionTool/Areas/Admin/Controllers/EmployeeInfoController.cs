@@ -56,7 +56,20 @@ namespace RetentionTool.Areas.Admin.Controllers
         }
         public void getId()
         {
-            ViewData["Id"] = new SelectList(db.PersonalInfoes.ToList(), "Id","Name");
+            FetchDefaultIds fetchdet = new FetchDefaultIds();
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
+            var data = (from personalInfo in db.PersonalInfoes
+                        join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                        where personalInfo.IsActive == true
+                        && userdet.IsActive == true
+                        && userdet.Role_Id == emproleid
+                        select new
+                        {
+                            Id = personalInfo.Id,
+                            Name = personalInfo.Name
+                        }).ToList();
+
+            ViewData["Id"] = new SelectList(data, "Id","Name");
         }
         
         [HttpPost]

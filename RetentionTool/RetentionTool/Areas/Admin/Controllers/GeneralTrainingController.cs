@@ -11,14 +11,14 @@ namespace RetentionTool.Controllers
     public class GeneralTrainingController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: GeneralTraining
         public ActionResult Index()
         {
             // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
             //var assignres;
             List<AssignResourceViewModel> assgnvm;
-         if (Session["RoleId"].ToString()=="5")
-            {
+         
                 assgnvm = (from assignres in db.AssignResources
                                                              // join assignresdet in db.AssignResourcesDets
                                                              // on assignres.Id equals assignresdet.AssignResources_Id
@@ -46,38 +46,7 @@ namespace RetentionTool.Controllers
                                                          }).ToList();
 
 
-            }
-            else
-            {
-                int id = int.Parse(Session["userId"].ToString());
-                assgnvm = (from assignres in db.AssignResources
-                               // join assignresdet in db.AssignResourcesDets
-                               // on assignres.Id equals assignresdet.AssignResources_Id
-
-
-                           where assignres.IsActive == true
-                           && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
-                           && assignres.ProjectsDetail.Name == "Training" 
-                           && assignres.Manager_Id== id
-                           select new AssignResourceViewModel
-                           {
-                               Id = assignres.Id,
-                               Manager_Id = assignres.Manager_Id,
-                               Project_Id = assignres.Project_Id,
-                               projectname = assignres.ProjectsDetail.Name,
-                               managername = assignres.PersonalInfo.Name,
-                               Module_Id = assignres.Module_Id,
-                               modulename = assignres.Module.ModuleName,
-                               Trainer_Id = assignres.Trainer.PersonalInfo_Id,
-                               trainername = assignres.Trainer.PersonalInfo.Name,
-                               //    Employee_Id=   assignresdet.Employee_Id,
-                               //    employeename=  assignresdet.PersonalInfo.Name,
-                               Date = assignres.Date,
-                               IsActive = assignres.IsActive,
-                               //   AssignResourceId=  assignresdet.Id
-                           }).ToList();
-
-            }
+        
 
 
             return View(assgnvm);
@@ -282,7 +251,18 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
         public void getManagers()
         {
 
-            var val = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
+            int managerroleid = fetchdet.getDefaultManagerRoleId();
+            var val = (from personalInfo in db.PersonalInfoes
+
+                       join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                       where personalInfo.IsActive == true && userdet.IsActive == true
+                       && userdet.Role_Id == managerroleid
+                       select new
+                       {
+                           Id = personalInfo.Id,
+                           Name = personalInfo.Name
+                       }).ToList();
+
             ViewData["managerslist"] = val;
         }
 
@@ -301,11 +281,13 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
             // inner join Module module
             // on skill.id = module.Skill_Id
             // where module.Id = 2003
+            int emproleid = fetchdet.getDefaultManagerRoleId();
             List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
                                                join empskills in db.EmployeeSkills on personal.Id equals empskills.P_Id
                                                join skill in db.Skills on empskills.Skills_Id equals skill.id
                                                join module in db.Modules on skill.id equals module.Skill_Id
-                                               where module.Id == moduleid
+                                               join userdet in db.UserDetails on personal.Id equals userdet.Emp_Id
+                                               where module.Id == moduleid && userdet.IsActive==true && userdet.Role_Id==emproleid
                                                select new EmployeeList
                                                {
                                                    Id = personal.Id,
@@ -331,13 +313,12 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
         }
         public void getEmployees()
         {
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
             var data = (from personalInfo in db.PersonalInfoes
-                            //join
-
-                            // userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                        join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
                         where personalInfo.IsActive == true
-                        //&& userdet.IsActive == true
-                        //&& userdet.Role_Id==3
+                        && userdet.IsActive == true
+                        && userdet.Role_Id == emproleid
                         select new
                         {
                             Id = personalInfo.Id,
@@ -345,8 +326,7 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
                         }).ToList();
             //  var val = new SelectList(db.PersonalInfoes.ToList(), "Id", "Name");
             ViewData["employeeslist"] = new SelectList(data, "Id", "Name");
-            //var val = new SelectList(db.PersonalInfoes.Where(a => a.IsActive == true).ToList(), "id", "Name");
-            //ViewData["employeeslist"] = val;
+           
         }
         public void getModules()
         {
