@@ -21,7 +21,8 @@
                 <div>@Html.Label("Name")</div>
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(model => model.EducationQualificationVm.P_Id, ViewData["Id"] as SelectList, new { @id = "P_Id", @class = "form-control", style = "width:40%" })
+                @Html.HiddenFor(model=>model.PersonalInfoVm.Id,new { @id= "P_Id" })
+                @Html.(model => model.EducationQualificationVm.P_Id, ViewData["Id"] as SelectList, new { @id = "P_Id", @class = "form-control", style = "width:40%" })
             </div>
         </div>
 

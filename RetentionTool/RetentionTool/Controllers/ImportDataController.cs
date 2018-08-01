@@ -10,7 +10,10 @@ using System.Web.Mvc;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Drawing;
-
+using System.Drawing.Imaging;
+using Spire.Xls;
+using System.Drawing;
+using System.Reflection;
 namespace RetentionTool.Controllers
 {
     public class ImportDataController : Controller
@@ -21,7 +24,8 @@ namespace RetentionTool.Controllers
             return View();
         }
 
-        SqlConnection sqlcon = new SqlConnection("workstation id=RetentionTool.mssql.somee.com;packet size=4096;user id=dineshrays_SQLLogin_1;pwd=dinesh@123;data source=RetentionTool.mssql.somee.com;persist security info=False;initial catalog=RetentionTool");
+        SqlConnection sqlcon = new SqlConnection("Data Source=G10PROLT006;Initial Catalog=RetentionTool;Integrated Security=True");
+            //"workstation id=RetentionTool.mssql.somee.com;packet size=4096;user id=dineshrays_SQLLogin_1;pwd=dinesh@123;data source=RetentionTool.mssql.somee.com;persist security info=False;initial catalog=RetentionTool");
         public ActionResult Upload()
         {
             return View();
@@ -72,7 +76,10 @@ namespace RetentionTool.Controllers
                                         sqlcon.Open();
                                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                                         {
+                                            StoreImage(filePath,i);
+                                            // Worksheet sheet = workbook.Worksheets[0];
                                             //Now we can insert this data to database...
+                                           // string image = ds.Tables[0].Rows[i]["Image"].ToString();
                                             string empid = ds.Tables[0].Rows[i]["Employee ID"].ToString();
                                             string empname = ds.Tables[0].Rows[i]["First Name"].ToString() + " " + ds.Tables[0].Rows[i]["Last Name"].ToString();
                                             //string managerid = ds.Tables[0].Rows[i]["Manager ID"].ToString();
@@ -185,7 +192,23 @@ namespace RetentionTool.Controllers
             return View();
         }
 
+        public void StoreImage(string filepath,int i)
+        {
+            Workbook workbook = new Workbook();
+            workbook.LoadFromFile(filepath);
+            Worksheet sheet = workbook.Worksheets[0];
+            //for (int i = 0; i <= 3; i++)
+            //{
+                ExcelPicture picture = sheet.Pictures[i];
 
+            //  var i = Image.FromFile(picture.);
+            string path = Path.Combine(Server.MapPath("~/ImageStore"),
+                                             Path.GetFileName(i + ".png"));
+           // string i2Path = @"C:\Users\Group10\source\repos\CommissionCalcula\CommissionCalcula\Image\Image2" + i + ".png";
+                var i2 = new Bitmap(picture.Picture);
+                i2.Save(path, ImageFormat.Jpeg);
+            //}
+        }
        
         public ActionResult About()
         {

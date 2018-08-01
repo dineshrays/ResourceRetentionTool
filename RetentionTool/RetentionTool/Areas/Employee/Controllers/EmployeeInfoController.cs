@@ -56,7 +56,9 @@ namespace RetentionTool.Areas.Employee.Controllers
         }
         public void getId()
         {
-            ViewData["Id"] = new SelectList(db.PersonalInfoes.ToList(), "Id","Name");
+            FetchDefaultIds fetchdet = new FetchDefaultIds();
+            int id = fetchdet.getUserId();
+            ViewData["Id"] = new SelectList(db.PersonalInfoes.Where(a=>a.Id==id).ToList(), "Id","Name");
         }
         
         [HttpPost]
@@ -78,8 +80,16 @@ namespace RetentionTool.Areas.Employee.Controllers
 
         public ActionResult EmpSkillsCreate()
         {
-            getId();
-            return View();
+            FetchDefaultIds fetchdet = new FetchDefaultIds();
+            int id = fetchdet.getUserId();
+            PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == id);
+            EmployeeInfoViewModel empvm = new EmployeeInfoViewModel();
+
+            empvm.PersonalInfoVm.Id = personalinfo.Id;
+            empvm.PersonalInfoVm.Name = personalinfo.Name;
+           // ViewData["Id"] = new SelectList(db.PersonalInfoes.Where(a => a.Id == id).ToList(), "Id", "Name");
+            //getId();
+            return View(empvm);
 
         }
         [HttpPost]
