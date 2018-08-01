@@ -22,7 +22,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.HiddenFor(model=>model.PersonalInfoVm.Id,new { @id= "P_Id" })
-                @Html.(model => model.EducationQualificationVm.P_Id, ViewData["Id"] as SelectList, new { @id = "P_Id", @class = "form-control", style = "width:40%" })
+                @Html.DisplayFor(model => model.PersonalInfoVm.Name,new {  @class = "form-control", style = "width:40%" })
             </div>
         </div>
 

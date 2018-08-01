@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RetentionTool.Models;
+using RetentionTool.ViewModel;
 
 namespace RetentionTool.Areas.Employee.Controllers
 {
@@ -84,9 +86,10 @@ namespace RetentionTool.Areas.Employee.Controllers
             int id = fetchdet.getUserId();
             PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == id);
             EmployeeInfoViewModel empvm = new EmployeeInfoViewModel();
-
-            empvm.PersonalInfoVm.Id = personalinfo.Id;
-            empvm.PersonalInfoVm.Name = personalinfo.Name;
+            PersonalInfoModel personalInfovm = new PersonalInfoModel();
+            personalInfovm.Id = personalinfo.Id;
+            personalInfovm.Name = personalinfo.Name;
+            empvm.PersonalInfoVm = personalInfovm;
            // ViewData["Id"] = new SelectList(db.PersonalInfoes.Where(a => a.Id == id).ToList(), "Id", "Name");
             //getId();
             return View(empvm);

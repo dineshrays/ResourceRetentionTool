@@ -59,6 +59,8 @@ namespace RetentionTool.Controllers
                     string ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=Excel 12.0;";
                     {
                         string connectionstr = String.Format(ConnectionString, filePath);
+                        Workbook workbook = new Workbook();
+                        workbook.LoadFromFile(filePath);
                         using (OleDbConnection conn = new OleDbConnection(connectionstr))
                         {
                             conn.Open();
@@ -76,7 +78,7 @@ namespace RetentionTool.Controllers
                                         sqlcon.Open();
                                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                                         {
-                                            StoreImage(filePath,i);
+                                            
                                             // Worksheet sheet = workbook.Worksheets[0];
                                             //Now we can insert this data to database...
                                            // string image = ds.Tables[0].Rows[i]["Image"].ToString();
@@ -85,8 +87,8 @@ namespace RetentionTool.Controllers
                                             //string managerid = ds.Tables[0].Rows[i]["Manager ID"].ToString();
                                             // int employeeexperience = (int)ds.Tables[0].Rows[i]["Employee Experience"];
 
-
-                                            SqlCommand sqlCommand = new SqlCommand("insert into PersonalInfo(EmpCode,Name,IsActive) values('" + empid + "','" + empname + "', '1'); select SCOPE_IDENTITY();", sqlcon);
+                                          string path= StoreImage(empid, i, workbook);
+                                            SqlCommand sqlCommand = new SqlCommand("insert into PersonalInfo(EmpCode,Name,IsActive,Image) values('" + empid + "','" + empname + "', '1','"+path+"'); select SCOPE_IDENTITY();", sqlcon);
 
                                             string PersonalInfoIdstr = sqlCommand.ExecuteScalar().ToString();
                                             int PersonalInfoId = Convert.ToInt32(PersonalInfoIdstr);
@@ -192,10 +194,9 @@ namespace RetentionTool.Controllers
             return View();
         }
 
-        public void StoreImage(string filepath,int i)
+        public string StoreImage(string empid,int i,Workbook workbook)
         {
-            Workbook workbook = new Workbook();
-            workbook.LoadFromFile(filepath);
+            
             Worksheet sheet = workbook.Worksheets[0];
             //for (int i = 0; i <= 3; i++)
             //{
@@ -203,10 +204,11 @@ namespace RetentionTool.Controllers
 
             //  var i = Image.FromFile(picture.);
             string path = Path.Combine(Server.MapPath("~/ImageStore"),
-                                             Path.GetFileName(i + ".png"));
+                                             Path.GetFileName(empid + ".png"));
            // string i2Path = @"C:\Users\Group10\source\repos\CommissionCalcula\CommissionCalcula\Image\Image2" + i + ".png";
                 var i2 = new Bitmap(picture.Picture);
                 i2.Save(path, ImageFormat.Jpeg);
+            return "~/ImageStore/"+empid+".png";
             //}
         }
        
