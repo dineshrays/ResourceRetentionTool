@@ -6,13 +6,13 @@
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-
-
-<h2>Primary Skills</h2>
-    <div class="card-body">
-
+<div class="card">
+    <div class="card-header">
+        <h2>Primary Skills</h2>
+    </div>
+    <div class="card-body card-text">
         @Html.ActionLink("Create New", "Create", "CommonField", null, new { @class = "btn btn-outline-primary" })
-       
+
         </div>
         <div class="container" style="width:100%;margin-top:2%">
             <table class="table table-striped">
@@ -21,8 +21,8 @@
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     @*<th>
-                        @Html.DisplayNameFor(model => model.IsActive)
-                    </th>*@
+                            @Html.DisplayNameFor(model => model.IsActive)
+                        </th>*@
                     <th>
                         @Html.Label("Actions")
                     </th>
@@ -36,8 +36,8 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         @*<td>
-                            @Html.DisplayFor(modelItem => item.IsActive)
-                        </td>*@
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>*@
                         <td>
                             @Html.ActionLink(" ", "Edit", new { id = item.id }, new { @class = "ti-pencil" }) |
 
@@ -48,3 +48,5 @@
 
             </table>
         </div>
+    </div>
+@*</div>*@

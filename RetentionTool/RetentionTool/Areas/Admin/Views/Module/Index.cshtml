@@ -5,54 +5,57 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+<div class="card">
+    <div class="card-header">
+        <h2>Modules</h2>
+    </div>
 
-<h2>Modules</h2>
+    <div class="card-body">
+        @Html.ActionLink("Create New", "Create", "Module", null, new { @class = "btn btn-outline-primary" })
 
-<div class="card-body">
-    @Html.ActionLink("Create New", "Create", "Module", null, new { @class = "btn btn-outline-primary" })
-  
+
+
+        @if (Model != null)
+        {
+            <div class="container" style="width:100%;margin-top:2%">
+
+                <table class="table table-striped">
+
+                    <tr>
+                        <th>Module Name</th>
+                        <th>CommonField Name</th>
+                        <th>Skill Name</th>
+                        <th>Date</th>
+                        <th>Topics</th>
+                        <th>Hours Required</th>
+                        <th>IsActive</th>
+                        <th>Actions</th>
+                    </tr>
+
+                    <tbody>
+                        @foreach (var obj in Model)
+                        {
+                            <tr>
+                                <td>@obj.ModuleName</td>
+                                <td>@obj.CommonFieldName</td>
+                                <td>@obj.SkillName</td>
+                                <td>@obj.Date</td>
+                                <td>@obj.Topics</td>
+                                <td>@obj.HoursRequired</td>
+                                <td>@obj.IsActive</td>
+                                <td>
+                                    @Html.ActionLink(" ", "Edit", new { id = obj.Id }, new { @class = "ti-pencil" })
+                                    @Html.ActionLink(" ", "Delete", new { id = obj.Id }, new { @class = "ti-trash" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        }
+
+    </div>
+
 </div>
-
-    @if (Model != null)
-    {
-        <div class="container" style="width:100%;margin-top:2%">
-
-            <table class="table table-striped">
-
-                <tr>
-                    <th>Module Name</th>
-                    <th>CommonField Name</th>
-                    <th>Skill Name</th>
-                    <th>Date</th>
-                    <th>Topics</th>
-                    <th>Hours Required</th>
-                    <th>IsActive</th>
-                    <th>Actions</th>
-                </tr>
-
-                <tbody>
-                    @foreach (var obj in Model)
-                    {
-                        <tr>
-                            <td>@obj.ModuleName</td>
-                            <td>@obj.CommonFieldName</td>
-                            <td>@obj.SkillName</td>
-                            <td>@obj.Date</td>
-                            <td>@obj.Topics</td>
-                            <td>@obj.HoursRequired</td>
-                            <td>@obj.IsActive</td>
-                            <td>
-                                @Html.ActionLink(" ", "Edit", new { id = obj.Id }, new { @class = "ti-pencil" }) 
-                                @Html.ActionLink(" ", "Delete", new { id = obj.Id }, new { @class = "ti-trash" })
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-
-            </table>
-        </div>
-
-    }
-
-
-
