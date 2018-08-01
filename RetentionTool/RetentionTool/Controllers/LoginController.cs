@@ -32,13 +32,7 @@ namespace RetentionTool.Controllers
             UserDetail userResult = db.UserDetails.FirstOrDefault(a => a.Email == uservm.userDetail.Email && a.Password==uservm.userDetail.Password && a.IsActive==true && a.Role_Id==uservm.userDetail.Role_Id);
             if(userResult!=null)
             {
-                //return RedirectToRoute(new
-                //{
-
-
-                //});
                 Session["RoleId"] = userResult.Role_Id;
-               // Session["userpath"] = userResult.;
                 int empRoleId = fetchdet.getDefaultEmployeeRoleId();
                 int managerRoleid = fetchdet.getDefaultManagerRoleId();
                 int adminRoleid = fetchdet.getDefaultAdminRoleId();
