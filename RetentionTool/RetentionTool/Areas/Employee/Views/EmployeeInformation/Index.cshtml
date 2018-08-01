@@ -1,6 +1,6 @@
 ﻿@model RetentionTool.ViewModel.EmployeeInformationViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employees";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
     var details = ViewBag.details;
@@ -9,11 +9,11 @@
 <div class="card">
     <div class="card-header">
 
-        <h2>Employee Information Index</h2>
+        <h2>Employees Information</h2>
 
     </div>
     <div class="card-body">
-        @Html.ActionLink("Create New", "CreateEmployee", "EmployeeInformation", null, new { @class = "btn btn-outline-primary" })
+        @*@Html.ActionLink("Create New", "CreateEmployee", "EmployeeInformation", null, new { @class = "btn btn-outline-primary" })*@
         <div class="container" style="width:100%;margin-top:2%">
             <table class="table table-striped" id="tble">
                 <tr>
@@ -30,7 +30,7 @@
                         <td><img src=@item.Image height="50" width="50"/></td>
                         <td>
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
-                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                            @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })*@
                         </td>
                     </tr>
                 }

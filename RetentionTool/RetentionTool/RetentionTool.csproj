@@ -1402,10 +1402,6 @@
     <Content Include="Areas\Manager\Views\GeneralTraining\Delete.cshtml" />
     <Content Include="Areas\Manager\Views\GeneralTraining\Edit.cshtml" />
     <Content Include="Areas\Manager\Views\GeneralTraining\Index.cshtml" />
-    <Content Include="Areas\Manager\Views\CriticalResource\AssignResource\Create.cshtml" />
-    <Content Include="Areas\Manager\Views\CriticalResource\AssignResource\Delete.cshtml" />
-    <Content Include="Areas\Manager\Views\CriticalResource\AssignResource\Edit.cshtml" />
-    <Content Include="Areas\Manager\Views\CriticalResource\AssignResource\Index.cshtml" />
     <Content Include="Areas\Manager\Views\CriticalResource\Create.cshtml" />
     <Content Include="Areas\Manager\Views\CriticalResource\Delete.cshtml" />
     <Content Include="Areas\Manager\Views\CriticalResource\Edit.cshtml" />
@@ -1451,6 +1447,11 @@
     <Content Include="Areas\Admin\Views\AssignEvaluater\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\AssignEvaluater\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\AssignEvaluater\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Training\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Training\delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Training\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Training\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\EmployeeInformation\viewdetails.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />

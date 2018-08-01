@@ -272,5 +272,32 @@ namespace RetentionTool.Areas.Admin.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
 
         }
+
+        public ActionResult viewdetails(int id)
+        {
+            getManagers();
+            getProjectList();
+            PersonalInfo p = db.PersonalInfoes.Find(id);
+            PersonalInfoModel pm = new PersonalInfoModel();
+            EmployeeInformationViewModel Eivw = new EmployeeInformationViewModel();
+
+            Eivw.PersonalInfoVm = new PersonalInfoModel();
+
+            Eivw.PersonalInfoVm.EmpCode = p.EmpCode;
+            Eivw.PersonalInfoVm.Name = p.Name;
+            Eivw.PersonalInfoVm.FatherName = p.FatherName;
+            Eivw.PersonalInfoVm.DOB = p.DOB;
+            Eivw.PersonalInfoVm.Gender = p.Gender;
+            Eivw.PersonalInfoVm.PermanentAddress = p.PermanentAddress;
+            Eivw.PersonalInfoVm.CommunicationAddress = p.CommunicationAddress;
+            Eivw.PersonalInfoVm.Contact = p.Contact;
+            Eivw.PersonalInfoVm.Qualification = p.Qualification;
+            Eivw.PersonalInfoVm.Email = p.Email;
+            Eivw.PersonalInfoVm.PanNo = p.PanNo;
+            Eivw.PersonalInfoVm.AadharNo = p.AadharNo;
+            Eivw.PersonalInfoVm.BloodGroup = p.BloodGroup;
+            //Eivw.PersonalInfoVm.Image = path;
+            return View(Eivw);
+        }
     }
 }
