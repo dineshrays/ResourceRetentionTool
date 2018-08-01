@@ -28,7 +28,7 @@
                         <td>@item.EmpCode</td>
                         <td><img src=@item.Image height="50" width="50"/></td>
                         <td>
-                            @Html.ActionLink("View Details", "viewdetails", new { id = item.Id })
+                            @*@Html.ActionLink("View Details", "viewdetails", new { id = item.Id })*@
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
                             @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
                         </td>
