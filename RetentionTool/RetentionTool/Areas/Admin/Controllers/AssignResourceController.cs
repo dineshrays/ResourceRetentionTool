@@ -11,6 +11,7 @@ namespace RetentionTool.Areas.Admin.Controllers
     public class AssignResourceController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: AssignResource
         public ActionResult Index()
         {
@@ -259,8 +260,18 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         }
         public void getManagers()
         {
-            
-            var val = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
+            int managerroleid = fetchdet.getDefaultManagerRoleId();
+            var val = (from personalInfo in db.PersonalInfoes
+              
+                       join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                        where personalInfo.IsActive == true && userdet.IsActive == true
+                        &&  userdet.Role_Id== managerroleid
+                       select new
+                        {
+                            Id = personalInfo.Id,
+                            Name = personalInfo.Name
+                        }).ToList();
+           
             ViewData["managerslist"] = val;
         }
 
@@ -296,13 +307,12 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         }
         public void getEmployees()
         {
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
             var data = (from personalInfo in db.PersonalInfoes
-                        //join
-
-                        // userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                        join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
                         where personalInfo.IsActive == true 
-                        //&& userdet.IsActive == true
-                        //&& userdet.Role_Id==3
+                        && userdet.IsActive == true
+                        && userdet.Role_Id==emproleid
                         select new
                         {
                             Id = personalInfo.Id,
@@ -334,15 +344,15 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             //select new { e.Name });
             // var val = db.Employees.Where(a => a.Name.Contains(name)).ToList();
             //IEnumerable<SelectListItem> skilldet =  
-          //  List<string> va = new List<string>();
-          List< EmployeeList>  va = (from emp in db.PersonalInfoes
-                        //             join
+            //  List<string> va = new List<string>();
 
-                        //userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
+            int emproleid = fetchdet.getDefaultEmployeeRoleId();
+            List< EmployeeList>  va = (from emp in db.PersonalInfoes
+                                   join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
                                      where emp.Name.Contains(name)
                                   
                                      && emp.IsActive==true 
-                                     //&& userdet.IsActive==true && userdet.Role_Id==3
+                                     && userdet.IsActive==true && userdet.Role_Id==emproleid
                                      select new EmployeeList
           {
               Id=emp.Id,
