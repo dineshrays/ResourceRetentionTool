@@ -8,7 +8,6 @@
 @{
     ViewBag.Title = "View Employee";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutMain.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
 <h2>View Employee</h2>
@@ -27,14 +26,14 @@
 <body>
 
     <div id="tabs">
-        <ul>
+        @*<ul>
             <li><a href="#tabs-1" rel="tab1">Personal Information</a></li>
             <li><a href="#tabs-2" rel="tab2">Education Qualification</a></li>
             <li><a href="#tabs-3">Experience</a></li>
             <li><a href="#tabs-4">Employee Skills</a></li>
             <li><a href="#tabs-5">Projects Worked</a></li>
             <li><a href="#tabs-6">Current Company</a></li>
-        </ul>
+        </ul>*@
         <div id="tabs-1">
 
             @*<div class="col-lg-6 card-body"  style="margin-top:10px;">*@
@@ -44,7 +43,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -53,7 +52,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Name, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Name, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.Name, new { @class = "form-control-LabelFor", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -62,7 +61,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.FatherName, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.FatherName, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.FatherName, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -71,7 +70,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.DOB, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.DOB, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.DOB, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -80,7 +79,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -90,7 +89,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.PermanentAddress, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.PermanentAddress, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.PermanentAddress, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -99,7 +98,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.CommunicationAddress, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.CommunicationAddress, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.CommunicationAddress, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
             @*</div>*@
@@ -110,7 +109,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Contact, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Contact, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.Contact, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -119,7 +118,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Qualification, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Qualification, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.Qualification, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -128,7 +127,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Email, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.Email, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.Email, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -137,7 +136,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.PanNo, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.PanNo, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.PanNo, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -146,7 +145,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.AadharNo, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.AadharNo, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.AadharNo, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -155,49 +154,49 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
-            <input type="file" id="uploadEditorImage" enctype="multipart/form-data" />
+            @*<input type="file" id="uploadEditorImage" enctype="multipart/form-data" />
 
-            <script>
-         $(function () {
-             $("#uploadEditorImage").change(function () {
-                 var data = new FormData();
-                 var files = $("#uploadEditorImage").get(0).files;
-                 if (files.length > 0) {
-                     data.append("HelpSectionImages", files[0]);
-                 }
-                 fileValue = data;
-               //  alert(fileValue);
-                 $.ajax({
-                     url: '@Url.Action("Index", "EmployeeInformation")',
-                     type: "POST",
-                     processData: false,
-                     async: false,
-                     cache: false,
-                     contentType: false,
-                     data: data,
-                     success: function (response) {
-                       //  alert(response.filepath)
-                         filepath = response.filepath;
-                         //code after success
+           <script>
+        $(function () {
+            $("#uploadEditorImage").change(function () {
+                var data = new FormData();
+                var files = $("#uploadEditorImage").get(0).files;
+                if (files.length > 0) {
+                    data.append("HelpSectionImages", files[0]);
+                }
+                fileValue = data;
+              //  alert(fileValue);
+                $.ajax({
+                    url: '@Url.Action("Index", "EmployeeInformation")',
+                    type: "POST",
+                    processData: false,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    data: data,
+                    success: function (response) {
+                      //  alert(response.filepath)
+                        filepath = response.filepath;
+                        //code after success
 
-                     },
-                     error: function (er) {
-                         alert(er);
-                     }
+                    },
+                    error: function (er) {
+                        alert(er);
+                    }
 
-                 });
-             });
-         });
-            </script>
+                });
+            });
+        });
+           </script>*@
 
 
         </div>
 
         <div id="tabs-2">
-            <div class="row form-group">
+            @*<div class="row form-group">
 
                 <input class="form-control" style="width:30%" id="Degree" placeholder="Degree" />
                 <input id="Board" placeholder="Board" />
@@ -205,20 +204,36 @@
                 <input id="Percentage" placeholder="Percentage" />
 
                 <input type="button" value="Add" class="add-quali" />
-            </div>
+            </div>*@
 
             <table class="table table-striped" id="table-quali" style="width:50%">
-                <tr>
-                    <th>Select</th>
-                    <th> Degree</th>
-                    <th>Board</th>
-                    <th>Year Of Passing</th>
-                    <th>Percentage</th>
-                </tr>
+                <thead>
+                    <tr>
+                        @*<th>Select</th>*@
+                        <th> Degree</th>
+                        <th>Board</th>
+                        <th>Year Of Passing</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var eduquali in Model.EducationQualification)
+                    {
+                        <tr>
+                            <td>@eduquali.Degree</td>
+                            <td>@eduquali.Board</td>
+                            <td>@eduquali.YearOfPassing</td>
+                            <td>@eduquali.Percentage</td>
+                        </tr>
+                    }
+
+                </tbody>
+
 
             </table>
             <br />
-            <button type="button" class="del-quali">Delete</button>
+
+            @*<button type="button" class="del-quali">Delete</button>*@
 
             <script>
                 $(".add-quali").click(function () {
@@ -228,7 +243,7 @@
                     var YearOfPassing = $("#YearOfPassing").val();
                     var Percentage = $("#Percentage").val();
 
-                    var Qualification = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                    var Qualification = "<tr><td>" +
                         Degree + "</td><td>" +
                         Board + "</td><td>" +
                         YearOfPassing + "</td><td>" +
@@ -256,12 +271,12 @@
 
         <div id="tabs-3">
 
-            <div class="row form-group">
+            @*<div class="row form-group">
                 <div class="col col-md-3">
                     <div>@Html.LabelFor(m => m.ExperienceVm.CompanyName, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.CompanyName, new { @id = "CompanyName", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.ExperienceVm.CompanyName, new { @id = "CompanyName", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -270,7 +285,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.FromDate, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.FromDate, new { htmlAttributes = new { @id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.DisplayFor(m => m.ExperienceVm.FromDate, new { htmlAttributes = new { @id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -279,7 +294,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.ToDate, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.ToDate, new { htmlAttributes = new { @id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.DisplayFor(m => m.ExperienceVm.ToDate, new { htmlAttributes = new { @id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -288,7 +303,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.Designation, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.Designation, new { @id = "Designation", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.ExperienceVm.Designation, new { @id = "Designation", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -297,7 +312,7 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.ProjectWorked, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.ProjectWorked, new { @id = "ProjectWorked", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.ExperienceVm.ProjectWorked, new { @id = "ProjectWorked", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -306,16 +321,16 @@
                     <div>@Html.LabelFor(m => m.ExperienceVm.TechnologiesUsed, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.TechnologiesUsed, new { @id = "TechnologiesUsed", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.ExperienceVm.TechnologiesUsed, new { @id = "TechnologiesUsed", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
-            </div>
+            </div>*@
 
 
-            <input type="button" value="Add" class="add-exp" />
+            @*<input type="button" value="Add" class="add-exp" />*@
 
             <table class="table table-striped" id="table-exp" style="width:50%">
                 <tr>
-                    <th>Select</th>
+                    @*<th>Select</th>*@
                     <th> CompanyName</th>
                     <th>FromDate</th>
                     <th>ToDate</th>
@@ -326,7 +341,7 @@
 
             </table>
             <br />
-            <button type="button" class="del-exp">Delete</button>
+            @*<button type="button" class="del-exp">Delete</button>*@
 
             <script>
                 $(".add-exp").click(function () {
@@ -338,7 +353,7 @@
                     var ProjectWorked = $("#ProjectWorked").val();
                     var TechnologiesUsed = $("#TechnologiesUsed").val();
 
-                    var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                    var Company = "<tr><td>" +
                         CompanyName + "</td><td>" +
                         FromDate + "</td><td>" +
                         ToDate + "</td><td>" +
@@ -373,18 +388,18 @@
 
             <div class="card-body card-block">
 
-                <div class="row form-group">
+                @*<div class="row form-group">
                     <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />
                     <input id="searchid" style="display:none" />
                     <input id="Years" placeholder="Years" />
                     <input id="Months" placeholder="Months" />
                     <input id="Status" placeholder="Status" />
                     <input type="button" value="Add" class="add-skill" />
-                </div>
+                </div>*@
 
                 <table class="table table-striped" id="table-skill" style="width:50%">
                     <tr>
-                        <th>Select</th>
+                        @*<th>Select</th>*@
                         <th> Skills</th>
                         <th style="display:none;width:0%">Skill Id</th>
                         <th>Years</th>
@@ -394,7 +409,7 @@
 
                 </table>
                 <br />
-                <button type="button" class="del-emp">Delete</button>
+                @*<button type="button" class="del-emp">Delete</button>*@
 
                 <script>
                     $(".add-skill").click(function () {
@@ -406,7 +421,7 @@
                         var Years = $("#Years").val();
                         var Months = $("#Months").val();
                         var Status = $("#Status").val();
-                        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                        var markup = "<tr><td>" +
                             skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
                             Years + "</td><td>" +
                             Months + "</td><td>" +
@@ -492,7 +507,7 @@
                     <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Project_Id, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    @Html.DropDownListFor(m => m.ProjectsWorkedVm.Project_Id, ViewData["projectlist"] as SelectList, new { @id = "Project_Id", @class = "form-control", style = "width:40%" })
+                    @Html.DisplayFor(m => m.ProjectsWorkedVm.Project_Id, new { @id = "Project_Id", @class = "form-control", style = "width:40%" })
                 </div>
             </div>
 
@@ -501,7 +516,7 @@
                     <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Designation, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Designation, new { @id = "PwDesignation", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.ProjectsWorkedVm.Designation, new { @id = "PwDesignation", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -510,7 +525,7 @@
                     <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Responsibilities, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Responsibilities, new { @id = "Responsibilities", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.ProjectsWorkedVm.Responsibilities, new { @id = "Responsibilities", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -519,7 +534,7 @@
                     <div>@Html.LabelFor(m => m.ProjectsWorkedVm.StartDate, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.StartDate, new { htmlAttributes = new { @id = "StartDate", @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.DisplayFor(m => m.ProjectsWorkedVm.StartDate, new { htmlAttributes = new { @id = "StartDate", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -528,7 +543,7 @@
                     <div>@Html.LabelFor(m => m.ProjectsWorkedVm.EndDate, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.EndDate, new { htmlAttributes = new { @id = "EndDate", @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.DisplayFor(m => m.ProjectsWorkedVm.EndDate, new { htmlAttributes = new { @id = "EndDate", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -537,7 +552,7 @@
                     <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Description, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Description, new { @id = "Description", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.ProjectsWorkedVm.Description, new { @id = "Description", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -546,7 +561,7 @@
                     <div>@Html.LabelFor(m => m.ProjectsWorkedVm.TeamMembers, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.LabelFor(m => m.ProjectsWorkedVm.TeamMembers, new { @id = "TeamMembers", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.ProjectsWorkedVm.TeamMembers, new { @id = "TeamMembers", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -555,7 +570,7 @@
                     <div>@Html.LabelFor(m => m.ProjectsWorkedVm.Manager_Id, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    @Html.DropDownListFor(m => m.ProjectsWorkedVm.Manager_Id, ViewData["managerslist"] as SelectList, new { @id = "Manager_Id", @class = "form-control", style = "width:40%" })
+                    @Html.DisplayFor(m => m.ProjectsWorkedVm.Manager_Id, new { @id = "Manager_Id", @class = "form-control", style = "width:40%" })
                 </div>
             </div>
 
@@ -568,7 +583,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.Designation, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.Designation, new { @id = "Designation2", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.Designation, new { @id = "Designation2", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -577,7 +592,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.DOJ, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DOJ, new { htmlAttributes = new { @id = "DOJ", @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.DOJ, new { htmlAttributes = new { @id = "DOJ", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -586,7 +601,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.DateOfRelieving, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DateOfRelieving, new { htmlAttributes = new { @id = "DateOfRelieving", @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.DateOfRelieving, new { htmlAttributes = new { @id = "DateOfRelieving", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -595,7 +610,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.ReportingManager, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.ReportingManager, new { @id = "ReportingManager", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.ReportingManager, new { @id = "ReportingManager", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -604,7 +619,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.JobType, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.JobType, new { @id = "JobType", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.JobType, new { @id = "JobType", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -613,7 +628,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedCompanyDetails, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedCompanyDetails, new { @id = "DeployedCompanyDetails", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.DeployedCompanyDetails, new { @id = "DeployedCompanyDetails", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -622,7 +637,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedFromDate, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedFromDate, new { htmlAttributes = new { @id = "DeployedFromDate", @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.DeployedFromDate, new { htmlAttributes = new { @id = "DeployedFromDate", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -631,7 +646,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedToDate, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.DeployedToDate, new { htmlAttributes = new { @id = "DeployedToDate", @class = "form -control", style = "width:40%" } })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.DeployedToDate, new { htmlAttributes = new { @id = "DeployedToDate", @class = "form -control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -640,7 +655,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.CompanyMailId, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.CompanyMailId, new { @id = "CompanyMailId", @class = "form -control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.CompanyMailId, new { @id = "CompanyMailId", @class = "form -control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -649,7 +664,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.BankName, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.BankName, new { @id = "BankName", @class = "form -control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.BankName, new { @id = "BankName", @class = "form -control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -658,7 +673,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.IFSC, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.IFSC, new { @id = "IFSC", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.IFSC, new { @id = "IFSC", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -667,7 +682,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.ModeOfPayment, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.ModeOfPayment, new { @id = "ModeOfPayment", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.ModeOfPayment, new { @id = "ModeOfPayment", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -676,7 +691,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.WorkLocation, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.WorkLocation, new { @id = "WorkLocation", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.WorkLocation, new { @id = "WorkLocation", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -685,7 +700,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.Department, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.Department, new { @id = "Department", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.Department, new { @id = "Department", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -694,7 +709,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.Grade, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.Grade, new { @id = "Grade", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.Grade, new { @id = "Grade", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -703,7 +718,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.Salary, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.Salary, new { @id = "Salary", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.Salary, new { @id = "Salary", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -712,7 +727,7 @@
                     <div>@Html.LabelFor(m => m.CurrentInfoVm.CTC, new { @class = "form-control-LabelFor" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.LabelFor(m => m.CurrentInfoVm.CTC, new { @id = "CTC", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.CurrentInfoVm.CTC, new { @id = "CTC", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 

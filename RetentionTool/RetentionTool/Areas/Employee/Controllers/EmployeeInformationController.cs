@@ -299,7 +299,23 @@ namespace RetentionTool.Areas.Employee.Controllers
             Eivw.PersonalInfoVm.PanNo = p.PanNo;
             Eivw.PersonalInfoVm.AadharNo = p.AadharNo;
             Eivw.PersonalInfoVm.BloodGroup = p.BloodGroup;
-            //Eivw.PersonalInfoVm.Image = path;
+           
+            List<EducationQualificationModel> edu = (from educat in db.EducationQualifications
+                                                     where educat.IsActive == true && educat.P_Id == id
+                                                     select new EducationQualificationModel
+                                                     {
+                                                         Id = educat.Id,
+                                                         P_Id = educat.P_Id,
+                                                         Degree=educat.Degree,
+                                                         Board=educat.Board,
+                                                         YearOfPassing=educat.YearOfPassing,
+                                                         Percentage=educat.Percentage
+                                                     }
+                                                    ).ToList();
+        
+            Eivw.EducationQualification = edu;
+
+
             return View(Eivw);
         }
     }
