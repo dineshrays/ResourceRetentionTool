@@ -394,14 +394,14 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         [HttpPost]
         public ActionResult EmpDetails(int assId)
         {
-            int emproleid = fetchdet.getDefaultEmployeeRoleId();
+         //   int emproleid = fetchdet.getDefaultEmployeeRoleId();
             List<EmployeeList> emplist = (from assresdet in db.AssignResourcesDets
                                           join emp in db.PersonalInfoes
                                           on assresdet.Employee_Id equals emp.Id
-                                          join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
+                                         // join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
                                           where emp.IsActive == true
                                           where assresdet.AssignResources_Id == assId
-                                          && userdet.Role_Id == emproleid && userdet.IsActive == true
+                                       //   && userdet.Role_Id == emproleid && userdet.IsActive == true
                                           select new EmployeeList
                                           {
                                               Id = emp.Id,
