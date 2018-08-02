@@ -206,14 +206,28 @@
             </div>
 
             <table class="table table-striped" id="table-quali" style="width:50%">
-                <tr>
-                    <th>Select</th>
-                    <th> Degree</th>
-                    <th>Board</th>
-                    <th>Year Of Passing</th>
-                    <th>Percentage</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th> Degree</th>
+                        <th>Board</th>
+                        <th>Year Of Passing</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var quali in Model.EducationQualification)
+                    {
+                    <tr>
+                        <td><input type='checkbox' name='chck'></td>
+                        <td>@quali.Degree</td>
+                        <td>@quali.Board</td>
+                        <td>@quali.YearOfPassing</td>
+                        <td>@quali.Percentage</td>
+                    </tr>
+                    }
 
+                </tbody>
             </table>
             <br />
             <button type="button" class="del-quali">Delete</button>
@@ -312,16 +326,32 @@
             <input type="button" value="Add" class="add-exp" />
 
             <table class="table table-striped" id="table-exp" style="width:50%">
-                <tr>
-                    <th>Select</th>
-                    <th> CompanyName</th>
-                    <th>FromDate</th>
-                    <th>ToDate</th>
-                    <th>Designation</th>
-                    <th>ProjectWorked</th>
-                    <th>TechnologiesUsed</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th> CompanyName</th>
+                        <th>FromDate</th>
+                        <th>ToDate</th>
+                        <th>Designation</th>
+                        <th>ProjectWorked</th>
+                        <th>TechnologiesUsed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var exp in Model.Experience)
+                    {
+                    <tr>
+                        <td><input type='checkbox' name='chck'></td>
+                        <td>@exp.CompanyName</td>
+                        <td>@exp.FromDate</td>
+                        <td>@exp.ToDate</td>
+                        <td>@exp.Designation</td>
+                        <td>@exp.ProjectWorked</td>
+                        <td>@exp.TechnologiesUsed</td>
+                    </tr>
+                    }
 
+                </tbody>
             </table>
             <br />
             <button type="button" class="del-exp">Delete</button>
@@ -381,15 +411,28 @@
                 </div>
 
                 <table class="table table-striped" id="table-skill" style="width:50%">
-                    <tr>
-                        <th>Select</th>
-                        <th> Skills</th>
-                        <th style="display:none;width:0%">Skill Id</th>
-                        <th>Years</th>
-                        <th>Months</th>
-                        <th>Status</th>
-                    </tr>
-
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th> Skills</th>
+                            <th style="display:none;width:0%">Skill Id</th>
+                            <th>Years</th>
+                            <th>Months</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var ski in Model.EmployeeSkills)
+                        {
+                        <tr>
+                            <td><input type='checkbox' name='chck'></td>
+                            <td>@ski.Skills</td>
+                            <td>@ski.Years</td>
+                            <td>@ski.Months</td>
+                            <td>@ski.Status</td>
+                        </tr>
+                        }
+                    </tbody>
                 </table>
                 <br />
                 <button type="button" class="del-emp">Delete</button>
@@ -714,7 +757,7 @@
                 </div>
             </div>
 
-            <input id="btnSave" type="submit" value="Create" class="btn btn-success" />
+            <input id="btnSave" type="submit" value="Edit" class="btn btn-success" />
 
             <script type="text/javascript">
 
