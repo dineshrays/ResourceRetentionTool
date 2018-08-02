@@ -18,7 +18,7 @@ namespace RetentionTool.Models
         public string employeeRoleName = "Employee";
         public string managerRoleName = "Manager";
         public string internRoleName = "Intern";
-        
+        public string password = "123";
 
         public int getUserId()
         {

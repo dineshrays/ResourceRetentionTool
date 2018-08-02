@@ -271,8 +271,9 @@ where personalInfo.IsActive==true && trainer.IsActive==true
                             Id = personalInfo.Id,
                             Name = personalInfo.Name
                         }).ToList();
-           
-            ViewData["managerslist"] = val;
+
+
+            ViewData["managerslist"] = new SelectList(val, "Id", "Name"); ;
         }
 
         public ActionResult getEmployeeDetails(int moduleid)

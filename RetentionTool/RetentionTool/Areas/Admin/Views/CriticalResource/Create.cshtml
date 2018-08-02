@@ -45,31 +45,8 @@
                 {
                     <tr>
                         <td>
-                            @{ bool IsCriticalRes = false;}
-                            @foreach (var id in ViewBag.CriticalRes)
-                            {
-                                if (id == item.PersonalInfo1.Id)
-                                {
-                                    IsCriticalRes = true;
-
-                                    //<input type="checkbox" class="chck" checked />
-                                }
-                                else
-                                {
-                                    // value = false;
-                                    //<input type="checkbox" class="chck" />
-
-                                }
-                            }
-                            @if (IsCriticalRes == true)
-                            {
-                                <input type="radio"@*"checkbox"*@ class="chck" name="critic" checked id="IsChecked" />
-                            }
-                            else
-                            {
-                                <input type="radio"@*"checkbox"*@ name="critic" class="chck" />
-                               
-                            }
+                            <input type="radio" @*"checkbox"*@ name="critic" class="chck" />
+                           
 
                         </td>
                         <td>@item.PersonalInfo1.Name</td>
@@ -78,29 +55,8 @@
                         <td>@item.Designation</td>
                         <td>@item.Responsibilities</td>
                         <td>
-                            @{ bool isTrainer = false;}
-
-                            @foreach (var id in ViewBag.TrainerDet)
-                            {
-                                if (id == item.PersonalInfo1.Id)
-                                {
-                                    isTrainer = true;
-                                }
-                                else
-                                {
-                                    // <input type="checkbox" class="chcktrainer" />
-                                }
-                            }
-                            @if (isTrainer == true)
-
-                            {
-                                <input type="radio"@*"checkbox"*@ name="trainer" class="chcktrainer" checked />
-
-                            }
-                            else
-                            {
-                                <input type="radio"@*"checkbox"*@ name="trainer" class="chcktrainer" />
-                            }
+                            <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" />
+                           
 
                         </td>
                     </tr>

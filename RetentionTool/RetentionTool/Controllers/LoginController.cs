@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RetentionTool.Controllers
 {
@@ -42,6 +45,7 @@ namespace RetentionTool.Controllers
                 Session["userId"] = userResult.Emp_Id;
                 PersonalInfo personalInfo = db.PersonalInfoes.Find(userResult.Emp_Id);
                 Session["userpath"] = personalInfo.Image;
+                //Image.PerformImageResizeAndPutOnCanvas(imgPath, filename, Convert.ToInt16(txtWidth.Text), Convert.ToInt16(txtHeight.Text), txtOutputFileName.Text.ToString() + ".jpg");
                 if (empRoleId==userResult.Role_Id)
                 {
                     

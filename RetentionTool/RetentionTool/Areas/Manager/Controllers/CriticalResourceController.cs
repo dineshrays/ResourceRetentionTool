@@ -25,17 +25,17 @@ namespace RetentionTool.Areas.Manager.Controllers
             // inner join EmployeeEvalTaskDet empevaltaskdet
             //  on empevaltaskdet.EmployeeEvalTask_Id = empeval.Id
             //  where empevaltaskdet.IsEligiableMark = 1
-            List<ProjectsDetail> backupprjctlist = (from projectdet in db.ProjectsDetails
-                                   join assignres in db.AssignResources
-                                   on projectdet.Id equals assignres.Project_Id
-                                   join empeval in db.EmployeeEvalTasks
-                                   on assignres.Id equals empeval.AssignResource_Id
-                                   join empevaldet in db.EmployeeEvalTaskDets
-                                   on empeval.Id equals empevaldet.EmployeeEvalTask_Id
-                                   where empevaldet.IsEligiableMark == true
-                                   && assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
-                                   && assignres.Manager_Id==managerid
-                                                    select projectdet).ToList();
+            //List<ProjectsDetail> backupprjctlist = (from projectdet in db.ProjectsDetails
+            //                       join assignres in db.AssignResources
+            //                       on projectdet.Id equals assignres.Project_Id
+            //                       join empeval in db.EmployeeEvalTasks
+            //                       on assignres.Id equals empeval.AssignResource_Id
+            //                       join empevaldet in db.EmployeeEvalTaskDets
+            //                       on empeval.Id equals empevaldet.EmployeeEvalTask_Id
+            //                       where empevaldet.IsEligiableMark == true
+            //                       && assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
+            //                       && assignres.Manager_Id==managerid
+            //                                        select projectdet).ToList();
             //&& projectdet.IsActive == true
             //&& assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
             //select new ProjectsDetail
@@ -45,17 +45,35 @@ namespace RetentionTool.Areas.Manager.Controllers
             //    IsActive = projectdet.IsActive
             //}
             //          ).ToList();
+            //   List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a => db.ProjectsWorkeds.Any
+            //   (p => p.Project_Id == a.Id && p.IsActive == true && a.IsActive == true && p.Manager_Id==managerid) ).ToList();
+            //List<ProjectsDetail> projectsDetails= projectDet.Where(a=>!projectDet.Any(b=>b.Id==a.Id ) && a.IsActive==true).ToList();
+            //   ViewBag.prjctDetails = projectsDetails;
+            // List<CriticalResource> criticalres = db.CriticalResources.Where(a => projectDet.Any(b => b.Id == a.Project_Id) && a.IsActive == true).ToList();
+
+            //   ViewBag.CriticalResPrjct = criticalres;
+            //New Code
+
+            List<ProjectsDetail> backupprjctlist = (from projectdet in db.ProjectsDetails
+                                                    join assignres in db.AssignResources
+                                                    on projectdet.Id equals assignres.Project_Id
+                                                    join empeval in db.EmployeeEvalTasks
+                                                    on assignres.Id equals empeval.AssignResource_Id
+                                                    join empevaldet in db.EmployeeEvalTaskDets
+                                                    on empeval.Id equals empevaldet.EmployeeEvalTask_Id
+                                                    where empevaldet.IsEligiableMark == true
+                                                      && assignres.Manager_Id == managerid
+                                                    && assignres.IsActive == true && empeval.IsActive == true && empevaldet.IsActive == true
+                                                    select projectdet).ToList();
+           
             List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a => db.ProjectsWorkeds.Any
-            (p => p.Project_Id == a.Id && p.IsActive == true && a.IsActive == true && p.Manager_Id==managerid) ).ToList();
-         List<ProjectsDetail> projectsDetails= projectDet.Where(a=>!backupprjctlist.Any(b=>b.Id==a.Id ) && a.IsActive==true).ToList();
+            (p => p.Project_Id == a.Id && p.IsActive == true && a.IsActive == true && p.Manager_Id == managerid)).ToList();
+            List<ProjectsDetail> projectsDetails = projectDet.Where(a => !backupprjctlist.Any(b => b.Id == a.Id) && a.IsActive == true).ToList();
             ViewBag.prjctDetails = projectsDetails;
-          List<CriticalResource> criticalres = db.CriticalResources.Where(a => backupprjctlist.Any(b => b.Id == a.Id) && a.IsActive == true).ToList();
+            List<CriticalResource> criticalres = db.CriticalResources.Where(a => a.IsActive == true).Distinct().ToList();
 
             ViewBag.CriticalResPrjct = criticalres;
-           
-            //.Select(a=>a.ProjectName).Distinct();
-            //  ProjectWorkedViewModel prjctWrkvm = new ProjectWorkedViewModel();
-            //    prjctWrkvm.
+            
             return View();
         }
         public ActionResult Create(int id)
@@ -93,20 +111,35 @@ namespace RetentionTool.Areas.Manager.Controllers
                 }
             //}
 
-            if(trainerlist!=null)
-            {
+         
                 trainerlist.IsActive = true;
                 trainerlist.CriticalResource_Id = criticalR.Id;
                 db.Trainers.Add(trainerlist);
                 db.SaveChanges();
-                //foreach (var trainer in trainerlist)
-                //{
-                //    trainer.IsActive = true;
-                //    db.Trainers.Add(trainer);
-                //    db.SaveChanges();
-                //}
+
+            PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == trainerlist.PersonalInfo_Id && a.IsActive == true);
+            FetchDefaultIds fetchdet = new FetchDefaultIds();
+            int roleid= fetchdet.getDefaultTrainerRoleId(); 
+            UserDetail user = db.UserDetails.FirstOrDefault(a=>a.Emp_Id==personalinfo.Id && a.Role_Id==roleid && a.IsActive==true);
+
+           if(user==null)
+            {
+                user.Emp_Id = personalinfo.Id;
+                user.EntryDate = DateTime.Now;
+                user.Email = personalinfo.Email;
+
+
+                user.Role_Id = roleid;
+                user.Name = personalinfo.Name;
+                user.IsActive = true;
+                user.Password = fetchdet.password;
+
+                db.UserDetails.Add(user);
+                db.SaveChanges();
             }
-          
+            
+
+
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
@@ -165,7 +198,26 @@ namespace RetentionTool.Areas.Manager.Controllers
             trainer.PersonalInfo_Id = trainerlist.PersonalInfo_Id;
             db.Entry(trainer).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
-            
+            PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == trainerlist.PersonalInfo_Id && a.IsActive == true);
+            FetchDefaultIds fetchdet = new FetchDefaultIds();
+            int roleid = fetchdet.getDefaultTrainerRoleId();
+            UserDetail user = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id == roleid && a.IsActive == true);
+
+            if (user == null)
+            {
+                user.Emp_Id = personalinfo.Id;
+                user.EntryDate = DateTime.Now;
+                user.Email = personalinfo.Email;
+
+
+                user.Role_Id = roleid;
+                user.Name = personalinfo.Name;
+                user.IsActive = true;
+                user.Password = fetchdet.password;
+
+                db.UserDetails.Add(user);
+                db.SaveChanges();
+            }
             List<criticalResourceAccountability> criticalist = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true ).ToList();
 
             var critifalse = criticalist.Where(a => !criticalacc.Any(c => c.Name == a.Name && c.Value==a.Value)).ToList();
@@ -236,13 +288,29 @@ namespace RetentionTool.Areas.Manager.Controllers
         [HttpPost]
         public ActionResult Delete(int id, CriticalResource criticalres)
         {
-            List<CriticalResource> criticalRes = db.CriticalResources.Where(a => a.Project_Id == id).ToList();
-            foreach(var criticallist in criticalRes)
+            CriticalResource criticalResource = db.CriticalResources.FirstOrDefault(a => a.Project_Id == id && a.IsActive == true);
+
+            List<RetentionTool.Models.Trainer> trainers = db.Trainers.Where(a => a.CriticalResource_Id == criticalResource.Id && a.IsActive == true).ToList();
+            foreach (var trainerlist in trainers)
+            {
+                trainerlist.IsActive = false;
+                db.Entry(trainerlist).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+            List<criticalResourceAccountability> criticalRes = db.criticalResourceAccountabilities.Where(a => a.criticalresource_Id == criticalResource.Id).ToList();
+            foreach (var criticallist in criticalRes)
             {
                 criticallist.IsActive = false;
                 db.Entry(criticallist).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
+            criticalResource.IsActive = false;
+            db.Entry(criticalResource).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+
             return RedirectToAction("Index");
         }
         
