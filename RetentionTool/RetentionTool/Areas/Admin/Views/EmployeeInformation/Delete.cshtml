@@ -1,12 +1,14 @@
-﻿@*@{
-        ViewBag.Title = "viewdetails";
-        Layout = "~/Views/Shared/_LayoutMain.cshtml";
-    }
+﻿
+@*@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
 
-    <h2>viewdetails</h2>*@
+<h2>Delete</h2>*@
+
 @model RetentionTool.ViewModel.EmployeeInformationViewModel
 @{
-    ViewBag.Title = "View Employee";
+    ViewBag.Title = "Delete Employee";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutMain.cshtml";
 }
 
@@ -163,38 +165,38 @@
             </div>
             @*<input type="file" id="uploadEditorImage" enctype="multipart/form-data" />
 
-           <script>
-        $(function () {
-            $("#uploadEditorImage").change(function () {
-                var data = new FormData();
-                var files = $("#uploadEditorImage").get(0).files;
-                if (files.length > 0) {
-                    data.append("HelpSectionImages", files[0]);
-                }
-                fileValue = data;
-              //  alert(fileValue);
-                $.ajax({
-                    url: '@Url.Action("Index", "EmployeeInformation")',
-                    type: "POST",
-                    processData: false,
-                    async: false,
-                    cache: false,
-                    contentType: false,
-                    data: data,
-                    success: function (response) {
-                      //  alert(response.filepath)
-                        filepath = response.filepath;
-                        //code after success
+                   <script>
+                $(function () {
+                    $("#uploadEditorImage").change(function () {
+                        var data = new FormData();
+                        var files = $("#uploadEditorImage").get(0).files;
+                        if (files.length > 0) {
+                            data.append("HelpSectionImages", files[0]);
+                        }
+                        fileValue = data;
+                      //  alert(fileValue);
+                        $.ajax({
+                            url: '@Url.Action("Index", "EmployeeInformation")',
+                            type: "POST",
+                            processData: false,
+                            async: false,
+                            cache: false,
+                            contentType: false,
+                            data: data,
+                            success: function (response) {
+                              //  alert(response.filepath)
+                                filepath = response.filepath;
+                                //code after success
 
-                    },
-                    error: function (er) {
-                        alert(er);
-                    }
+                            },
+                            error: function (er) {
+                                alert(er);
+                            }
 
+                        });
+                    });
                 });
-            });
-        });
-           </script>*@
+                   </script>*@
 
 
         </div>
@@ -202,13 +204,13 @@
         <div id="tabs-2">
             @*<div class="row form-group">
 
-                <input class="form-control" style="width:30%" id="Degree" placeholder="Degree" />
-                <input id="Board" placeholder="Board" />
-                <input id="YearOfPassing" placeholder="Year Of Passing" />
-                <input id="Percentage" placeholder="Percentage" />
+                    <input class="form-control" style="width:30%" id="Degree" placeholder="Degree" />
+                    <input id="Board" placeholder="Board" />
+                    <input id="YearOfPassing" placeholder="Year Of Passing" />
+                    <input id="Percentage" placeholder="Percentage" />
 
-                <input type="button" value="Add" class="add-quali" />
-            </div>*@
+                    <input type="button" value="Add" class="add-quali" />
+                </div>*@
 
             <table class="table table-striped" id="table-quali" style="width:50%">
                 <thead>
@@ -221,7 +223,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var eduquali in Model.EducationQualification)
+                    @foreach (var eduquali in Model.EducationQualification)
                     {
                         <tr>
                             <td>@eduquali.Degree</td>
@@ -240,94 +242,94 @@
             @*<button type="button" class="del-quali">Delete</button>*@
 
             @*<script>
-                $(".add-quali").click(function () {
+                    $(".add-quali").click(function () {
 
-                    var Degree = $("#Degree").val();
-                    var Board = $("#Board").val();
-                    var YearOfPassing = $("#YearOfPassing").val();
-                    var Percentage = $("#Percentage").val();
+                        var Degree = $("#Degree").val();
+                        var Board = $("#Board").val();
+                        var YearOfPassing = $("#YearOfPassing").val();
+                        var Percentage = $("#Percentage").val();
 
-                    var Qualification = "<tr><td>" +
-                        Degree + "</td><td>" +
-                        Board + "</td><td>" +
-                        YearOfPassing + "</td><td>" +
-                        Percentage + "</td></tr>";
+                        var Qualification = "<tr><td>" +
+                            Degree + "</td><td>" +
+                            Board + "</td><td>" +
+                            YearOfPassing + "</td><td>" +
+                            Percentage + "</td></tr>";
 
-                    $("#table-quali").append(Qualification);
-                    $("#Degree").val('');
-                    $("#Board").val('');
-                    $("#YearOfPassing").val('');
-                    $("#Percentage").val('');
-                });
-
-                $(".del-quali").click(function () {
-
-                    $("#table-quali").find('input[name="chck"]').each(function () {
-                        if ($(this).is(":checked")) {
-                            $(this).parents("tr").remove();
-                        }
+                        $("#table-quali").append(Qualification);
+                        $("#Degree").val('');
+                        $("#Board").val('');
+                        $("#YearOfPassing").val('');
+                        $("#Percentage").val('');
                     });
-                });
 
-            </script>*@
+                    $(".del-quali").click(function () {
+
+                        $("#table-quali").find('input[name="chck"]').each(function () {
+                            if ($(this).is(":checked")) {
+                                $(this).parents("tr").remove();
+                            }
+                        });
+                    });
+
+                </script>*@
 
         </div>
 
         <div id="tabs-3">
 
             @*<div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.CompanyName, new { @class = "form-control-LabelFor" })</div>
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.ExperienceVm.CompanyName, new { @class = "form-control-LabelFor" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.DisplayFor(m => m.ExperienceVm.CompanyName, new { @id = "CompanyName", @class = "form-control", style = "width:40%" })</div><br />
+                    </div>
                 </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.DisplayFor(m => m.ExperienceVm.CompanyName, new { @id = "CompanyName", @class = "form-control", style = "width:40%" })</div><br />
-                </div>
-            </div>
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.FromDate, new { @class = "form-control-LabelFor" })</div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.ExperienceVm.FromDate, new { @class = "form-control-LabelFor" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.DisplayFor(m => m.ExperienceVm.FromDate, new { htmlAttributes = new { @id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
+                    </div>
                 </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.DisplayFor(m => m.ExperienceVm.FromDate, new { htmlAttributes = new { @id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
-                </div>
-            </div>
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.ToDate, new { @class = "form-control-LabelFor" })</div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.ExperienceVm.ToDate, new { @class = "form-control-LabelFor" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.DisplayFor(m => m.ExperienceVm.ToDate, new { htmlAttributes = new { @id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
+                    </div>
                 </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.DisplayFor(m => m.ExperienceVm.ToDate, new { htmlAttributes = new { @id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
-                </div>
-            </div>
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.Designation, new { @class = "form-control-LabelFor" })</div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.ExperienceVm.Designation, new { @class = "form-control-LabelFor" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.DisplayFor(m => m.ExperienceVm.Designation, new { @id = "Designation", @class = "form-control", style = "width:40%" })</div><br />
+                    </div>
                 </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.DisplayFor(m => m.ExperienceVm.Designation, new { @id = "Designation", @class = "form-control", style = "width:40%" })</div><br />
-                </div>
-            </div>
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.ProjectWorked, new { @class = "form-control-LabelFor" })</div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.ExperienceVm.ProjectWorked, new { @class = "form-control-LabelFor" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.DisplayFor(m => m.ExperienceVm.ProjectWorked, new { @id = "ProjectWorked", @class = "form-control", style = "width:40%" })</div><br />
+                    </div>
                 </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.DisplayFor(m => m.ExperienceVm.ProjectWorked, new { @id = "ProjectWorked", @class = "form-control", style = "width:40%" })</div><br />
-                </div>
-            </div>
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.ExperienceVm.TechnologiesUsed, new { @class = "form-control-LabelFor" })</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.DisplayFor(m => m.ExperienceVm.TechnologiesUsed, new { @id = "TechnologiesUsed", @class = "form-control", style = "width:40%" })</div><br />
-                </div>
-            </div>*@
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.LabelFor(m => m.ExperienceVm.TechnologiesUsed, new { @class = "form-control-LabelFor" })</div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>@Html.DisplayFor(m => m.ExperienceVm.TechnologiesUsed, new { @id = "TechnologiesUsed", @class = "form-control", style = "width:40%" })</div><br />
+                    </div>
+                </div>*@
 
 
             @*<input type="button" value="Add" class="add-exp" />*@
@@ -363,42 +365,42 @@
             @*<button type="button" class="del-exp">Delete</button>*@
 
             @*<script>
-                $(".add-exp").click(function () {
+                    $(".add-exp").click(function () {
 
-                    var CompanyName = $("#CompanyName").val();
-                    var FromDate = $("#FromDate").val();
-                    var ToDate = $("#ToDate").val();
-                    var Designation = $("#Designation").val();
-                    var ProjectWorked = $("#ProjectWorked").val();
-                    var TechnologiesUsed = $("#TechnologiesUsed").val();
+                        var CompanyName = $("#CompanyName").val();
+                        var FromDate = $("#FromDate").val();
+                        var ToDate = $("#ToDate").val();
+                        var Designation = $("#Designation").val();
+                        var ProjectWorked = $("#ProjectWorked").val();
+                        var TechnologiesUsed = $("#TechnologiesUsed").val();
 
-                    var Company = "<tr><td>" +
-                        CompanyName + "</td><td>" +
-                        FromDate + "</td><td>" +
-                        ToDate + "</td><td>" +
-                        Designation + "</td><td>" +
-                        ProjectWorked + "</td><td>" +
-                        TechnologiesUsed + "</td></tr>";
+                        var Company = "<tr><td>" +
+                            CompanyName + "</td><td>" +
+                            FromDate + "</td><td>" +
+                            ToDate + "</td><td>" +
+                            Designation + "</td><td>" +
+                            ProjectWorked + "</td><td>" +
+                            TechnologiesUsed + "</td></tr>";
 
-                    $("#table-exp").append(Company);
-                    $("#CompanyName").val('');
-                    $("#FromDate").val('');
-                    $("#ToDate").val('');
-                    $("#Designation").val('');
-                    $("#ProjectWorked").val('');
-                    $("#TechnologiesUsed").val('');
-                });
-
-                $(".del-exp").click(function () {
-
-                    $("#table-exp").find('input[name="chck"]').each(function () {
-                        if ($(this).is(":checked")) {
-                            $(this).parents("tr").remove();
-                        }
+                        $("#table-exp").append(Company);
+                        $("#CompanyName").val('');
+                        $("#FromDate").val('');
+                        $("#ToDate").val('');
+                        $("#Designation").val('');
+                        $("#ProjectWorked").val('');
+                        $("#TechnologiesUsed").val('');
                     });
-                });
 
-            </script>*@
+                    $(".del-exp").click(function () {
+
+                        $("#table-exp").find('input[name="chck"]').each(function () {
+                            if ($(this).is(":checked")) {
+                                $(this).parents("tr").remove();
+                            }
+                        });
+                    });
+
+                </script>*@
 
 
         </div>
@@ -408,13 +410,13 @@
             <div class="card-body card-block">
 
                 @*<div class="row form-group">
-                    <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />
-                    <input id="searchid" style="display:none" />
-                    <input id="Years" placeholder="Years" />
-                    <input id="Months" placeholder="Months" />
-                    <input id="Status" placeholder="Status" />
-                    <input type="button" value="Add" class="add-skill" />
-                </div>*@
+                        <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />
+                        <input id="searchid" style="display:none" />
+                        <input id="Years" placeholder="Years" />
+                        <input id="Months" placeholder="Months" />
+                        <input id="Status" placeholder="Status" />
+                        <input type="button" value="Add" class="add-skill" />
+                    </div>*@
 
                 <table class="table table-striped" id="table-skill" style="width:50%">
                     <thead>
@@ -429,53 +431,53 @@
                     </thead>
 
                     <tbody>
-                        @foreach(var es in Model.EmployeeSkills)
+                        @foreach (var es in Model.EmployeeSkills)
                         {
-                        <tr>
-                            <td>@es.Skills</td>
-                            <td>@es.Years</td>
-                            <td>@es.Months</td>
-                            <td>@es.Status</td>
-                        </tr>
-                        }                        
+                            <tr>
+                                <td>@es.Skills</td>
+                                <td>@es.Years</td>
+                                <td>@es.Months</td>
+                                <td>@es.Status</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
                 <br />
                 @*<button type="button" class="del-emp">Delete</button>*@
 
                 @*<script>
-                    $(".add-skill").click(function () {
+                        $(".add-skill").click(function () {
 
-                        var skillname = $("#searchskill").val();
+                            var skillname = $("#searchskill").val();
 
-                        var skillid = $("#searchid").val();
+                            var skillid = $("#searchid").val();
 
-                        var Years = $("#Years").val();
-                        var Months = $("#Months").val();
-                        var Status = $("#Status").val();
-                        var markup = "<tr><td>" +
-                            skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
-                            Years + "</td><td>" +
-                            Months + "</td><td>" +
-                            Status + "</td></tr>";
-                        $("#table-skill").append(markup);
-                        $("#searchskill").val('');
-                        $("#searchid").val('');
-                        $("#Years").val('');
-                        $("#Months").val('');
-                        $("#Status").val('');
-                    });
-
-                    $(".del-emp").click(function () {
-
-                        $("#table-skill").find('input[name="chck"]').each(function () {
-                            if ($(this).is(":checked")) {
-                                $(this).parents("tr").remove();
-                            }
+                            var Years = $("#Years").val();
+                            var Months = $("#Months").val();
+                            var Status = $("#Status").val();
+                            var markup = "<tr><td>" +
+                                skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
+                                Years + "</td><td>" +
+                                Months + "</td><td>" +
+                                Status + "</td></tr>";
+                            $("#table-skill").append(markup);
+                            $("#searchskill").val('');
+                            $("#searchid").val('');
+                            $("#Years").val('');
+                            $("#Months").val('');
+                            $("#Status").val('');
                         });
-                    });
 
-                </script>*@
+                        $(".del-emp").click(function () {
+
+                            $("#table-skill").find('input[name="chck"]').each(function () {
+                                if ($(this).is(":checked")) {
+                                    $(this).parents("tr").remove();
+                                }
+                            });
+                        });
+
+                    </script>*@
 
 
             </div>
@@ -496,38 +498,38 @@
 
 
             @*<script>
-                $(function () {
-                    $("#searchskill").autocomplete({
-                        source: function (request, response) {
-                            var param = { name: $('#searchskill').val() };
-                            $.ajax({
-                                url: "/EmployeeInfo/getSkills",
-                                data: JSON.stringify(param),
-                                dataType: "json",
-                                type: "POST",
-                                contentType: "application/json; charset=utf-8",
-                                dataFilter: function (data) { return data; },
-                                success: function (data) {
-                                    response($.map(data, function (item) {
-                                        return { LabelFor: item.SkillName, id: item.id }
-                                    }))
-                                },
-                                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                    alert(textStatus);
-                                }
-                            });
-                        },
-                        select: function (event, ui) {
-                            // prevent autocomplete from updating the textbox
-                            event.preventDefault();
-                            $(this).val(ui.item.LabelFor);
-                            $("#searchid").val(ui.item.id);
-                            // $("#searchskill").val(ui.item.name);
-                        }    //minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+                    $(function () {
+                        $("#searchskill").autocomplete({
+                            source: function (request, response) {
+                                var param = { name: $('#searchskill').val() };
+                                $.ajax({
+                                    url: "/EmployeeInfo/getSkills",
+                                    data: JSON.stringify(param),
+                                    dataType: "json",
+                                    type: "POST",
+                                    contentType: "application/json; charset=utf-8",
+                                    dataFilter: function (data) { return data; },
+                                    success: function (data) {
+                                        response($.map(data, function (item) {
+                                            return { LabelFor: item.SkillName, id: item.id }
+                                        }))
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        alert(textStatus);
+                                    }
+                                });
+                            },
+                            select: function (event, ui) {
+                                // prevent autocomplete from updating the textbox
+                                event.preventDefault();
+                                $(this).val(ui.item.LabelFor);
+                                $("#searchid").val(ui.item.id);
+                                // $("#searchskill").val(ui.item.name);
+                            }    //minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+                        });
                     });
-                });
 
-            </script>*@
+                </script>*@
 
 
         </div>
@@ -763,156 +765,156 @@
                 </div>
             </div>
 
-            <input id="btnSave" type="submit" value="Create" class="btn btn-success" />
+            <input id="btnSave" type="submit" value="Delete" class="btn btn-danger" /> | @Html.ActionLink("Back to List", "Index")
 
             @*<script type="text/javascript">
 
-                $("#btnSave").click(function () {
-                     // debugger;
+            $("#btnSave").click(function () {
+                 // debugger;
 
-                    var EmpCode = $("#EmpCode").val();
-                    var Name = $("#Name").val();
-                    var FName = $("#FName").val();
-                    var DOB = $("#DOB").val();
-                    var Gender = $("#Gender").val();
-                    var PermntAdd = $("#PermntAdd").val();
-                    var CommAdd = $("#CommAdd").val();
-                    var Contact = $("#Contact").val();
-                    var Qualification = $("#Qualification").val();
-                    var Email = $("#Email").val();
-                    var PanNo = $("#PanNo").val();
-                    var AadharNo = $("#AadharNo").val();
-                    var BloodGroup = $("#BloodGroup").val();
+                var EmpCode = $("#EmpCode").val();
+                var Name = $("#Name").val();
+                var FName = $("#FName").val();
+                var DOB = $("#DOB").val();
+                var Gender = $("#Gender").val();
+                var PermntAdd = $("#PermntAdd").val();
+                var CommAdd = $("#CommAdd").val();
+                var Contact = $("#Contact").val();
+                var Qualification = $("#Qualification").val();
+                var Email = $("#Email").val();
+                var PanNo = $("#PanNo").val();
+                var AadharNo = $("#AadharNo").val();
+                var BloodGroup = $("#BloodGroup").val();
 
-                    var mod = {
-                        EmpCode: EmpCode, Name: Name, FatherName: FName, DOB: DOB, Gender: Gender, PermanentAddress: PermntAdd, CommunicationAddress: CommAdd,
-                        Contact: Contact, Qualification: Qualification, Email: Email, PanNo: PanNo, AadharNo: AadharNo, BloodGroup: BloodGroup
+                var mod = {
+                    EmpCode: EmpCode, Name: Name, FatherName: FName, DOB: DOB, Gender: Gender, PermanentAddress: PermntAdd, CommunicationAddress: CommAdd,
+                    Contact: Contact, Qualification: Qualification, Email: Email, PanNo: PanNo, AadharNo: AadharNo, BloodGroup: BloodGroup
+                };
+
+
+                var itemlist1 = [];
+
+                $("#table-quali tr:not(:first)").each(function () {
+                    var tdlist = $(this).find("td");
+
+                    var Degree = $(tdlist[1]).html();
+                    var Board = $(tdlist[2]).html();
+                    var YearOfPassing = $(tdlist[3]).html();
+                    var Percentage = $(tdlist[4]).html();
+
+                    var mod1 = {
+                        Degree: Degree, Board: Board, YearOfPassing: YearOfPassing, Percentage: Percentage
                     };
 
-
-                    var itemlist1 = [];
-
-                    $("#table-quali tr:not(:first)").each(function () {
-                        var tdlist = $(this).find("td");
-
-                        var Degree = $(tdlist[1]).html();
-                        var Board = $(tdlist[2]).html();
-                        var YearOfPassing = $(tdlist[3]).html();
-                        var Percentage = $(tdlist[4]).html();
-
-                        var mod1 = {
-                            Degree: Degree, Board: Board, YearOfPassing: YearOfPassing, Percentage: Percentage
-                        };
-
-                        itemlist1.push(mod1);
-                        //alert(itemlist);
-                    })
+                    itemlist1.push(mod1);
+                    //alert(itemlist);
+                })
 
 
 
-                    var itemlist2 = [];
+                var itemlist2 = [];
 
-                    $("#table-exp tr:not(:first)").each(function () {
-                        var tdlist1 = $(this).find("td");
+                $("#table-exp tr:not(:first)").each(function () {
+                    var tdlist1 = $(this).find("td");
 
-                        var CompanyName = $(tdlist1[1]).html();
-                        var FromDate = $(tdlist1[2]).html();
-                        var ToDate = $(tdlist1[3]).html();
-                        var Designation1 = $(tdlist1[4]).html();
-                        var ProjectWorked = $(tdlist1[5]).html();
-                        var TechnologiesUsed = $(tdlist1[6]).html();
+                    var CompanyName = $(tdlist1[1]).html();
+                    var FromDate = $(tdlist1[2]).html();
+                    var ToDate = $(tdlist1[3]).html();
+                    var Designation1 = $(tdlist1[4]).html();
+                    var ProjectWorked = $(tdlist1[5]).html();
+                    var TechnologiesUsed = $(tdlist1[6]).html();
 
-                        var mod2 = {CompanyName: CompanyName, FromDate: FromDate, ToDate: ToDate, Designation: Designation1, ProjectWorked: ProjectWorked, TechnologiesUsed: TechnologiesUsed };
+                    var mod2 = {CompanyName: CompanyName, FromDate: FromDate, ToDate: ToDate, Designation: Designation1, ProjectWorked: ProjectWorked, TechnologiesUsed: TechnologiesUsed };
 
-                        itemlist2.push(mod2);
-                    })
-
-
-                    var itemlist3 = [];
-                    var Common_Id = "3";
-
-                    $("#table-skill tr:not(:first)").each(function () {
-                        var tdlist2 = $(this).find("td");
-
-                        var skill_id = $(tdlist2[2]).html();
-                        var years = $(tdlist2[3]).html();
-                        var months = $(tdlist2[4]).html();
-                        var status = $(tdlist2[5]).html();
-
-                        var mod3 = {CommonField_Id: Common_Id, Skills_Id: skill_id, Years: years, Months: months, Status: status };
-
-                        itemlist3.push(mod3);
-                    })
-
-                    var Project_Id = $("#Project_Id").val();
-                    var PwDesignation = $("#PwDesignation").val();
-                    var Responsibilities = $("#Responsibilities").val();
-                    var StartDate = $("#StartDate").val();
-                    var EndDate = $("#EndDate").val();
-                    var Description = $("#Description").val();
-                    var TeamMembers = $("#TeamMembers").val();
-                    var Manager_Id = $("#Manager_Id").val();
-
-                    var mod4 = {
-                        Project_Id: Project_Id, Designation: PwDesignation, Responsibilities: Responsibilities, StartDate: StartDate, EndDate: EndDate, Description: Description
-                        , TeamMembers: TeamMembers, Manager_Id: Manager_Id
-                    };
+                    itemlist2.push(mod2);
+                })
 
 
-                    var Designation = $("#Designation2").val();
-                    var DOJ = $("#DOJ").val();
-                    var DateOfRelieving = $("#DateOfRelieving").val();
-                    var ReportingManager = $("#ReportingManager").val();
-                    var JobType = $("#JobType").val();
-                    var DeployedCompanyDetails = $("#DeployedCompanyDetails").val();
-                    var DeployedFromDate = $("#DeployedFromDate").val();
-                    var DeployedToDate = $("#DeployedToDate").val();
-                    var CompanyMailId = $("#CompanyMailId").val();
-                    var BankName = $("#BankName").val();
-                    var IFSC = $("#IFSC").val();
-                    var ModeOfPayment = $("#ModeOfPayment").val();
-                    var WorkLocation = $("#WorkLocation").val();
-                    var Department = $("#Department").val();
-                    var Grade = $("#Grade").val();
-                    var Salary = $("#Salary").val();
-                    var CTC = $("#CTC").val();
+                var itemlist3 = [];
+                var Common_Id = "3";
 
-                    var mod5 = {
-                        Designation: Designation, DOJ: DOJ, DateOfRelieving: DateOfRelieving, ReportingManager: ReportingManager, JobType: JobType,
-                        DeployedCompanyDetails: DeployedCompanyDetails, DeployedFromDate: DeployedFromDate, DeployedToDate: DeployedToDate, CompanyMailId: CompanyMailId,
-                        BankName: BankName, IFSC: IFSC, ModeOfPayment: ModeOfPayment, WorkLocation: WorkLocation, Department: Department, Grade: Grade, Salary: Salary, CTC: CTC
-                    };
+                $("#table-skill tr:not(:first)").each(function () {
+                    var tdlist2 = $(this).find("td");
 
-                    var data = new FormData();
-                    var files = $("#uploadEditorImage").get(0).files;
-                  //  alert(files[0]);
-                    if (files.length > 0) {
-                        data.append("HelpSectionImages", files[0]);
+                    var skill_id = $(tdlist2[2]).html();
+                    var years = $(tdlist2[3]).html();
+                    var months = $(tdlist2[4]).html();
+                    var status = $(tdlist2[5]).html();
+
+                    var mod3 = {CommonField_Id: Common_Id, Skills_Id: skill_id, Years: years, Months: months, Status: status };
+
+                    itemlist3.push(mod3);
+                })
+
+                var Project_Id = $("#Project_Id").val();
+                var PwDesignation = $("#PwDesignation").val();
+                var Responsibilities = $("#Responsibilities").val();
+                var StartDate = $("#StartDate").val();
+                var EndDate = $("#EndDate").val();
+                var Description = $("#Description").val();
+                var TeamMembers = $("#TeamMembers").val();
+                var Manager_Id = $("#Manager_Id").val();
+
+                var mod4 = {
+                    Project_Id: Project_Id, Designation: PwDesignation, Responsibilities: Responsibilities, StartDate: StartDate, EndDate: EndDate, Description: Description
+                    , TeamMembers: TeamMembers, Manager_Id: Manager_Id
+                };
+
+
+                var Designation = $("#Designation2").val();
+                var DOJ = $("#DOJ").val();
+                var DateOfRelieving = $("#DateOfRelieving").val();
+                var ReportingManager = $("#ReportingManager").val();
+                var JobType = $("#JobType").val();
+                var DeployedCompanyDetails = $("#DeployedCompanyDetails").val();
+                var DeployedFromDate = $("#DeployedFromDate").val();
+                var DeployedToDate = $("#DeployedToDate").val();
+                var CompanyMailId = $("#CompanyMailId").val();
+                var BankName = $("#BankName").val();
+                var IFSC = $("#IFSC").val();
+                var ModeOfPayment = $("#ModeOfPayment").val();
+                var WorkLocation = $("#WorkLocation").val();
+                var Department = $("#Department").val();
+                var Grade = $("#Grade").val();
+                var Salary = $("#Salary").val();
+                var CTC = $("#CTC").val();
+
+                var mod5 = {
+                    Designation: Designation, DOJ: DOJ, DateOfRelieving: DateOfRelieving, ReportingManager: ReportingManager, JobType: JobType,
+                    DeployedCompanyDetails: DeployedCompanyDetails, DeployedFromDate: DeployedFromDate, DeployedToDate: DeployedToDate, CompanyMailId: CompanyMailId,
+                    BankName: BankName, IFSC: IFSC, ModeOfPayment: ModeOfPayment, WorkLocation: WorkLocation, Department: Department, Grade: Grade, Salary: Salary, CTC: CTC
+                };
+
+                var data = new FormData();
+                var files = $("#uploadEditorImage").get(0).files;
+              //  alert(files[0]);
+                if (files.length > 0) {
+                    data.append("HelpSectionImages", files[0]);
+                }
+                //file
+                //var datavalue = fileValue;
+                //alert(datavalue);
+
+                $.ajax({
+
+                    url: '@Url.Action("Create", "EmployeeInformation")',  //'/EmployeeInformation/CreateEmployee',
+                    dataType: "json",
+                    data: JSON.stringify({path:filepath, personalInfo: mod, eductionQualifi: itemlist1, exper: itemlist2, empSkill: itemlist3, projectWorked: mod4, currentInfo: mod5 }),
+                    type: 'POST',
+                    //processData: false,
+                   // contentType: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        alert("Successfully Added");
+                        window.location.href = '@Url.Action("Index", "EmployeeInformation")';
+                    },
+                    error: function (xhr) {
+                        alert("error");
                     }
-                    //file
-                    //var datavalue = fileValue;
-                    //alert(datavalue);
-
-                    $.ajax({
-
-                        url: '@Url.Action("Create", "EmployeeInformation")',  //'/EmployeeInformation/CreateEmployee',
-                        dataType: "json",
-                        data: JSON.stringify({path:filepath, personalInfo: mod, eductionQualifi: itemlist1, exper: itemlist2, empSkill: itemlist3, projectWorked: mod4, currentInfo: mod5 }),
-                        type: 'POST',
-                        //processData: false,
-                       // contentType: false,
-                        contentType: "application/json; charset=utf-8",
-                        success: function (result) {
-                            alert("Successfully Added");
-                            window.location.href = '@Url.Action("Index", "EmployeeInformation")';
-                        },
-                        error: function (xhr) {
-                            alert("error");
-                        }
-                    });
                 });
+            });
 
-            </script>*@
+        </script>*@
         </div>
     </div>
 

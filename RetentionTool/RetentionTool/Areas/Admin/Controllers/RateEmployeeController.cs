@@ -160,7 +160,8 @@ namespace RetentionTool.Areas.Admin.Controllers
         public ActionResult Delete(int id, RateEmployeeEligiability ree)
         {
             List<RateEmployeeEligiability> rateEmpEliList = db.RateEmployeeEligiabilities.Where(a => a.AssignResources_Id == id).ToList();
-foreach(var item in rateEmpEliList)
+
+            foreach (var item in rateEmpEliList)
             {
                 item.IsActive = false;
                 db.Entry(item).State = System.Data.Entity.EntityState.Modified;
