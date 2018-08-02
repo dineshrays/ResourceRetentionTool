@@ -16,55 +16,27 @@ namespace RetentionTool.Areas.Manager.Controllers
         // GET: AssignResource
         public ActionResult Index()
         {
-            // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
-            //var assignres;
+            
             int projectid = fetchdet.getDefaultProjectId();
             List<AssignResourceViewModel> assgnvm  = (from assignres in db.AssignResources 
-                               // join assignresdet in db.AssignResourcesDets
-                               // on assignres.Id equals assignresdet.AssignResources_Id
-                               
-                           
                                                       where assignres.IsActive== true && assignres.Project_Id!= projectid
                                                       && assignres.Manager_Id==managerid 
-                                                      //ProjectsDetail.Name != "Training"
                                                       && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
-
                                                       select new AssignResourceViewModel
-                                {
-                                    Id = assignres.Id,
-                                    Manager_Id = assignres.Manager_Id,
-                                    Project_Id=assignres.Project_Id,
-                                    projectname=assignres.ProjectsDetail.Name,
-                                 managername =   assignres.PersonalInfo.Name,
-                                 Module_Id=    assignres.Module_Id,
-                                modulename=    assignres.Module.ModuleName,
-                                 Trainer_Id=   assignres.Trainer.PersonalInfo_Id,
-                                  trainername=  assignres.Trainer.PersonalInfo.Name,
-                             //    Employee_Id=   assignresdet.Employee_Id,
-                              //    employeename=  assignresdet.PersonalInfo.Name,
-                                  Date=  assignres.Date,
-                                 IsActive=   assignres.IsActive,
-                             //   AssignResourceId=  assignresdet.Id
-                                }).ToList();
+                                                       {
+                                                        Id = assignres.Id,
+                                                        Manager_Id = assignres.Manager_Id,
+                                                        Project_Id=assignres.Project_Id,
+                                                        projectname=assignres.ProjectsDetail.Name,
+                                                         managername =   assignres.PersonalInfo.Name,
+                                                         Module_Id=    assignres.Module_Id,
+                                                         modulename=    assignres.Module.ModuleName,
+                                                         Trainer_Id=   assignres.Trainer.PersonalInfo_Id,
+                                                          trainername=  assignres.Trainer.PersonalInfo.Name,                      
+                                                          Date=  assignres.Date,
+                                                         IsActive=   assignres.IsActive
+                                                        }).ToList();           
 
-            //List<AssignResourceViewModel> assgnvm = assginmodule.Select(
-            //    a => new AssignResourceViewModel
-            //    {
-            //        Id = a.Id,
-            //        Date = a.Date,
-            //        Manager_Id = a.Manager_Id,
-            //        Module_Id=a.Module_Id,
-            //        Employee_Id=a.Employee_Id,
-            //        Trainer_Id=a.Trainer_Id,
-            //        IsActive=a.IsActive,
-            //        managername=a.Manager.Name,
-            //        trainername=a.Trainer.Name,
-            //        employeename=a.Employee.Name,
-            //        modulename=a.Module.ModuleName
-
-            //    }).ToList();
-
-            //  return View(assgnvm);
             return View(assgnvm);
         }
 
