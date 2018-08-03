@@ -281,13 +281,14 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
             // inner join Module module
             // on skill.id = module.Skill_Id
             // where module.Id = 2003
-            int emproleid = fetchdet.getDefaultManagerRoleId();
+           // int emproleid = fetchdet.getDefaultManagerRoleId();
             List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
                                                join empskills in db.EmployeeSkills on personal.Id equals empskills.P_Id
                                                join skill in db.Skills on empskills.Skills_Id equals skill.id
                                                join module in db.Modules on skill.id equals module.Skill_Id
-                                               join userdet in db.UserDetails on personal.Id equals userdet.Emp_Id
-                                               where module.Id == moduleid && userdet.IsActive==true && userdet.Role_Id==emproleid
+                                              // join userdet in db.UserDetails on personal.Id equals userdet.Emp_Id
+                                               where module.Id == moduleid 
+                                               //&& userdet.IsActive==true && userdet.Role_Id==emproleid
                                                select new EmployeeList
                                                {
                                                    Id = personal.Id,
@@ -313,12 +314,12 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
         }
         public void getEmployees()
         {
-            int emproleid = fetchdet.getDefaultEmployeeRoleId();
+          //  int emproleid = fetchdet.getDefaultEmployeeRoleId();
             var data = (from personalInfo in db.PersonalInfoes
-                        join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
-                        where personalInfo.IsActive == true
-                        && userdet.IsActive == true
-                        && userdet.Role_Id == emproleid
+                       // join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                       // where personalInfo.IsActive == true
+                      //  && userdet.IsActive == true
+                      //  && userdet.Role_Id == emproleid
                         select new
                         {
                             Id = personalInfo.Id,

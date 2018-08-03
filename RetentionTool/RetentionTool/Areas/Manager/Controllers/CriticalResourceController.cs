@@ -201,10 +201,11 @@ namespace RetentionTool.Areas.Manager.Controllers
             PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == trainerlist.PersonalInfo_Id && a.IsActive == true);
             FetchDefaultIds fetchdet = new FetchDefaultIds();
             int roleid = fetchdet.getDefaultTrainerRoleId();
-            UserDetail user = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id == roleid && a.IsActive == true);
+            UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id == roleid && a.IsActive == true);
 
-            if (user == null)
+            if (userdet == null)
             {
+                UserDetail user = new UserDetail();
                 user.Emp_Id = personalinfo.Id;
                 user.EntryDate = DateTime.Now;
                 user.Email = personalinfo.Email;

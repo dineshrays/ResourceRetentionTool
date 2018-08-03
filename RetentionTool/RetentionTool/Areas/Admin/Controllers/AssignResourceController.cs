@@ -308,12 +308,12 @@ where personalInfo.IsActive==true && trainer.IsActive==true
         }
         public void getEmployees()
         {
-            int emproleid = fetchdet.getDefaultEmployeeRoleId();
+            //int emproleid = fetchdet.getDefaultEmployeeRoleId();
             var data = (from personalInfo in db.PersonalInfoes
-                        join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                       // join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
                         where personalInfo.IsActive == true 
-                        && userdet.IsActive == true
-                        && userdet.Role_Id==emproleid
+                       // && userdet.IsActive == true
+                      //  && userdet.Role_Id==emproleid
                         select new
                         {
                             Id = personalInfo.Id,
@@ -347,13 +347,13 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             //IEnumerable<SelectListItem> skilldet =  
             //  List<string> va = new List<string>();
 
-            int emproleid = fetchdet.getDefaultEmployeeRoleId();
+          //  int emproleid = fetchdet.getDefaultEmployeeRoleId();
             List< EmployeeList>  va = (from emp in db.PersonalInfoes
-                                   join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
+                                  // join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
                                      where emp.Name.Contains(name)
                                   
                                      && emp.IsActive==true 
-                                     && userdet.IsActive==true && userdet.Role_Id==emproleid
+                                   //  && userdet.IsActive==true && userdet.Role_Id==emproleid
                                      select new EmployeeList
           {
               Id=emp.Id,

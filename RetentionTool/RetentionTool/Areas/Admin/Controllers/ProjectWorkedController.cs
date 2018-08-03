@@ -249,13 +249,14 @@ namespace RetentionTool.Areas.Admin.Controllers
             // var val = db.Employees.Where(a => a.Name.Contains(name)).ToList();
             //IEnumerable<SelectListItem> skilldet =  
             //  List<string> va = new List<string>();
-            int emproleid = fetchdet.getDefaultEmployeeRoleId();
+           // int emproleid = fetchdet.getDefaultEmployeeRoleId();
           
             List<EmployeeList> va = (from emp in db.PersonalInfoes
-                                     join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
+                                    // join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
                                      where emp.Name.Contains(name)
 
-            && emp.IsActive == true && userdet.Role_Id == emproleid && userdet.IsActive == true
+            && emp.IsActive == true 
+            //&& userdet.Role_Id == emproleid && userdet.IsActive == true
                                      select new EmployeeList
                                      {
                                          Id = emp.Id,
@@ -269,15 +270,15 @@ namespace RetentionTool.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult EmpDetails(int projectid)
         {
-            int emproleid = fetchdet.getDefaultEmployeeRoleId();
+          //  int emproleid = fetchdet.getDefaultEmployeeRoleId();
             List<EmployeeList> emplist = (from projectwork in db.ProjectsWorkeds
                                           join personalinfo in db.PersonalInfoes
                                          
                                           on projectwork.PersonalInfo_Id equals personalinfo.Id
-                                          join user in db.UserDetails
-                                         on personalinfo.Id equals user.Emp_Id
+                                         // join user in db.UserDetails
+                                        // on personalinfo.Id equals user.Emp_Id
                                           where projectwork.Project_Id == projectid
-                                          && user.IsActive==true && user.Role_Id==emproleid
+                                         // && user.IsActive==true && user.Role_Id==emproleid
                                           select new EmployeeList
                                           {
                                               Id = personalinfo.Id,

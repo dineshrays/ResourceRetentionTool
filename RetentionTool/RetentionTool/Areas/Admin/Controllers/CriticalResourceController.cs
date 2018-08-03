@@ -98,29 +98,36 @@ namespace RetentionTool.Areas.Admin.Controllers
                 db.SaveChanges();
 
             PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == trainerlist.PersonalInfo_Id && a.IsActive == true);
-            UserDetail user = new UserDetail();
-            user.Emp_Id = personalinfo.Id;
-            user.EntryDate = DateTime.Now;
-            user.Email = personalinfo.Email;
             FetchDefaultIds fetchdet = new FetchDefaultIds();
+            int roleid = fetchdet.getDefaultTrainerRoleId();
+            UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id == roleid && a.IsActive == true);
 
-            user.Role_Id = fetchdet.getDefaultTrainerRoleId();
-            user.Name = personalinfo.Name;
-            user.IsActive = true;
-            user.Password = fetchdet.password;
+            if (userdet == null)
+            {
+                UserDetail user = new UserDetail();
+                user.Emp_Id = personalinfo.Id;
+                user.EntryDate = DateTime.Now;
+                user.Email = personalinfo.Email;
 
-            db.UserDetails.Add(user);
-            db.SaveChanges();
 
-            
+                user.Role_Id = roleid;
+                user.Name = personalinfo.Name;
+                user.IsActive = true;
+                user.Password = fetchdet.password;
+
+                db.UserDetails.Add(user);
+                db.SaveChanges();
+            }
+
+
             //foreach (var trainer in trainerlist)
-                //{
-                //    trainer.IsActive = true;
-                //    db.Trainers.Add(trainer);
-                //    db.SaveChanges();
-                //}
+            //{
+            //    trainer.IsActive = true;
+            //    db.Trainers.Add(trainer);
+            //    db.SaveChanges();
             //}
-          
+            //}
+
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
@@ -179,7 +186,28 @@ namespace RetentionTool.Areas.Admin.Controllers
             trainer.PersonalInfo_Id = trainerlist.PersonalInfo_Id;
             db.Entry(trainer).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
-            
+            PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == trainerlist.PersonalInfo_Id && a.IsActive == true);
+            FetchDefaultIds fetchdet = new FetchDefaultIds();
+            int roleid = fetchdet.getDefaultTrainerRoleId();
+            UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id == roleid && a.IsActive == true);
+
+            if (userdet == null)
+            {
+                UserDetail user = new UserDetail();
+                user.Emp_Id = personalinfo.Id;
+                user.EntryDate = DateTime.Now;
+                user.Email = personalinfo.Email;
+
+
+                user.Role_Id = roleid;
+                user.Name = personalinfo.Name;
+                user.IsActive = true;
+                user.Password = fetchdet.password;
+
+                db.UserDetails.Add(user);
+                db.SaveChanges();
+            }
+
             List<criticalResourceAccountability> criticalist = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true ).ToList();
 
             var critifalse = criticalist.Where(a => !criticalacc.Any(c => c.Name == a.Name && c.Value==a.Value)).ToList();

@@ -64,20 +64,27 @@ namespace RetentionTool.Areas.Admin.Controllers
                 db.SaveChanges();
                 assigneval.Trainer_Id = trainer.Id;
 
-                PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == criticalRes.PersonalInfo_Id && a.IsActive == true);
-                UserDetail user = new UserDetail();
-                user.Emp_Id = personalinfo.Id;
-                user.EntryDate = DateTime.Now;
-                user.Email = personalinfo.Email;
                 FetchDefaultIds fetchdet = new FetchDefaultIds();
+                int trainerroleid = fetchdet.getDefaultTrainerRoleId();
+                PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == criticalRes.PersonalInfo_Id && a.IsActive == true);
+                UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id == trainerroleid && a.IsActive == true);
+                if (userdet == null)
+                {
+                    UserDetail user = new UserDetail();
+                    user.Emp_Id = personalinfo.Id;
+                    user.EntryDate = DateTime.Now;
+                    user.Email = personalinfo.Email;
 
-                user.Role_Id = fetchdet.getDefaultTrainerRoleId();
-                user.Name = personalinfo.Name;
-                user.IsActive = true;
-                user.Password = fetchdet.password;
 
-                db.UserDetails.Add(user);
-                db.SaveChanges();
+                    user.Role_Id = trainerroleid;
+                    user.Name = personalinfo.Name;
+                    user.IsActive = true;
+                    user.Password = fetchdet.password;
+
+                    db.UserDetails.Add(user);
+                    db.SaveChanges();
+
+                }
             }
             assigneval.IsActive = true;
             db.AssignEvaluaters.Add(assigneval);
@@ -117,20 +124,27 @@ namespace RetentionTool.Areas.Admin.Controllers
                 db.SaveChanges();
                 asseval.Trainer_Id = trainer.Id;
 
-                PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == criticalRes.PersonalInfo_Id && a.IsActive == true);
-                UserDetail user = new UserDetail();
-                user.Emp_Id = personalinfo.Id;
-                user.EntryDate = DateTime.Now;
-                user.Email = personalinfo.Email;
                 FetchDefaultIds fetchdet = new FetchDefaultIds();
+                int trainerroleid = fetchdet.getDefaultTrainerRoleId();
+                PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == criticalRes.PersonalInfo_Id && a.IsActive == true);
+                UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id == trainerroleid && a.IsActive == true);
+                if (userdet == null)
+                {
+                    UserDetail user = new UserDetail();
+                    user.Emp_Id = personalinfo.Id;
+                    user.EntryDate = DateTime.Now;
+                    user.Email = personalinfo.Email;
 
-                user.Role_Id = fetchdet.getDefaultTrainerRoleId();
-                user.Name = personalinfo.Name;
-                user.IsActive = true;
-                user.Password = fetchdet.password;
 
-                db.UserDetails.Add(user);
-                db.SaveChanges();
+                    user.Role_Id = trainerroleid;
+                    user.Name = personalinfo.Name;
+                    user.IsActive = true;
+                    user.Password = fetchdet.password;
+
+                    db.UserDetails.Add(user);
+                    db.SaveChanges();
+
+                }
             }
 
             asseval.IsActive = true;
