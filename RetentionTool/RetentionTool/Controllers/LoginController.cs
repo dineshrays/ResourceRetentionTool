@@ -26,6 +26,13 @@ namespace RetentionTool.Controllers
             getRoleDetails();
             return View();
         }
+        public ActionResult Test()
+        {
+            int a = 10;
+            int b =  0;
+            int c = a / b;
+            return View();
+        }
         [HttpPost]
         public ActionResult Index(UserDetailsViewModel uservm)
         {
