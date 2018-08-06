@@ -50,6 +50,7 @@ namespace RetentionTool.Controllers
 
                 int internRoleid = fetchdet.getDefaultInternRoleId();
                 Session["userId"] = userResult.Emp_Id;
+                Session["uid"] = userResult.Id;
                 PersonalInfo personalInfo = db.PersonalInfoes.Find(userResult.Emp_Id);
                 Session["userpath"] = personalInfo.Image;
                 //Image.PerformImageResizeAndPutOnCanvas(imgPath, filename, Convert.ToInt16(txtWidth.Text), Convert.ToInt16(txtHeight.Text), txtOutputFileName.Text.ToString() + ".jpg");

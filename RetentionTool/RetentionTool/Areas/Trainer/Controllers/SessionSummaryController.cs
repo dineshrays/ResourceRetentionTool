@@ -101,7 +101,12 @@ namespace RetentionTool.Areas.Trainer.Controllers
         [HttpPost]
         public ActionResult Create(Session sessionVM,SessionSummaryList[] list)
         {
+            //sessionVM.TrainingDet_Id
 
+            //var sessioncount=  (db.Trainings.Any(t => t.AssignResource_Id == a.Id &&
+            //                                                              t.IsActive == true && db.TrainingDets.Count(d => d.Training_Id == t.Id && d.IsActive == true).Equals(
+            //                                                              db.Sessions.Count(s => s.TrainingDet.Training_Id == t.Id && s.IsActive == true)))
+            //                                                              || db.RateEmployeeEligiabilities.Any(b => b.AssignResources_Id == a.Id && b.IsActive == true))
             //AssignResource assRes = new AssignResource()
             //{
             //    Id = assgnResvm.Id,
@@ -112,11 +117,28 @@ namespace RetentionTool.Areas.Trainer.Controllers
             //    IsActive = true
 
             //};
+
+           
             sessionVM.IsActive = true;
             db.Sessions.Add(sessionVM);
             db.SaveChanges();
             // int[] empid = assgnResvm.empid;
             //  for (int i = 0; i < empid.Length; i++)
+
+            TrainingDet trainingdet = db.TrainingDets.FirstOrDefault(a => a.Id == sessionVM.TrainingDet_Id && a.IsActive == true);
+
+            Training training = db.Trainings.FirstOrDefault(a => a.Id == trainingdet.Training_Id && a.IsActive == true);
+
+            var traindetcount = db.TrainingDets.Where(a => a.Training_Id == training.Id).Count();
+            var sessiondet = db.Sessions.Where(a => db.TrainingDets.Any(b => b.Training_Id == training.Id && b.Id == a.TrainingDet_Id && b.IsActive == true) && a.IsActive == true).Count();
+            if(traindetcount==sessiondet)
+            {
+                AssignResource assRes = db.AssignResources.FirstOrDefault(a => a.Id == training.AssignResource_Id && a.IsActive == true);
+                FetchDefaultIds fetchdet = new FetchDefaultIds();
+                int managerroleid = fetchdet.getDefaultManagerRoleId();
+                UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == assRes.Manager_Id && a.Role_Id==managerroleid && a.IsActive == true);
+
+            }
             foreach (var i in list)
             {
                 SessionsDet sessionDet = new SessionsDet()
@@ -130,7 +152,28 @@ namespace RetentionTool.Areas.Trainer.Controllers
                 db.SessionsDets.Add(sessionDet);
                 db.SaveChanges();
             }
+            
+            int userid = 0;
+           
 
+            //(from traindet in db.TrainingDets
+                //                 where traindet.Id == sessionVM.TrainingDet_Id
+
+            //                 );
+            //db.Trainings.FirstOrDefault(a => db.TrainingDets.FirstOrDefault(c => c.Id == sessionVM.TrainingDet_Id));
+
+            //   var traindecount = db.Trainers.Where(a => db.TrainingDets.Where(b=>b.Id==sessionVM.TrainingDet_Id && ) && a.IsActive == true).Count();
+            //   var sessdetcount=
+            // Training training=db.Trainers.FirstOrDefault(a=>a.)
+            //AssignResource assignRes = db.AssignResources.Where(a => !db.EmployeeEvalTasks.Any(e => e.AssignResource_Id == a.Id && e.IsActive == true &&
+            //                                                             db.EmployeeEvalTaskDets.Any(t => t.EmployeeEvalTask_Id == e.Id &&
+            //                                                             t.IsEligiableMark == true && t.IsActive == true)) && a.IsActive == true
+            //                                                             && (db.Trainings.Any(t => t.AssignResource_Id == a.Id &&
+            //                                                             t.IsActive == true && db.TrainingDets.Count(d => d.Training_Id == t.Id && d.IsActive == true).Equals(
+            //                                                             db.Sessions.Count(s => s.TrainingDet.Training_Id == t.Id && s.IsActive == true)))
+            //                                                             || db.RateEmployeeEligiabilities.Any(b => b.AssignResources_Id == a.Id && b.IsActive == true))
+            //                                                              && db.Trainers.Any(t => t.Id == a.Trainer_Id && t.IsActive == true && t.PersonalInfo_Id == userid)
+            //                                                            );
             return Json("", JsonRequestBehavior.AllowGet);
         }
        //[HttpPost]
