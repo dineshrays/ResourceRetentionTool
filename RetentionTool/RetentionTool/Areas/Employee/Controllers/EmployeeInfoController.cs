@@ -19,66 +19,66 @@ namespace RetentionTool.Areas.Employee.Controllers
             return View();
         }
 
-        public ActionResult PersonalInfoCreate()
-        {
-            return View();
-        }
+        //public ActionResult PersonalInfoCreate()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult PersonalInfoCreate(PersonalInfoModel pim)
-        {
-            PersonalInfo p = new PersonalInfo();
-            p.EmpCode = pim.EmpCode;
-            p.Name = pim.Name;
-            p.FatherName = pim.FatherName;
-            p.DOB = pim.DOB;
-            p.Gender = pim.Gender;
-            p.PermanentAddress = pim.PermanentAddress;
-            p.CommunicationAddress = pim.CommunicationAddress;
-            p.Contact = pim.Contact;
-            p.Qualification = pim.Qualification;
-            p.Email = pim.Email;
-            p.PanNo = pim.PanNo;
-            p.AadharNo = pim.AadharNo;
-            p.BloodGroup = pim.BloodGroup;
-            p.IsActive = true;
+        //[HttpPost]
+        //public ActionResult PersonalInfoCreate(PersonalInfoModel pim)
+        //{
+        //    PersonalInfo p = new PersonalInfo();
+        //    p.EmpCode = pim.EmpCode;
+        //    p.Name = pim.Name;
+        //    p.FatherName = pim.FatherName;
+        //    p.DOB = pim.DOB;
+        //    p.Gender = pim.Gender;
+        //    p.PermanentAddress = pim.PermanentAddress;
+        //    p.CommunicationAddress = pim.CommunicationAddress;
+        //    p.Contact = pim.Contact;
+        //    p.Qualification = pim.Qualification;
+        //    p.Email = pim.Email;
+        //    p.PanNo = pim.PanNo;
+        //    p.AadharNo = pim.AadharNo;
+        //    p.BloodGroup = pim.BloodGroup;
+        //    p.IsActive = true;
 
-            db.PersonalInfoes.Add(p);
-            db.SaveChanges();
+        //    db.PersonalInfoes.Add(p);
+        //    db.SaveChanges();
             
 
-            return Json("", JsonRequestBehavior.AllowGet);
-        }
+        //    return Json("", JsonRequestBehavior.AllowGet);
+        //}
 
-        public ActionResult EduQualificationCreate()
-        {
-            getId();
-            return View();
+        //public ActionResult EduQualificationCreate()
+        //{
+        //    getId();
+        //    return View();
 
-        }
-        public void getId()
-        {
-            FetchDefaultIds fetchdet = new FetchDefaultIds();
-            int id = fetchdet.getUserId();
-            ViewData["Id"] = new SelectList(db.PersonalInfoes.Where(a=>a.Id==id).ToList(), "Id","Name");
-        }
+        //}
+        //public void getId()
+        //{
+        //    FetchDefaultIds fetchdet = new FetchDefaultIds();
+        //    int id = fetchdet.getUserId();
+        //    ViewData["Id"] = new SelectList(db.PersonalInfoes.Where(a=>a.Id==id).ToList(), "Id","Name");
+        //}
         
-        [HttpPost]
-        public ActionResult EduQualificationCreate(EducationQualificationModel eqm)
-        {
-            EducationQualification edu = new EducationQualification();
+        //[HttpPost]
+        //public ActionResult EduQualificationCreate(EducationQualificationModel eqm)
+        //{
+        //    EducationQualification edu = new EducationQualification();
 
-            edu.P_Id = eqm.P_Id; 
-            edu.Degree = eqm.Degree;
-            edu.Board = eqm.Board;
-            edu.YearOfPassing = eqm.YearOfPassing;
-            edu.Percentage = eqm.Percentage;
-            edu.IsActive = true;
+        //    edu.P_Id = eqm.P_Id; 
+        //    edu.Degree = eqm.Degree;
+        //    edu.Board = eqm.Board;
+        //    edu.YearOfPassing = eqm.YearOfPassing;
+        //    edu.Percentage = eqm.Percentage;
+        //    edu.IsActive = true;
 
-            db.EducationQualifications.Add(edu);
-            db.SaveChanges();
-            return Json("", JsonRequestBehavior.AllowGet);
-        }
+        //    db.EducationQualifications.Add(edu);
+        //    db.SaveChanges();
+        //    return Json("", JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult EmpSkillsCreate()
         {
@@ -96,18 +96,19 @@ namespace RetentionTool.Areas.Employee.Controllers
 
         }
         [HttpPost]
-        public ActionResult EmpSkillsCreate(List<EmployeeSkillsModel> es)
+        public ActionResult EmpSkillsCreate(List<EmployeeSkill> empSkill)
         {
-
-            if(es != null)
+            if (empSkill != null)
             {
-                foreach (var ski in es)
+                foreach (var ski in empSkill)
                 {
-                    //ski.IsActive = true;
-                    //db.EmployeeSkills.Add(ski);
-                    //db.SaveChanges();
+                    //ski.P_Id = p.Id;
+                    ski.IsActive = true;
+                    db.EmployeeSkills.Add(ski);
+                    db.SaveChanges();
                 }
             }
+            
             //EmployeeSkill e = new EmployeeSkill();
                         
             //e.P_Id = es.P_Id;
