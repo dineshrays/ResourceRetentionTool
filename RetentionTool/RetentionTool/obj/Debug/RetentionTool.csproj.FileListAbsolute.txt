@@ -483,3 +483,11 @@ C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\Retent
 C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
 C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\RetentionTool\bin\roslyn\System.Collections.Immutable.dll
 C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.Common.dll
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.License.dll
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.Pdf.dll
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.XLS.dll
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Microsoft.mshtml.dll
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.Common.xml
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.Pdf.xml
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.XLS.xml
