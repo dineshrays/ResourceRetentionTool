@@ -3,6 +3,8 @@
     ViewBag.Title = "Create Employee Skills";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    RetentionTool.Models.FetchDefaultIds fetchdet = new RetentionTool.Models.FetchDefaultIds();
+    var commanfieldid = fetchdet.commonfieldid;
 }
 
 
@@ -101,22 +103,22 @@
 
 </script>
 <script type="text/javascript">
-            $(function () {
+            //$(function () {
                 $("#btnSave").click(function () {
                 //    debugger;
                     var itemlist = [];
-                    var P_Id = $("#P_Id").val();
-                    var Common_Id = 1;
-                   // var skill_Id = $("#skillsemp").val();
-                   // var Years = $("#Years").val();
-                   //var months = $("#Months").val();
-                   // var status = $("#Status").val();
+                    
                     $("table tr:not(:first)").each(function () {
                         var tdlist = $(this).find("td");
+                        var P_Id = $("#P_Id").val();
+                        var Common_Id = commanfieldid;        
+                        var Skills_Id = $(tdlist[2]).html();
+                        var Years= $(tdlist[3]).html();
+                        var Months = $(tdlist[4]).html();
+                        var Status = $(tdlist[5]).html();
 
                         var Item = {
-                            P_Id: P_Id,CommonField_Id: Common_Id, Skills_Id: $(tdlist[2]).html(), Years: $(tdlist[3]).html(), Months: $(tdlist[4]).html()
-                            , Status: $(tdlist[5]).html()
+                            P_Id: P_Id, CommonField_Id: Common_Id, Skills_Id: Skills_Id, Years: Years, Months: Months, Status: Status
                         };
 
                         itemlist.push(Item);
@@ -126,10 +128,10 @@
                   //  var newUrl = '@Url.Action("Index","EmployeeInfo")';
                    // alert('jjj');
                     $.ajax({
-                        url: "/EmployeeInfo/EmpSkillsCreate",
+                        url: "/Employee/EmployeeInfo/EmpSkillsCreate",
                    // url: '@Url.Action("EmpSkillsCreate", "EmployeeInfo")',
                     dataType: "json",
-                          data: JSON.stringify({ es: itemlist }),
+                        data: JSON.stringify({ empSkill: itemlist }),
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
@@ -167,7 +169,7 @@
                         }
                     });*@
                 });
-            });
+           // });
 </script>
 
 

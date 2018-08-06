@@ -30,11 +30,9 @@ namespace RetentionTool.Areas.Trainer.Controllers
         //    ViewBag.asseval = assignEval;
         //    List<EmployeeEvalTask> empevaltask = db.EmployeeEvalTasks.Where(a => a.IsActive == true).Distinct().ToList();
         //    ViewBag.empevalDetails = empevaltask;
-            List<AssignResource> assignResources = db.AssignResources.Where(a =>
-           db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && db.Trainers.Any(t => t.Id == p2.Trainer_Id && t.PersonalInfo_Id == td && t.IsActive == true) && p2.IsActive == true && a.IsActive == true)
+            List<AssignResource> assignResources = db.AssignResources.Where(a =>db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && db.Trainers.Any(t => t.Id == p2.Trainer_Id && t.PersonalInfo_Id == td && t.IsActive == true) && p2.IsActive == true && a.IsActive == true)
                                                                            || db.EmployeeEvalTasks.Any(e => e.AssignResource_Id == a.Id
-                                                                           && db.Trainers.Any(t => t.Id == e.Trainer_Id && t.PersonalInfo_Id == td && t.IsActive == true)
-                                                                           && e.IsActive == true && 
+                                                                           && db.Trainers.Any(t => t.Id == e.Trainer_Id && t.PersonalInfo_Id == td && t.IsActive == true) && e.IsActive == true && 
                                                                            db.EmployeeEvalTaskDets.Any(t => t.EmployeeEvalTask_Id == e.Id && t.IsEligiableMark == true && t.IsActive == true))
                                                                             ).ToList();
             ViewBag.assResDetails = assignResources;
