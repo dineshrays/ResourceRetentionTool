@@ -666,7 +666,8 @@
                     };
 
                     $.ajax({
-                        url: '@Url.Action("Create", "EmployeeInformation")', //
+                        url: "/Employee/EmployeeInformation/Create",
+                        //url: '@Url.Action("Create", "EmployeeInformation")', //
                         dataType: "json",
                         data: JSON.stringify({ PersonalInfoVm: mod, EducationQualificationVm: mod1, ExperienceVm: mod2, EmployeeSkillsVm: mod3, ProjectsWorkedVm: mod4, CurrentInfoVm:mod5 }),
                         type: "POST",

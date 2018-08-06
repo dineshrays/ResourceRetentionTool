@@ -96,15 +96,15 @@ namespace RetentionTool.Areas.Employee.Controllers
 
         }
         [HttpPost]
-        public ActionResult EmpSkillsCreate(List<EmployeeSkill> empSkill)
+        public ActionResult EmpSkillsCreate(List<EmployeeSkillsAdd> empSkill)
         {
             if (empSkill != null)
             {
                 foreach (var ski in empSkill)
                 {
-                    //ski.P_Id = p.Id;
                     ski.IsActive = true;
-                    db.EmployeeSkills.Add(ski);
+                    db.EmployeeSkillsAdds.Add(ski);
+                    //db.EmployeeSkills.Add(ski);
                     db.SaveChanges();
                 }
             }

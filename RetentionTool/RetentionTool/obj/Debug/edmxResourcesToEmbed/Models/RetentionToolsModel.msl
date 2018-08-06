@@ -326,5 +326,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeSkillsAdds">
+      <EntityTypeMapping TypeName="RetentionToolModel.EmployeeSkillsAdd">
+        <MappingFragment StoreEntitySet="EmployeeSkillsAdd">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="Years" ColumnName="Years" />
+          <ScalarProperty Name="Skills_Id" ColumnName="Skills_Id" />
+          <ScalarProperty Name="CommonField_Id" ColumnName="CommonField_Id" />
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

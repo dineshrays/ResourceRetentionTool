@@ -71,6 +71,10 @@
         <AssociationConnector Association="RetentionToolModel.FK_Trainers_CriticalResource" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeEvalTask_Trainers" />
         <AssociationConnector Association="RetentionToolModel.FK_Trainers_PersonalInfo" />
+        <EntityTypeShape EntityType="RetentionToolModel.EmployeeSkillsAdd" Width="1.5" PointX="6" PointY="12.125" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkillsAdd_Commonfields" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" />
+        <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkillsAdd_Skills" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

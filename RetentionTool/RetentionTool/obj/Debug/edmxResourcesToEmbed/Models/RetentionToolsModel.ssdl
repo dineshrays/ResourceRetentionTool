@@ -127,6 +127,21 @@
     <Property Name="Status" Type="nvarchar" MaxLength="50" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
+  <EntityType Name="EmployeeSkillsAdd">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="P_Id" Type="int" Nullable="false" />
+    <Property Name="CommonField_Id" Type="bigint" />
+    <Property Name="Skills_Id" Type="bigint" />
+    <Property Name="Years" Type="int" />
+    <Property Name="Months" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Manager_Id" Type="int" />
+    <Property Name="IsApproved" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
   <EntityType Name="Experience">
     <Key>
       <PropertyRef Name="Id" />
@@ -539,6 +554,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_EmployeeSkillsAdd_Commonfields">
+    <End Role="Commonfields" Type="Self.Commonfields" Multiplicity="0..1" />
+    <End Role="EmployeeSkillsAdd" Type="Self.EmployeeSkillsAdd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commonfields">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EmployeeSkillsAdd">
+        <PropertyRef Name="CommonField_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeSkillsAdd_PersonalInfo">
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="1" />
+    <End Role="EmployeeSkillsAdd" Type="Self.EmployeeSkillsAdd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmployeeSkillsAdd">
+        <PropertyRef Name="P_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeSkillsAdd_Skills">
+    <End Role="Skills" Type="Self.Skills" Multiplicity="0..1" />
+    <End Role="EmployeeSkillsAdd" Type="Self.EmployeeSkillsAdd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skills">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EmployeeSkillsAdd">
+        <PropertyRef Name="Skills_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Experience_PersonalInfo">
     <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
@@ -779,6 +830,7 @@
     <EntitySet Name="EmployeeEvalTask" EntityType="Self.EmployeeEvalTask" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeEvalTaskDet" EntityType="Self.EmployeeEvalTaskDet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeSkills" EntityType="Self.EmployeeSkills" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeSkillsAdd" EntityType="Self.EmployeeSkillsAdd" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ModuleDet" EntityType="Self.ModuleDet" Schema="dbo" store:Type="Tables" />
@@ -873,6 +925,18 @@
     <AssociationSet Name="FK_EmployeeSkills_Skills" Association="Self.FK_EmployeeSkills_Skills">
       <End Role="Skills" EntitySet="Skills" />
       <End Role="EmployeeSkills" EntitySet="EmployeeSkills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeSkillsAdd_Commonfields" Association="Self.FK_EmployeeSkillsAdd_Commonfields">
+      <End Role="Commonfields" EntitySet="Commonfields" />
+      <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeSkillsAdd_PersonalInfo" Association="Self.FK_EmployeeSkillsAdd_PersonalInfo">
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+      <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeSkillsAdd_Skills" Association="Self.FK_EmployeeSkillsAdd_Skills">
+      <End Role="Skills" EntitySet="Skills" />
+      <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdd" />
     </AssociationSet>
     <AssociationSet Name="FK_Experience_PersonalInfo" Association="Self.FK_Experience_PersonalInfo">
       <End Role="PersonalInfo" EntitySet="PersonalInfo" />

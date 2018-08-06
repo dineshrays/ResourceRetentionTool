@@ -20,6 +20,7 @@ namespace RetentionTool.Models
             this.Modules = new HashSet<Module>();
             this.Skills = new HashSet<Skill>();
             this.EmployeeSkills = new HashSet<EmployeeSkill>();
+            this.EmployeeSkillsAdds = new HashSet<EmployeeSkillsAdd>();
         }
     
         public long id { get; set; }
@@ -32,5 +33,7 @@ namespace RetentionTool.Models
         public virtual ICollection<Skill> Skills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeSkill> EmployeeSkills { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeSkillsAdd> EmployeeSkillsAdds { get; set; }
     }
 }

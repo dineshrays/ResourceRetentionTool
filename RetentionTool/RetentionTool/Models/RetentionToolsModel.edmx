@@ -132,6 +132,21 @@
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="EmployeeSkillsAdd">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_Id" Type="int" Nullable="false" />
+          <Property Name="CommonField_Id" Type="bigint" />
+          <Property Name="Skills_Id" Type="bigint" />
+          <Property Name="Years" Type="int" />
+          <Property Name="Months" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="Manager_Id" Type="int" />
+          <Property Name="IsApproved" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="Experience">
           <Key>
             <PropertyRef Name="Id" />
@@ -544,6 +559,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmployeeSkillsAdd_Commonfields">
+          <End Role="Commonfields" Type="Self.Commonfields" Multiplicity="0..1" />
+          <End Role="EmployeeSkillsAdd" Type="Self.EmployeeSkillsAdd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commonfields">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeSkillsAdd">
+              <PropertyRef Name="CommonField_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSkillsAdd_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="1" />
+          <End Role="EmployeeSkillsAdd" Type="Self.EmployeeSkillsAdd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeSkillsAdd">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSkillsAdd_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="0..1" />
+          <End Role="EmployeeSkillsAdd" Type="Self.EmployeeSkillsAdd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeSkillsAdd">
+              <PropertyRef Name="Skills_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Experience_PersonalInfo">
           <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
           <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
@@ -784,6 +835,7 @@
           <EntitySet Name="EmployeeEvalTask" EntityType="Self.EmployeeEvalTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeEvalTaskDet" EntityType="Self.EmployeeEvalTaskDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeSkills" EntityType="Self.EmployeeSkills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeSkillsAdd" EntityType="Self.EmployeeSkillsAdd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDet" EntityType="Self.ModuleDet" Schema="dbo" store:Type="Tables" />
@@ -879,6 +931,18 @@
             <End Role="Skills" EntitySet="Skills" />
             <End Role="EmployeeSkills" EntitySet="EmployeeSkills" />
           </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkillsAdd_Commonfields" Association="Self.FK_EmployeeSkillsAdd_Commonfields">
+            <End Role="Commonfields" EntitySet="Commonfields" />
+            <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkillsAdd_PersonalInfo" Association="Self.FK_EmployeeSkillsAdd_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkillsAdd_Skills" Association="Self.FK_EmployeeSkillsAdd_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdd" />
+          </AssociationSet>
           <AssociationSet Name="FK_Experience_PersonalInfo" Association="Self.FK_Experience_PersonalInfo">
             <End Role="PersonalInfo" EntitySet="PersonalInfo" />
             <End Role="Experience" EntitySet="Experience" />
@@ -970,6 +1034,7 @@
           <NavigationProperty Name="Modules" Relationship="RetentionToolModel.FK_Module_Commonfields" FromRole="Commonfield" ToRole="Module" />
           <NavigationProperty Name="Skills" Relationship="RetentionToolModel.FK_Skills_Commonfields" FromRole="Commonfield" ToRole="Skill" />
           <NavigationProperty Name="EmployeeSkills" Relationship="RetentionToolModel.FK_EmployeeSkills_Commonfields" FromRole="Commonfield" ToRole="EmployeeSkill" />
+          <NavigationProperty Name="EmployeeSkillsAdds" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_Commonfields" FromRole="Commonfield" ToRole="EmployeeSkillsAdd" />
         </EntityType>
         <EntityType Name="Skill">
           <Key>
@@ -982,6 +1047,7 @@
           <NavigationProperty Name="Modules" Relationship="RetentionToolModel.FK_Module_Skills" FromRole="Skill" ToRole="Module" />
           <NavigationProperty Name="Commonfield" Relationship="RetentionToolModel.FK_Skills_Commonfields" FromRole="Skill" ToRole="Commonfield" />
           <NavigationProperty Name="EmployeeSkills" Relationship="RetentionToolModel.FK_EmployeeSkills_Skills" FromRole="Skill" ToRole="EmployeeSkill" />
+          <NavigationProperty Name="EmployeeSkillsAdds" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_Skills" FromRole="Skill" ToRole="EmployeeSkillsAdd" />
         </EntityType>
         <EntityContainer Name="RetentionToolEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Commonfields" EntityType="Self.Commonfield" />
@@ -1169,6 +1235,19 @@
           <AssociationSet Name="FK_Trainers_PersonalInfo" Association="RetentionToolModel.FK_Trainers_PersonalInfo">
             <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
             <End Role="Trainer" EntitySet="Trainers" />
+          </AssociationSet>
+          <EntitySet Name="EmployeeSkillsAdds" EntityType="RetentionToolModel.EmployeeSkillsAdd" />
+          <AssociationSet Name="FK_EmployeeSkillsAdd_Commonfields" Association="RetentionToolModel.FK_EmployeeSkillsAdd_Commonfields">
+            <End Role="Commonfield" EntitySet="Commonfields" />
+            <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkillsAdd_PersonalInfo" Association="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+            <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSkillsAdd_Skills" Association="RetentionToolModel.FK_EmployeeSkillsAdd_Skills">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
@@ -1753,6 +1832,7 @@
           <NavigationProperty Name="SessionsDets" Relationship="RetentionToolModel.FK_SessionsDet_Employees" FromRole="PersonalInfo" ToRole="SessionsDet" />
           <NavigationProperty Name="UserDetails" Relationship="RetentionToolModel.FK_UserDetails_PersonalInfo" FromRole="PersonalInfo" ToRole="UserDetail" />
           <NavigationProperty Name="Trainers" Relationship="RetentionToolModel.FK_Trainers_PersonalInfo" FromRole="PersonalInfo" ToRole="Trainer" />
+          <NavigationProperty Name="EmployeeSkillsAdds" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" FromRole="PersonalInfo" ToRole="EmployeeSkillsAdd" />
         </EntityType>
         <Association Name="FK_AssignResources_Managers">
           <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
@@ -2004,6 +2084,60 @@
             </Principal>
             <Dependent Role="Trainer">
               <PropertyRef Name="PersonalInfo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmployeeSkillsAdd">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_Id" Type="Int32" Nullable="false" />
+          <Property Name="CommonField_Id" Type="Int64" />
+          <Property Name="Skills_Id" Type="Int64" />
+          <Property Name="Years" Type="Int32" />
+          <Property Name="Months" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Manager_Id" Type="Int32" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Commonfield" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_Commonfields" FromRole="EmployeeSkillsAdd" ToRole="Commonfield" />
+          <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" FromRole="EmployeeSkillsAdd" ToRole="PersonalInfo" />
+          <NavigationProperty Name="Skill" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_Skills" FromRole="EmployeeSkillsAdd" ToRole="Skill" />
+        </EntityType>
+        <Association Name="FK_EmployeeSkillsAdd_Commonfields">
+          <End Type="RetentionToolModel.Commonfield" Role="Commonfield" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.EmployeeSkillsAdd" Role="EmployeeSkillsAdd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commonfield">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeSkillsAdd">
+              <PropertyRef Name="CommonField_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSkillsAdd_PersonalInfo">
+          <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="1" />
+          <End Type="RetentionToolModel.EmployeeSkillsAdd" Role="EmployeeSkillsAdd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeSkillsAdd">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSkillsAdd_Skills">
+          <End Type="RetentionToolModel.Skill" Role="Skill" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.EmployeeSkillsAdd" Role="EmployeeSkillsAdd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeSkillsAdd">
+              <PropertyRef Name="Skills_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2334,6 +2468,22 @@
                 <ScalarProperty Name="CriticalResource_Id" ColumnName="CriticalResource_Id" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="PersonalInfo_Id" ColumnName="PersonalInfo_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeSkillsAdds">
+            <EntityTypeMapping TypeName="RetentionToolModel.EmployeeSkillsAdd">
+              <MappingFragment StoreEntitySet="EmployeeSkillsAdd">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Months" ColumnName="Months" />
+                <ScalarProperty Name="Years" ColumnName="Years" />
+                <ScalarProperty Name="Skills_Id" ColumnName="Skills_Id" />
+                <ScalarProperty Name="CommonField_Id" ColumnName="CommonField_Id" />
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
