@@ -3,12 +3,13 @@
     ViewBag.Title = "Create Employee Skills";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
+
+}
+
+@{
     RetentionTool.Models.FetchDefaultIds fetchdet = new RetentionTool.Models.FetchDefaultIds();
     var commanfieldid = fetchdet.commonfieldid;
 }
-
-
-
 
 <div class="card">
     <div class="card-header">
@@ -110,7 +111,7 @@
                     $("table tr:not(:first)").each(function () {
                         var tdlist = $(this).find("td");
                         var P_Id = $("#P_Id").val();
-                        var Common_Id = commanfieldid;        
+                        var Common_Id = commanfieldid;
                         var Skills_Id = $(tdlist[2]).html();
                         var Years= $(tdlist[3]).html();
                         var Months = $(tdlist[4]).html();
