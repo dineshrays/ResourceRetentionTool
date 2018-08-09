@@ -53,6 +53,8 @@ namespace RetentionTool.Controllers
                 Session["uid"] = userResult.Id;
                 PersonalInfo personalInfo = db.PersonalInfoes.Find(userResult.Emp_Id);
                 Session["userpath"] = personalInfo.Image;
+
+                Session["Notifict"] = db.Notifications.Where(a => a.User_Id == userResult.Id && a.IsActive == true && a.IsNotified == true).Count();
                 //Image.PerformImageResizeAndPutOnCanvas(imgPath, filename, Convert.ToInt16(txtWidth.Text), Convert.ToInt16(txtHeight.Text), txtOutputFileName.Text.ToString() + ".jpg");
                 if (empRoleId==userResult.Role_Id)
                 {

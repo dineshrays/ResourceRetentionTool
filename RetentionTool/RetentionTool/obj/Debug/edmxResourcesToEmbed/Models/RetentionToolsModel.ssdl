@@ -176,6 +176,18 @@
     <Property Name="Topics" Type="varchar" MaxLength="250" />
     <Property Name="HoursRequired" Type="time" Precision="7" />
   </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_Id" Type="bigint" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsNotified" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="PersonalInfo">
     <Key>
       <PropertyRef Name="Id" />
@@ -638,6 +650,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Notifications_UserDetails">
+    <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="0..1" />
+    <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notifications">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProjectsWorked_Managers">
     <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="ProjectsWorked" Type="Self.ProjectsWorked" Multiplicity="*" />
@@ -834,6 +858,7 @@
     <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ModuleDet" EntityType="Self.ModuleDet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProjectsDetails" EntityType="Self.ProjectsDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProjectsWorked" EntityType="Self.ProjectsWorked" Schema="dbo" store:Type="Tables" />
@@ -953,6 +978,10 @@
     <AssociationSet Name="FK_ModuleDet_Module" Association="Self.FK_ModuleDet_Module">
       <End Role="Module" EntitySet="Module" />
       <End Role="ModuleDet" EntitySet="ModuleDet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notifications_UserDetails" Association="Self.FK_Notifications_UserDetails">
+      <End Role="UserDetails" EntitySet="UserDetails" />
+      <End Role="Notifications" EntitySet="Notifications" />
     </AssociationSet>
     <AssociationSet Name="FK_ProjectsWorked_Managers" Association="Self.FK_ProjectsWorked_Managers">
       <End Role="PersonalInfo" EntitySet="PersonalInfo" />

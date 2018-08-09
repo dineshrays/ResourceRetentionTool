@@ -20,10 +20,17 @@ namespace RetentionTool.Models
         public string internRoleName = "Intern";
         public string password = "123";
         public int commonfieldid = 3;
+        public string SessionCompletedMsg = "Session Has been Completed Successfully";
 
         public int getUserId()
         {
              int id = int.Parse(HttpContext.Current.Session["userId"].ToString());
+            return id;
+        }
+
+        public int getUserDetailsId()
+        {
+            int id = int.Parse(HttpContext.Current.Session["userid"].ToString());
             return id;
         }
         public int getDefaultProjectId()

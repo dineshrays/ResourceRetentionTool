@@ -12,5 +12,7 @@ namespace RetentionTool.Models
         public string EmpCode { get; set; }
         public string Email { get; set; }
 
+       
+
     }
 }

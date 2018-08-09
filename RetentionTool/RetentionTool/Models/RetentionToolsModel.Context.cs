@@ -52,5 +52,6 @@ namespace RetentionTool.Models
         public virtual DbSet<criticalResourceAccountability> criticalResourceAccountabilities { get; set; }
         public virtual DbSet<Trainer> Trainers { get; set; }
         public virtual DbSet<EmployeeSkillsAdd> EmployeeSkillsAdds { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
     }
 }

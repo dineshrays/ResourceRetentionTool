@@ -181,6 +181,18 @@
           <Property Name="Topics" Type="varchar" MaxLength="250" />
           <Property Name="HoursRequired" Type="time" Precision="7" />
         </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="bigint" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsNotified" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="PersonalInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -643,6 +655,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Notifications_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="0..1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProjectsWorked_Managers">
           <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
           <End Role="ProjectsWorked" Type="Self.ProjectsWorked" Multiplicity="*" />
@@ -839,6 +863,7 @@
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDet" EntityType="Self.ModuleDet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectsDetails" EntityType="Self.ProjectsDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectsWorked" EntityType="Self.ProjectsWorked" Schema="dbo" store:Type="Tables" />
@@ -958,6 +983,10 @@
           <AssociationSet Name="FK_ModuleDet_Module" Association="Self.FK_ModuleDet_Module">
             <End Role="Module" EntitySet="Module" />
             <End Role="ModuleDet" EntitySet="ModuleDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_UserDetails" Association="Self.FK_Notifications_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="Notifications" EntitySet="Notifications" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectsWorked_Managers" Association="Self.FK_ProjectsWorked_Managers">
             <End Role="PersonalInfo" EntitySet="PersonalInfo" />
@@ -1249,6 +1278,11 @@
             <End Role="Skill" EntitySet="Skills" />
             <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
           </AssociationSet>
+          <EntitySet Name="Notifications" EntityType="RetentionToolModel.Notification" />
+          <AssociationSet Name="FK_Notifications_UserDetails" Association="RetentionToolModel.FK_Notifications_UserDetails">
+            <End Role="UserDetail" EntitySet="UserDetails" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
           <Key>
@@ -1538,6 +1572,7 @@
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Role" Relationship="RetentionToolModel.FK_UserMaster_Roles" FromRole="UserDetail" ToRole="Role" />
           <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_UserDetails_PersonalInfo" FromRole="UserDetail" ToRole="PersonalInfo" />
+          <NavigationProperty Name="Notifications" Relationship="RetentionToolModel.FK_Notifications_UserDetails" FromRole="UserDetail" ToRole="Notification" />
         </EntityType>
         <Association Name="FK_UserMaster_Roles">
           <End Type="RetentionToolModel.Role" Role="Role" Multiplicity="0..1" />
@@ -2141,6 +2176,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int64" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsNotified" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserDetail" Relationship="RetentionToolModel.FK_Notifications_UserDetails" FromRole="Notification" ToRole="UserDetail" />
+        </EntityType>
+        <Association Name="FK_Notifications_UserDetails">
+          <End Type="RetentionToolModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2484,6 +2544,19 @@
                 <ScalarProperty Name="Skills_Id" ColumnName="Skills_Id" />
                 <ScalarProperty Name="CommonField_Id" ColumnName="CommonField_Id" />
                 <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="RetentionToolModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsNotified" ColumnName="IsNotified" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

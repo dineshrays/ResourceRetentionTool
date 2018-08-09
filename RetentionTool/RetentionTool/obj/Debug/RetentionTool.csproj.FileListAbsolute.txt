@@ -318,7 +318,6 @@ C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\Rete
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyComplete
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
-C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
 F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\RetentionTool.dll.config
 F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\RetentionTool.dll
 F:\BACKUP VS TOOL\ResourceRetentionTool July 31st\RetentionTool\RetentionTool\bin\RetentionTool.pdb
@@ -499,3 +498,4 @@ C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\Retent
 C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.Common.xml
 C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.Pdf.xml
 C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.XLS.xml
+C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache

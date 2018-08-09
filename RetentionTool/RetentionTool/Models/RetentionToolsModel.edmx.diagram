@@ -75,6 +75,8 @@
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkillsAdd_Commonfields" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkillsAdd_Skills" />
+        <EntityTypeShape EntityType="RetentionToolModel.Notification" Width="1.5" PointX="11.875" PointY="30.75" />
+        <AssociationConnector Association="RetentionToolModel.FK_Notifications_UserDetails" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

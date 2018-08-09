@@ -14,6 +14,12 @@ namespace RetentionTool.Models
     
     public partial class UserDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserDetail()
+        {
+            this.Notifications = new HashSet<Notification>();
+        }
+    
         public long Id { get; set; }
         public Nullable<int> Emp_Id { get; set; }
         public string Name { get; set; }
@@ -25,5 +31,7 @@ namespace RetentionTool.Models
     
         public virtual Role Role { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

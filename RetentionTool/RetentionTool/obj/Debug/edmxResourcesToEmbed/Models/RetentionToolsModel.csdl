@@ -225,6 +225,11 @@
       <End Role="Skill" EntitySet="Skills" />
       <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
     </AssociationSet>
+    <EntitySet Name="Notifications" EntityType="RetentionToolModel.Notification" />
+    <AssociationSet Name="FK_Notifications_UserDetails" Association="RetentionToolModel.FK_Notifications_UserDetails">
+      <End Role="UserDetail" EntitySet="UserDetails" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Module">
     <Key>
@@ -514,6 +519,7 @@
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="Role" Relationship="RetentionToolModel.FK_UserMaster_Roles" FromRole="UserDetail" ToRole="Role" />
     <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_UserDetails_PersonalInfo" FromRole="UserDetail" ToRole="PersonalInfo" />
+    <NavigationProperty Name="Notifications" Relationship="RetentionToolModel.FK_Notifications_UserDetails" FromRole="UserDetail" ToRole="Notification" />
   </EntityType>
   <Association Name="FK_UserMaster_Roles">
     <End Type="RetentionToolModel.Role" Role="Role" Multiplicity="0..1" />
@@ -1114,6 +1120,31 @@
       </Principal>
       <Dependent Role="EmployeeSkillsAdd">
         <PropertyRef Name="Skills_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="Int64" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsNotified" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UserDetail" Relationship="RetentionToolModel.FK_Notifications_UserDetails" FromRole="Notification" ToRole="UserDetail" />
+  </EntityType>
+  <Association Name="FK_Notifications_UserDetails">
+    <End Type="RetentionToolModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="User_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

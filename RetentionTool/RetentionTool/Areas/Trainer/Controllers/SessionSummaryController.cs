@@ -11,6 +11,7 @@ namespace RetentionTool.Areas.Trainer.Controllers
     public class SessionSummaryController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: SessionSummary
         public ActionResult Index()
         {
@@ -134,10 +135,17 @@ namespace RetentionTool.Areas.Trainer.Controllers
             if(traindetcount==sessiondet)
             {
                 AssignResource assRes = db.AssignResources.FirstOrDefault(a => a.Id == training.AssignResource_Id && a.IsActive == true);
-                FetchDefaultIds fetchdet = new FetchDefaultIds();
+               
                 int managerroleid = fetchdet.getDefaultManagerRoleId();
                 UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == assRes.Manager_Id && a.Role_Id==managerroleid && a.IsActive == true);
+                Notification notif = new Notification();
+                notif.User_Id = userdet.Id;
+                notif.Message = fetchdet.SessionCompletedMsg;
+                notif.IsActive = true;
+                notif.CreatedOn = DateTime.Now;
 
+                db.Notifications.Add(notif);
+                db.SaveChanges();
             }
             foreach (var i in list)
             {
@@ -149,11 +157,35 @@ namespace RetentionTool.Areas.Trainer.Controllers
                    Remarks=i.Remark,
                    IsActive=true
                 };
+                if(i.Attendance==false)
+                {
+                    int employeroleid = fetchdet.getDefaultEmployeeRoleId();
+                    UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == i.Id && a.Role_Id == employeroleid && a.IsActive == true);
+                    Notification notif = new Notification();
+                    if (userdet==null)
+                    {
+                        notif.User_Id = 1;
+                       
+                    }
+                    else
+                    {
+                        notif.User_Id = userdet.Id;
+                    
+                    }
+                    
+                  
+                    notif.Message = fetchdet.SessionCompletedMsg;
+                    notif.IsActive = true;
+                    notif.CreatedOn = DateTime.Now;
+
+                    db.Notifications.Add(notif);
+                    db.SaveChanges();
+                }
                 db.SessionsDets.Add(sessionDet);
                 db.SaveChanges();
             }
             
-            int userid = 0;
+            //int userid = 0;
            
 
             //(from traindet in db.TrainingDets
