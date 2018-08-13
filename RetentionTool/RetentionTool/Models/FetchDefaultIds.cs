@@ -21,10 +21,11 @@ namespace RetentionTool.Models
         public string password = "123";
         public int commonfieldid = 3;
         public string SessionCompletedMsg = "Session Has been Completed Successfully";
+        public string EmployeeAbsenceMsg = " is Absent for the Session";
 
         public int getUserId()
         {
-             int id = int.Parse(HttpContext.Current.Session["userId"].ToString());
+             int id = int.Parse(HttpContext.Current.Session["uid"].ToString());
             return id;
         }
 

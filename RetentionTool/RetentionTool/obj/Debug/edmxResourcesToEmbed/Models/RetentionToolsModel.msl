@@ -347,6 +347,7 @@
         <MappingFragment StoreEntitySet="Notifications">
           <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Sessions_Id" ColumnName="Sessions_Id" />
           <ScalarProperty Name="IsNotified" ColumnName="IsNotified" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="Message" ColumnName="Message" />

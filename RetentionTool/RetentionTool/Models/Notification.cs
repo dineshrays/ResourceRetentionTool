@@ -19,9 +19,11 @@ namespace RetentionTool.Models
         public string Message { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<bool> IsNotified { get; set; }
+        public Nullable<int> Sessions_Id { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
     
+        public virtual Session Session { get; set; }
         public virtual UserDetail UserDetail { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RetentionTool.Models.Notification>
+﻿@model IEnumerable<RetentionTool.Models.NotificationModel>
 @{
     ViewBag.Title = "Notification";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
@@ -21,7 +21,9 @@
             <table class="table table-bordered table-dark" style="width:100%">
                 <tr>
 
-                    <td>@mess.Message</td>
+                    <td>@mess.Message<br/>
+                                      <p style="font-size:small">  @mess.subMessage</p></td>
+
                 </tr>
 
             </table>
