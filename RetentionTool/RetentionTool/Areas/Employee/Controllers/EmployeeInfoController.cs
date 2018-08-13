@@ -102,25 +102,16 @@ namespace RetentionTool.Areas.Employee.Controllers
             {
                 foreach (var ski in empSkill)
                 {
+                    CurrentInfo currInfo = db.CurrentInfoes.FirstOrDefault(a => a.P_Id == ski.P_Id);
+                    int mangerid = int.Parse(currInfo.ReportingManager);
+                    ski.Manager_Id =mangerid ;
+                    ski.IsApproved = false;
                     ski.IsActive = true;
                     db.EmployeeSkillsAdds.Add(ski);
-                    //db.EmployeeSkills.Add(ski);
                     db.SaveChanges();
                 }
             }
             
-            //EmployeeSkill e = new EmployeeSkill();
-                        
-            //e.P_Id = es.P_Id;
-            //e.CommonField_Id = es.CommonField_Id;
-            //e.Skills_Id = es.Skills_Id;
-            //e.Years = es.Years;
-            //e.Months = es.Months;
-            //e.Status = es.Status;
-            //e.IsActive = true;
-
-            //db.EmployeeSkills.Add(e);
-            //db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
         }
 

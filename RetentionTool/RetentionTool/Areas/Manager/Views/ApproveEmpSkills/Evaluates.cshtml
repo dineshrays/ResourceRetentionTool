@@ -1,0 +1,34 @@
+﻿@model RetentionTool.ViewModel.EmployeeSkillsAddViewModel
+@{
+    ViewBag.Title = "Evaluates";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Evaluates</h2>
+
+<div class="row form-group ">
+    <div class="col col-md-3">
+        <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @class = "form-control-label" })</div>
+    </div>
+    <div class="col-6 col-md-9">
+        <div>@Html.TextBoxFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @id = "EmpCode", @class = "form-control", style = "width:40%" })</div><br />
+    </div>
+</div>
+
+<div class="row form-group">
+    <div class="col col-md-3">
+        <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.Skill.Name, new { @class = "form-control-label" })</div>
+    </div>
+    <div class="col-12 col-md-9">
+        <div>@Html.TextBoxFor(m => m.EmployeeSkillsAdd.Skill.Name, new { @id = "Name", @class = "form-control", style = "width:40%" })</div><br />
+    </div>
+</div>
+
+<div class="row form-group">
+    <div class="col col-md-3">
+        <div>@Html.LabelFor(m => m.EmployeeSkillsAdd, new { @class = "form-control-label" })</div>
+    </div>
+    <div class="col-12 col-md-9">
+        <div>@Html.TextBoxFor(m => m.EmployeeSkillsAdd, new { @id = "FName", @class = "form-control", style = "width:40%" })</div><br />
+    </div>
+</div>
