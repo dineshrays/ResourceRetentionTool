@@ -226,6 +226,10 @@
       <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
     </AssociationSet>
     <EntitySet Name="Notifications" EntityType="RetentionToolModel.Notification" />
+    <AssociationSet Name="FK_Notifications_Sessions" Association="RetentionToolModel.FK_Notifications_Sessions">
+      <End Role="Session" EntitySet="Sessions" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
     <AssociationSet Name="FK_Notifications_UserDetails" Association="RetentionToolModel.FK_Notifications_UserDetails">
       <End Role="UserDetail" EntitySet="UserDetails" />
       <End Role="Notification" EntitySet="Notifications" />
@@ -328,6 +332,7 @@
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="TrainingDet" Relationship="RetentionToolModel.FK_Sessions_TrainingDet" FromRole="Session" ToRole="TrainingDet" />
     <NavigationProperty Name="SessionsDets" Relationship="RetentionToolModel.FK_SessionsDet_Sessions" FromRole="Session" ToRole="SessionsDet" />
+    <NavigationProperty Name="Notifications" Relationship="RetentionToolModel.FK_Notifications_Sessions" FromRole="Session" ToRole="Notification" />
   </EntityType>
   <EntityType Name="Training">
     <Key>
@@ -1132,10 +1137,24 @@
     <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
     <Property Name="IsNotified" Type="Boolean" />
+    <Property Name="Sessions_Id" Type="Int32" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
     <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Session" Relationship="RetentionToolModel.FK_Notifications_Sessions" FromRole="Notification" ToRole="Session" />
     <NavigationProperty Name="UserDetail" Relationship="RetentionToolModel.FK_Notifications_UserDetails" FromRole="Notification" ToRole="UserDetail" />
   </EntityType>
+  <Association Name="FK_Notifications_Sessions">
+    <End Type="RetentionToolModel.Session" Role="Session" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="Sessions_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Notifications_UserDetails">
     <End Type="RetentionToolModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
     <End Type="RetentionToolModel.Notification" Role="Notification" Multiplicity="*" />

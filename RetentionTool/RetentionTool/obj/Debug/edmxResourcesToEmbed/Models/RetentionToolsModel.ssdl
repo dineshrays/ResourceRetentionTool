@@ -185,6 +185,7 @@
     <Property Name="Message" Type="nvarchar(max)" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="IsNotified" Type="bit" />
+    <Property Name="Sessions_Id" Type="int" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="ModifiedOn" Type="datetime" />
   </EntityType>
@@ -650,6 +651,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Notifications_Sessions">
+    <End Role="Sessions" Type="Self.Sessions" Multiplicity="0..1" />
+    <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sessions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notifications">
+        <PropertyRef Name="Sessions_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Notifications_UserDetails">
     <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="0..1" />
     <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
@@ -978,6 +991,10 @@
     <AssociationSet Name="FK_ModuleDet_Module" Association="Self.FK_ModuleDet_Module">
       <End Role="Module" EntitySet="Module" />
       <End Role="ModuleDet" EntitySet="ModuleDet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notifications_Sessions" Association="Self.FK_Notifications_Sessions">
+      <End Role="Sessions" EntitySet="Sessions" />
+      <End Role="Notifications" EntitySet="Notifications" />
     </AssociationSet>
     <AssociationSet Name="FK_Notifications_UserDetails" Association="Self.FK_Notifications_UserDetails">
       <End Role="UserDetails" EntitySet="UserDetails" />

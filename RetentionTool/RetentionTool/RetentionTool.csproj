@@ -1549,6 +1549,7 @@
     <Compile Include="Areas\Manager\Controllers\PromoteEmployeeController.cs" />
     <Compile Include="Areas\Manager\Controllers\SearchEmpSkillController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
+    <Compile Include="Areas\Trainer\Controllers\CircularController.cs" />
     <Compile Include="Areas\Trainer\Controllers\EmployeeEvaTasklController.cs" />
     <Compile Include="Areas\Trainer\Controllers\RateEmployeeController.cs" />
     <Compile Include="Areas\Trainer\Controllers\SessionSummaryController.cs" />
@@ -1846,6 +1847,7 @@
     <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\Manager\Views\EmpSearch\" />
     <Folder Include="Areas\Trainer\Models\" />
+    <Folder Include="Areas\Trainer\Views\Circular\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>

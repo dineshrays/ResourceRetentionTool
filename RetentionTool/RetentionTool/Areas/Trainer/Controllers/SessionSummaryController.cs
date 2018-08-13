@@ -140,8 +140,10 @@ namespace RetentionTool.Areas.Trainer.Controllers
                 UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == assRes.Manager_Id && a.Role_Id==managerroleid && a.IsActive == true);
                 Notification notif = new Notification();
                 notif.User_Id = userdet.Id;
+                notif.Sessions_Id = sessionVM.Id;
                 notif.Message = fetchdet.SessionCompletedMsg;
                 notif.IsActive = true;
+                notif.IsNotified = true;
                 notif.CreatedOn = DateTime.Now;
 
                 db.Notifications.Add(notif);
@@ -159,6 +161,8 @@ namespace RetentionTool.Areas.Trainer.Controllers
                 };
                 if(i.Attendance==false)
                 {
+                    PersonalInfo personalInfo = db.PersonalInfoes.Find(i.Id);
+
                     int employeroleid = fetchdet.getDefaultEmployeeRoleId();
                     UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == i.Id && a.Role_Id == employeroleid && a.IsActive == true);
                     Notification notif = new Notification();
@@ -172,10 +176,11 @@ namespace RetentionTool.Areas.Trainer.Controllers
                         notif.User_Id = userdet.Id;
                     
                     }
-                    
-                  
-                    notif.Message = fetchdet.SessionCompletedMsg;
+
+                    notif.Sessions_Id = sessionVM.Id;
+                    notif.Message =personalInfo.Name+" "+fetchdet.EmployeeAbsenceMsg;
                     notif.IsActive = true;
+                    notif.IsNotified = true;
                     notif.CreatedOn = DateTime.Now;
 
                     db.Notifications.Add(notif);
