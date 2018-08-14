@@ -34,6 +34,30 @@
           <Property Name="AssignResources_Id" Type="int" />
           <Property Name="Employee_Id" Type="int" />
         </EntityType>
+        <EntityType Name="Circular_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Contents" Type="varchar(max)" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="ValidFrom" Type="datetime" />
+          <Property Name="ValidTo" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CircularUser_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Circular_Id" Type="bigint" />
+          <Property Name="User_Id" Type="bigint" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsNotified" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Commonfields">
           <Key>
             <PropertyRef Name="id" />
@@ -425,6 +449,30 @@
             </Principal>
             <Dependent Role="AssignResourcesDet">
               <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CircularUser_Details_Circular_Details">
+          <End Role="Circular_Details" Type="Self.Circular_Details" Multiplicity="0..1" />
+          <End Role="CircularUser_Details" Type="Self.CircularUser_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Circular_Details">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CircularUser_Details">
+              <PropertyRef Name="Circular_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CircularUser_Details_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="0..1" />
+          <End Role="CircularUser_Details" Type="Self.CircularUser_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CircularUser_Details">
+              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -864,6 +912,8 @@
           <EntitySet Name="AssignEvaluater" EntityType="Self.AssignEvaluater" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssignResources" EntityType="Self.AssignResources" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssignResourcesDet" EntityType="Self.AssignResourcesDet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Circular_Details" EntityType="Self.Circular_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CircularUser_Details" EntityType="Self.CircularUser_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Commonfields" EntityType="Self.Commonfields" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriticalResource" EntityType="Self.CriticalResource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="criticalResourceAccountability" EntityType="Self.criticalResourceAccountability" Schema="dbo" store:Type="Tables" />
@@ -920,6 +970,14 @@
           <AssociationSet Name="FK_AssignResourcesDet_Employees" Association="Self.FK_AssignResourcesDet_Employees">
             <End Role="PersonalInfo" EntitySet="PersonalInfo" />
             <End Role="AssignResourcesDet" EntitySet="AssignResourcesDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CircularUser_Details_Circular_Details" Association="Self.FK_CircularUser_Details_Circular_Details">
+            <End Role="Circular_Details" EntitySet="Circular_Details" />
+            <End Role="CircularUser_Details" EntitySet="CircularUser_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CircularUser_Details_UserDetails" Association="Self.FK_CircularUser_Details_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="CircularUser_Details" EntitySet="CircularUser_Details" />
           </AssociationSet>
           <AssociationSet Name="FK_CriticalResource_PersonalInfo" Association="Self.FK_CriticalResource_PersonalInfo">
             <End Role="PersonalInfo" EntitySet="PersonalInfo" />
@@ -1304,6 +1362,16 @@
             <End Role="UserDetail" EntitySet="UserDetails" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
+          <EntitySet Name="Circular_Details" EntityType="RetentionToolModel.Circular_Details" />
+          <EntitySet Name="CircularUser_Details" EntityType="RetentionToolModel.CircularUser_Details" />
+          <AssociationSet Name="FK_CircularUser_Details_Circular_Details" Association="RetentionToolModel.FK_CircularUser_Details_Circular_Details">
+            <End Role="Circular_Details" EntitySet="Circular_Details" />
+            <End Role="CircularUser_Details" EntitySet="CircularUser_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CircularUser_Details_UserDetails" Association="RetentionToolModel.FK_CircularUser_Details_UserDetails">
+            <End Role="UserDetail" EntitySet="UserDetails" />
+            <End Role="CircularUser_Details" EntitySet="CircularUser_Details" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
           <Key>
@@ -1595,6 +1663,7 @@
           <NavigationProperty Name="Role" Relationship="RetentionToolModel.FK_UserMaster_Roles" FromRole="UserDetail" ToRole="Role" />
           <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_UserDetails_PersonalInfo" FromRole="UserDetail" ToRole="PersonalInfo" />
           <NavigationProperty Name="Notifications" Relationship="RetentionToolModel.FK_Notifications_UserDetails" FromRole="UserDetail" ToRole="Notification" />
+          <NavigationProperty Name="CircularUser_Details" Relationship="RetentionToolModel.FK_CircularUser_Details_UserDetails" FromRole="UserDetail" ToRole="CircularUser_Details" />
         </EntityType>
         <Association Name="FK_UserMaster_Roles">
           <End Type="RetentionToolModel.Role" Role="Role" Multiplicity="0..1" />
@@ -2237,6 +2306,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Circular_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="ValidFrom" Type="DateTime" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CircularUser_Details" Relationship="RetentionToolModel.FK_CircularUser_Details_Circular_Details" FromRole="Circular_Details" ToRole="CircularUser_Details" />
+        </EntityType>
+        <EntityType Name="CircularUser_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Circular_Id" Type="Int64" />
+          <Property Name="User_Id" Type="Int64" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsNotified" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Circular_Details" Relationship="RetentionToolModel.FK_CircularUser_Details_Circular_Details" FromRole="CircularUser_Details" ToRole="Circular_Details" />
+          <NavigationProperty Name="UserDetail" Relationship="RetentionToolModel.FK_CircularUser_Details_UserDetails" FromRole="CircularUser_Details" ToRole="UserDetail" />
+        </EntityType>
+        <Association Name="FK_CircularUser_Details_Circular_Details">
+          <End Type="RetentionToolModel.Circular_Details" Role="Circular_Details" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.CircularUser_Details" Role="CircularUser_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Circular_Details">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CircularUser_Details">
+              <PropertyRef Name="Circular_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CircularUser_Details_UserDetails">
+          <End Type="RetentionToolModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.CircularUser_Details" Role="CircularUser_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CircularUser_Details">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2594,6 +2714,32 @@
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Circular_Details">
+            <EntityTypeMapping TypeName="RetentionToolModel.Circular_Details">
+              <MappingFragment StoreEntitySet="Circular_Details">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CircularUser_Details">
+            <EntityTypeMapping TypeName="RetentionToolModel.CircularUser_Details">
+              <MappingFragment StoreEntitySet="CircularUser_Details">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsNotified" ColumnName="IsNotified" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Circular_Id" ColumnName="Circular_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
