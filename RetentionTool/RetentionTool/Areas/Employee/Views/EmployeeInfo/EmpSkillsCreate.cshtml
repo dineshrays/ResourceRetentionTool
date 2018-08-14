@@ -105,28 +105,29 @@
 <script type="text/javascript">
             //$(function () {
                 $("#btnSave").click(function () {
-                //    debugger;
+                    //    debugger;
+                    
                     var itemlist = [];
                     
                     $("table tr:not(:first)").each(function () {
                         var tdlist = $(this).find("td");
                         var P_Id = $("#P_Id").val();
-                        var Common_Id = commanfieldid;
+                        var Common_Id = @commanfieldid;
                         var Skills_Id = $(tdlist[2]).html();
                         var Years= $(tdlist[3]).html();
                         var Months = $(tdlist[4]).html();
                         var Status = $(tdlist[5]).html();
-
+                       
                         var Item = {
                             P_Id: P_Id, CommonField_Id: Common_Id, Skills_Id: Skills_Id, Years: Years, Months: Months, Status: Status
                         };
 
                         itemlist.push(Item);
                     })
-                    //alert(itemlist);
-
-                  //  var newUrl = '@Url.Action("Index","EmployeeInfo")';
-                   // alert('jjj');
+                    
+                    var newUrl = '@Url.Action("Index", "EmployeeInformation", "Employee")';
+                        //"/Employee/EmployeeInfo/EmpSkillsCreate",
+                       
                     $.ajax({
                         url: "/Employee/EmployeeInfo/EmpSkillsCreate",
                    // url: '@Url.Action("EmpSkillsCreate", "EmployeeInfo")',
@@ -136,12 +137,8 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
                         alert("success");
-                        //$("#date").val('');
-                        //$("#managerid").val('');
-                        //$("#moduleid").val('');
-                        //$("#trainerid").val('');
-                        //$("table tbody").empty();
-                       // window.location.href = newUrl;
+                       
+                        window.location.href = newUrl;
                     },
                           error: function (xhr) {
                               alert("error");

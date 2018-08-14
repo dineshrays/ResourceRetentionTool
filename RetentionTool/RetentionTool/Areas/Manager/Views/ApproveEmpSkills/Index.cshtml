@@ -1,0 +1,47 @@
+﻿@model RetentionTool.ViewModel.EmployeeSkillsAddViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table table-striped">
+    <tr>
+
+        @*<th>@Html.Label("Manager")</th>*@
+        <th>@Html.Label("Employee Name")</th>
+        <th>@Html.Label("Skills")</th>
+        <th>@Html.Label("Approve")</th>
+        <th>@Html.Label("Evaluation")</th>
+        <th>@Html.Label("Decline")</th>
+        @*<th>@Html.Label("Actions")</th>*@
+
+    </tr>
+    @foreach (var item in Model.skiladd)
+    {
+    <tr>
+        @*<td>@item.Manager_Id</td>*@
+        <td>@item.PersonalInfo.Name</td>
+        <td>@item.Skill.Name</td>
+
+        <td>
+            @if(item.IsApproved==true)
+            {
+                <input style="color:green" />
+            }
+           
+        <input type="button" id="Approve" value="Approve"/>
+        
+        </td>
+        <td><input type="button" id="Evaluation" value="Evaluate" onclick="window.open('@Url.Action("Evaluates","ApproveEmpSkills", new { @id=item.Id })')"/></td>
+        <td><input type="button" value="Decline" /></td>
+        @*<td>
+            @Html.ActionLink(" ", "Edit", new {id=@item.Id},
+                          new { @class = "ti-pencil"} )
+            @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+        </td>*@
+    </tr>
+    }
+    
+</table>
