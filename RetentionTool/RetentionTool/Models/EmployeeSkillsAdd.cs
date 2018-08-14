@@ -28,5 +28,6 @@ namespace RetentionTool.Models
         public virtual Commonfield Commonfield { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Skill Skill { get; set; }
+        public string Evaluator { get; set; }
     }
 }

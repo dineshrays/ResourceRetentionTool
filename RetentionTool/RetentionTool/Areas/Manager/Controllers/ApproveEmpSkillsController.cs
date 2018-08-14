@@ -22,11 +22,21 @@ namespace RetentionTool.Areas.Manager.Controllers
             return View(skilladd);
         }
 
-        public ActionResult Evaluates()
+        public ActionResult Evaluates(int id)
         {
-
-            return View();
+            EmployeeSkillsAdd esd = db.EmployeeSkillsAdds.Find(id);
+            EmployeeSkillsAddViewModel empvm = new EmployeeSkillsAddViewModel();
+            empvm.EmployeeSkillsAdd = esd;
+            getEvaluaterList();
+            return View(empvm);
                 
         }
+
+        public void getEvaluaterList()
+        {
+            //ViewData["Evaluater"] = new SelectList(db.);
+            //ViewData["Evaluater"] = new SelectList(db.ProjectsDetails.Where(a => a.IsActive == true && !db.AssignResources.Any(b => b.IsActive == true && b.Project_Id == a.Id)).ToList(), "Id", "Name");
+        }
+
     }
 }

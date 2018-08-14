@@ -24,8 +24,17 @@
         @*<td>@item.Manager_Id</td>*@
         <td>@item.PersonalInfo.Name</td>
         <td>@item.Skill.Name</td>
-        <td><input type="button" id="Approve" value="Approve"/></td>
-        <td><input type="button" id="Evaluation" value="Evaluate"/></td>
+
+        <td>
+            @if(item.IsApproved==true)
+            {
+                <input style="color:green" />
+            }
+           
+        <input type="button" id="Approve" value="Approve"/>
+        
+        </td>
+        <td><input type="button" id="Evaluation" value="Evaluate" onclick="window.open('@Url.Action("Evaluates","ApproveEmpSkills", new { @id=item.Id })')"/></td>
         <td><input type="button" value="Decline" /></td>
         @*<td>
             @Html.ActionLink(" ", "Edit", new {id=@item.Id},
@@ -34,5 +43,5 @@
         </td>*@
     </tr>
     }
-
+    
 </table>

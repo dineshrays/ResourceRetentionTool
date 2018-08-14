@@ -10,5 +10,7 @@ namespace RetentionTool.ViewModel
     {
         public List<EmployeeSkillsAdd> skiladd { get; set; }
         public EmployeeSkillsAdd EmployeeSkillsAdd { get; set; }
+
+        
     }
 }
