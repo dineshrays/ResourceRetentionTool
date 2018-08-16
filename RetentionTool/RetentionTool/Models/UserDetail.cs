@@ -18,6 +18,7 @@ namespace RetentionTool.Models
         public UserDetail()
         {
             this.Notifications = new HashSet<Notification>();
+            this.CircularUser_Details = new HashSet<CircularUser_Details>();
         }
     
         public long Id { get; set; }
@@ -33,5 +34,7 @@ namespace RetentionTool.Models
         public virtual PersonalInfo PersonalInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CircularUser_Details> CircularUser_Details { get; set; }
     }
 }

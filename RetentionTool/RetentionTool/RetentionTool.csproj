@@ -1465,6 +1465,7 @@
     <Content Include="Areas\Admin\Views\Training\Index.cshtml" />
     <Content Include="Areas\Admin\Views\EmployeeInformation\viewdetails.cshtml" />
     <Content Include="Areas\Manager\Views\SearchEmpSkill\Notification.cshtml" />
+    <Content Include="Areas\Admin\Views\Circular\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
@@ -1519,6 +1520,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AssignEvaluaterController.cs" />
     <Compile Include="Areas\Admin\Controllers\AssignResourceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CircularController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommonFieldController.cs" />
     <Compile Include="Areas\Admin\Controllers\CriticalResourceController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeEvaTasklController.cs" />
@@ -1549,7 +1551,6 @@
     <Compile Include="Areas\Manager\Controllers\PromoteEmployeeController.cs" />
     <Compile Include="Areas\Manager\Controllers\SearchEmpSkillController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
-    <Compile Include="Areas\Trainer\Controllers\CircularController.cs" />
     <Compile Include="Areas\Trainer\Controllers\EmployeeEvaTasklController.cs" />
     <Compile Include="Areas\Trainer\Controllers\RateEmployeeController.cs" />
     <Compile Include="Areas\Trainer\Controllers\SessionSummaryController.cs" />
@@ -1591,6 +1592,12 @@
     </Compile>
     <Compile Include="Models\AssignResourceViewModel.cs" />
     <Compile Include="Models\AssignResProjectDetails.cs" />
+    <Compile Include="Models\CircularUser_Details.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Circular_Details.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Commonfield.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>
@@ -1704,6 +1711,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AssignEvaluterViewModel.cs" />
     <Compile Include="ViewModel\AssignResouViewModel.cs" />
+    <Compile Include="ViewModel\CircularViewModel.cs" />
     <Compile Include="ViewModel\CriticalResourceViewModel.cs" />
     <Compile Include="ViewModel\EmployeeEvalViewModel.cs" />
     <Compile Include="ViewModel\EmployeeInformationViewModel.cs" />

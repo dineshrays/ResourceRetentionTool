@@ -1,0 +1,238 @@
+﻿@model RetentionTool.ViewModel.CircularViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div class="card">
+    <div class="card-header">
+
+        <h2>Circular</h2>
+    </div>
+    <div class="card-body card-block">
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>
+
+
+                    <input type="radio" value="project" name="type" class="chckProj" checked />Project
+                </div>
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                <input type="radio" value="assignres" name="type" class="chckAssRes" />Assign Resource
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <input type="radio" value="assignres" name="type" class="chckNor" />Normal
+
+
+
+            </div>
+
+            @*<div class="col-12 col-md-9">
+                @*<div class="col-12 col-md-9">*@
+
+
+            @*</div>
+
+                </div>*@
+        </div>
+
+        <div class="row form-group" id="projectdiv" style="display:none">
+            <div class="col col-md-3">
+                <div>@Html.Label("Project Name")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    <input class="form-control" style="width:30%" id="searchproject" />
+                    <input id="searchprojectid" style="display:none" />
+                    @*@Html.TextAreaFor(a => a.Contents)*@
+                    @*@Html.HiddenFor(m => m.AssignResource_Id)
+        @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
+                    *@
+
+                </div>
+                <br />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.Label("User Type", new { @class = "form-control-label", style = "width:150%" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.DropDownListFor(m => m.roleId, ViewData["roledetails"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.Label("Content")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                @Html.TextAreaFor(a => a.Contents, new { @class = "form-control", style = "width:50%" })
+
+
+
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.Label("Date")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                @Html.EditorFor(a => a.Date, new { @class = "form-control", style = "width:50%" })
+
+
+
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.Label("Valid From")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                @Html.EditorFor(a => a.ValidFrom, new { @class = "form-control", style = "width:30%" })
+
+
+
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.Label("Valid To")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                @Html.EditorFor(a => a.ValidTo, new { @class = "form-control", style = "width:30%" })
+
+
+
+            </div>
+        </div>
+
+        @*<div class="row form-group" id="employeeview">
+            <div class="col col-md-3">
+                <div>@Html.Label("Employee Name")</div>
+
+            </div>
+            <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9">
+                    @Html.HiddenFor(m => m.AssignResource_Id)
+                    <input class="form-control" style="width:30%" id="searchemp" />
+                    <input id="searchid" style="display:none" />*@
+        @*@Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })*@
+
+
+        @*</div>
+                    <br />
+                </div>
+            </div>*@
+
+        <br />
+        @*@using (Html.BeginForm("Create", "AssignEvaluater"))
+            {*@
+        <div class="card-body">
+            <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+        </div>
+        @*}*@
+    </div>
+
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        $('input.chckProj').change(
+
+            function () {
+                if ($('input.chckProj').is(':checked')) {
+                    $('#projectdiv').show();
+                   
+                } else {
+                    $('#projectdiv').hide();
+                    
+                }
+            });
+
+        $('input.chckAssRes').change(
+
+                function () {
+                    if ($('input.chckAssRes').is(':checked')) {
+                        $('#projectdiv').show();
+
+                    } else {
+                        $('#projectdiv').hide();
+
+                    }
+                });
+        $('input.chckNor').change(
+
+            function () {
+                if ($('input.chckNor').is(':checked')) {
+                    $('#projectdiv').hide();
+
+                } else {
+                    $('#projectdiv').show();
+
+                }
+            });
+    });
+
+    $(function () {
+
+        $("#searchproject").autocomplete({
+
+            source: function (request, response) {
+                
+                var param = { name: $('#searchproject').val() };
+
+                $.ajax({
+                    url: "/Admin/Circular/getProjects",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.Name, id: item.Id
+
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+
+                event.preventDefault();
+                $(this).val(ui.item.label);
+                $("#searchprojectid").val(ui.item.id);
+                
+            }
+
+        });
+     
+    });
+</script>
