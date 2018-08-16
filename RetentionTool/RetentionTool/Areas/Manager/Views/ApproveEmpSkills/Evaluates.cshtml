@@ -29,11 +29,37 @@
 
         <div class="row form-group">
             <div class="col col-md-3">
-                <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.Evaluator, new { @class = "form-control-label" })</div>
+                @*@Html.RadioButton("Gender", "Manager")*@
+                <div><input type="radio" value="Manager" name="typo" class="radomn" />Manager</div>
             </div>
             <div class="col-12 col-md-9">
-                @*<div>@Html.DropDownList(m => m.EmployeeSkillsAdd)</div><br />*@
+                <div><input type="radio" value="Employee" name="typo" class="radoemp" />Employee</div>
             </div>
         </div>
+
+      
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.Evaluator, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    @*<div>@Html.DropDownList(m => m.EmployeeSkillsAdd)</div><br />*@
+                </div>
+            </div>
+        
     </div>
 </div>
+
+<script>
+     $('input.chckProj').change(
+
+            function () {
+                if ($('input.chckProj').is(':checked')) {
+                    $('#projectdiv').show();
+                   
+                } else {
+                    $('#projectdiv').hide();
+                    
+                }
+            });
+</script>
