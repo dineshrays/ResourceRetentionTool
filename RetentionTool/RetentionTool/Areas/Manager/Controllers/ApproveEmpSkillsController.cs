@@ -16,7 +16,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         public ActionResult Index()
         {
             List<EmployeeSkillsAdd> emp = db.EmployeeSkillsAdds.Where(a => db.PersonalInfoes.Any(b => b.Id == a.P_Id)).ToList();
-            EmployeeSkillsAddViewModel skilladd = new EmployeeSkillsAddViewModel();
+           EmployeeSkillsAddViewModel skilladd = new EmployeeSkillsAddViewModel();
             
             skilladd.skiladd = emp;
             return View(skilladd);

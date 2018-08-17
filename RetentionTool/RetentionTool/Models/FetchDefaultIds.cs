@@ -23,6 +23,43 @@ namespace RetentionTool.Models
         public string SessionCompletedMsg = "Session Has been Completed Successfully";
         public string EmployeeAbsenceMsg = " is Absent for the Session";
 
+
+        public void getNotificationCount(long userid)
+        {
+         int notifcount= db.Notifications.Where(a => a.User_Id == userid && a.IsActive == true && a.IsNotified == true).Count();
+            int circularcount = (from circu in db.Circular_Details
+                                 join circudet in db.CircularUser_Details
+                                 on circu.Id equals circudet.Circular_Id
+                                 where circu.IsActive==true && 
+                                 circudet.User_Id== userid && circudet.IsActive==true && circudet.IsNotified==true
+                                 select circudet.Id
+                                 ).Count();
+                
+                
+               // db.CircularUser_Details.Where(a => a.User_Id == userid && a.IsActive == true && a.IsNotified == true).Count();
+            int total = notifcount + circularcount;
+             HttpContext.Current.Session["Notifict"] = total;
+
+        }
+
+        public void updateCircular()
+        {
+            List<Circular_Details> circular_Details = db.Circular_Details.Where(a => a.ValidTo <= DateTime.Now && a.IsActive == true).ToList();
+            foreach (var circular in circular_Details)
+            {
+                circular.IsActive = false;
+                db.Entry(circular).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                List<CircularUser_Details> circularUser_detail = db.CircularUser_Details.Where(a => a.Circular_Id == circular.Id && a.IsActive == true).ToList();
+                foreach (var circUserdet in circularUser_detail)
+                {
+                    circUserdet.IsActive = false;
+                    db.Entry(circUserdet).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+        }
         public int getUserId()
         {
              int id = int.Parse(HttpContext.Current.Session["uid"].ToString());
@@ -46,6 +83,7 @@ namespace RetentionTool.Models
                 ProjectsDetail prjct = new ProjectsDetail();
                 prjct.Name = projectName;
                 prjct.IsActive = true;
+                
                 db.ProjectsDetails.Add(prjct);
                 db.SaveChanges();
                 return prjct.Id;
@@ -109,6 +147,7 @@ namespace RetentionTool.Models
                 Role roles = new Role();
                 roles.Name = trainerRoleName;
                 roles.IsActive = true;
+                roles.EntryDate = DateTime.Now;
                 db.Roles.Add(roles);
                 db.SaveChanges();
                 return roles.Id;
@@ -128,6 +167,7 @@ namespace RetentionTool.Models
                 Role roles = new Role();
                 roles.Name = adminRoleName;
                 roles.IsActive = true;
+                roles.EntryDate = DateTime.Now;
                 db.Roles.Add(roles);
                 db.SaveChanges();
                 return roles.Id;
@@ -146,6 +186,7 @@ namespace RetentionTool.Models
                 Role roles = new Role();
                 roles.Name = managerRoleName;
                 roles.IsActive = true;
+                roles.EntryDate = DateTime.Now;
                 db.Roles.Add(roles);
                 db.SaveChanges();
                 return roles.Id;
@@ -166,6 +207,7 @@ namespace RetentionTool.Models
                 Role roles = new Role();
                 roles.Name = employeeRoleName;
                 roles.IsActive = true;
+                roles.EntryDate = DateTime.Now;
                 db.Roles.Add(roles);
                 db.SaveChanges();
                 return roles.Id;
@@ -173,24 +215,25 @@ namespace RetentionTool.Models
 
         }
 
-        public int getDefaultInternRoleId()
-        {
-            Role role = db.Roles.FirstOrDefault(a => a.Name == internRoleName && a.IsActive == true);
-            if (role != null)
-            {
-                return role.Id;
-            }
-            else
-            {
-                Role roles = new Role();
-                roles.Name = internRoleName;
-                roles.IsActive = true;
-                db.Roles.Add(roles);
-                db.SaveChanges();
-                return roles.Id;
-            }
+        //public int getDefaultInternRoleId()
+        //{
+        //    Role role = db.Roles.FirstOrDefault(a => a.Name == internRoleName && a.IsActive == true);
+        //    if (role != null)
+        //    {
+        //        return role.Id;
+        //    }
+        //    else
+        //    {
+        //        Role roles = new Role();
+        //        roles.Name = internRoleName;
+        //        roles.IsActive = true;
+        //        roles.EntryDate = DateTime.Now;
+        //        db.Roles.Add(roles);
+        //        db.SaveChanges();
+        //        return roles.Id;
+        //    }
 
-        }
+        //}
 
     }
 }

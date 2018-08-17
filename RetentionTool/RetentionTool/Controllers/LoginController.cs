@@ -48,14 +48,16 @@ namespace RetentionTool.Controllers
                 int adminRoleid = fetchdet.getDefaultAdminRoleId();
                 int trainerRoleid = fetchdet.getDefaultTrainerRoleId();
 
-                int internRoleid = fetchdet.getDefaultInternRoleId();
+             //   int internRoleid = fetchdet.getDefaultInternRoleId();
                 Session["userId"] = userResult.Emp_Id;
                 Session["uid"] = userResult.Id;
                 PersonalInfo personalInfo = db.PersonalInfoes.Find(userResult.Emp_Id);
                 Session["userpath"] = personalInfo.Image;
 
-                Session["Notifict"] = db.Notifications.Where(a => a.User_Id == userResult.Id && a.IsActive == true && a.IsNotified == true).Count();
+                // Session["Notifict"] = db.Notifications.Where(a => a.User_Id == userResult.Id && a.IsActive == true && a.IsNotified == true).Count();
                 //Image.PerformImageResizeAndPutOnCanvas(imgPath, filename, Convert.ToInt16(txtWidth.Text), Convert.ToInt16(txtHeight.Text), txtOutputFileName.Text.ToString() + ".jpg");
+                fetchdet.getNotificationCount(userResult.Id);
+                fetchdet.updateCircular();
                 if (empRoleId==userResult.Role_Id)
                 {
                     
@@ -81,10 +83,10 @@ namespace RetentionTool.Controllers
                 {
                     return RedirectToAction("Index", "Training", new { Area = "Trainer" });
                 }
-                else if (internRoleid == userResult.Role_Id)
-                {
-                    return RedirectToAction("Index", "Training", new { Area = "Trainer" });
-                }
+                //else if (internRoleid == userResult.Role_Id)
+                //{
+                //    return RedirectToAction("Index", "Training", new { Area = "Trainer" });
+                //}
                 else
                 {
                     ViewBag.Message = "Invalid Username or Password or Role";
