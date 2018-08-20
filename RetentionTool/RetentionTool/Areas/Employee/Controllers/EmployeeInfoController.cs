@@ -83,7 +83,7 @@ namespace RetentionTool.Areas.Employee.Controllers
         public ActionResult EmpSkillsCreate()
         {
             FetchDefaultIds fetchdet = new FetchDefaultIds();
-            int id = fetchdet.getUserId();
+            int id = fetchdet.getUserDetailsId();
             PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == id);
             EmployeeInfoViewModel empvm = new EmployeeInfoViewModel();
             PersonalInfoModel personalInfovm = new PersonalInfoModel();

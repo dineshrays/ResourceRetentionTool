@@ -11,6 +11,7 @@ namespace RetentionTool.Controllers
     public class AssignResourceController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: AssignResource
         public ActionResult Index()
         {
@@ -77,6 +78,22 @@ namespace RetentionTool.Controllers
            
          if(assgnResvm!=null)
             {
+
+                int trainerid = fetchdet.getDefaultTrainerRoleId();
+                UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == assgnResvm.Trainer_Id && a.Role_Id == trainerid && a.IsActive == true);
+                ProjectsDetail projectdet = db.ProjectsDetails.Find(assgnResvm.Project_Id);
+
+                Notification notif = new Notification();
+                notif.User_Id = userdet.Id;
+                //  notif.Sessions_Id = sessionVM.Id;
+                notif.Message =projectdet.Name + fetchdet.AssignTrainerMsg;
+                    //fetchdet.SessionCompletedMsg;
+                notif.IsActive = true;
+                notif.IsNotified = true;
+                notif.CreatedOn = DateTime.Now;
+
+                db.Notifications.Add(notif);
+                db.SaveChanges();
                 Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id && a.IsActive==true);
                 AssignResource assRes = new AssignResource()
                 {
@@ -91,6 +108,8 @@ namespace RetentionTool.Controllers
                 };
                 db.AssignResources.Add(assRes);
                 db.SaveChanges();
+
+
                // int[] empid = assgnResvm.empid;
               //  for (int i = 0; i < empid.Length; i++)
               foreach(var i in list)
@@ -363,7 +382,7 @@ where personalInfo.IsActive==true && trainer.IsActive==true
 
                                      where project.Name.Contains(name)
 
-         && project.IsActive == true && projectworked.IsActive==true
+         && project.IsActive == true && projectworked.IsActive==true && critical.IsActive==true
                                      select new EmployeeList
                                      {
                                          Id = project.Id,
