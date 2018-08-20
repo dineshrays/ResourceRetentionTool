@@ -11,7 +11,7 @@ namespace RetentionTool.Areas.Manager.Controllers
     {
         RetentionToolEntities db = new RetentionToolEntities();
         public static FetchDefaultIds fetchdet = new FetchDefaultIds();
-        int managerid = fetchdet.getUserId();
+        int managerid = fetchdet.getUserDetailsId();
         // GET: PromoteEmployee
         public ActionResult Index()
         {

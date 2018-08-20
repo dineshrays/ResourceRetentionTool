@@ -22,7 +22,7 @@ namespace RetentionTool.Models
         public int commonfieldid = 3;
         public string SessionCompletedMsg = "Session Has been Completed Successfully";
         public string EmployeeAbsenceMsg = " is Absent for the Session";
-
+        public string AssignTrainerMsg = " has been Assigned take Session";
 
         public void getNotificationCount(long userid)
         {
@@ -62,7 +62,7 @@ namespace RetentionTool.Models
         }
         public int getUserId()
         {
-             int id = int.Parse(HttpContext.Current.Session["uid"].ToString());
+            int id = int.Parse(HttpContext.Current.Session["uid"].ToString());
             return id;
         }
 

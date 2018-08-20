@@ -12,7 +12,7 @@ namespace RetentionTool.Areas.Manager.Controllers
     {
         RetentionToolEntities db = new RetentionToolEntities();
         public static FetchDefaultIds fetchdet = new FetchDefaultIds();
-        int managerid = fetchdet.getUserId();
+        int managerid = fetchdet.getUserDetailsId();
         // GET: AssignResource
         public ActionResult Index()
         {
@@ -58,6 +58,22 @@ namespace RetentionTool.Areas.Manager.Controllers
            
          if(assgnResvm!=null)
             {
+
+                int trainerid = fetchdet.getDefaultTrainerRoleId();
+                UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == assgnResvm.Trainer_Id && a.Role_Id == trainerid && a.IsActive == true);
+                ProjectsDetail projectdet = db.ProjectsDetails.Find(assgnResvm.Project_Id);
+
+                Notification notif = new Notification();
+                notif.User_Id = userdet.Id;
+                //  notif.Sessions_Id = sessionVM.Id;
+                notif.Message = projectdet.Name + fetchdet.AssignTrainerMsg;
+                //fetchdet.SessionCompletedMsg;
+                notif.IsActive = true;
+                notif.IsNotified = true;
+                notif.CreatedOn = DateTime.Now;
+
+                db.Notifications.Add(notif);
+                db.SaveChanges();
                 RetentionTool.Models.Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id && a.IsActive==true);
                 AssignResource assRes = new AssignResource()
                 {
