@@ -33,12 +33,24 @@ namespace RetentionTool.Areas.Manager.Controllers
         }
         
         [HttpPost]
-        public ActionResult Evaluates(int id, ApproveEmpSkill appl)
+        public ActionResult Evaluates(ApproveEmpSkillsModel appl)
         {
-            ApproveEmpSkill app = db.ApproveEmpSkills.Find(id);
 
+            ApproveEmpSkill app = new ApproveEmpSkill();
+            //db.ApproveEmpSkills.Find(id);
+            app.EmpskillAdd_Id = appl.EmpskillAdd_Id;
+            app.Emp_Id = appl.Emp_Id;
+            app.TaskAssigned = appl.TaskAssigned;
+            app.Remark = appl.Remark;
+            app.IsEvaluated = appl.IsEvaluated;
+            app.IsActive = true;
+            app.CreatedOn = System.DateTime.Now;
 
-            return View();
+            db.ApproveEmpSkills.Add(app);
+            db.SaveChanges();
+
+            return Json("", JsonRequestBehavior.AllowGet);
+            //return View();
         }
 
         public void getEvaluaterList(long? skillid)

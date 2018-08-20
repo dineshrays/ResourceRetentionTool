@@ -1,7 +1,8 @@
 ﻿@model RetentionTool.ViewModel.EmployeeSkillsAddViewModel
 @{
     ViewBag.Title = "Evaluates";
-    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    Layout = "~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml";
+
 }
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -19,8 +20,9 @@
                 <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @class = "form-control-label" })</div>
             </div>
             <div class="col-6 col-md-9">
-                <div>@Html.DisplayFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @id = "EmpCode", @class = "form-control", style = "width:40%" })</div><br />
-                <div>@Html.HiddenFor(m=>m.EmployeeSkillsAdd.Id, new { @id="empskiladdid"})</div>
+                <div>@Html.DisplayFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new {@class = "form-control", style = "width:40%" })</div><br />
+                <div>@Html.HiddenFor(m => m.EmployeeSkillsAdd.PersonalInfo.Id, new { @id = "EmpCode" })</div>
+                <div>@Html.HiddenFor(m => m.EmployeeSkillsAdd.Id, new { @id = "empskiladdid" })</div>
             </div>
         </div>
 
@@ -142,7 +144,7 @@
             var Emp_Id = $("#EmpCode").val();
             var task = $("#taskass").val();
             var Remark = $("#remar").val();
-            var IsEvaluated = $("#IsEval").val();
+            var IsEvaluated = $("#IsEval").is(':checked');
 
                 var newUrl= '@Url.Action("Index", "ApproveEmpSkills")';
 
@@ -163,5 +165,6 @@
                     }
                 });
         });
+     })
     
 </script>
