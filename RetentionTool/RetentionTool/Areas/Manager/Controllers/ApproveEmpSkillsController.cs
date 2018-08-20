@@ -27,16 +27,38 @@ namespace RetentionTool.Areas.Manager.Controllers
             EmployeeSkillsAdd esd = db.EmployeeSkillsAdds.Find(id);
             EmployeeSkillsAddViewModel empvm = new EmployeeSkillsAddViewModel();
             empvm.EmployeeSkillsAdd = esd;
-            getEvaluaterList();
+            getEvaluaterList(esd.Skills_Id);
             return View(empvm);
                 
         }
-
-        public void getEvaluaterList()
+        
+        [HttpPost]
+        public ActionResult Evaluates(int id, ApproveEmpSkill appl)
         {
-            //ViewData["Evaluater"] = new SelectList(db.);
-            //ViewData["Evaluater"] = new SelectList(db.ProjectsDetails.Where(a => a.IsActive == true && !db.AssignResources.Any(b => b.IsActive == true && b.Project_Id == a.Id)).ToList(), "Id", "Name");
+            ApproveEmpSkill app = db.ApproveEmpSkills.Find(id);
+
+
+            return View();
         }
+
+        public void getEvaluaterList(long? skillid)
+        {
+            List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
+                                               join empskills in db.EmployeeSkills on personal.Id equals empskills.P_Id
+                                               join skill in db.Skills on empskills.Skills_Id equals skill.id
+                                               where skill.id==skillid
+                                               select new EmployeeList
+                                               {
+                                                   Id = personal.Id,
+                                                   Name = personal.Name,
+                                                   EmpCode = personal.EmpCode
+
+                                               }).ToList();
+            
+           // return Json(employeeList, JsonRequestBehavior.AllowGet);
+           ViewData["Evaluater"] = new SelectList(employeeList,"Id","Name");
+        }
+
 
     }
 }

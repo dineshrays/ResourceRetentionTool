@@ -6,12 +6,8 @@ using RetentionTool.Models;
 
 namespace RetentionTool.ViewModel
 {
-    public class EmployeeSkillsAddViewModel
+    public class ApproveEmpSkillsViewModel
     {
-        public List<EmployeeSkillsAdd> skiladd { get; set; }
-        public EmployeeSkillsAdd EmployeeSkillsAdd { get; set; }
-
-
         public List<ApproveEmpSkillsModel> ApproveEmpSkillVm { get; set; }
         public ApproveEmpSkillsModel GetApproveEmpSkills { get; set; }
     }

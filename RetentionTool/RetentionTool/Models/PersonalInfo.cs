@@ -32,6 +32,7 @@ namespace RetentionTool.Models
             this.UserDetails = new HashSet<UserDetail>();
             this.Trainers = new HashSet<Trainer>();
             this.EmployeeSkillsAdds = new HashSet<EmployeeSkillsAdd>();
+            this.ApproveEmpSkills = new HashSet<ApproveEmpSkill>();
         }
     
         public int Id { get; set; }
@@ -81,5 +82,7 @@ namespace RetentionTool.Models
         public virtual ICollection<Trainer> Trainers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeSkillsAdd> EmployeeSkillsAdds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveEmpSkill> ApproveEmpSkills { get; set; }
     }
 }

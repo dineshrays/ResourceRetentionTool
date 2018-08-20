@@ -82,6 +82,9 @@
         <EntityTypeShape EntityType="RetentionToolModel.CircularUser_Details" Width="1.5" PointX="15.875" PointY="9.75" />
         <AssociationConnector Association="RetentionToolModel.FK_CircularUser_Details_Circular_Details" />
         <AssociationConnector Association="RetentionToolModel.FK_CircularUser_Details_UserDetails" />
+        <EntityTypeShape EntityType="RetentionToolModel.ApproveEmpSkill" Width="1.5" PointX="13.25" PointY="19.875" />
+        <AssociationConnector Association="RetentionToolModel.FK_ApproveEmpSkills_EmployeeSkillsAdd" />
+        <AssociationConnector Association="RetentionToolModel.FK_ApproveEmpSkills_PersonalInfo" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -5,6 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RetentionToolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApproveEmpSkills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpskillAdd_Id" Type="int" />
+          <Property Name="Emp_Id" Type="int" />
+          <Property Name="TaskAssigned" Type="varchar" MaxLength="250" />
+          <Property Name="Remark" Type="varchar" MaxLength="250" />
+          <Property Name="IsEvaluated" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="AssignEvaluater">
           <Key>
             <PropertyRef Name="Id" />
@@ -356,6 +369,30 @@
           <Property Name="EntryDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <Association Name="FK_ApproveEmpSkills_EmployeeSkillsAdd">
+          <End Role="EmployeeSkillsAdd" Type="Self.EmployeeSkillsAdd" Multiplicity="0..1" />
+          <End Role="ApproveEmpSkills" Type="Self.ApproveEmpSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeSkillsAdd">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApproveEmpSkills">
+              <PropertyRef Name="EmpskillAdd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApproveEmpSkills_PersonalInfo">
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+          <End Role="ApproveEmpSkills" Type="Self.ApproveEmpSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApproveEmpSkills">
+              <PropertyRef Name="Emp_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AssignEvaluater_AssignResources">
           <End Role="AssignResources" Type="Self.AssignResources" Multiplicity="0..1" />
           <End Role="AssignEvaluater" Type="Self.AssignEvaluater" Multiplicity="*" />
@@ -909,6 +946,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RetentionToolModelStoreContainer">
+          <EntitySet Name="ApproveEmpSkills" EntityType="Self.ApproveEmpSkills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssignEvaluater" EntityType="Self.AssignEvaluater" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssignResources" EntityType="Self.AssignResources" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssignResourcesDet" EntityType="Self.AssignResourcesDet" Schema="dbo" store:Type="Tables" />
@@ -939,6 +977,14 @@
           <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainingDet" EntityType="Self.TrainingDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ApproveEmpSkills_EmployeeSkillsAdd" Association="Self.FK_ApproveEmpSkills_EmployeeSkillsAdd">
+            <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdd" />
+            <End Role="ApproveEmpSkills" EntitySet="ApproveEmpSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApproveEmpSkills_PersonalInfo" Association="Self.FK_ApproveEmpSkills_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+            <End Role="ApproveEmpSkills" EntitySet="ApproveEmpSkills" />
+          </AssociationSet>
           <AssociationSet Name="FK_AssignEvaluater_AssignResources" Association="Self.FK_AssignEvaluater_AssignResources">
             <End Role="AssignResources" EntitySet="AssignResources" />
             <End Role="AssignEvaluater" EntitySet="AssignEvaluater" />
@@ -1371,6 +1417,15 @@
           <AssociationSet Name="FK_CircularUser_Details_UserDetails" Association="RetentionToolModel.FK_CircularUser_Details_UserDetails">
             <End Role="UserDetail" EntitySet="UserDetails" />
             <End Role="CircularUser_Details" EntitySet="CircularUser_Details" />
+          </AssociationSet>
+          <EntitySet Name="ApproveEmpSkills" EntityType="RetentionToolModel.ApproveEmpSkill" />
+          <AssociationSet Name="FK_ApproveEmpSkills_EmployeeSkillsAdd" Association="RetentionToolModel.FK_ApproveEmpSkills_EmployeeSkillsAdd">
+            <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
+            <End Role="ApproveEmpSkill" EntitySet="ApproveEmpSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApproveEmpSkills_PersonalInfo" Association="RetentionToolModel.FK_ApproveEmpSkills_PersonalInfo">
+            <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+            <End Role="ApproveEmpSkill" EntitySet="ApproveEmpSkills" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
@@ -1959,6 +2014,7 @@
           <NavigationProperty Name="UserDetails" Relationship="RetentionToolModel.FK_UserDetails_PersonalInfo" FromRole="PersonalInfo" ToRole="UserDetail" />
           <NavigationProperty Name="Trainers" Relationship="RetentionToolModel.FK_Trainers_PersonalInfo" FromRole="PersonalInfo" ToRole="Trainer" />
           <NavigationProperty Name="EmployeeSkillsAdds" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" FromRole="PersonalInfo" ToRole="EmployeeSkillsAdd" />
+          <NavigationProperty Name="ApproveEmpSkills" Relationship="RetentionToolModel.FK_ApproveEmpSkills_PersonalInfo" FromRole="PersonalInfo" ToRole="ApproveEmpSkill" />
         </EntityType>
         <Association Name="FK_AssignResources_Managers">
           <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
@@ -2230,6 +2286,7 @@
           <NavigationProperty Name="Commonfield" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_Commonfields" FromRole="EmployeeSkillsAdd" ToRole="Commonfield" />
           <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" FromRole="EmployeeSkillsAdd" ToRole="PersonalInfo" />
           <NavigationProperty Name="Skill" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_Skills" FromRole="EmployeeSkillsAdd" ToRole="Skill" />
+          <NavigationProperty Name="ApproveEmpSkills" Relationship="RetentionToolModel.FK_ApproveEmpSkills_EmployeeSkillsAdd" FromRole="EmployeeSkillsAdd" ToRole="ApproveEmpSkill" />
         </EntityType>
         <Association Name="FK_EmployeeSkillsAdd_Commonfields">
           <End Type="RetentionToolModel.Commonfield" Role="Commonfield" Multiplicity="0..1" />
@@ -2354,6 +2411,45 @@
             </Principal>
             <Dependent Role="CircularUser_Details">
               <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ApproveEmpSkill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpskillAdd_Id" Type="Int32" />
+          <Property Name="Emp_Id" Type="Int32" />
+          <Property Name="TaskAssigned" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsEvaluated" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="EmployeeSkillsAdd" Relationship="RetentionToolModel.FK_ApproveEmpSkills_EmployeeSkillsAdd" FromRole="ApproveEmpSkill" ToRole="EmployeeSkillsAdd" />
+          <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_ApproveEmpSkills_PersonalInfo" FromRole="ApproveEmpSkill" ToRole="PersonalInfo" />
+        </EntityType>
+        <Association Name="FK_ApproveEmpSkills_EmployeeSkillsAdd">
+          <End Type="RetentionToolModel.EmployeeSkillsAdd" Role="EmployeeSkillsAdd" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.ApproveEmpSkill" Role="ApproveEmpSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeSkillsAdd">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApproveEmpSkill">
+              <PropertyRef Name="EmpskillAdd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApproveEmpSkills_PersonalInfo">
+          <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
+          <End Type="RetentionToolModel.ApproveEmpSkill" Role="ApproveEmpSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApproveEmpSkill">
+              <PropertyRef Name="Emp_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2740,6 +2836,20 @@
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="Circular_Id" ColumnName="Circular_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApproveEmpSkills">
+            <EntityTypeMapping TypeName="RetentionToolModel.ApproveEmpSkill">
+              <MappingFragment StoreEntitySet="ApproveEmpSkills">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsEvaluated" ColumnName="IsEvaluated" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="TaskAssigned" ColumnName="TaskAssigned" />
+                <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+                <ScalarProperty Name="EmpskillAdd_Id" ColumnName="EmpskillAdd_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

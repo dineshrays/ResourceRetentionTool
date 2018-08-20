@@ -14,6 +14,12 @@ namespace RetentionTool.Models
     
     public partial class EmployeeSkillsAdd
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public EmployeeSkillsAdd()
+        {
+            this.ApproveEmpSkills = new HashSet<ApproveEmpSkill>();
+        }
+    
         public int Id { get; set; }
         public int P_Id { get; set; }
         public Nullable<long> CommonField_Id { get; set; }
@@ -28,6 +34,7 @@ namespace RetentionTool.Models
         public virtual Commonfield Commonfield { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Skill Skill { get; set; }
-        public string Evaluator { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveEmpSkill> ApproveEmpSkills { get; set; }
     }
 }

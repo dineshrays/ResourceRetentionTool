@@ -3,6 +3,11 @@
     ViewBag.Title = "Evaluates";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <div class="card">
     <div class="card-header">
         <h2>Evaluates</h2>
@@ -15,6 +20,7 @@
             </div>
             <div class="col-6 col-md-9">
                 <div>@Html.DisplayFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @id = "EmpCode", @class = "form-control", style = "width:40%" })</div><br />
+                <div>@Html.HiddenFor(m=>m.EmployeeSkillsAdd.Id, new { @id="empskiladdid"})</div>
             </div>
         </div>
 
@@ -37,29 +43,125 @@
             </div>
         </div>
 
-      
+
+        <div class="form-group" id="Managerdiv" style="display:none">
             <div class="row form-group">
                 <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.Evaluator, new { @class = "form-control-label" })</div>
+                    <div>@Html.LabelFor(m => m.GetApproveEmpSkills.TaskAssigned, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    @*<div>@Html.DropDownList(m => m.EmployeeSkillsAdd)</div><br />*@
+                    <div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.TaskAssigned, new { @id="taskass" })</div><br />
                 </div>
             </div>
-        
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.GetApproveEmpSkills.Remark, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.Remark, new { @id= "remar" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    @*<div>@Html.LabelFor(m => m.GetApproveEmpSkills.IsEvaluated, new { @class = "form-control-label" })</div>*@
+                </div>
+                <div class="col-12 col-md-9">
+                    <div><input type="checkbox" value="IsEvaluated" id="IsEval"/>IsEvaluated</div>
+                    @*<div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.IsEvaluated)</div><br />*@
+                </div>
+            </div>
+
+            <div class="card-body">
+                <input type="submit" value="Save" id="btnSave" class="btn btn-success" />
+            </div>
+        </div>
+
+
+        <div class="form-group" id="Empdiv" style="display:none">
+            <div class="row form-group" style="width:30%" id="searchproject">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.GetApproveEmpSkills.PersonalInfo.Name, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.DropDownListFor(m => m.GetApproveEmpSkills.PersonalInfo.Name,ViewData["Evaluater"] as SelectList, new { @class = "form-control", style = "width:100%" })</div><br />
+                </div>
+            </div>
+
+            <div class="card-body">
+                <input type="submit" value="save" id="btnSave" class="btn btn-success" />
+            </div>
+        </div>
+
+
+        </div>
+
     </div>
-</div>
+
 
 <script>
-     $('input.chckProj').change(
+    $(document).ready(function () {
+        $('input.radomn').change(
 
             function () {
-                if ($('input.chckProj').is(':checked')) {
-                    $('#projectdiv').show();
-                   
+                if ($('input.radomn').is(':checked')) {
+                    $('#Managerdiv').show();
+                    $('#Empdiv').hide();
                 } else {
-                    $('#projectdiv').hide();
-                    
+                    $('#Managerdiv').hide();
+
                 }
             });
+
+        $('input.radoemp').change(
+
+            function () {
+                if ($('input.radoemp').is(':checked')) {
+                    $('#Empdiv').show();
+                    $('#Managerdiv').hide();
+
+                } else {
+                    $('#Empdiv').hide();
+
+                }
+            });
+
+    });
+
+    
+</script>
+
+<script>
+    $(function () {
+        $("#btnSave").click(function () {
+            
+            //var assresid = $("#assresid").val();
+
+            var Empski = $("#empskiladdid").val();
+            var Emp_Id = $("#EmpCode").val();
+            var task = $("#taskass").val();
+            var Remark = $("#remar").val();
+            var IsEvaluated = $("#IsEval").val();
+
+                var newUrl= '@Url.Action("Index", "ApproveEmpSkills")';
+
+            var mod = { EmpskillAdd_Id: Empski, Emp_Id: Emp_Id, TaskAssigned: task, Remark: Remark, IsEvaluated: IsEvaluated };
+               
+                $.ajax({
+                    url: '@Url.Action("Evaluates", "ApproveEmpSkills")', //
+                    dataType: "json",
+                    data: JSON.stringify({ appl: mod}),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                       
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+        });
+    
 </script>

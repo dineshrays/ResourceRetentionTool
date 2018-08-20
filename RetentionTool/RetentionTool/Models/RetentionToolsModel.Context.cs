@@ -55,5 +55,6 @@ namespace RetentionTool.Models
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Circular_Details> Circular_Details { get; set; }
         public virtual DbSet<CircularUser_Details> CircularUser_Details { get; set; }
+        public virtual DbSet<ApproveEmpSkill> ApproveEmpSkills { get; set; }
     }
 }
