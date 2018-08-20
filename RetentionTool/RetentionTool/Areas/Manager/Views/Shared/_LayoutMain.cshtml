@@ -405,7 +405,7 @@
                         //alert('insuccess') Name
                         if (i < 2) {
                            @*// @ViewData["id"]=notif.Id;*@
-                            var markup = "<a class='dropdown-item media bg-flat-color-1' href='#' onclick='viewmore(" + notif.Id + ")'><i class='fa fa-check'></i><h6>" + notif.Message + "</h6></a><p class='dropdown-item media bg-flat-color-1'>" + notif.subMessage + "</p>";
+                            var markup = "<a class='dropdown-item media bg-flat-color-1' href='#' onclick='viewmore(" + notif.Id + "," + notif.type + ")'><i class='fa fa-check'></i><h6>" + notif.Message + "</h6></a><p class='dropdown-item media bg-flat-color-1'>" + notif.subMessage + "</p>";
                             ////"<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
                             @*@Url.Action("Notif", "SearchEmpSkill", new { notificationid = @ViewData["id"] })*@
                             $("#notifi").append(markup);
@@ -430,7 +430,7 @@
                 error: function () { alert("Something Gone Wrong") },
             });
     }
-    function viewmore(id) {
+    function viewmore(id,type) {
        // alert('djjdjd');
         //alert(id);
        // HttpContext.Current.Session["Notifict"] = 0;
@@ -440,8 +440,8 @@
                    url: '/Manager/SearchEmpSkill/Notif',
                 type: 'POST',
                 datatype: 'application/json',
-                contentType: 'application/json',
-                   data: JSON.stringify({ notificationid: id }),
+                   contentType: 'application/json',
+                   data: JSON.stringify({ notificationid: id, type: type }),
                    success: function (result) {
                        window.location.href = newUrl;
 

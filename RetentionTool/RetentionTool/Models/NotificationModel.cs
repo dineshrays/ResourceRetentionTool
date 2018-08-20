@@ -10,5 +10,6 @@ namespace RetentionTool.Models
         public long Id { get; set; }
         public string Message { get; set; }
         public string subMessage { get; set; }
+        public int type { get; set; }
     }
 }

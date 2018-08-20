@@ -17,9 +17,10 @@
         <div class="row form-group">
             <div class="col col-md-3">
                 <div>
+                    <input type="radio" value="assignres" name="type" class="chckNor" checked />Normal
 
 
-                    <input type="radio" value="project" name="type" class="chckProj" checked />Project
+                   
                 </div>
 
             </div>
@@ -28,8 +29,7 @@
                 <input type="radio" value="assignres" name="type" class="chckAssRes" />Assign Resource
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <input type="radio" value="assignres" name="type" class="chckNor" />Normal
-
+                <input type="radio" value="project" name="type" class="chckProj" />Project
 
 
             </div>
@@ -67,7 +67,7 @@
                 @Html.Label("User Type", new { @class = "form-control-label", style = "width:150%" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.roleId, ViewData["roledetails"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+                @Html.DropDownListFor(m => m.roleId, ViewData["roledetails"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "roleid", style = "width:30%" })
 
             </div>
         </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.TextAreaFor(a => a.Contents, new { @class = "form-control", style = "width:50%" })
+                @Html.TextAreaFor(a => a.Contents, new { @class = "form-control", @id="content", style = "width:50%" })
 
 
 
@@ -92,8 +92,8 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.Date, new { @class = "form-control", style = "width:50%" })
-
+                @Html.EditorFor(a => a.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:50%" } })
+               
 
 
             </div>
@@ -106,7 +106,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.ValidFrom, new { @class = "form-control", style = "width:30%" })
+                @Html.EditorFor(a => a.ValidFrom, new { htmlAttributes = new { @class = "form-control", @id = "validfrom", style = "width:30%" } })
 
 
 
@@ -120,7 +120,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.ValidTo, new { @class = "form-control", style = "width:30%" })
+                @Html.EditorFor(a => a.ValidTo, new { htmlAttributes = new { @class = "form-control", @id = "validto", style = "width:30%" } })
 
 
 
@@ -158,16 +158,70 @@
 
 
 <script>
+    $("#btnSave").click(function () {
+        var content = $("#content").val();
+        var roleid = $("#roleid").val();
+        var date = $("#date").val();
+        var validfrom = $("#validfrom").val();
+        var validto = $("#validto").val();
+        var param = { Contents: content, Date: date, ValidFrom: validfrom, ValidTo: validto, roleId: roleid };
+        var type = 0;
+        var projectid = 0;
+        if ($('input.chckAssRes').is(':checked')) {
+            type = 1;
+            projectid = $("#searchprojectid").val();
+        }
+        if ($('input.chckNor').is(':checked')) {
+            type = 0;
+        }
+        if ($('input.chckProj').is(':checked')) {
+            type = 2;
+            projectid = $("#searchprojectid").val();
+        }
+        $.ajax({
+            url: "/Admin/Circular/Create",
+            dataType: "json",
+            data: JSON.stringify({ circularvm: param, type: type, projectid: projectid }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
 
+                window.location.href = "/Admin/Circular/Index";
+            },
+            error: function (xhr) {
+                alert("error");
+            }
+        });
+    });
     $(document).ready(function () {
         $('input.chckProj').change(
 
             function () {
                 if ($('input.chckProj').is(':checked')) {
+                    $('#searchprojectid').val('');
+                    $('#searchproject').val('');
                     $('#projectdiv').show();
+                    var value = 2;
+                    $.ajax(
+                        {
+                            url: '/Admin/Circular/getRolesDetails',
+                            type: 'POST',
+                            datatype: 'application/json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ type: value }),
+                            success: function (result) {
+                                $('#roleid').empty();
+                                $.each(result, function (i, Role) {
+                                    $('#roleid').append('<option value="' + Role.Value + '">' + Role.Text + '</option>');
+                                });
+                            },
+                            error: function () { alert("Something Gone Wrong") },
+                        });
                    
                 } else {
                     $('#projectdiv').hide();
+                    $('#searchprojectid').val('');
+                    $('#searchproject').val('');
                     
                 }
             });
@@ -176,10 +230,30 @@
 
                 function () {
                     if ($('input.chckAssRes').is(':checked')) {
+                        $('#searchprojectid').val('');
+                        $('#searchproject').val('');
                         $('#projectdiv').show();
+                        var value = 1;
+                        $.ajax(
+                            {
+                                url: '/Admin/Circular/getRolesDetails',
+                                type: 'POST',
+                                datatype: 'application/json',
+                                contentType: 'application/json',
+                                data: JSON.stringify({ type: value }),
+                                success: function (result) {
+                                    $('#roleid').empty();
+                                    $.each(result, function (i, Role) {
+                                        $('#roleid').append('<option value="' + Role.Value + '">' + Role.Text + '</option>');
+                                    });
+                                },
+                                error: function () { alert("Something Gone Wrong") },
+                            });
 
                     } else {
                         $('#projectdiv').hide();
+                        $('#searchprojectid').val('');
+                        $('#searchproject').val('');
 
                     }
                 });
@@ -187,9 +261,29 @@
 
             function () {
                 if ($('input.chckNor').is(':checked')) {
+                    $('#searchprojectid').val('');
+                    $('#searchproject').val('');
                     $('#projectdiv').hide();
+                    var value = 0;
+                    $.ajax(
+                        {
+                            url: '/Admin/Circular/getRolesDetails',
+                            type: 'POST',
+                            datatype: 'application/json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ type: value }),
+                            success: function (result) {
+                                $('#roleid').empty();
+                                $.each(result, function (i, Role) {
+                                    $('#roleid').append('<option value="' + Role.Value + '">' + Role.Text + '</option>');
+                                });
+                            },
+                            error: function () { alert("Something Gone Wrong") },
+                        });
 
                 } else {
+                    $('#searchprojectid').val('');
+                    $('#searchproject').val('');
                     $('#projectdiv').show();
 
                 }
@@ -201,8 +295,17 @@
         $("#searchproject").autocomplete({
 
             source: function (request, response) {
-                
-                var param = { name: $('#searchproject').val() };
+                var empid = 0;
+                if ($('input.chckAssRes').is(':checked')) {
+                    empid = 1;
+                }
+                if ($('input.chckNor').is(':checked')) {
+                    empid = 0;
+                }
+                if ($('input.chckProj').is(':checked')) {
+                    empid = 2;
+                }
+                var param = { name: $('#searchproject').val(), type: empid };
 
                 $.ajax({
                     url: "/Admin/Circular/getProjects",
