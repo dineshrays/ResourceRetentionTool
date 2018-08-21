@@ -382,5 +382,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ApproveEmpSkills">
+      <EntityTypeMapping TypeName="RetentionToolModel.ApproveEmpSkill">
+        <MappingFragment StoreEntitySet="ApproveEmpSkills">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsEvaluated" ColumnName="IsEvaluated" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="TaskAssigned" ColumnName="TaskAssigned" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="EmpskillAdd_Id" ColumnName="EmpskillAdd_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

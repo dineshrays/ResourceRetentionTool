@@ -35,11 +35,11 @@
 
         </td>
         <td>
-            <input type="button" id="Evaluation" value="Evaluate" onclick="onclickmethod();" />
+            @*<input type="button" id="Evaluation" value="Evaluate" onclick="onclickmethod();" />
 
-            @Html.ActionLink("ghbjnm", "Evaluates", "ApproveEmpSkills", null, new { @id = @item.Id, area="Manager" })
+            @Html.ActionLink("ghbjnm", "Evaluates", "ApproveEmpSkills", null, new { @id = @item.Id, area="Manager" })*@
 
-            <a href='@Url.Action("Evaluates1", "ApproveEmpSkills", new {id=@item.Id})'>Add Details</a>
+            <a href='@Url.Action("Evaluates1", "ApproveEmpSkills", new {id=@item.Id})'>Evaluate</a>
 
         </td>
        

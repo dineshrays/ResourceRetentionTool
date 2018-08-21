@@ -38,9 +38,6 @@ namespace RetentionTool.Areas.Manager.Controllers
         [HttpPost]
         public ActionResult Evaluates1(int id, ApproveEmpSkillsModel appl)
         {
-
-
-
             ApproveEmpSkill app = new ApproveEmpSkill();
             //db.ApproveEmpSkills.Find(id);
             app.EmpskillAdd_Id = appl.EmpskillAdd_Id;
@@ -53,22 +50,26 @@ namespace RetentionTool.Areas.Manager.Controllers
 
             db.ApproveEmpSkills.Add(app);
             db.SaveChanges();
-            EmployeeSkillsAdd empskilladd = db.EmployeeSkillsAdds.Find(id);
+            if (appl.IsEvaluated.ToString() == "True")
+            {
+                EmployeeSkillsAdd empskilladd = db.EmployeeSkillsAdds.Find(id);
 
-            int employeeroleid = fetchdet.getDefaultEmployeeRoleId();
-            UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == empskilladd.P_Id && a.Role_Id == employeeroleid && a.IsActive == true);
+                int employeeroleid = fetchdet.getDefaultEmployeeRoleId();
+                UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == empskilladd.P_Id && a.Role_Id == employeeroleid && a.IsActive == true);
 
-            Notification notif = new Notification();
-            notif.User_Id = userdet.Id;
-            //  notif.Sessions_Id = sessionVM.Id;
-            notif.Message = empskilladd.Skill.Name + fetchdet.ApproveEmployeeMsg;
-            //fetchdet.SessionCompletedMsg;
-            notif.IsActive = true;
-            notif.IsNotified = true;
-            notif.CreatedOn = DateTime.Now;
+                Notification notif = new Notification();
+                notif.User_Id = userdet.Id;
+                //  notif.Sessions_Id = sessionVM.Id;
+                notif.Message = empskilladd.Skill.Name + fetchdet.ApproveEmployeeMsg;
+                //fetchdet.SessionCompletedMsg;
+                notif.IsActive = true;
+                notif.IsNotified = true;
+                notif.CreatedOn = DateTime.Now;
 
-            db.Notifications.Add(notif);
-            db.SaveChanges();
+                db.Notifications.Add(notif);
+                db.SaveChanges();
+            }
+          
 
 
             return Json("", JsonRequestBehavior.AllowGet);

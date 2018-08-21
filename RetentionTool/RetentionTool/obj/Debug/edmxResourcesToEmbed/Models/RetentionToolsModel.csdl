@@ -244,6 +244,15 @@
       <End Role="UserDetail" EntitySet="UserDetails" />
       <End Role="CircularUser_Details" EntitySet="CircularUser_Details" />
     </AssociationSet>
+    <EntitySet Name="ApproveEmpSkills" EntityType="RetentionToolModel.ApproveEmpSkill" />
+    <AssociationSet Name="FK_ApproveEmpSkills_EmployeeSkillsAdd" Association="RetentionToolModel.FK_ApproveEmpSkills_EmployeeSkillsAdd">
+      <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
+      <End Role="ApproveEmpSkill" EntitySet="ApproveEmpSkills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ApproveEmpSkills_PersonalInfo" Association="RetentionToolModel.FK_ApproveEmpSkills_PersonalInfo">
+      <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+      <End Role="ApproveEmpSkill" EntitySet="ApproveEmpSkills" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Module">
     <Key>
@@ -831,6 +840,7 @@
     <NavigationProperty Name="UserDetails" Relationship="RetentionToolModel.FK_UserDetails_PersonalInfo" FromRole="PersonalInfo" ToRole="UserDetail" />
     <NavigationProperty Name="Trainers" Relationship="RetentionToolModel.FK_Trainers_PersonalInfo" FromRole="PersonalInfo" ToRole="Trainer" />
     <NavigationProperty Name="EmployeeSkillsAdds" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" FromRole="PersonalInfo" ToRole="EmployeeSkillsAdd" />
+    <NavigationProperty Name="ApproveEmpSkills" Relationship="RetentionToolModel.FK_ApproveEmpSkills_PersonalInfo" FromRole="PersonalInfo" ToRole="ApproveEmpSkill" />
   </EntityType>
   <Association Name="FK_AssignResources_Managers">
     <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
@@ -1102,6 +1112,7 @@
     <NavigationProperty Name="Commonfield" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_Commonfields" FromRole="EmployeeSkillsAdd" ToRole="Commonfield" />
     <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" FromRole="EmployeeSkillsAdd" ToRole="PersonalInfo" />
     <NavigationProperty Name="Skill" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_Skills" FromRole="EmployeeSkillsAdd" ToRole="Skill" />
+    <NavigationProperty Name="ApproveEmpSkills" Relationship="RetentionToolModel.FK_ApproveEmpSkills_EmployeeSkillsAdd" FromRole="EmployeeSkillsAdd" ToRole="ApproveEmpSkill" />
   </EntityType>
   <Association Name="FK_EmployeeSkillsAdd_Commonfields">
     <End Type="RetentionToolModel.Commonfield" Role="Commonfield" Multiplicity="0..1" />
@@ -1226,6 +1237,45 @@
       </Principal>
       <Dependent Role="CircularUser_Details">
         <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ApproveEmpSkill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpskillAdd_Id" Type="Int32" />
+    <Property Name="Emp_Id" Type="Int32" />
+    <Property Name="TaskAssigned" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IsEvaluated" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="EmployeeSkillsAdd" Relationship="RetentionToolModel.FK_ApproveEmpSkills_EmployeeSkillsAdd" FromRole="ApproveEmpSkill" ToRole="EmployeeSkillsAdd" />
+    <NavigationProperty Name="PersonalInfo" Relationship="RetentionToolModel.FK_ApproveEmpSkills_PersonalInfo" FromRole="ApproveEmpSkill" ToRole="PersonalInfo" />
+  </EntityType>
+  <Association Name="FK_ApproveEmpSkills_EmployeeSkillsAdd">
+    <End Type="RetentionToolModel.EmployeeSkillsAdd" Role="EmployeeSkillsAdd" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.ApproveEmpSkill" Role="ApproveEmpSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeSkillsAdd">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ApproveEmpSkill">
+        <PropertyRef Name="EmpskillAdd_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ApproveEmpSkills_PersonalInfo">
+    <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.ApproveEmpSkill" Role="ApproveEmpSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ApproveEmpSkill">
+        <PropertyRef Name="Emp_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
