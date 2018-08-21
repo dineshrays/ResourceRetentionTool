@@ -23,6 +23,7 @@ namespace RetentionTool.Models
         public string SessionCompletedMsg = "Session Has been Completed Successfully";
         public string EmployeeAbsenceMsg = " is Absent for the Session";
         public string AssignTrainerMsg = " has been Assigned take Session";
+        public string ApproveEmployeeMsg = " Skill has been Approved Successfully";
 
         public void getNotificationCount(long userid)
         {

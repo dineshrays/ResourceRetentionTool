@@ -1,13 +1,10 @@
 ﻿@model RetentionTool.ViewModel.EmployeeSkillsAddViewModel
 @{
-    ViewBag.Title = "Evaluates";
-    Layout = "~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml";
-
+    ViewBag.Title = "Evaluates1";
+    Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
 }
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<h2>Evaluates1</h2>
 
 <div class="card">
     <div class="card-header">
@@ -20,7 +17,7 @@
                 <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @class = "form-control-label" })</div>
             </div>
             <div class="col-6 col-md-9">
-                <div>@Html.DisplayFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new {@class = "form-control", style = "width:40%" })</div><br />
+                <div>@Html.DisplayFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @class = "form-control", style = "width:40%" })</div><br />
                 <div>@Html.HiddenFor(m => m.EmployeeSkillsAdd.PersonalInfo.Id, new { @id = "EmpCode" })</div>
                 <div>@Html.HiddenFor(m => m.EmployeeSkillsAdd.Id, new { @id = "empskiladdid" })</div>
             </div>
@@ -38,7 +35,7 @@
         <div class="row form-group">
             <div class="col col-md-3">
                 @*@Html.RadioButton("Gender", "Manager")*@
-                <div><input type="radio" value="Manager" name="typo" class="radomn" checked />Manager</div>
+                <div><input type="radio" value="Manager" name="typo" class="radomn" />Manager</div>
             </div>
             <div class="col-12 col-md-9">
                 <div><input type="radio" value="Employee" name="typo" class="radoemp" />Employee</div>
@@ -52,7 +49,7 @@
                     <div>@Html.LabelFor(m => m.GetApproveEmpSkills.TaskAssigned, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.TaskAssigned, new { @id="taskass" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.TaskAssigned, new { @id = "taskass" })</div><br />
                 </div>
             </div>
 
@@ -61,7 +58,7 @@
                     <div>@Html.LabelFor(m => m.GetApproveEmpSkills.Remark, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.Remark, new { @id= "remar" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.Remark, new { @id = "remar" })</div><br />
                 </div>
             </div>
 
@@ -70,7 +67,7 @@
                     @*<div>@Html.LabelFor(m => m.GetApproveEmpSkills.IsEvaluated, new { @class = "form-control-label" })</div>*@
                 </div>
                 <div class="col-12 col-md-9">
-                    <div><input type="checkbox" value="IsEvaluated" id="IsEval"/>IsEvaluated</div>
+                    <div><input type="checkbox" value="IsEvaluated" id="IsEval" />IsEvaluated</div>
                     @*<div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.IsEvaluated)</div><br />*@
                 </div>
             </div>
@@ -87,8 +84,8 @@
                     <div>@Html.LabelFor(m => m.GetApproveEmpSkills.PersonalInfo.Name, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.DropDownListFor(m => m.GetApproveEmpSkills.PersonalInfo.Name,ViewData["Evaluater"] as SelectList, new { @class = "form-control", style = "width:100%" })</div><br />
-                <div>@Html.HiddenFor(m=>m.GetApproveEmpSkills.PersonalInfo.Id, new { @Id="empid"})</div>
+                    <div>@Html.DropDownListFor(m => m.GetApproveEmpSkills.PersonalInfo.Name, ViewData["Evaluater"] as SelectList, new { @class = "form-control", style = "width:100%" })</div><br />
+                    <div>@Html.HiddenFor(m => m.GetApproveEmpSkills.PersonalInfo.Id, new { @Id = "empid" })</div>
                 </div>
             </div>
 
@@ -98,12 +95,13 @@
         </div>
 
 
-        </div>
-
     </div>
 
-
-@*<script>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
     $(document).ready(function () {
         $('input.radomn').change(
 
@@ -132,57 +130,58 @@
 
     });
 
-    
+
 </script>
 
 <script>
     $(function () {
         $("#btnSave").click(function () {
-            
+
             //var assresid = $("#assresid").val();
 
             var Empski = $("#empskiladdid").val();
+            alert(Empski)
             var Emp_Id = $("#EmpCode").val();
             var task = $("#taskass").val();
             var Remark = $("#remar").val();
             var IsEvaluated = $("#IsEval").is(':checked');
 
-                var newUrl= '@Url.Action("Index", "ApproveEmpSkills")';
+            var newUrl = '@Url.Action("Index", "ApproveEmpSkills")';
 
             var mod = { EmpskillAdd_Id: Empski, Emp_Id: Emp_Id, TaskAssigned: task, Remark: Remark, IsEvaluated: IsEvaluated };
 
-           
-                $.ajax({
-                    url:'@Url.Action("Evaluates", "ApproveEmpSkills")',
-                    dataType: "json",
-                    data: JSON.stringify({ appl: mod }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
 
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
-            
+            $.ajax({
+                url: '@Url.Action("Evaluates1", "ApproveEmpSkills")',
+                dataType: "json",
+                data: JSON.stringify({ appl: mod }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+
         });
-    })
+    });
 
-    $(function () {
+    @*$(function () {
         $("#empSave").click(function () {
-            
+
             //var assresid = $("#assresid").val();
 
             var Empski = $("#empskiladdid").val();
             var Emp_Id = $("#EmpCode").val();
-           
+
 
                 var newUrl= '@Url.Action("Index", "ApproveEmpSkills")';
 
             var mod = { EmpskillAdd_Id: Empski, Emp_Id: Emp_Id };
-               
+
                 $.ajax({
                     url: '@Url.Action("Evaluates", "ApproveEmpSkills")', //
                     dataType: "json",
@@ -190,7 +189,7 @@
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
-                       
+
                         window.location.href = newUrl;
                     },
                     error: function (xhr) {
@@ -198,6 +197,6 @@
                     }
                 });
         });
-     })
-    
-</script>*@
+     })*@
+
+</script>
