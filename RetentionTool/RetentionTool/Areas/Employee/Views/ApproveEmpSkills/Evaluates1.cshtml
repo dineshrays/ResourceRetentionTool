@@ -1,0 +1,107 @@
+﻿@model RetentionTool.ViewModel.EmployeeSkillsAddViewModel
+@{
+    ViewBag.Title = "Evaluates1";
+    Layout = "~/Areas/Employee/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Evaluates1</h2>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Evaluates</h2>
+    </div>
+
+    <div class="card-body">
+        @*<div class="row form-group ">*@
+      
+
+
+        <div class="form-group" id="Managerdiv" >
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.GetApproveEmpSkills.TaskAssigned, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.HiddenFor(m=>m.approveskill.Emp_Id,new { @id="empid"})
+                    @Html.HiddenFor(m=>m.approveskill.EmpskillAdd_Id,new { @id="empskillid"})
+                    @Html.HiddenFor(m => m.approveskill.Id, new { @id="approveid"})
+                    <div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.TaskAssigned, new { @id = "taskass" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>@Html.LabelFor(m => m.GetApproveEmpSkills.Remark, new { @class = "form-control-label" })</div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.Remark, new { @id = "remar" })</div><br />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    @*<div>@Html.LabelFor(m => m.GetApproveEmpSkills.IsEvaluated, new { @class = "form-control-label" })</div>*@
+                </div>
+                <div class="col-12 col-md-9">
+                    <div><input type="checkbox" value="IsEvaluated" id="IsEval" />IsEvaluated</div>
+                    @*<div>@Html.TextBoxFor(m => m.GetApproveEmpSkills.IsEvaluated)</div><br />*@
+                </div>
+            </div>
+
+            <div class="card-body">
+                <input type="submit" value="Save" id="btnSave" class="btn btn-success" />
+            </div>
+        </div>
+
+
+     
+
+
+    </div>
+
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<script>
+    $(function () {
+        $("#btnSave").click(function () {
+
+            //var assresid = $("#assresid").val();
+
+           // var Empski = $("#empskiladdid").val();
+            //alert(Empski)
+           // var Emp_Id = $("#EmpCode").val();
+            var task = $("#taskass").val();
+            var Remark = $("#remar").val();
+            var IsEvaluated = $("#IsEval").is(':checked');
+            var approveid = $("#approveid").val();
+
+            var newUrl = '@Url.Action("Index", "ApproveEmpSkills")';
+
+            var mod = { Id: approveid,TaskAssigned: task, Remark: Remark, IsEvaluated: IsEvaluated };
+
+
+            $.ajax({
+                url: '@Url.Action("Evaluates1", "ApproveEmpSkills")',
+                dataType: "json",
+                data: JSON.stringify({ appl: mod }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+
+        });
+    });
+
+   
+
+</script>

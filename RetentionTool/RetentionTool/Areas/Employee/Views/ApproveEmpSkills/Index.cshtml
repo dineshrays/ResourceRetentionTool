@@ -1,0 +1,51 @@
+﻿@model RetentionTool.ViewModel.EmployeeSkillsAddViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Employee/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table table-striped">
+    <tr>
+
+        @*<th>@Html.Label("Manager")</th>*@
+        <th>@Html.Label("Employee Name")</th>
+        <th>@Html.Label("Skills")</th>
+        <th>@Html.Label("Approve")</th>
+        <th>@Html.Label("Evaluation")</th>
+        <th>@Html.Label("Decline")</th>
+        @*<th>@Html.Label("Actions")</th>*@
+
+    </tr>
+    @foreach (var item in Model.skiladd)
+    {
+    <tr>
+        @*<td>@item.Manager_Id</td>*@
+        <td>@item.PersonalInfo.Name</td>
+        <td>@item.Skill.Name</td>
+
+        <td>
+
+            <a href='@Url.Action("Evaluates1", "ApproveEmpSkills", new {id=@item.Id})'>Evaluate</a>
+        </td>
+       
+        @*<td>
+            @Html.ActionLink(" ", "Edit", new {id=@item.Id},
+                          new { @class = "ti-pencil"} )
+            @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+        </td>*@
+        @*<a href="~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml">~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml</a>*@
+    </tr>
+    }
+    
+</table>
+
+<script>
+    function onclickmethod() {
+        alert('hdefjd');
+        window.location.href = "/Manager/ApproveEmpSkills/Evaluates";
+        @*//window.open('@Url.Action("Evaluates", "ApproveEmpSkills", new { @id = item.Id, area = "Manager" })')*@
+    }
+
+</script>
