@@ -146,16 +146,7 @@ namespace RetentionTool.Areas.Employee.Controllers
 
 
             List<NotificationModel> notification = (from noti in db.Notifications
-                                                    join sess in db.Sessions
-                                                    on noti.Sessions_Id equals sess.Id
-                                                    join trainingdet in db.TrainingDets
-                                                    on sess.TrainingDet_Id equals trainingdet.Id
-                                                    join training in db.Trainings
-                                                    on trainingdet.Training_Id equals training.Id
-                                                    join assignres in db.AssignResources
-                                                    on training.AssignResource_Id equals assignres.Id
-                                                    //join module in db.Modules
-                                                    //on assignres.Module_Id equals module.Id
+
                                                     where noti.IsActive == true && noti.IsNotified == true
                                                     && noti.User_Id == userid
                                                     select new NotificationModel
@@ -163,11 +154,11 @@ namespace RetentionTool.Areas.Employee.Controllers
                                                         Id = noti.Id,
                                                         Message = noti.Message,
                                                         type = 1,
-                                                        subMessage = "Assign Resource id :" + assignres.Id + " Project Name: " + assignres.ProjectsDetail.Name
-                                                        + " of Module  " + assignres.Module.ModuleName + " "
+                                                        subMessage = "Employee Notification"
+                                                        //,subMessage = "Assign Resource id :" + assignres.Id + " Project Name: " + assignres.ProjectsDetail.Name
+                                                        //+ " of Module  " + assignres.Module.ModuleName + " "
 
                                                     }).OrderByDescending(x => x.Id).ToList();
-
 
 
 
@@ -200,24 +191,24 @@ namespace RetentionTool.Areas.Employee.Controllers
         public ActionResult Notification(int userid)
         {
             List<NotificationModel> notification = getNotifiDetails(userid);
-            //db.Notifications.Where(a=>a.IsActive==true && a.IsNotified==true && a.User_Id==userid).OrderByDescending(x => x.Id).ToList();
-            //List<Notification> notif = db.Notifications.Where(a => a.User_Id == userid).ToList();
+            db.Notifications.Where(a => a.IsActive == true && a.IsNotified == true && a.User_Id == userid).OrderByDescending(x => x.Id).ToList();
+            List<Notification> notif = db.Notifications.Where(a => a.User_Id == userid).ToList();
 
-            //foreach (var notific in notif)
-            //{
-            //    notific.IsNotified = false;
-            //    notific.ModifiedOn = DateTime.Now;
-            //    db.Entry(notific).State = System.Data.Entity.EntityState.Modified;
-            //    db.SaveChanges();
-            //}
-            //List<CircularUser_Details> circularuserdet = db.CircularUser_Details.Where(a => a.User_Id == userid).ToList();
-            //foreach (var circul in circularuserdet)
-            //{
-            //    circul.IsNotified = false;
-            //    circul.ModifiedOn = DateTime.Now;
-            //    db.Entry(circul).State = System.Data.Entity.EntityState.Modified;
-            //    db.SaveChanges();
-            //}
+            foreach (var notific in notif)
+            {
+                notific.IsNotified = false;
+                notific.ModifiedOn = DateTime.Now;
+                db.Entry(notific).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            List<CircularUser_Details> circularuserdet = db.CircularUser_Details.Where(a => a.User_Id == userid).ToList();
+            foreach (var circul in circularuserdet)
+            {
+                circul.IsNotified = false;
+                circul.ModifiedOn = DateTime.Now;
+                db.Entry(circul).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
             setNotification(userid);
 
             return View(notification);

@@ -14,6 +14,9 @@ namespace RetentionTool.ViewModel
 
         public List<ApproveEmpSkillsModel> ApproveEmpSkillVm { get; set; }
         public ApproveEmpSkillsModel GetApproveEmpSkills { get; set; }
+
         public int managerid { get; set; }
+        public ApproveEmpSkill approveskill { get; set; }
+
     }
 }
