@@ -60,10 +60,11 @@ namespace RetentionTool.Controllers
                 fetchdet.updateCircular();
                 if (empRoleId==userResult.Role_Id)
                 {
-                    
+                    //fetchdet.getNotificationCount(userResult.Id);
+                    //fetchdet.updateCircular();
                     //return RedirectToAction("")
 
-                   // return RedirectToAction("Index", "Module", new { Area = "Admin" });
+                    // return RedirectToAction("Index", "Module", new { Area = "Admin" });
                     return RedirectToAction("Index", "EmployeeInformation", new { Area="Employee"});
                     //return RedirectToAction("Index", "Training", new { Area = "Trainer" });
 
@@ -72,6 +73,7 @@ namespace RetentionTool.Controllers
                 }
                 else if (managerRoleid == userResult.Role_Id)
                 {
+                 
                     return RedirectToAction("Index", "ProjectWorked", new { Area = "Manager" });
 
                 }

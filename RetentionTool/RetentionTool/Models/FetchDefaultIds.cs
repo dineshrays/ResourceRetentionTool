@@ -43,6 +43,8 @@ namespace RetentionTool.Models
 
         }
 
+      
+
         public void updateCircular()
         {
             List<Circular_Details> circular_Details = db.Circular_Details.Where(a => a.ValidTo <= DateTime.Now && a.IsActive == true).ToList();
