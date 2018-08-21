@@ -4,7 +4,7 @@
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Evaluates1</h2>
+@*<h2>Evaluates1</h2>*@
 
 <div class="card">
     <div class="card-header">
@@ -18,7 +18,7 @@
             </div>
             <div class="col-6 col-md-9">
                 <div>@Html.DisplayFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @class = "form-control", style = "width:40%" })</div><br />
-                <div>@Html.HiddenFor(m => m.EmployeeSkillsAdd.PersonalInfo.Id, new { @id = "EmpCode" })</div>
+                @*<div>@Html.HiddenFor(m => m.EmployeeSkillsAdd.PersonalInfo.Id, new { @id = "EmpCode" })</div>*@
                 <div>@Html.HiddenFor(m => m.EmployeeSkillsAdd.Id, new { @id = "empskiladdid" })</div>
             </div>
         </div>
@@ -28,6 +28,7 @@
                 <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.Skill, new { @class = "form-control-label" })</div>
             </div>
             <div class="col-12 col-md-9">
+                @Html.HiddenFor(m=>m.managerid,new { @id="mangerid"})
                 <div>@Html.DisplayFor(m => m.EmployeeSkillsAdd.Skill.Name, new { @id = "Name", @class = "form-control", style = "width:40%" })</div><br />
             </div>
         </div>
@@ -84,8 +85,8 @@
                     <div>@Html.LabelFor(m => m.GetApproveEmpSkills.PersonalInfo.Name, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.DropDownListFor(m => m.GetApproveEmpSkills.PersonalInfo.Name, ViewData["Evaluater"] as SelectList, new { @class = "form-control", style = "width:100%" })</div><br />
-                    <div>@Html.HiddenFor(m => m.GetApproveEmpSkills.PersonalInfo.Id, new { @Id = "empid" })</div>
+                    <div>@Html.DropDownListFor(m => m.GetApproveEmpSkills.PersonalInfo.Id, ViewData["Evaluater"] as SelectList, new { @class = "form-control", @id = "empid", style = "width:100%" })</div><br />
+                    @*<div>@Html.HiddenFor(m => m.GetApproveEmpSkills.PersonalInfo.Id, new { @id = "empid" })</div>*@
                 </div>
             </div>
 
@@ -136,12 +137,14 @@
 <script>
     $(function () {
         $("#btnSave").click(function () {
-
+           
             //var assresid = $("#assresid").val();
 
             var Empski = $("#empskiladdid").val();
-            alert(Empski)
-            var Emp_Id = $("#EmpCode").val();
+            //alert(Empski)
+            var Emp_Id;
+            Emp_Id = $("#mangerid").val();
+             
             var task = $("#taskass").val();
             var Remark = $("#remar").val();
             var IsEvaluated = $("#IsEval").is(':checked');
@@ -154,7 +157,7 @@
             $.ajax({
                 url: '@Url.Action("Evaluates1", "ApproveEmpSkills")',
                 dataType: "json",
-                data: JSON.stringify({ appl: mod }),
+                data: JSON.stringify({ appl: mod, type:'1' }),
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (result) {
@@ -170,12 +173,12 @@
     });
 
     $(function () {
-        $("#empSave").click(function () {
+        $("#empsave").click(function () {
 
             //var assresid = $("#assresid").val();
 
             var Empski = $("#empskiladdid").val();
-            var Emp_Id = $("#EmpCode").val();
+            var Emp_Id  = $("#empid").val();
 
 
                 var newUrl= '@Url.Action("Index", "ApproveEmpSkills")';
@@ -185,7 +188,7 @@
                 $.ajax({
                     url: '@Url.Action("Evaluates1", "ApproveEmpSkills")', //
                     dataType: "json",
-                    data: JSON.stringify({ appl: mod}),
+                    data: JSON.stringify({ appl: mod,type:'2'}),
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
