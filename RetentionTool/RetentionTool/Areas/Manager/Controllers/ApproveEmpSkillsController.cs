@@ -12,6 +12,7 @@ namespace RetentionTool.Areas.Manager.Controllers
     public class ApproveEmpSkillsController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: Manager/ApproveEmpSkills
         public ActionResult Index()
         {
@@ -47,6 +48,23 @@ namespace RetentionTool.Areas.Manager.Controllers
             app.CreatedOn = System.DateTime.Now;
 
             db.ApproveEmpSkills.Add(app);
+            db.SaveChanges();
+
+            EmployeeSkillsAdd empskilladd = db.EmployeeSkillsAdds.Find(appl.EmpskillAdd_Id);
+
+            int employeeroleid = fetchdet.getDefaultTrainerRoleId();
+            UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == empskilladd.P_Id && a.Role_Id == employeeroleid && a.IsActive == true);
+        
+            Notification notif = new Notification();
+            notif.User_Id = userdet.Id;
+            //  notif.Sessions_Id = sessionVM.Id;
+            notif.Message =  empskilladd.Skill.Name+fetchdet.ApproveEmployeeMsg;
+            //fetchdet.SessionCompletedMsg;
+            notif.IsActive = true;
+            notif.IsNotified = true;
+            notif.CreatedOn = DateTime.Now;
+
+            db.Notifications.Add(notif);
             db.SaveChanges();
 
             return Json("", JsonRequestBehavior.AllowGet);

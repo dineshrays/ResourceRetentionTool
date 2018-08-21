@@ -78,36 +78,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         public ActionResult getNotifications(int userid)
         {
             List<NotificationModel> notification = getNotifiDetails(userid);
-                //(from noti in db.Notifications
-                //                                    where noti.IsActive == true && noti.IsNotified == true
-                //                                    && noti.User_Id == userid
-                //                                    select new NotificationModel
-                //                                    {
-                //                                        Id = noti.Id,
-                //                                        Message = noti.Message
-
-            //                                    }).OrderByDescending(x=>x.Id).ToList();
-            // Session["Notifict"] = int.Parse(Session["Notifict"].ToString()) - 2;
-            //.OrderBy();
-            //   db.Notifications.Where(a=>a.User_Id==userid && a.IsActive==true && a.IsNotified==true).ToList();
-
-
-            //int emproleid = fetchdet.getDefaultEmployeeRoleId();
-            //List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
-            //                                   join empskills in db.EmployeeSkills on personal.Id equals empskills.P_Id
-            //                                   join skill in db.Skills on empskills.Skills_Id equals skill.id
-            //                                   join module in db.Modules on skill.id equals module.Skill_Id
-            //                                   join userdet in db.UserDetails on personal.Id equals userdet.Emp_Id
-            //                                   where module.Id == moduleid && userdet.Role_Id == emproleid && userdet.IsActive == true
-            //                                   select new EmployeeList
-            //                                   {
-            //                                       Id = personal.Id,
-            //                                       Name = personal.Name,
-            //                                       EmpCode = personal.EmpCode
-
-            //                                   }
-            //                                   ).ToList();
-            // IEnumerable<SelectListItem> skilldet = getSkillsField(moduleid);
+               
             return Json(notification, JsonRequestBehavior.AllowGet);
 
         }
