@@ -5,33 +5,39 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+<div class="card">
+    <div class="card-header">
+        <h2>Projects</h2>
+    </div>
 
-<h2>Projects</h2>
-<div class="card-body">
-    @Html.ActionLink("Create New", "Create", "ProjectsDetails" , null, new { @class = "btn btn-outline-primary" }) 
+
+    <div class="card-body">
+        @Html.ActionLink("Create New", "Create", "ProjectsDetails", null, new { @class = "btn btn-outline-primary" })
+    </div>
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    @Html.ActionLink(" ", "Edit", new {id=item.Id},
+                         new { @class = "ti-pencil"} )
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                </td>
+            </tr>
+        }
+
+    </table>
 </div>
-
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        
-        <th>Actions</th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        
-        <td>
-            @Html.ActionLink(" ", "Edit", new {id=item.Id},
-                 new { @class = "ti-pencil"} )
-            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-        </td>
-    </tr>
-}
-
-</table>
