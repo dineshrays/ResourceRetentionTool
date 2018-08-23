@@ -16,7 +16,8 @@ namespace RetentionTool.Areas.Manager.Controllers
         // GET: Manager/ApproveEmpSkills
         public ActionResult Index()
         {
-            List<EmployeeSkillsAdd> emp = db.EmployeeSkillsAdds.Where(a => db.PersonalInfoes.Any(b => b.Id == a.P_Id)).ToList();
+            int managerid = fetchdet.getUserDetailsId();
+            List<EmployeeSkillsAdd> emp = db.EmployeeSkillsAdds.Where(a => a.Manager_Id==managerid && a.IsApproved==null && a.IsActive==true ).ToList();
             EmployeeSkillsAddViewModel skilladd = new EmployeeSkillsAddViewModel();
 
             skilladd.skiladd = emp;
@@ -28,7 +29,7 @@ namespace RetentionTool.Areas.Manager.Controllers
             EmployeeSkillsAdd esd = db.EmployeeSkillsAdds.Find(id);
             EmployeeSkillsAddViewModel empvm = new EmployeeSkillsAddViewModel();
             empvm.EmployeeSkillsAdd = esd;
-
+            empvm.managerid = fetchdet.getUserDetailsId();
             //  empvm.GetApproveEmpSkills=
             getEvaluaterList(esd.Skills_Id);
             return View(empvm);
@@ -36,8 +37,32 @@ namespace RetentionTool.Areas.Manager.Controllers
         }
 
         [HttpPost]
-        public ActionResult Evaluates1(int id, ApproveEmpSkillsModel appl)
+        public ActionResult Evaluates1(int id, ApproveEmpSkillsModel appl,int type)
         {
+            if(type==2)
+            {
+                int emproleid = fetchdet.getDefaultEmployeeRoleId();
+                PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == appl.Emp_Id && a.IsActive == true);
+                UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id == emproleid && a.IsActive == true);
+                if (userdet == null)
+                {
+                    UserDetail user = new UserDetail();
+                    user.Emp_Id = personalinfo.Id;
+                    user.EntryDate = DateTime.Now;
+                    user.Email = personalinfo.Email;
+
+
+                    user.Role_Id = emproleid;
+                    user.Name = personalinfo.Name;
+                    user.IsActive = true;
+                    user.Password = fetchdet.password;
+
+                    db.UserDetails.Add(user);
+                    db.SaveChanges();
+
+                }
+
+            }
             ApproveEmpSkill app = new ApproveEmpSkill();
             //db.ApproveEmpSkills.Find(id);
             app.EmpskillAdd_Id = appl.EmpskillAdd_Id;
