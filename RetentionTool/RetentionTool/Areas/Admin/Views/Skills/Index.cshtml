@@ -5,13 +5,21 @@
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Secondary Skills</h2>
-<div class="card-body">
-    @Html.ActionLink("Create New", "Create","Skills", null, new { @class = "btn btn-outline-primary" })
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>Secondary Skills</h2>
+    </div>
 
 
+
+    <div class="card-body">
+        @Html.ActionLink("Create New", "Create", "Skills", null, new { @class = "btn btn-outline-primary" })
+
+
+    </div>
 </div>
-
 @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
 
 @if(Model !=null)
