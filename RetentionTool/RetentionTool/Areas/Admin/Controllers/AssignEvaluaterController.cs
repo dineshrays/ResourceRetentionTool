@@ -11,13 +11,7 @@ namespace RetentionTool.Areas.Admin.Controllers
     public class AssignEvaluaterController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
-        //public ActionResult Exception()
-        //{
-        //    int i = 0;
-        //    int x = i / i;
-        //    return View();
-        //}
-
+      
         // GET: AssignEvaluater
         public ActionResult Index()
         {
