@@ -64,10 +64,11 @@ namespace RetentionTool.Areas.Employee.Controllers
 
             db.Entry(app).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            EmployeeSkillsAdd empskilladd = db.EmployeeSkillsAdds.Find(id);
+
             if (appl.IsEvaluated.ToString() == "True")
             {
-                EmployeeSkillsAdd empskilladd = db.EmployeeSkillsAdds.Find(id);
-
+                
                 int employeeroleid = fetchdet.getDefaultEmployeeRoleId();
                 UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == empskilladd.P_Id && a.Role_Id == employeeroleid && a.IsActive == true);
 
@@ -83,8 +84,17 @@ namespace RetentionTool.Areas.Employee.Controllers
                 db.Notifications.Add(notif);
                 db.SaveChanges();
             }
-          
 
+            EmployeeSkill empskill = new EmployeeSkill();
+            empskill.P_Id = empskilladd.P_Id;
+            empskill.Skills_Id = empskilladd.Skills_Id;
+            empskill.CommonField_Id = empskilladd.CommonField_Id;
+            empskill.IsActive = true;
+            empskill.Months = empskilladd.Months;
+            empskill.Years = empskilladd.Years;
+            empskill.Status = empskilladd.Status;
+            db.EmployeeSkills.Add(empskill);
+            db.SaveChanges();
 
             return Json("", JsonRequestBehavior.AllowGet);
         }

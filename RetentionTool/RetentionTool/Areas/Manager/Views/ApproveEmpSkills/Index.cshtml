@@ -14,7 +14,7 @@
         <th>@Html.Label("Skills")</th>
         <th>@Html.Label("Approve")</th>
         <th>@Html.Label("Evaluation")</th>
-        <th>@Html.Label("Decline")</th>
+        @*<th>@Html.Label("Decline")</th>*@
         @*<th>@Html.Label("Actions")</th>*@
 
     </tr>
@@ -43,12 +43,8 @@
 
         </td>
        
-        <td><input type="button" value="Decline" /></td>
-        @*<td>
-            @Html.ActionLink(" ", "Edit", new {id=@item.Id},
-                          new { @class = "ti-pencil"} )
-            @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
-        </td>*@
+        @*<td><input type="button" value="Decline" /></td>*@
+       
         @*<a href="~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml">~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml</a>*@
     </tr>
     }
@@ -57,9 +53,13 @@
 
 <script>
     function onclickmethod() {
-        alert('hdefjd');
+       // alert('hdefjd');
         window.location.href = "/Manager/ApproveEmpSkills/Evaluates";
         @*//window.open('@Url.Action("Evaluates", "ApproveEmpSkills", new { @id = item.Id, area = "Manager" })')*@
     }
+
+</script>
+
+<script>
 
 </script>
