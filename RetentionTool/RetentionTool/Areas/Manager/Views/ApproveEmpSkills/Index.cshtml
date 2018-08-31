@@ -18,48 +18,78 @@
         @*<th>@Html.Label("Actions")</th>*@
 
     </tr>
+ 
     @foreach (var item in Model.skiladd)
     {
-    <tr>
-        @*<td>@item.Manager_Id</td>*@
-        <td>@item.PersonalInfo.Name</td>
-        <td>@item.Skill.Name</td>
+        <tr>
+            @*<td>@item.Manager_Id</td>*@
+            <td>@item.PersonalInfo1.Name</td>
+            <td>@item.Skill.Name</td>
 
-        <td>
-            @if (item.IsApproved == true)
-            {
-                <input style="color:green" />
-            }
 
-            <input type="button" id="Approve" value="Approve" />
+            <td style="display:none">
+                <input type="text" value="@item.Id" id="EmpskillAdd_Id" />
+                <input type="text" value="@item.PersonalInfo1.Id" id="EmpId" />
 
-        </td>
-        <td>
-            @*<input type="button" id="Evaluation" value="Evaluate" onclick="onclickmethod();" />
+                @*@Html.TextBoxFor(@item.Id, new { @id = "EmpskillAdd_Id" })
+                @Html.TextBoxFor(@item.PersonalInfo.Id, new { @id = "Emp_Id" })*@
 
-            @Html.ActionLink("ghbjnm", "Evaluates", "ApproveEmpSkills", null, new { @id = @item.Id, area="Manager" })*@
 
-            <a href='@Url.Action("Evaluates1", "ApproveEmpSkills", new {id=@item.Id})'>Evaluate</a>
+            </td>
+            <td>
+                @*@if (item.IsPromoted == true)
+                    {
+                        <input style="color:green" />
+                    }*@
 
-        </td>
-       
-        @*<td><input type="button" value="Decline" /></td>*@
-       
-        @*<a href="~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml">~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml</a>*@
-    </tr>
+                <input type="button" id="Approve" value="Approve" onclick="onclickmethod();" />
+
+            </td>
+            <td>
+                @*<input type="button" id="Evaluation" value="Evaluate" onclick="onclickmethod();" />
+
+                    @Html.ActionLink("ghbjnm", "Evaluates", "ApproveEmpSkills", null, new { @id = @item.Id, area="Manager" })*@
+
+                <a href='@Url.Action("Evaluates1", "ApproveEmpSkills", new {id=@item.Id})'>Evaluate</a>
+
+            </td>
+
+            @*<td><input type="button" value="Decline" /></td>*@
+
+            @*<a href="~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml">~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml</a>*@
+        </tr>
     }
-    
+
 </table>
 
 <script>
     function onclickmethod() {
-       // alert('hdefjd');
-        window.location.href = "/Manager/ApproveEmpSkills/Evaluates";
-        @*//window.open('@Url.Action("Evaluates", "ApproveEmpSkills", new { @id = item.Id, area = "Manager" })')*@
+        alert('hdefjd');
+
+        var Empski = $("#EmpskillAdd_Id").val();
+        var Emp_Id = $("#EmpId").val();
+
+        var mod = { EmpskillAdd_Id: Empski, Emp_Id: Emp_Id };
+
+         $.ajax({
+                url: '@Url.Action("Index", "ApproveEmpSkills")',
+                dataType: "json",
+                data: JSON.stringify({ appl: mod,id:'0' }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+       
     }
 
 </script>
 
 <script>
-
+   
 </script>

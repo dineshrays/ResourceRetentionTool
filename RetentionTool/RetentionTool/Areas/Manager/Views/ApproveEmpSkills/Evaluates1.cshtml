@@ -9,15 +9,15 @@
 <div class="card">
     <div class="card-header">
         <h2>Evaluates</h2>
-    </div>
+    </div>.
 
     <div class="card-body">
         <div class="row form-group ">
             <div class="col col-md-3">
-                <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @class = "form-control-label" })</div>
+                <div>@Html.LabelFor(m => m.EmployeeSkillsAdd.PersonalInfo1.Name, new { @class = "form-control-label" })</div>
             </div>
             <div class="col-6 col-md-9">
-                <div>@Html.DisplayFor(m => m.EmployeeSkillsAdd.PersonalInfo.Name, new { @class = "form-control", style = "width:40%" })</div><br />
+                <div>@Html.DisplayFor(m => m.EmployeeSkillsAdd.PersonalInfo1.Name, new { @class = "form-control", style = "width:40%" })</div><br />
                 @*<div>@Html.HiddenFor(m => m.EmployeeSkillsAdd.PersonalInfo.Id, new { @id = "EmpCode" })</div>*@
                 <div>@Html.HiddenFor(m => m.EmployeeSkillsAdd.Id, new { @id = "empskiladdid" })</div>
             </div>
@@ -94,8 +94,6 @@
                 <input type="submit" value="save" id="empsave" class="btn btn-success" />
             </div>
         </div>
-
-
     </div>
 
 </div>
@@ -125,13 +123,9 @@
 
                 } else {
                     $('#Empdiv').hide();
-
                 }
             });
-
     });
-
-
 </script>
 
 <script>

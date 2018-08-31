@@ -31,8 +31,9 @@ namespace RetentionTool.Models
             this.SessionsDets = new HashSet<SessionsDet>();
             this.UserDetails = new HashSet<UserDetail>();
             this.Trainers = new HashSet<Trainer>();
-            this.EmployeeSkillsAdds = new HashSet<EmployeeSkillsAdd>();
             this.ApproveEmpSkills = new HashSet<ApproveEmpSkill>();
+            this.EmployeeSkillsAdds = new HashSet<EmployeeSkillsAdd>();
+            this.EmployeeSkillsAdds1 = new HashSet<EmployeeSkillsAdd>();
         }
     
         public int Id { get; set; }
@@ -81,8 +82,10 @@ namespace RetentionTool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Trainer> Trainers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveEmpSkill> ApproveEmpSkills { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeSkillsAdd> EmployeeSkillsAdds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ApproveEmpSkill> ApproveEmpSkills { get; set; }
+        public virtual ICollection<EmployeeSkillsAdd> EmployeeSkillsAdds1 { get; set; }
     }
 }

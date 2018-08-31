@@ -106,7 +106,7 @@ namespace RetentionTool.Areas.Employee.Controllers
                     CurrentInfo currInfo = db.CurrentInfoes.FirstOrDefault(a => a.P_Id == ski.P_Id);
                     int mangerid = int.Parse(currInfo.ReportingManager);
                     ski.Manager_Id =mangerid ;
-                    ski.IsApproved = false;
+                    ski.IsPromoted = false;
                     ski.IsActive = true;
                     db.EmployeeSkillsAdds.Add(ski);
                     db.SaveChanges();

@@ -28,13 +28,14 @@ namespace RetentionTool.Models
         public Nullable<int> Months { get; set; }
         public string Status { get; set; }
         public Nullable<int> Manager_Id { get; set; }
-        public Nullable<bool> IsApproved { get; set; }
+        public Nullable<bool> IsPromoted { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual Commonfield Commonfield { get; set; }
-        public virtual PersonalInfo PersonalInfo { get; set; }
-        public virtual Skill Skill { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApproveEmpSkill> ApproveEmpSkills { get; set; }
+        public virtual Commonfield Commonfield { get; set; }
+        public virtual PersonalInfo PersonalInfo { get; set; }
+        public virtual PersonalInfo PersonalInfo1 { get; set; }
+        public virtual Skill Skill { get; set; }
     }
 }

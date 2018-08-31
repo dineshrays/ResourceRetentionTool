@@ -21,7 +21,8 @@ namespace RetentionTool.Areas.Employee.Controllers
                                            join empskill in db.EmployeeSkillsAdds
                                            on approv.EmpskillAdd_Id equals empskill.Id
                                            where approv.Emp_Id==employeeid
-                                           && approv.IsEvaluated==null
+                                           && approv.IsEvaluated==null 
+                                           && empskill.IsPromoted==true
                                            select empskill 
 
                 

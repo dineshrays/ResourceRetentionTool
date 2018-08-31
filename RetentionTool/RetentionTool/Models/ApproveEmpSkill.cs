@@ -23,7 +23,7 @@ namespace RetentionTool.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual EmployeeSkillsAdd EmployeeSkillsAdd { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
+        public virtual EmployeeSkillsAdd EmployeeSkillsAdd { get; set; }
     }
 }

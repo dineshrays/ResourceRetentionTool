@@ -18,5 +18,7 @@ namespace RetentionTool.ViewModel
         public int managerid { get; set; }
         public ApproveEmpSkill approveskill { get; set; }
 
+
+
     }
 }
