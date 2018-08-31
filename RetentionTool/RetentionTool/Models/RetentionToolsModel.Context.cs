@@ -51,10 +51,10 @@ namespace RetentionTool.Models
         public virtual DbSet<PersonalInfo> PersonalInfoes { get; set; }
         public virtual DbSet<criticalResourceAccountability> criticalResourceAccountabilities { get; set; }
         public virtual DbSet<Trainer> Trainers { get; set; }
-        public virtual DbSet<EmployeeSkillsAdd> EmployeeSkillsAdds { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Circular_Details> Circular_Details { get; set; }
         public virtual DbSet<CircularUser_Details> CircularUser_Details { get; set; }
         public virtual DbSet<ApproveEmpSkill> ApproveEmpSkills { get; set; }
+        public virtual DbSet<EmployeeSkillsAdd> EmployeeSkillsAdds { get; set; }
     }
 }

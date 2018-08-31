@@ -17,11 +17,40 @@ namespace RetentionTool.Areas.Manager.Controllers
         public ActionResult Index()
         {
             int managerid = fetchdet.getUserDetailsId();
-            List<EmployeeSkillsAdd> emp = db.EmployeeSkillsAdds.Where(a => a.Manager_Id==managerid && a.IsApproved==null && a.IsActive==true ).ToList();
+            List<EmployeeSkillsAdd> emp = db.EmployeeSkillsAdds.Where(a => a.Manager_Id==managerid && a.IsPromoted == false && a.IsActive==true ).ToList();
             EmployeeSkillsAddViewModel skilladd = new EmployeeSkillsAddViewModel();
 
+            //EmployeeSkillsAdd esd = db.EmployeeSkillsAdds.Find();
+            //skilladd.EmployeeSkillsAdd = esd;
             skilladd.skiladd = emp;
             return View(skilladd);
+        }
+
+        [HttpPost]
+        public ActionResult Index(int id,ApproveEmpSkillsModel appl)
+        {
+            //EmployeeSkillsAddViewModel skilladd = new EmployeeSkillsAddViewModel();
+            //EmployeeSkillsAdd esd = db.EmployeeSkillsAdds.Find(id);
+            //skilladd.EmployeeSkillsAdd = esd;
+            ApproveEmpSkill app = new ApproveEmpSkill();
+            
+            app.EmpskillAdd_Id = appl.EmpskillAdd_Id;
+            app.Emp_Id = appl.Emp_Id;
+            app.TaskAssigned = "Manager Approved";
+            app.Remark = "Manager Approved";
+            app.IsEvaluated = true;
+            app.IsActive = true;
+            app.CreatedOn = System.DateTime.Now;
+
+            db.ApproveEmpSkills.Add(app);
+            db.SaveChanges();
+
+            EmployeeSkillsAdd add = new EmployeeSkillsAdd();
+            add.IsPromoted = true;
+            db.EmployeeSkillsAdds.Add(add);
+            db.SaveChanges();
+
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Evaluates1(int id)
@@ -96,6 +125,8 @@ namespace RetentionTool.Areas.Manager.Controllers
                 db.SaveChanges();
             }
 
+            empskilladd.IsPromoted = true;
+
             EmployeeSkill empskill = new EmployeeSkill();
             empskill.P_Id = empskilladd.P_Id;
             empskill.Skills_Id = empskilladd.Skills_Id;
@@ -106,10 +137,7 @@ namespace RetentionTool.Areas.Manager.Controllers
             empskill.Status = empskilladd.Status;
             db.EmployeeSkills.Add(empskill);
             db.SaveChanges();
-
-           
-
-
+            
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
