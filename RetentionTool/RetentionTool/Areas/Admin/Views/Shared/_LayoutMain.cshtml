@@ -81,8 +81,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-language"></i>Projects</a>
                         <ul class="sub-menu children dropdown-menu">
 
-                            <li><a href="@Url.Action( "Index","ProjectsDetails")">New Project</a></li>
-                            <li><a href="@Url.Action( "Index","ProjectWorked")">Assign Team Members</a></li>
+                            <li><a href="@Url.Action("Index","ProjectsDetails")">New Project</a></li>
+                            <li><a href="@Url.Action("Index","ProjectWorked")">Assign Team Members</a></li>
                         </ul>
                     </li>
 
@@ -116,7 +116,7 @@
                         <ul class="sub-menu children dropdown-menu">
 
                             <li><a href="@Url.Action("Index", "GeneralTraining")">Plan Training</a></li>
-                            <li><a href="@Url.Action( "Index","AssignEvaluater")">Assign Evaluater</a></li>
+                            <li><a href="@Url.Action("Index","AssignEvaluater")">Assign Evaluater</a></li>
 
                             <li><a href="@Url.Action( "Index","Training")">Schedule Topics</a></li>
                             <li><a href="@Url.Action( "Index","SessionSummary")">Session Summary</a></li>
@@ -150,7 +150,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-link"></i>Plugin</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><a href="@Url.Action( "Upload","ImportData")">Import Employees</a></li>
-                            <li><a href="@Url.Action( "Upload","ImportData")">Export Employees</a></li>
+                            <li><a href="#">Export Employees</a></li>
                         </ul>
                     </li>
                     <li><a href="@Url.Action("Index", "Circular")"><i class="menu-icon fa fa-bell"></i>Circular</a></li>
@@ -350,16 +350,22 @@
                 </div>
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
+
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="user-avatar rounded-circle" src='@Session["userpath"].ToString()' alt="User Image" height="32px" width="30px">
+                            @*<img class="user-avatar rounded-circle" src="~/UserImages/DefaultImage.png"  alt="User Image" height="32px" width="30px">*@
                         </a>
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
-                            @*<a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>*@
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-                            <a class="nav-link" href='@Url.Action("Index","Login",new {area=""})'><i class="fa fa-power -off"></i>Logout</a>
-                        </div>
-                    </div>
+
+        @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="menu-icon fa fa-user-circle-o"></i>
+        </a>*@
+                            <div class="user-menu dropdown-menu">
+                                <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                                @*<a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>*@
+                                <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                                <a class="nav-link" href='@Url.Action("Index","Login",new {area=""})'><i class="fa fa-power -off"></i>Logout</a>
+                            </div>
+</div>
                     <div class="language-select dropdown" id="language-select">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
                             <i class="flag-icon flag-icon-us"></i>

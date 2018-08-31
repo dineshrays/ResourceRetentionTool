@@ -40,20 +40,27 @@ namespace RetentionTool.Controllers
             //  UserDetail userdetails = new UserDetail();
             //  userdetails = uservm.userDetail;
             UserDetail userResult = db.UserDetails.FirstOrDefault(a => a.Email == uservm.userDetail.Email && a.Password==uservm.userDetail.Password && a.IsActive==true && a.Role_Id==uservm.userDetail.Role_Id);
-            if(userResult!=null)
+            int empRoleId = fetchdet.getDefaultEmployeeRoleId();
+            int managerRoleid = fetchdet.getDefaultManagerRoleId();
+            int adminRoleid = fetchdet.getDefaultAdminRoleId();
+            int trainerRoleid = fetchdet.getDefaultTrainerRoleId();
+          
+            if (userResult!=null)
             {
                 Session["RoleId"] = userResult.Role_Id;
-                int empRoleId = fetchdet.getDefaultEmployeeRoleId();
-                int managerRoleid = fetchdet.getDefaultManagerRoleId();
-                int adminRoleid = fetchdet.getDefaultAdminRoleId();
-                int trainerRoleid = fetchdet.getDefaultTrainerRoleId();
+               
 
              //   int internRoleid = fetchdet.getDefaultInternRoleId();
                 Session["userId"] = userResult.Emp_Id;
                 Session["uid"] = userResult.Id;
                 PersonalInfo personalInfo = db.PersonalInfoes.Find(userResult.Emp_Id);
                 Session["userpath"] = personalInfo.Image;
-
+                if(Session["userpath"]==null)
+                {
+                    Session["userpath"] = "/UserImages/DefaultImage.png"; 
+                        
+                        //"~/UserImages/DefaultImage.png";
+                }
                 // Session["Notifict"] = db.Notifications.Where(a => a.User_Id == userResult.Id && a.IsActive == true && a.IsNotified == true).Count();
                 //Image.PerformImageResizeAndPutOnCanvas(imgPath, filename, Convert.ToInt16(txtWidth.Text), Convert.ToInt16(txtHeight.Text), txtOutputFileName.Text.ToString() + ".jpg");
                 fetchdet.getNotificationCount(userResult.Id);
@@ -79,7 +86,7 @@ namespace RetentionTool.Controllers
                 }
                 else if (adminRoleid == userResult.Role_Id)
                 {
-                    return RedirectToAction("Index", "Module", new { Area = "Admin" });
+                    return RedirectToAction("Index", "CommonField", new { Area = "Admin" });
 
                 }else if (trainerRoleid == userResult.Role_Id)
                 {
@@ -91,8 +98,10 @@ namespace RetentionTool.Controllers
                 //}
                 else
                 {
+                   
                     ViewBag.Message = "Invalid Username or Password or Role";
                     getRoleDetails();
+                    ModelState.Clear();
                     return View();
                         //Content("<script language='javascript' type='text/javascript'>alert('Invalid Username or Password or Role');</script>");
                 }
@@ -100,8 +109,11 @@ namespace RetentionTool.Controllers
             }
             else
             {
+              
                 ViewBag.Message = "Invalid Username or Password";
                 getRoleDetails();
+                ModelState.Clear();
+                
                 return View();
 
             }
@@ -109,6 +121,12 @@ namespace RetentionTool.Controllers
         }
         public void getRoleDetails()
         {
+            fetchdet.getDefaultAdminId();
+            fetchdet.addDefaultAdminName();
+            fetchdet.getDefaultAdminRoleId();
+            fetchdet.getDefaultEmployeeRoleId();
+            fetchdet.getDefaultManagerRoleId();
+            fetchdet.getDefaultTrainerRoleId();
             var val = new SelectList(db.Roles.ToList(), "Id", "Name");
             ViewData["roledetails"] = val;
             

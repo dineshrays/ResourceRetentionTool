@@ -14,6 +14,7 @@ namespace RetentionTool.Areas.Admin.Controllers
         // GET: Module
        public ActionResult Index()
         {           
+
             List<Module> modulelist = db.Modules.Where(m=>m.IsActive==true).ToList();
             List<ModuleDet> modulelist1 = db.ModuleDets.ToList();
             ModuleViewModel modulevm = new ModuleViewModel();
@@ -38,11 +39,13 @@ namespace RetentionTool.Areas.Admin.Controllers
                               HoursRequired = md.HoursRequired,
 
                           }).ToList();
+            
 
 
 
-            return View(module);
+            return View(module) ;
         }
+      
 
         public IEnumerable<SelectListItem> getCommonFields()
         {

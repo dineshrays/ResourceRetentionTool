@@ -10,62 +10,73 @@
     <div class="card-header">
         <h2>Projects List</h2>
     </div>
-   
+
 
     @*<div class="card-body">
             @Html.ActionLink("Create New", "Create", "CriticalResource", null, new { @class = "btn btn-outline-primary" })
         </div>*@
-    <div class="container" style="width:100%;margin-top:2%">
-        <table class="table table-striped">
-            <tr>
-                @*<th>@Html.Label("Project Id")</th>*@
-                <th>@Html.Label("Project Name")</th>
-                <th>@Html.Label("Critical Resource")</th>
-                <th>@Html.Label("Actions")</th>
 
-            </tr>
-            @foreach (var item in prjctDetails)
-            {
+    @if (prjctDetails != null && prjctDetails.Count > 0 && criticalDetails != null && criticalDetails.Count > 0)
+    {
+        <div class="container" style="width:100%;margin-top:2%">
+            <table class="table table-striped">
                 <tr>
-                    @{ string criticalname = "";
-                        int criticalid = 0;}
-
-                    <td>@item.Name</td>
-
-                    @{ bool IsCritical = false;}
-                    @foreach (var critiprjctid in criticalDetails)
-                    {
-                        if (critiprjctid.Project_Id == @item.Id)
-                        {
-                            IsCritical = true;
-                            criticalname = critiprjctid.PersonalInfo.Name;
-                            criticalid = critiprjctid.Id;
-                        }
-
-                    }
-                    <td>@criticalname</td>
-                    <td>
-                        @if (IsCritical == true)
-                        {
-
-                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
-                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-
-                        }
-                        else
-                        {
-                            <a href='@Url.Action("Create", "CriticalResource", new {id=@item.Id})'>Add Details</a>
-                        }
-
-
-
-
-                    </td>
+                    @*<th>@Html.Label("Project Id")</th>*@
+                    <th>@Html.Label("Project Name")</th>
+                    <th>@Html.Label("Critical Resource")</th>
+                    <th>@Html.Label("Actions")</th>
 
                 </tr>
-            }
+                @foreach (var item in prjctDetails)
+                {
+                    <tr>
+                        @{ string criticalname = "";
+                            int criticalid = 0;}
 
-        </table>
+                        <td>@item.Name</td>
 
-    </div>
-    </div>
+                        @{ bool IsCritical = false;}
+                        @foreach (var critiprjctid in criticalDetails)
+                        {
+                            if (critiprjctid.Project_Id == @item.Id)
+                            {
+                                IsCritical = true;
+                                criticalname = critiprjctid.PersonalInfo.Name;
+                                criticalid = critiprjctid.Id;
+                            }
+
+                        }
+                        <td>@criticalname</td>
+                        <td>
+                            @if (IsCritical == true)
+                            {
+
+                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+
+                            }
+                            else
+                            {
+                                <a href='@Url.Action("Create", "CriticalResource", new {id=@item.Id})'>Add Details</a>
+                            }
+
+
+
+
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    }
+
+    else
+    {
+        <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+    }
+
+
+</div>

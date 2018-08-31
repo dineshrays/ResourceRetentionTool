@@ -15,60 +15,70 @@
     @*<div class="card-body">
             @Html.ActionLink("Create New", "Create", "SessionSummary", null, new { @class = "btn btn-outline-primary" })
         </div>*@
-    <div class="container" style="width:100%;margin-top:2%">
-        <table class="table table-striped">
-            <tr>
-                @*<th style="display:none">@Html.DisplayNameFor(model => model.Id)</th>
-                    <th style="display:none">@Html.DisplayNameFor(model => model.TrainingDet_Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.Topics)</th>
-                    <th>@Html.DisplayNameFor(model => model.Hours)</th>
-                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+    @if (moduledetails.Count > 0)
+    {
 
-                    <th>@Html.DisplayNameFor(model => model.Date)</th>*@
-                @*<th>@Html.Label("Link")</th>*@
-                <th>@Html.Label("Project Name")</th>
-                <th>@Html.Label("Module Name")</th>
-                <th>@Html.Label("Date")</th>
-                <th>@Html.Label("Topics")</th>
-            </tr>
 
-            @{ DateTime? date = null;}
-            @foreach (var modulelist in moduledetails)
-            {
+        <div class="container" style="width:100%;margin-top:2%">
+            <table class="table table-striped">
                 <tr>
-                    <td> @modulelist.projectname </td>
-                    <td> @modulelist.modulename </td>
+                    @*<th style="display:none">@Html.DisplayNameFor(model => model.Id)</th>
+                        <th style="display:none">@Html.DisplayNameFor(model => model.TrainingDet_Id)</th>
+                        <th>@Html.DisplayNameFor(model => model.Topics)</th>
+                        <th>@Html.DisplayNameFor(model => model.Hours)</th>
+                        <th>@Html.DisplayNameFor(model => model.Description)</th>
 
-                    @foreach (var item in Model)
-                    {
+                        <th>@Html.DisplayNameFor(model => model.Date)</th>*@
+                    @*<th>@Html.Label("Link")</th>*@
+                    <th>@Html.Label("Project Name")</th>
+                    <th>@Html.Label("Module Name")</th>
+                    <th>@Html.Label("Date")</th>
+                    <th>@Html.Label("Topics")</th>
+                </tr>
 
-                        if (item.assignresid == modulelist.Id)
+                @{ DateTime? date = null;}
+                @foreach (var modulelist in moduledetails)
+                {
+                    <tr>
+                        <td> @modulelist.projectname </td>
+                        <td> @modulelist.modulename </td>
+
+                        @foreach (var item in Model)
                         {
-                            date = item.date;
+
+                            if (item.assignresid == modulelist.Id)
+                            {
+                                date = item.date;
+
+                            }
+
+
+
+
 
                         }
 
+                        <td> @date </td>
+
+                        <td>
+                            <a href='@Url.Action("Create", "SessionSummary", new { id = modulelist.Id })'>List</a>
+
+                        </td>
+                    </tr>
+                }
 
 
 
+            </table>
 
-                    }
+            @*<div data-role="popup" id="transitionExample" class="ui-content" data-theme="a">
+                    <p>I'm a simple popup.</p>
+                </div>*@
+        </div>
+    }
+    else
+    {
+        <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+    }
 
-                    <td> @date </td>
-
-                    <td>
-                        <a href='@Url.Action("Create", "SessionSummary", new { id = modulelist.Id })'>List</a>
-
-                    </td>
-                </tr>
-            }
-
-
-
-        </table>
-
-        @*<div data-role="popup" id="transitionExample" class="ui-content" data-theme="a">
-                <p>I'm a simple popup.</p>
-            </div>*@
-    </div>
 </div>

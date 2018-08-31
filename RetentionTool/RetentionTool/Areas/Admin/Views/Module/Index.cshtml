@@ -1,5 +1,5 @@
-﻿@model IEnumerable<RetentionTool.Models.ModuleViewModel>
-
+﻿
+@model IEnumerable<RetentionTool.Models.ModuleViewModel>
 @{
     ViewBag.Title = "Modules";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
@@ -13,48 +13,53 @@
     <div class="card-body">
         @Html.ActionLink("Create New", "Create", "Module", null, new { @class = "btn btn-outline-primary" })
 
-
-
-        @if (Model != null)
+        @if (Model!=null)
         {
-            <div class="container" style="width:100%;margin-top:2%">
+            if (Model.Count() > 0)
+            {
 
-                <table class="table table-striped">
+                <div class="container" style="width:100%;margin-top:2%">
 
-                    <tr>
-                        <th>Module Name</th>
-                        <th>CommonField Name</th>
-                        <th>Skill Name</th>
-                        <th>Date</th>
-                        <th>Topics</th>
-                        <th>Hours Required</th>
-                        <th>IsActive</th>
-                        <th>Actions</th>
-                    </tr>
+                    <table class="table table-striped">
 
-                    <tbody>
-                        @foreach (var obj in Model)
-                        {
-                            <tr>
-                                <td>@obj.ModuleName</td>
-                                <td>@obj.CommonFieldName</td>
-                                <td>@obj.SkillName</td>
-                                <td>@obj.Date</td>
-                                <td>@obj.Topics</td>
-                                <td>@obj.HoursRequired</td>
-                                <td>@obj.IsActive</td>
-                                <td>
-                                    @Html.ActionLink(" ", "Edit", new { id = obj.Id }, new { @class = "ti-pencil" })
-                                    @Html.ActionLink(" ", "Delete", new { id = obj.Id }, new { @class = "ti-trash" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
+                        <tr>
+                            <th>Module Name</th>
+                            <th>CommonField Name</th>
+                            <th>Skill Name</th>
+                            <th>Date</th>
+                            <th>Topics</th>
+                            <th>Hours Required</th>
+                            <th>IsActive</th>
+                            <th>Actions</th>
+                        </tr>
 
-                </table>
-            </div>
+                        <tbody>
+                            @foreach (var obj in Model)
+                            {
+                                <tr>
+                                    <td>@obj.ModuleName</td>
+                                    <td>@obj.CommonFieldName</td>
+                                    <td>@obj.SkillName</td>
+                                    <td>@obj.Date</td>
+                                    <td>@obj.Topics</td>
+                                    <td>@obj.HoursRequired</td>
+                                    <td>@obj.IsActive</td>
+                                    <td>
+                                        @Html.ActionLink(" ", "Edit", new { id = obj.Id }, new { @class = "ti-pencil" })
+                                        @Html.ActionLink(" ", "Delete", new { id = obj.Id }, new { @class = "ti-trash" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
 
+                    </table>
+                </div>
+
+            }
+            
         }
+
+
 
     </div>
 

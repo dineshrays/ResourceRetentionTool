@@ -18,6 +18,12 @@ namespace RetentionTool.Models
         public string employeeRoleName = "Employee";
         public string managerRoleName = "Manager";
         public string internRoleName = "Intern";
+        //public string commonFieldName = "Development";
+        //public string skillName = "Java";
+        //public string moduleName = "Java Training";
+        //public string topics1 = "OOPs Concepts";
+        //public string topics2 = "Exception Handling";
+        //public string topics3 = "Swings";
         public string password = "123";
         public int commonfieldid = 3;
         public string SessionCompletedMsg = "Session Has been Completed Successfully";
@@ -103,17 +109,41 @@ namespace RetentionTool.Models
             }
             else
             {
+               
                 PersonalInfo personlInfo = new PersonalInfo();
-                personlInfo.Name = projectName;
+                personlInfo.Name = adminName;
                 personlInfo.IsActive = true;
                 personlInfo.EmpCode = "000";
                 db.PersonalInfoes.Add(personlInfo);
                 db.SaveChanges();
+               
                 return personlInfo.Id;
             }
 
         }
+        public void addDefaultAdminName()
+        {
+            int id = getDefaultAdminId();
+            int adminroleid = getDefaultAdminRoleId();
+            UserDetail userResult = db.UserDetails.FirstOrDefault(a => a.Email == adminName && a.Password == adminName && a.IsActive == true && a.Role_Id == adminroleid);
 
+            if(userResult==null)
+            {
+                UserDetail userDet = new UserDetail();
+                userDet.Email = adminName;
+                userDet.Name = adminName;
+                userDet.Emp_Id = id;
+                userDet.IsActive = true;
+                userDet.Role_Id = adminroleid;
+                userDet.Password = adminName;
+                userDet.EntryDate = DateTime.Now;
+                db.UserDetails.Add(userDet);
+                db.SaveChanges();
+            }
+
+           
+            
+        }
 
         public int getDefaultCriticalResourceId()
         {
@@ -218,6 +248,8 @@ namespace RetentionTool.Models
 
         }
 
+
+       
         //public int getDefaultInternRoleId()
         //{
         //    Role role = db.Roles.FirstOrDefault(a => a.Name == internRoleName && a.IsActive == true);

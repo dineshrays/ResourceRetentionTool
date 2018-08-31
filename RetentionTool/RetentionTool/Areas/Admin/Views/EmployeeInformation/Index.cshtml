@@ -13,30 +13,35 @@
     </div>
     <div class="card-body">
         @Html.ActionLink("Create New", "CreateEmployee", "EmployeeInformation", null, new { @class = "btn btn-outline-primary" })
-        <div class="container" style="width:100%;margin-top:2%">
-            <table class="table table-striped" id="tble">
-                <tr>
-                    <th width="40%">@Html.DisplayNameFor(model => model.PersonalInfoVm.Name)</th>
-                    <th width="30%">@Html.DisplayNameFor(model => model.PersonalInfoVm.EmpCode)</th>
-                    <th width="30%">@Html.Label("Image")</th>
-                    <th>@Html.Label("Actions")</th>
-                </tr>
-                @foreach (var item in details)
-                {
+
+        @if (details.Count > 0)
+        {
+            <div class="container" style="width:100%;margin-top:2%">
+                <table class="table table-striped" id="tble">
                     <tr>
-                        <td>@item.Name</td>
-                        <td>@item.EmpCode</td>
-                        <td><img src=@item.Image height="50" width="50"/></td>
-                        <td>
-                            @*@Html.ActionLink("View Details", "viewdetails", new { id = item.Id })*@
-                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
-                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-                        </td>
+                        <th width="40%">@Html.DisplayNameFor(model => model.PersonalInfoVm.Name)</th>
+                        <th width="30%">@Html.DisplayNameFor(model => model.PersonalInfoVm.EmpCode)</th>
+                        <th width="30%">@Html.Label("Image")</th>
+                        <th>@Html.Label("Actions")</th>
                     </tr>
-                }
+                    @foreach (var item in details)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.EmpCode</td>
+                            <td><img src=@item.Image height="50" width="50" /></td>
+                            <td>
+                                @*@Html.ActionLink("View Details", "viewdetails", new { id = item.Id })*@
+                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                            </td>
+                        </tr>
+                    }
 
-            </table>
+                </table>
 
-        </div>
+            </div>
+        }
+
     </div>
 </div>

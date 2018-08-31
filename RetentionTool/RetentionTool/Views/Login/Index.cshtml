@@ -5,14 +5,32 @@
 }
 @if (!string.IsNullOrEmpty(ViewBag.Message))
 {
-    <script type="text/javascript">
-        alert("@ViewBag.Message");
-        $("#email").val('');
 
+    <script type="text/javascript">
+
+        alert("@ViewBag.Message");
+       // document.getElementById("email").value = "";
+      //  $("#email").val('');
 
     </script>
 }
+@*<script type="text/javascript">
+        $(document).ready(
+            function () {
+                alert('in Load')
+            }
+
+
+        );
+
+    </script>*@
+
 @*<h2>loginIndex</h2>*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -76,13 +94,13 @@
 
                                 <div class="item active">
                                     <img src="~/Scripts/images/group10logo.jpg" alt="Group10">
-                                  
+
 
                                 </div>
 
                                 <div class="item">
                                     <img src="~/Scripts/images/vendor-management.jpg" alt="Group10 Image">
-                                   
+
                                 </div>
 
                                 <div class="item">
@@ -91,10 +109,10 @@
                                 </div>
 
                                 @*<div class="item">
-                                    <img src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="Group10">
+                                        <img src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="Group10">
 
 
-                                </div>*@
+                                    </div>*@
 
                             </div>
                         </center>
