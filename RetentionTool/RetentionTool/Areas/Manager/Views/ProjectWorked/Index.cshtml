@@ -5,143 +5,151 @@
 
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="../Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
-<script src="../Scripts/assets/js/plugins.js"></script>
+<script src="~/Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
+
 <h2>Project Team Members</h2>
 
 <div class="card-body">
     @Html.ActionLink("Create New", "Create", "ProjectWorked", null, new { @class = "btn btn-outline-primary" })
 </div>
-<div class="container" style="width:100%;margin-top:2%">
-    <table class="table table-striped">
-        <tr>
-            @*<th>@Html.DisplayName("Employee Name")</th>
-                <th>@Html.DisplayName("Employee Code")</th>*@
-            <th>@Html.DisplayName("Project Name")</th>
-            @*<th>@Html.DisplayNameFor(model => model.projects.Designation)</th>
-                <th>@Html.DisplayNameFor(model => model.projects.Responsibilities)</th>*@
-            <th>@Html.DisplayNameFor(model => model.projects.StartDate)</th>
-            <th>@Html.DisplayNameFor(model => model.projects.EndDate)</th>
-            <th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
-            <th>@Html.DisplayName("Employee List")</th>
-            <th>@Html.DisplayName("Manager Name")</th>
-            <th>@Html.DisplayNameFor(model => model.projects.Description)</th>
-            @*<th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
-                <th>@Html.DisplayNameFor(model => model.projects.Manager_Id)</th>*@
+@if (Model.projectvm.Count > 0)
+{
 
-            <th>@Html.Label("Status")</th>
 
-            <th>@Html.Label("Actions")</th>
-        </tr>
-        @foreach (var item in Model.projectvm)
-        {
+    <div class="container" style="width:100%;margin-top:2%">
+        <table class="table table-striped">
             <tr>
-                @*<td>@item.PersonalInfo1.Name</td>
-                    <td>@item.PersonalInfo1.EmpCode</td>*@
-                <td>@item.ProjectsDetail.Name</td>
+                @*<th>@Html.DisplayName("Employee Name")</th>
+                    <th>@Html.DisplayName("Employee Code")</th>*@
+                <th>@Html.DisplayName("Project Name")</th>
+                @*<th>@Html.DisplayNameFor(model => model.projects.Designation)</th>
+                    <th>@Html.DisplayNameFor(model => model.projects.Responsibilities)</th>*@
+                <th>@Html.DisplayNameFor(model => model.projects.StartDate)</th>
+                <th>@Html.DisplayNameFor(model => model.projects.EndDate)</th>
+                <th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
+                <th>@Html.DisplayName("Employee List")</th>
+                <th>@Html.DisplayName("Manager Name")</th>
+                <th>@Html.DisplayNameFor(model => model.projects.Description)</th>
+                @*<th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
+                    <th>@Html.DisplayNameFor(model => model.projects.Manager_Id)</th>*@
 
-                <td>@item.StartDate</td>
-                <td>@item.EndDate</td>
-                <td style="text-align:center">@item.TeamMembers</td>
-                @*<td>
-                        <div class="popup" id="@item.ProjectsDetail.Id" onclick="myFunction(@item.ProjectsDetail.Id)">
-                            View List
-                            <span class="popuptext" id="myPopup-@item.ProjectsDetail.Id"></span>
-                        </div>
-                    </td>*@
-                <td>
-                    <div class="animated">
+                <th>@Html.Label("Status")</th>
 
-                        <p data-toggle="modal" data-target="#smallmodal" onclick="myFunction(@item.ProjectsDetail.Id)">
-                            Employee List
-                        </p>
-                        <div class="modal fade show" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" style="display: none; padding-right: 17px;">
-                            <div class="modal-dialog modal-sm" role="document">
-                                <div class="modal-content" style="left: 100px;top: 140px;">
-                                    <div class="modal-header">
-                                        <p class="modal-title" style='font-size:16px' id="smallmodalLabel">Employee List</p>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
+                <th>@Html.Label("Actions")</th>
+            </tr>
+            @foreach (var item in Model.projectvm)
+            {
+                <tr>
+                    @*<td>@item.PersonalInfo1.Name</td>
+                        <td>@item.PersonalInfo1.EmpCode</td>*@
+                    <td>@item.ProjectsDetail.Name</td>
+
+                    <td>@item.StartDate</td>
+                    <td>@item.EndDate</td>
+                    <td style="text-align:center">@item.TeamMembers</td>
+                    @*<td>
+                            <div class="popup" id="@item.ProjectsDetail.Id" onclick="myFunction(@item.ProjectsDetail.Id)">
+                                View List
+                                <span class="popuptext" id="myPopup-@item.ProjectsDetail.Id"></span>
+                            </div>
+                        </td>*@
+                    <td>
+                        <div class="animated">
+
+                            <p data-toggle="modal" data-target="#smallmodal" onclick="myFunction(@item.ProjectsDetail.Id)">
+                                Employee List
+                            </p>
+                            <div class="modal fade show" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" style="display: none; padding-right: 17px;">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content" style="left: 100px;top: 140px;">
+                                        <div class="modal-header">
+                                            <p class="modal-title" style='font-size:16px' id="smallmodalLabel">Employee List</p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <p>
+                                                @*My Popup*@
+                                            </p>
+                                        </div>
+
                                     </div>
-                                    <div class="modal-body">
-                                        
-                                        <p>
-                                            @*My Popup*@
-                                        </p>
-                                    </div>
-
                                 </div>
                             </div>
+
                         </div>
 
-                    </div>
+                    </td>
 
-                </td>
+                    @{bool completedproject = false;
+                        bool inProgress = false;
+                        bool isCritical = false;
 
-                @{bool completedproject = false;
-                    bool inProgress = false;
-                    bool isCritical = false;
-
-                }
-                @foreach (var compelete in ViewBag.CompletedAssId)
-                {
-                    if (compelete == item.ProjectsDetail.Id)
-                    {
-                        completedproject = true;
                     }
-                }
-                @if (completedproject == false)
-                {
-                    foreach (var critical in ViewBag.CriticalRes)
+                    @foreach (var compelete in ViewBag.CompletedAssId)
                     {
-                        if (critical == item.ProjectsDetail.Id)
+                        if (compelete == item.ProjectsDetail.Id)
                         {
-                            isCritical = true;
+                            completedproject = true;
                         }
                     }
-                }
-                <td>@item.PersonalInfo.Name</td>
-                <td>@item.Description</td>
-                @*<td>@item.TeamMembers</td>
-                    <td>@item.Manager_Id</td>*@
-                <td>
-                    @if (completedproject == true)
+                    @if (completedproject == false)
                     {
-                        @Html.Label("Session Completed", new { @style = "color:#000000;" })
-                        //<img src="../Scripts/images/success.png" style="width:50%" />
-                        @*@Html.Label("BackUp",
-            new { @class = "btn-success" })*@
+                        foreach (var critical in ViewBag.CriticalRes)
+                        {
+                            if (critical == item.ProjectsDetail.Id)
+                            {
+                                isCritical = true;
+                            }
+                        }
                     }
-                    @if (isCritical == true)
-                    {
-                        @Html.Label("Session InProgress", new { @style = "color:#339933;" })
-                        @*<img src="../Scripts/images/danger.png" style="width:50%" />*@
-                        @*@Html.Label("Critical",
-            new { @class = "btn-danger" })*@
+                    <td>@item.PersonalInfo.Name</td>
+                    <td>@item.Description</td>
+                    @*<td>@item.TeamMembers</td>
+                        <td>@item.Manager_Id</td>*@
+                    <td>
+                        @if (completedproject == true)
+                        {
+                            @Html.Label("Session Completed", new { @style = "color:#000000;" })
+                            //<img src="../Scripts/images/success.png" style="width:50%" />
+                            @*@Html.Label("BackUp",
+                                new { @class = "btn-success" })*@
+                        }
+                        @if (isCritical == true)
+                        {
+                            @Html.Label("Session InProgress", new { @style = "color:#339933;" })
+                            @*<img src="../Scripts/images/danger.png" style="width:50%" />*@
+                            @*@Html.Label("Critical",
+                                new { @class = "btn-danger" })*@
 
-                    }
-                    @if (completedproject == false && isCritical == false)
-                    {
-                        @Html.Label("Session Yet To Start", new { @style = "color:#0066ff;" })
-                        @*<img src="../Scripts/images/inprogress.png" style="width:50%" />*@
-                        @*@Html.Label("InProgress",
-            new { @class = "btn-warning" })*@
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink(" ", "Edit", new {id=@item.ProjectsDetail.Id },
-                                  new { @class = "ti-pencil"} )
-                    @Html.ActionLink(" ", "Delete", new { id = @item.ProjectsDetail.Id }, new { @class = "ti-trash" })
-                </td>
-            </tr>
-        }
+                        }
+                        @if (completedproject == false && isCritical == false)
+                        {
+                            @Html.Label("Session Yet To Start", new { @style = "color:#0066ff;" })
+                            @*<img src="../Scripts/images/inprogress.png" style="width:50%" />*@
+                            @*@Html.Label("InProgress",
+                                new { @class = "btn-warning" })*@
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new {id=@item.ProjectsDetail.Id },
+                                      new { @class = "ti-pencil"} )
+                        @Html.ActionLink(" ", "Delete", new { id = @item.ProjectsDetail.Id }, new { @class = "ti-trash" })
+                    </td>
+                </tr>
+            }
 
-    </table>
+        </table>
 
 
-</div>
-
+    </div>
+}
+else
+{
+    <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+}
 
 @*<style>
         /* Popup container - can be anything you want */

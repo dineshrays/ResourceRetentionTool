@@ -1,6 +1,6 @@
 ﻿@model RetentionTool.ViewModel.EmployeeSkillsAddViewModel
 @{
-    ViewBag.Title = "Evaluates1";
+    ViewBag.Title = "Evaluates";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
 }
 
@@ -180,7 +180,7 @@
             var mod = { EmpskillAdd_Id: Empski, Emp_Id: Emp_Id };
 
                 $.ajax({
-                    url: '@Url.Action("Evaluates1", "ApproveEmpSkills")', //
+                    url: '@Url.Action("Evaluates1", "ApproveEmpSkills")', 
                     dataType: "json",
                     data: JSON.stringify({ appl: mod,type:'2'}),
                     type: "POST",

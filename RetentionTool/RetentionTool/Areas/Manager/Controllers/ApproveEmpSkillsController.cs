@@ -50,6 +50,16 @@ namespace RetentionTool.Areas.Manager.Controllers
             db.Entry(add).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 
+            EmployeeSkill empskill = new EmployeeSkill();
+            empskill.P_Id = add.P_Id;
+            empskill.Skills_Id = add.Skills_Id;
+            empskill.CommonField_Id = add.CommonField_Id;
+            empskill.IsActive = true;
+            empskill.Months = add.Months;
+            empskill.Years = add.Years;
+            empskill.Status = add.Status;
+            db.EmployeeSkills.Add(empskill);
+            db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
@@ -104,7 +114,7 @@ namespace RetentionTool.Areas.Manager.Controllers
 
             db.ApproveEmpSkills.Add(app);
             db.SaveChanges();
-            EmployeeSkillsAdd empskilladd = db.EmployeeSkillsAdds.Find(id);
+            EmployeeSkillsAdd empskilladd = db.EmployeeSkillsAdds.Find(appl.EmpskillAdd_Id);
             if (appl.IsEvaluated.ToString() == "True")
             {
                
@@ -124,20 +134,38 @@ namespace RetentionTool.Areas.Manager.Controllers
                 db.Notifications.Add(notif);
                 db.SaveChanges();
             }
-
             empskilladd.IsPromoted = true;
-
-            EmployeeSkill empskill = new EmployeeSkill();
-            empskill.P_Id = empskilladd.P_Id;
-            empskill.Skills_Id = empskilladd.Skills_Id;
-            empskill.CommonField_Id = empskilladd.CommonField_Id;
-            empskill.IsActive = true;
-            empskill.Months = empskilladd.Months;
-            empskill.Years = empskilladd.Years;
-            empskill.Status = empskilladd.Status;
-            db.EmployeeSkills.Add(empskill);
+            if (type==1)
+            {
+              
+                EmployeeSkill empskill = new EmployeeSkill();
+                empskill.P_Id = empskilladd.P_Id;
+                empskill.Skills_Id = empskilladd.Skills_Id;
+                empskill.CommonField_Id = empskilladd.CommonField_Id;
+                empskill.IsActive = true;
+                empskill.Months = empskilladd.Months;
+                empskill.Years = empskilladd.Years;
+                empskill.Status = empskilladd.Status;
+                db.EmployeeSkills.Add(empskill);
+                db.SaveChanges();
+               
+            }
+            db.Entry(empskilladd).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
-            
+
+            //empskilladd.IsPromoted = true;
+
+            //EmployeeSkill empskill = new EmployeeSkill();
+            //empskill.P_Id = empskilladd.P_Id;
+            //empskill.Skills_Id = empskilladd.Skills_Id;
+            //empskill.CommonField_Id = empskilladd.CommonField_Id;
+            //empskill.IsActive = true;
+            //empskill.Months = empskilladd.Months;
+            //empskill.Years = empskilladd.Years;
+            //empskill.Status = empskilladd.Status;
+            //db.EmployeeSkills.Add(empskill);
+            // db.SaveChanges();
+
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
