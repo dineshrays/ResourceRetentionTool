@@ -64,7 +64,7 @@
 
 <script>
     function onclickmethod() {
-        alert('hdefjd');
+     //   alert('hdefjd');
 
         var Empski = $("#EmpskillAdd_Id").val();
         var Emp_Id = $("#EmpId").val();
@@ -72,14 +72,15 @@
         var mod = { EmpskillAdd_Id: Empski, Emp_Id: Emp_Id };
 
          $.ajax({
-                url: '@Url.Action("Index", "ApproveEmpSkills")',
+             url: '@Url.Action("Index", "ApproveEmpSkills")',
+
                 dataType: "json",
                 data: JSON.stringify({ appl: mod,id:'0' }),
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (result) {
 
-                    window.location.href = newUrl;
+                    window.location.href =  '@Url.Action("Index", "ApproveEmpSkills")';
                 },
                 error: function (xhr) {
                     alert("error");

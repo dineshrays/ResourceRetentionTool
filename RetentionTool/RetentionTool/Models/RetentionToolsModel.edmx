@@ -2036,7 +2036,7 @@
           <NavigationProperty Name="ApproveEmpSkills" Relationship="RetentionToolModel.FK_ApproveEmpSkills_PersonalInfo" FromRole="PersonalInfo" ToRole="ApproveEmpSkill" />
           <NavigationProperty Name="EmployeeSkillsAdds" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_Managers" FromRole="PersonalInfo" ToRole="EmployeeSkillsAdd" />
           <NavigationProperty Name="EmployeeSkillsAdds1" Relationship="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" FromRole="PersonalInfo" ToRole="EmployeeSkillsAdd" />
-        </EntityType>
+          </EntityType>
         <Association Name="FK_AssignResources_Managers">
           <End Type="RetentionToolModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
           <End Type="RetentionToolModel.AssignResource" Role="AssignResource" Multiplicity="*" />

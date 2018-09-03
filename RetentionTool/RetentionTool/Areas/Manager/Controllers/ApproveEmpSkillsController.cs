@@ -45,9 +45,9 @@ namespace RetentionTool.Areas.Manager.Controllers
             db.ApproveEmpSkills.Add(app);
             db.SaveChanges();
 
-            EmployeeSkillsAdd add = new EmployeeSkillsAdd();
+            EmployeeSkillsAdd add = db.EmployeeSkillsAdds.Find(appl.EmpskillAdd_Id);
             add.IsPromoted = true;
-            db.EmployeeSkillsAdds.Add(add);
+            db.Entry(add).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 
             return Json("", JsonRequestBehavior.AllowGet);

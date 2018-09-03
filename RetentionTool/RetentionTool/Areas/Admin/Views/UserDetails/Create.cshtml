@@ -1,0 +1,238 @@
+﻿@model RetentionTool.ViewModel.UserDetailsViewModel
+@{
+    ViewBag.Title = "Create User Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+}
+@*@using (Html.BeginForm())
+    {*@
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Create User Details</h2>
+
+    </div>
+   
+    <div class="card-body card-block">
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.Label("Employee Code")
+            </div>
+            <div class="col-12 col-md-9">
+                <input class="form-control" style="width:30%" id="searchempcode" />
+                <input id="searchid" style="display:none" />
+                <input id="searchname" style="display:none" />
+            </div>
+        </div>
+
+       
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.Label("Role Name")
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.DropDownListFor(model => model.userDetail.Role_Id, ViewData["rolelist"] as SelectList, "Select Role", new { @class = "form-control", id = "roleid", style = "width:30%" })
+
+            </div>
+
+        </div>
+
+       
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.Label("Password")
+            </div>
+            <div class="col-12 col-md-9">
+                <input id="Password" class="form-control" style="width:30%" />
+            </div>
+        </div>
+      
+        <div class="row form-group">
+            <div class="col col-md-3">
+            </div>
+            <div class="col-12 col-md-9">
+                <input type="submit" value="Add" class="btnAdd" />
+            </div>
+            </div>
+            @*</div>*@
+
+        </div>
+   
+        <table id="tblUser">
+            <tr>
+                <th>Select</th>
+                <th style="display:none">Employee Id</th>
+                <th>Employee Name</th>
+                <th>Employee EmailId</th>
+                <th style="display:none">Role Id</th>
+                <th>Role Name</th>
+                <th>Password</th>
+            </tr>
+        </table>
+
+        <div class="row form-group">
+            <div class="col-md-3">
+                <input type="submit" value="Delete" class="delEmp"   />       
+            </div>
+            <div class="col-12 col-md-9">
+                <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "UserDetails", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+        </div>
+    </div>
+   
+    @*}*@
+
+    <script>
+
+    $(function () {
+     //   debugger;
+
+        $("#searchempcode").autocomplete({
+
+            source: function (request, response) {
+                var param = { name: $('#searchempcode').val() };
+                //alert(param);
+             //   alert($('#searchempcode').val());
+                $.ajax({
+                    url: "/Admin/UserDetails/getEmployeeCode",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { name: item.Name, id: item.Id, label: item.EmpCode + '-' + item.Name, lbl: item.EmpCode, email: item.Email}
+                            //return {
+                            //    //label: item.Name, id: item.Id
+                            //    //, name: item.Name, email: item.Email
+                            //}
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+
+                event.preventDefault();
+                $(this).val(ui.item.name);
+                $("#searchid").val(ui.item.id);
+                $("#searchname").val(ui.item.email);
+                //var param = { id: ui.item.id };
+                //$.ajax({
+                //    url: "/UserDetails/getPersonalInfo",
+                //    data: JSON.stringify(param),
+                //    dataType: "json",
+                //    type: "POST",
+                //    contentType: "application/json; charset=utf-8",
+                //    //dataFilter: function (data) { return data; },
+                //    success: function (data) {
+                //       // alert(data.Name);
+                //      //  alert(data.Email);
+                //        $("#searchname").val(data.Name);
+                //     //   $("#empemail").val(data.Email);
+                //        //response($.map(data, function (item) {
+                //        //    return { label: item.Name, id: item.Id }
+                //        //}))
+                //    },
+                //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //        alert(textStatus);
+                //    }
+                //});
+            }
+                //$("#empname").val(ui.item.Name);
+                //$("#empemail").val(ui.item.Email);
+                //$("empname").val(ui.item.Name);
+                //$("emppassword").val(ui.item.Email);
+            //}
+        });
+    });
+
+       $("#btnSave").click(function () {
+           var itemlist = [];
+           $("table tr:not(:first)").each(function () {
+                   var tdlist = $(this).find("td");
+                   var Item = { Emp_Id: $(tdlist[1]).html(), Name: $(tdlist[2]).html(), Email: $(tdlist[3]).html(), Password: $(tdlist[6]).html(), Role_Id: $(tdlist[4]).html()};
+                   itemlist.push(Item);
+              })
+
+
+         //  var empname = $("#empname").val();
+         //  var pid = $("#searchid").val();
+         ////  var empcode = $("searchempcode").val();
+         //  var email = $("#empemail").val();
+         //  var password = $("#emppassword").val();
+         //  var roleid = $("#roleid").val();
+
+                var newUrl= '@Url.Action("Index", "UserDetails")';
+
+          // var mod = { Emp_Id: pid, Name: empname, Email: email, Password: password, Role_Id: roleid };
+               // alert(mod);
+                $.ajax({
+                    url: '@Url.Action("Create", "UserDetails")', //
+                    dataType: "json",
+                    data: JSON.stringify({ uservm: itemlist }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        //alert("success");
+
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert(xhr);
+                        alert("error");
+                    }
+                });
+            });
+
+
+    $(".btnAdd").click(function () {
+        var searchid = $("#searchid").val();
+        var searchempcode = $("#searchempcode").val();
+        var searchname = $("#searchname").val();
+        var roleid = $("#roleid").val();
+        var rolename = $("#roleid :selected").text();
+        var password = $("#Password").val();
+        if (searchid > 0 && roleid > 0 && password.length>0) {
+           
+           
+           
+            var value = "<tr><td><input type='checkbox'  name='chck'></td><td style='display:none'>" +
+                searchid + "</td><td>" +
+                searchempcode + "</td><td>" +
+                searchname + "</td><td style='display:none'>" + roleid + "</td><td>" +
+                rolename + "</td><td>" +
+                password + "</td></tr>";
+
+            $("#tblUser").append(value);
+            $("#searchempcode").val('');
+            $("#searchname").val('');
+            $("#searchid").val('');
+            $("#roleid").val('');
+            $("#Password").val('');
+        }
+
+
+    });
+
+    $(".delEmp").click(function () {
+
+        $("#tblUser").find('input[name="chck"]').each(function () {
+            if ($(this).is(":checked")) {
+                $(this).parents("tr").remove();
+            }
+        });
+    });
+    </script>
+
+
+

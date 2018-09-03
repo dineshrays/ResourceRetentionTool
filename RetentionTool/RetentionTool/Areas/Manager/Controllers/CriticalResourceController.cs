@@ -124,17 +124,18 @@ namespace RetentionTool.Areas.Manager.Controllers
 
            if(user==null)
             {
-                user.Emp_Id = personalinfo.Id;
-                user.EntryDate = DateTime.Now;
-                user.Email = personalinfo.Email;
+                UserDetail userdetail = new UserDetail();
+                userdetail.Emp_Id = personalinfo.Id;
+                userdetail.EntryDate = DateTime.Now;
+                userdetail.Email = personalinfo.Email;
 
 
-                user.Role_Id = roleid;
-                user.Name = personalinfo.Name;
-                user.IsActive = true;
-                user.Password = fetchdet.password;
+                userdetail.Role_Id = roleid;
+                userdetail.Name = personalinfo.Name;
+                userdetail.IsActive = true;
+                userdetail.Password = fetchdet.password;
 
-                db.UserDetails.Add(user);
+                db.UserDetails.Add(userdetail);
                 db.SaveChanges();
             }
             

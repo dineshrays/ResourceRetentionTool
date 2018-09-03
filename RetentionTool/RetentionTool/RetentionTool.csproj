@@ -1469,6 +1469,10 @@
     <Content Include="Areas\Manager\Views\ApproveEmpSkills\Evaluates.cshtml" />
     <Content Include="Areas\Manager\Views\ApproveEmpSkills\Evaluates1.cshtml" />
     <Content Include="Areas\Manager\Views\ApproveEmpSkills\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserDetails\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\UserDetails\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\UserDetails\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\UserDetails\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
@@ -1541,6 +1545,7 @@
     <Compile Include="Areas\Admin\Controllers\SkillsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrainerController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrainingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserDetailsController.cs" />
     <Compile Include="Areas\Employee\Controllers\EmployeeInfoController.cs" />
     <Compile Include="Areas\Employee\Controllers\EmployeeInformationController.cs" />
     <Compile Include="Areas\Employee\EmployeeAreaRegistration.cs" />
@@ -1585,7 +1590,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ApproveEmpSkill.cs" />
+    <Compile Include="Models\ApproveEmpSkill.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApproveEmpSkillsModel.cs" />
     <Compile Include="Models\AssignEvaluater.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>

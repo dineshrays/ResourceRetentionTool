@@ -176,7 +176,7 @@
     <Property Name="Months" Type="int" />
     <Property Name="Status" Type="varchar" MaxLength="50" />
     <Property Name="Manager_Id" Type="int" />
-    <Property Name="IsApproved" Type="bit" />
+    <Property Name="IsPromoted" Type="bit" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Experience">
@@ -664,6 +664,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_EmployeeSkillsAdd_Managers">
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+    <End Role="EmployeeSkillsAdd" Type="Self.EmployeeSkillsAdd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmployeeSkillsAdd">
+        <PropertyRef Name="Manager_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_EmployeeSkillsAdd_PersonalInfo">
     <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="1" />
     <End Role="EmployeeSkillsAdd" Type="Self.EmployeeSkillsAdd" Multiplicity="*" />
@@ -1070,6 +1082,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_EmployeeSkillsAdd_Commonfields" Association="Self.FK_EmployeeSkillsAdd_Commonfields">
       <End Role="Commonfields" EntitySet="Commonfields" />
+      <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeSkillsAdd_Managers" Association="Self.FK_EmployeeSkillsAdd_Managers">
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
       <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdd" />
     </AssociationSet>
     <AssociationSet Name="FK_EmployeeSkillsAdd_PersonalInfo" Association="Self.FK_EmployeeSkillsAdd_PersonalInfo">

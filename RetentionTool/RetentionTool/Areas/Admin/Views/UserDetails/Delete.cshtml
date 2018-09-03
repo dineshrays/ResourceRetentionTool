@@ -1,0 +1,83 @@
+﻿@model RetentionTool.ViewModel.UserDetailsViewModel
+@{
+    ViewBag.Title = "Delete User Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <div class="card">
+        <div class="card-header">
+            <h2>Delete User Details</h2>
+
+        </div>
+        <div class="card-body card block">
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.Label("Employee Code")
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.userDetail.PersonalInfo.EmpCode)
+                    @Html.HiddenFor(model => model.userDetail.Emp_Id)
+                    @Html.HiddenFor(model => model.userDetail.Id)
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.Label("Name", new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.userDetail.Name, new { @class = "form-control", id = "empname", style = "width:30%" })
+
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.Label("Emaild", new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+
+                    @Html.DisplayFor(model => model.userDetail.Email, new { @class = "form-control", id = "empemail", style = "width:30%" })
+
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.Label("Password", new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.userDetail.Password, new { @class = "form-control", id = "emppassword", style = "width:30%" })
+
+
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.Label("Role", new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.userDetail.Role_Id,  new { @class = "form-control", id = "roleid", style = "width:30%" })
+
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-12 col-md-9">
+                    <input type="submit" value="Delete" class="btn-danger" />
+                    @Html.ActionLink("Back to List", "Index", "UserDetails", null, new { @class = "btn btn-outline-link" })
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+
