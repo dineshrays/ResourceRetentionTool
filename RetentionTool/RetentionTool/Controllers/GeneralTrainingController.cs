@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
 
-namespace RetentionTool.Areas.Admin.Controllers
+namespace RetentionTool.Controllers
 {
     public class GeneralTrainingController : Controller
     {

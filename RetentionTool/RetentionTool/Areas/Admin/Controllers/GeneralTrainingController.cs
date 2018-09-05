@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
 
-namespace RetentionTool.Controllers
+namespace RetentionTool.Areas.Admin.Controllers
 {
     public class GeneralTrainingController : Controller
     {
@@ -17,6 +17,7 @@ namespace RetentionTool.Controllers
         {
             // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
             //var assignres;
+            int projectid = fetchdet.getDefaultProjectId();
             List<AssignResourceViewModel> assgnvm;
          
                 assgnvm = (from assignres in db.AssignResources
@@ -26,8 +27,8 @@ namespace RetentionTool.Controllers
 
                                                          where assignres.IsActive == true
                                                          && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
-                                                         && assignres.ProjectsDetail.Name == "Training"
-                                                         select new AssignResourceViewModel
+                                                         && assignres.Project_Id== projectid
+                                                        select new AssignResourceViewModel
                                                          {
                                                              Id = assignres.Id,
                                                              Manager_Id = assignres.Manager_Id,
@@ -66,13 +67,14 @@ namespace RetentionTool.Controllers
 
             if (assgnResvm != null)
             {
-                ProjectsDetail project = db.ProjectsDetails.FirstOrDefault(a => a.Name == "Training") ;
-                Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id && a.IsActive == true);
+                int projectid = fetchdet.getDefaultProjectId();
+                //ProjectsDetail project = db.ProjectsDetails.FirstOrDefault(a => a.Name == "Training") ;
+                RetentionTool.Models.Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id && a.IsActive == true);
                 AssignResource assRes = new AssignResource()
                 {
                     Id = assgnResvm.Id,
                     Date = assgnResvm.Date,
-                    Project_Id = project.Id,
+                    Project_Id = projectid,
                     //assgnResvm.Project_Id,
                     Manager_Id = assgnResvm.Manager_Id,
                     Trainer_Id = trainer.Id,
@@ -157,7 +159,7 @@ namespace RetentionTool.Controllers
                 db.Entry(i).State = System.Data.Entity.EntityState.Deleted;
             }
             db.SaveChanges();
-            Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id);
+           RetentionTool.Models.Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id);
             AssignResource assignRes = new AssignResource()
             {
                 Id = id,

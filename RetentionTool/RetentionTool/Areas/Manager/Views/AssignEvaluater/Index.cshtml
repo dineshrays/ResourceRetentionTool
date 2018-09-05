@@ -4,44 +4,53 @@
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Assign Evaluater</h2>
-<div class="card-body">
-    @Html.ActionLink("Create New", "Create", "AssignEvaluater", null, new { @class = "btn btn-outline-primary" })
-</div>
-
-    <div class="container" style="width:100%;margin-top:2%">
-        <table class="table table-striped">
-            <tr>
-                @*<th>@Html.DisplayNameFor(model => model.AssignEvaluater.Id)</th>
-
-                    <th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource_Id)</th>*@
-                <th>@Html.Label("Project Name")</th>
-                <th>@Html.Label("Module Name")</th>
-                <th>@Html.Label("Assigned Trainer Name")</th>
-                <th>@Html.Label("Actions")</th>
-            </tr>
-            @foreach (var item in Model.assvm)
-            {
-                <tr>
-                    @*<td>@item.Id</td>
-                        <td>@item.AssignResource_Id</td>*@
-                    <td>@item.AssignResource.ProjectsDetail.Name</td>
-                    <td>@item.AssignResource.Module.ModuleName</td>
-
-                    <td>@item.Trainer.PersonalInfo.Name</td>
-
-
-
-                    <td>
-                        @Html.ActionLink(" ", "Edit", new {id=@item.Id},
-                                      new { @class = "ti-pencil"} )
-                        @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
-                    </td>
-                </tr>
-            }
-
-        </table>
-
+<div class="card">
+    <div class="card-header">
+        <h2>Assign Evaluater</h2>
 
     </div>
+    <div class="card-body">
+        @Html.ActionLink("Create New", "Create", "AssignEvaluater", null, new { @class = "btn btn-outline-primary" })
+    </div>
 
+    @if (Model.assvm.Count() > 0)
+    {
+
+        <div class="container" style="width:100%;margin-top:2%">
+            <table class="table table-striped">
+                <tr>
+                    @*<th>@Html.DisplayNameFor(model => model.AssignEvaluater.Id)</th>
+
+                        <th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource_Id)</th>*@
+                    <th>@Html.Label("Project Name")</th>
+                    <th>@Html.Label("Module Name")</th>
+                    <th>@Html.Label("Assigned Trainer Name")</th>
+                    <th>@Html.Label("Actions")</th>
+                </tr>
+                @foreach (var item in Model.assvm)
+                {
+                    <tr>
+                        @*<td>@item.Id</td>
+                            <td>@item.AssignResource_Id</td>*@
+                        <td>@item.AssignResource.ProjectsDetail.Name</td>
+                        <td>@item.AssignResource.Module.ModuleName</td>
+
+                        <td>@item.Trainer.PersonalInfo.Name</td>
+
+
+
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = @item.Id },
+                               new { @class = "ti-pencil" })
+                            @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+
+        </div>
+    }
+
+    </div>

@@ -6,141 +6,143 @@
 
 
 <script src="../Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<div class="card">
+    <div class="card-header">
+        <h2>Plan Training</h2>
+
+    </div>
+
+  
+    <div class="card-body">
+        @Html.ActionLink("Create New", "Create", "GeneralTraining", null, new { @class = "btn btn-outline-primary" })
+    </div>
+    @if (Model.Count() > 0)
+    {
 
 
-<h2>Plan Training</h2>
-<div class="card-body">
-    @Html.ActionLink("Create New", "Create", "GeneralTraining", null, new { @class = "btn btn-outline-primary" })
-</div>
-@if (Model.Count() > 0)
-{
+        <div class="container" style="width:100%;margin-top:2%">
+            <table class="table table-striped">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.projectname)</th>
+                    <th>@Html.DisplayNameFor(model => model.managername)</th>
+                    <th>@Html.DisplayNameFor(model => model.modulename)</th>
+                    <th>@Html.DisplayNameFor(model => model.trainername)</th>
+                    <th>@Html.DisplayNameFor(model => model.employeename)</th>
 
-
-<div class="container" style="width:100%;margin-top:2%">
-    <table class="table table-striped">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.projectname)</th>
-            <th>@Html.DisplayNameFor(model => model.managername)</th>
-            <th>@Html.DisplayNameFor(model => model.modulename)</th>
-            <th>@Html.DisplayNameFor(model => model.trainername)</th>
-            <th>@Html.DisplayNameFor(model => model.employeename)</th>
-
-            <th>@Html.DisplayNameFor(model => model.Date)</th>
-            <th>@Html.Label("Actions")</th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.projectname</td>
-                <td>@item.managername</td>
-                <td>@item.modulename</td>
-                <td>@item.trainername</td>
-                @*<td>@item.employeename</td>*@
-                @*<td>
-                        <div class="popup" id="@item.Id" onclick="myFunction(@item.Id)">
-                            List Employees
-                            <span class="popuptext" id="myPopup-@item.Id"></span>
-                        </div>
-                    </td>*@
-                <td>
-                    <div class="animated">
-
-                        <p data-toggle="modal" data-target="#smallmodal" onclick="myFunction(@item.Id)">
-                            List Employee
-                        </p>
-                        <div class="modal fade show" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" style="display: none; padding-right: 17px;">
-                            <div class="modal-dialog modal-sm" role="document">
-                                <div class="modal-content" style="left: 100px;top: 140px;">
-                                    <div class="modal-header">
-                                        <p class="modal-title" style='font-size:16px' id="smallmodalLabel">Employee List</p>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <p>
-                                            @*My Popup*@
-                                        </p>
-                                    </div>
-
+                    <th>@Html.DisplayNameFor(model => model.Date)</th>
+                    <th>@Html.Label("Actions")</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.projectname</td>
+                        <td>@item.managername</td>
+                        <td>@item.modulename</td>
+                        <td>@item.trainername</td>
+                        @*<td>@item.employeename</td>*@
+                        @*<td>
+                                <div class="popup" id="@item.Id" onclick="myFunction(@item.Id)">
+                                    List Employees
+                                    <span class="popuptext" id="myPopup-@item.Id"></span>
                                 </div>
+                            </td>*@
+                        <td>
+                            <div class="animated">
+
+                                <p data-toggle="modal" data-target="#smallmodal" onclick="myFunction(@item.Id)">
+                                    List Employee
+                                </p>
+                                <div class="modal fade show" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" style="display: none; padding-right: 17px;">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content" style="left: 100px;top: 140px;">
+                                            <div class="modal-header">
+                                                <p class="modal-title" style='font-size:16px' id="smallmodalLabel">Employee List</p>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <p>
+                                                    @*My Popup*@
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
+                        </td>
 
-                    </div>
-                </td>
+                        <td>@item.Date</td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id },
+                                  //new { id = item.Id }, null)
+                                  new { @class = "ti-pencil" })
+                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                        </td>
+                    </tr>
+                }
 
-                <td>@item.Date</td>
-                <td>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id },
-                          //new { id = item.Id }, null)
-                          new { @class = "ti-pencil" })
-                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-                </td>
-            </tr>
-        }
+            </table>
 
-    </table>
-
-</div>
-            }
-            else
-            {
-<div class="card-body" style="color:red;"><b>No Record Found</b></div>
-}
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<style>
-    /* Popup container - can be anything you want */
-    .popup {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+        </div>
     }
-
-        /* The actual popup */
-        .popup .popuptext {
-            visibility: hidden;
-            width: 160px;
-            background-color: #fff;
-            color: #555;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px 0;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -80px;
-            font-size: 1rem
+   
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <style>
+        /* Popup container - can be anything you want */
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
-            /* Popup arrow */
-            .popup .popuptext::after {
-                content: "";
+            /* The actual popup */
+            .popup .popuptext {
+                visibility: hidden;
+                width: 160px;
+                background-color: #fff;
+                color: #555;
+                text-align: center;
+                border-radius: 6px;
+                padding: 8px 0;
                 position: absolute;
-                top: 100%;
+                z-index: 1;
+                bottom: 125%;
                 left: 50%;
-                margin-left: -5px;
-                border-width: 5px;
-                border-style: solid;
-                border-color: #555 transparent transparent transparent;
+                margin-left: -80px;
+                font-size: 1rem
             }
 
-        /* Toggle this class - hide and show the popup */
-        .popup .show {
-            visibility: visible;
-            -webkit-animation: fadeIn 1s;
-            animation: fadeIn 1s;
-        }
-</style>
+                /* Popup arrow */
+                .popup .popuptext::after {
+                    content: "";
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: #555 transparent transparent transparent;
+                }
+
+            /* Toggle this class - hide and show the popup */
+            .popup .show {
+                visibility: visible;
+                -webkit-animation: fadeIn 1s;
+                animation: fadeIn 1s;
+            }
+    </style>
 
 
-<script>
+    <script>
 
     function myFunction(id) {
 
@@ -171,4 +173,4 @@
 
 
 }
-</script>
+    </script>

@@ -36,7 +36,7 @@ namespace RetentionTool.Areas.Employee.Controllers
         //    p.Gender = pim.Gender;
         //    p.PermanentAddress = pim.PermanentAddress;
         //    p.CommunicationAddress = pim.CommunicationAddress;
-        //    p.Contact = pim.Contact;
+        //    p.Contact = pim.Contact;`
         //    p.Qualification = pim.Qualification;
         //    p.Email = pim.Email;
         //    p.PanNo = pim.PanNo;

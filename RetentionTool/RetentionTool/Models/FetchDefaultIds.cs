@@ -25,7 +25,7 @@ namespace RetentionTool.Models
         //public string topics2 = "Exception Handling";
         //public string topics3 = "Swings";
         public string password = "123";
-        public int commonfieldid = 3;
+        //public int commonfieldid = ;
         public string SessionCompletedMsg = "Session Has been Completed Successfully";
         public string EmployeeAbsenceMsg = " is Absent for the Session";
         public string AssignTrainerMsg = " has been Assigned take Session";
@@ -250,7 +250,7 @@ namespace RetentionTool.Models
 
 
 
-        public long getDefaultPrimarySkillId()
+        public  long getDefaultPrimarySkillId()
         {
             Commonfield commfield = db.Commonfields.FirstOrDefault(a => a.Name == commonFieldName && a.IsActive == true);
 
