@@ -18,7 +18,7 @@ namespace RetentionTool.Models
         public string employeeRoleName = "Employee";
         public string managerRoleName = "Manager";
         public string internRoleName = "Intern";
-        //public string commonFieldName = "Development";
+        public string commonFieldName = "Development";
         //public string skillName = "Java";
         //public string moduleName = "Java Training";
         //public string topics1 = "OOPs Concepts";
@@ -249,26 +249,25 @@ namespace RetentionTool.Models
         }
 
 
-       
-        //public int getDefaultInternRoleId()
-        //{
-        //    Role role = db.Roles.FirstOrDefault(a => a.Name == internRoleName && a.IsActive == true);
-        //    if (role != null)
-        //    {
-        //        return role.Id;
-        //    }
-        //    else
-        //    {
-        //        Role roles = new Role();
-        //        roles.Name = internRoleName;
-        //        roles.IsActive = true;
-        //        roles.EntryDate = DateTime.Now;
-        //        db.Roles.Add(roles);
-        //        db.SaveChanges();
-        //        return roles.Id;
-        //    }
 
-        //}
+        public long getDefaultPrimarySkillId()
+        {
+            Commonfield commfield = db.Commonfields.FirstOrDefault(a => a.Name == commonFieldName && a.IsActive == true);
+
+            if (commfield != null)
+            {
+                return commfield.id;
+            }
+            else
+            {
+                Commonfield commField = new Commonfield();
+                commField.Name = commonFieldName;
+                commField.IsActive = true;
+
+                return commField.id;
+            }
+
+        }
 
     }
 }
