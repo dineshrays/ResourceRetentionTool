@@ -87,7 +87,7 @@
               var newUrl= '@Url.Action("Index", "Training")';
                 $.ajax({
                     type: "POST",
-                    url: "/Training/Createtraining",
+                    url: "/Admin/Training/Createtraining",
                     data: JSON.stringify({ itemlist: itemlist1 , TrainingVM: mod }),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",

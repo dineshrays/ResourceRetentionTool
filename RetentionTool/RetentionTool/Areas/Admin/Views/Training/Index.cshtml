@@ -109,7 +109,7 @@
 
             $(function () {
                 $(".anchorDetail").click(function () {
-                    // debugger;
+                   
                     var $buttonClicked = $(this);
                     var id = $buttonClicked.attr('data-id');
                     // alert(id);
@@ -122,7 +122,7 @@
                         datatype: "json",
                         success: function (data) {
                             // $("#myPopup-" + id).append("<h2 style='font-size:18px'>" + empname.Name + "</h2>")
-                            //   debugger;
+                            
                             $('#myModalContent').html(data);
                             $('#myModal').modal(options);
                             $('#myModal').modal('show');
@@ -267,13 +267,13 @@
         //    title: "View Details"
         //});
         //$("#myPopup-" + id).click(function () {
-            //   debugger;
+            
           //  var $buttonClicked = $(this);
           //  var id = $buttonClicked.attr('data-id');
             //  alert(id);
             $.ajax({
                 type: "GET",
-                url: '/Training/Empdetails',
+                url: '/Admin/Training/Empdetails',
                 contentType: "application/json; charset=utf-8",
                 data: { "assId": id },
                 datatype: "json",

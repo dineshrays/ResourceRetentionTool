@@ -117,7 +117,7 @@
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
                 $.ajax({
-                    url: "/GeneralTraining/getEmployee",
+                    url: "/Admin/GeneralTraining/getEmployee",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
