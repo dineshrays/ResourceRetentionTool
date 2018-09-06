@@ -105,7 +105,7 @@
 <script type="text/javascript">
             //$(function () {
                 $("#btnSave").click(function () {
-                    //    debugger;
+                  
                     
                     var itemlist = [];
                     
@@ -176,7 +176,7 @@
             source: function (request, response) {
                 var param = { name: $('#searchskill').val() };
                 $.ajax({
-                    url: "/EmployeeInfo/getSkills",
+                    url: "/Employee/EmployeeInfo/getSkills",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",

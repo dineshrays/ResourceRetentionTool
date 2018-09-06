@@ -176,7 +176,8 @@
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
                // alert(mod);
                 $.ajax({
-                    url: '@Url.Action("Create", "AssignResource")', //
+                    url:'/Manager/AssignResource/Create',
+                        @*'@Url.Action("Create", "AssignResource")',*@ 
                     dataType: "json",
                     data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
                     type: "POST",
@@ -230,7 +231,7 @@
             var selected = $('#moduleid').val();
             $.ajax(
                 {
-                    url: '/AssignResource/getEmployeeDetails',
+                    url: '/Manager/AssignResource/getEmployeeDetails',
                     type: 'POST',
                     datatype: 'application/json',
                     contentType: 'application/json',
@@ -255,7 +256,7 @@
                 var param = { name: $('#searchproject').val() };
 
                 $.ajax({
-                    url: "/AssignResource/getProjects",
+                    url: "/Manager/AssignResource/getProjects",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -281,7 +282,7 @@
                 $("#searchprojectid").val(ui.item.id);
                 var param = { id: ui.item.id };
                 $.ajax({
-                    url: "/AssignResource/getProjectInfo",
+                    url: "/Manager/AssignResource/getProjectInfo",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -305,7 +306,7 @@
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
                 $.ajax({
-                    url: "/AssignResource/getEmployee",
+                    url: "/Manager/AssignResource/getEmployee",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",

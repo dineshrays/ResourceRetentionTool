@@ -72,7 +72,7 @@ namespace RetentionTool.Areas.Manager.Controllers
                 assigneval.Trainer_Id = trainer.Id;
                 FetchDefaultIds fetchdet = new FetchDefaultIds();
                 int trainerroleid= fetchdet.getDefaultTrainerRoleId();
-                PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == criticalRes.PersonalInfo_Id && a.IsActive == true);
+                PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id ==empid && a.IsActive == true);
                 UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id==trainerroleid && a.IsActive==true);
                 if(userdet==null)
                 {
@@ -132,7 +132,7 @@ namespace RetentionTool.Areas.Manager.Controllers
                 asseval.Trainer_Id = trainer.Id;
                 FetchDefaultIds fetchdet = new FetchDefaultIds();
                 int trainerroleid = fetchdet.getDefaultTrainerRoleId();
-                PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == criticalRes.PersonalInfo_Id && a.IsActive == true);
+                PersonalInfo personalinfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == empid && a.IsActive == true);
                 UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == personalinfo.Id && a.Role_Id == trainerroleid && a.IsActive == true);
                 if (userdet == null)
                 {

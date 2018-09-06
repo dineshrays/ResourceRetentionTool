@@ -222,7 +222,8 @@
 
          var newUrl= '@Url.Action("Index", "CriticalResource")';
                 $.ajax({
-                    url: '@Url.Action("Create", "CriticalResource")', //
+                    url: '/Manager/CriticalResource/Create',
+                        @*'@Url.Action("Create", "CriticalResource")', //*@
                     dataType: "json",
                     data: JSON.stringify({ criticalR: cri, trainerlist: trainerlist, criticalacc: accinfo }),
                     type: "POST",

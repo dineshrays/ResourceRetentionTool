@@ -41,6 +41,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         }
 
         public ActionResult Create()
+
         {
             AssignResourceViewModel assignRes = new AssignResourceViewModel();
             PersonalInfo personalInfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == managerid && a.IsActive == true);

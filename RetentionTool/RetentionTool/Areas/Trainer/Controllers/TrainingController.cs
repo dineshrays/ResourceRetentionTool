@@ -10,6 +10,7 @@ namespace RetentionTool.Areas.Trainer.Controllers
 {
     public class TrainingController : Controller
     {
+
         RetentionToolEntities db = new RetentionToolEntities();
         FetchDefaultIds fetchdet = new FetchDefaultIds();
         public ActionResult PopupView()
