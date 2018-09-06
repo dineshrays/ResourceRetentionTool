@@ -86,7 +86,7 @@
                     </div>
                     <div class="col-12 col-md-9">
 
-                        @Html.DropDownListFor(m => m.assignResource.Module_Id, ViewData["moduleslist"] as SelectList, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+                        @Html.DropDownListFor(m => m.assignResource.Module_Id, ViewData["moduleslist"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
 
 
                     </div>
@@ -263,7 +263,7 @@
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
                 $.ajax({
-                    url: "/AssignResource/getEmployee",
+                    url: "/Admin/AssignResource/getEmployee",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -299,7 +299,7 @@
                 var param = { name: $('#searchproject').val() };
 
                 $.ajax({
-                    url: "/AssignResource/getProjects",
+                    url: "/Admin/AssignResource/getProjects",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -325,7 +325,7 @@
                 $("#searchprojectid").val(ui.item.id);
                 var param = { id: ui.item.id };
                 $.ajax({
-                    url: "/AssignResource/getProjectInfo",
+                    url: "/Admin/AssignResource/getProjectInfo",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -352,7 +352,7 @@
             var selected = $('#moduleid').val();
             $.ajax(
                 {
-                    url: '/AssignResource/getEmployeeDetails',
+                    url: '/Admin/AssignResource/getEmployeeDetails',
                     type: 'POST',
                     datatype: 'application/json',
                     contentType: 'application/json',

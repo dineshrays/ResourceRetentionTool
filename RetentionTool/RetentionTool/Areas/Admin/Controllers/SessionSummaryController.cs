@@ -226,8 +226,8 @@ namespace RetentionTool.Areas.Admin.Controllers
                                           join emp in db.PersonalInfoes
                                          on sessDet.Employee_Id equals emp.Id
                                           where
-                                          !db.RateEmployeeEligiabilities.Any(a=>
-                                          a.IsActive == true && a.IsEligible == true && a.Employee_Id == sessDet.Employee_Id) &&
+                                         // !db.RateEmployeeEligiabilities.Any(a=>
+                                          //a.IsActive == true && a.IsEligible == true && a.Employee_Id == sessDet.Employee_Id) &&
                                            sessDet.IsActive == true &&
                                            sessDet.Sessions_Id==id
                                           select new SessionSummaryList
