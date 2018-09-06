@@ -18,14 +18,14 @@ namespace RetentionTool.Models
         public string employeeRoleName = "Employee";
         public string managerRoleName = "Manager";
         public string internRoleName = "Intern";
-        //public string commonFieldName = "Development";
+        public string commonFieldName = "Development";
         //public string skillName = "Java";
         //public string moduleName = "Java Training";
         //public string topics1 = "OOPs Concepts";
         //public string topics2 = "Exception Handling";
         //public string topics3 = "Swings";
         public string password = "123";
-        public int commonfieldid = 3;
+        //public int commonfieldid = ;
         public string SessionCompletedMsg = "Session Has been Completed Successfully";
         public string EmployeeAbsenceMsg = " is Absent for the Session";
         public string AssignTrainerMsg = " has been Assigned take Session";
@@ -249,26 +249,25 @@ namespace RetentionTool.Models
         }
 
 
-       
-        //public int getDefaultInternRoleId()
-        //{
-        //    Role role = db.Roles.FirstOrDefault(a => a.Name == internRoleName && a.IsActive == true);
-        //    if (role != null)
-        //    {
-        //        return role.Id;
-        //    }
-        //    else
-        //    {
-        //        Role roles = new Role();
-        //        roles.Name = internRoleName;
-        //        roles.IsActive = true;
-        //        roles.EntryDate = DateTime.Now;
-        //        db.Roles.Add(roles);
-        //        db.SaveChanges();
-        //        return roles.Id;
-        //    }
 
-        //}
+        public  long getDefaultPrimarySkillId()
+        {
+            Commonfield commfield = db.Commonfields.FirstOrDefault(a => a.Name == commonFieldName && a.IsActive == true);
+
+            if (commfield != null)
+            {
+                return commfield.id;
+            }
+            else
+            {
+                Commonfield commField = new Commonfield();
+                commField.Name = commonFieldName;
+                commField.IsActive = true;
+
+                return commField.id;
+            }
+
+        }
 
     }
 }

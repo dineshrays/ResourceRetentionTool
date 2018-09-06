@@ -4,65 +4,73 @@
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Index</h2>
+<div class="card">
+    <div class="card-header">
+        <h2>Approve Employee Skills</h2>
 
-<table class="table table-striped">
-    <tr>
-
-        @*<th>@Html.Label("Manager")</th>*@
-        <th>@Html.Label("Employee Name")</th>
-        <th>@Html.Label("Skills")</th>
-        <th>@Html.Label("Approve")</th>
-        <th>@Html.Label("Evaluation")</th>
-        @*<th>@Html.Label("Decline")</th>*@
-        @*<th>@Html.Label("Actions")</th>*@
-
-    </tr>
- 
-    @foreach (var item in Model.skiladd)
+    </div>
+    @if(Model.skiladd.Count>0)
     {
+
+    
+    <table class="table table-striped">
         <tr>
-            @*<td>@item.Manager_Id</td>*@
-            <td>@item.PersonalInfo1.Name</td>
-            <td>@item.Skill.Name</td>
 
+            @*<th>@Html.Label("Manager")</th>*@
+            <th>@Html.Label("Employee Name")</th>
+            <th>@Html.Label("Skills")</th>
+            <th>@Html.Label("Approve")</th>
+            <th>@Html.Label("Evaluation")</th>
+            @*<th>@Html.Label("Decline")</th>*@
+            @*<th>@Html.Label("Actions")</th>*@
 
-            <td style="display:none">
-                <input type="text" value="@item.Id" id="EmpskillAdd_Id" />
-                <input type="text" value="@item.PersonalInfo1.Id" id="EmpId" />
-
-                @*@Html.TextBoxFor(@item.Id, new { @id = "EmpskillAdd_Id" })
-                @Html.TextBoxFor(@item.PersonalInfo.Id, new { @id = "Emp_Id" })*@
-
-
-            </td>
-            <td>
-                @*@if (item.IsPromoted == true)
-                    {
-                        <input style="color:green" />
-                    }*@
-
-                <input type="button" id="Approve" value="Approve" onclick="onclickmethod();" />
-
-            </td>
-            <td>
-                @*<input type="button" id="Evaluation" value="Evaluate" onclick="onclickmethod();" />
-
-                    @Html.ActionLink("ghbjnm", "Evaluates", "ApproveEmpSkills", null, new { @id = @item.Id, area="Manager" })*@
-
-                <a href='@Url.Action("Evaluates1", "ApproveEmpSkills", new {id=@item.Id})'>Evaluate</a>
-
-            </td>
-
-            @*<td><input type="button" value="Decline" /></td>*@
-
-            @*<a href="~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml">~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml</a>*@
         </tr>
+
+        @foreach (var item in Model.skiladd)
+        {
+            <tr>
+                @*<td>@item.Manager_Id</td>*@
+                <td>@item.PersonalInfo1.Name</td>
+                <td>@item.Skill.Name</td>
+
+
+                <td style="display:none">
+                    <input type="text" value="@item.Id" id="EmpskillAdd_Id" />
+                    <input type="text" value="@item.PersonalInfo1.Id" id="EmpId" />
+
+                    @*@Html.TextBoxFor(@item.Id, new { @id = "EmpskillAdd_Id" })
+                        @Html.TextBoxFor(@item.PersonalInfo.Id, new { @id = "Emp_Id" })*@
+
+
+                </td>
+                <td>
+                    @*@if (item.IsPromoted == true)
+                        {
+                            <input style="color:green" />
+                        }*@
+
+                    <input type="button" id="Approve" value="Approve" onclick="onclickmethod();" />
+
+                </td>
+                <td>
+                    @*<input type="button" id="Evaluation" value="Evaluate" onclick="onclickmethod();" />
+
+                        @Html.ActionLink("ghbjnm", "Evaluates", "ApproveEmpSkills", null, new { @id = @item.Id, area="Manager" })*@
+
+                    <a href='@Url.Action("Evaluates1", "ApproveEmpSkills", new {id=@item.Id})'>Evaluate</a>
+
+                </td>
+
+                @*<td><input type="button" value="Decline" /></td>*@
+
+                @*<a href="~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml">~/Areas/Manager/Views/ApproveEmpSkills/Evaluates.cshtml</a>*@
+            </tr>
+        }
+
+    </table>
     }
-
-</table>
-
-<script>
+</div>
+    <script>
     function onclickmethod() {
      //   alert('hdefjd');
 
@@ -86,11 +94,11 @@
                     alert("error");
                 }
             });
-       
+
     }
 
-</script>
+    </script>
 
-<script>
-   
-</script>
+    <script>
+
+    </script>

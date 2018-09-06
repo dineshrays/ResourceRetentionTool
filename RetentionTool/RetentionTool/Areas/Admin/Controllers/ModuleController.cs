@@ -11,6 +11,7 @@ namespace RetentionTool.Areas.Admin.Controllers
     public class ModuleController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: Module
        public ActionResult Index()
         {           
@@ -79,7 +80,8 @@ namespace RetentionTool.Areas.Admin.Controllers
             Module m = new Module();
             ModuleDet m1 = new ModuleDet();
             m.ModuleName = mvm.ModuleName;
-            m.Commonfield_Id = mvm.SelectedCommonFields;
+            m.Commonfield_Id = fetchDet.getDefaultPrimarySkillId();
+                //mvm.SelectedCommonFields;
             m.Skill_Id = mvm.SelectedSkills;
             m.Date = mvm.Date;
             m.IsActive = true;
@@ -130,6 +132,7 @@ namespace RetentionTool.Areas.Admin.Controllers
             obj.module = new ModuleViewModel();
             obj.module.Id = mod.Id;
             obj.module.ModuleName = mod.ModuleName;
+            
             obj.module.CommonField = getCommonFields();
             obj.module.Skill = getSkillsField(Convert.ToInt32(mod.Commonfield_Id));
             obj.module.SelectedCommonFields = mod.Commonfield_Id;
@@ -157,9 +160,10 @@ namespace RetentionTool.Areas.Admin.Controllers
             Module m = new Module()
             {
                 Id = id,
-                ModuleName=mvm.ModuleName,
-                IsActive=true,
-                Commonfield_Id=mvm.SelectedCommonFields,
+                ModuleName = mvm.ModuleName,
+                IsActive = true,
+                Commonfield_Id = fetchDet.getDefaultPrimarySkillId(),
+                ///mvm.SelectedCommonFields,
                 Skill_Id=mvm.SelectedSkills,
                 Date=mvm.Date
             };
