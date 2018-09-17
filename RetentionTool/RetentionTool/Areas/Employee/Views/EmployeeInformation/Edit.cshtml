@@ -42,7 +42,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.EmpCode, new { @id= "EmpCode", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Name, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Name, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Name, new { @id = "Name", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.FatherName, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.FatherName, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.FatherName, new { @id = "FName", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.DOB, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.EditorFor(m => m.PersonalInfoVm.DOB, new { htmlAttributes = new { @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.EditorFor(m => m.PersonalInfoVm.DOB, new { htmlAttributes = new { @id = "DOB", @class = "form-control", style = "width:40%" } })</div><br />
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Gender, new { @id = "Gender", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -88,7 +88,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.PermanentAddress, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.PermanentAddress, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.PermanentAddress, new { @id = "PermntAdd", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.CommunicationAddress, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.CommunicationAddress, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.CommunicationAddress, new { @id = "CommAdd", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
             @*</div>*@
@@ -108,7 +108,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Contact, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Contact, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Contact, new { @id = "Contact", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -117,7 +117,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Qualification, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Qualification, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Qualification, new { @id = "Qualification", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -126,7 +126,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Email, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Email, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Email, new { @id = "Email", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -135,7 +135,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.PanNo, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.PanNo, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.PanNo, new { @id = "PanNo", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -144,7 +144,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.AadharNo, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.AadharNo, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.AadharNo, new { @id = "AadharNo", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -153,10 +153,10 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.BloodGroup, new { @id = "BloodGroup", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
-            <input type="file" id="uploadEditorImage" enctype="multipart/form-data" />
+            @*<input type="file" id="uploadEditorImage" enctype="multipart/form-data" />
 
             <script>
          $(function () {
@@ -169,7 +169,8 @@
                  fileValue = data;
                //  alert(fileValue);
                  $.ajax({
-                     url: '@Url.Action("Index", "EmployeeInformation")',
+                     url:"/Employee/EmployeeInformation/Index",
+                         //'@Url.Action("Index", "EmployeeInformation")',
                      type: "POST",
                      processData: false,
                      async: false,
@@ -189,7 +190,7 @@
                  });
              });
          });
-            </script>
+            </script>*@
 
 
         </div>
@@ -209,7 +210,7 @@
                 <thead>
                     <tr>
                         <th>Select</th>
-                        <th> Degree</th>
+                        <th>Degree</th>
                         <th>Board</th>
                         <th>Year Of Passing</th>
                         <th>Percentage</th>
@@ -757,13 +758,12 @@
                 </div>
             </div>
 
-            <input id="btnSave" type="submit" value="Edit" class="btn btn-success" />
+            <input id="btnEdit" type="submit" value="Edit" class="btn btn-success" />
 
             <script type="text/javascript">
-
-                $("#btnSave").click(function () {
-                     // debugger;
-
+             $(function () {
+                 $("#btnEdit").click(function () {
+                    
                     var EmpCode = $("#EmpCode").val();
                     var Name = $("#Name").val();
                     var FName = $("#FName").val();
@@ -889,7 +889,8 @@
 
                     $.ajax({
 
-                        url: '@Url.Action("Create", "EmployeeInformation")',  //'/EmployeeInformation/CreateEmployee',
+                        url: '/Employee/EmployeeInformation/Create',
+                            @*'@Url.Action("Create", "EmployeeInformation")',*@ 
                         dataType: "json",
                         data: JSON.stringify({path:filepath, personalInfo: mod, eductionQualifi: itemlist1, exper: itemlist2, empSkill: itemlist3, projectWorked: mod4, currentInfo: mod5 }),
                         type: 'POST',
@@ -905,8 +906,9 @@
                         }
                     });
                 });
-
+              });
             </script>
+            
         </div>
     </div>
 

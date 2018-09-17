@@ -17,9 +17,11 @@ namespace RetentionTool.Models
         public string Status { get; set; }
         public Nullable<bool> IsActive { get; set; }
 
+        public string Skills { get; set; }
+
         public IEnumerable<SelectListItem> CommonField { get; set; }
         public Nullable<long> SelectedCommonFields { get; set; }
-        public IEnumerable<SelectListItem> Skills { get; set; }
+       // public IEnumerable<SelectListItem> Skills { get; set; }
         public Nullable<long> SelectedSkills { get; set; }
 
         public virtual Commonfield Commonfield { get; set; }

@@ -177,10 +177,11 @@
 
         var assresid = id;
 
-        $(".modal-body").html("");
+        //$(".modal-body").html("");
+        $(".modal-body p").remove();
         $.ajax(
             {
-                url: '/Trainer/RateEmployee/EmpDetails',
+                url: "/Trainer/RateEmployee/EmpDetails",
                 type: 'POST',
                 datatype: 'application/json',
                 contentType: 'application/json',

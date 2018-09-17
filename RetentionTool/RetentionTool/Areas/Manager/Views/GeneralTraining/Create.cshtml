@@ -175,7 +175,8 @@
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
                // alert(mod);
                 $.ajax({
-                    url: '@Url.Action("Create", "GeneralTraining")', //
+                    url:"/Manager/GeneralTraining/Create",
+                        @*'@Url.Action("Create", "GeneralTraining")',*@ 
                     dataType: "json",
                     data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
                     type: "POST",
@@ -305,7 +306,7 @@
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
                 $.ajax({
-                    url: "/GeneralTraining/getEmployee",
+                    url: "/Manager/GeneralTraining/getEmployee",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
