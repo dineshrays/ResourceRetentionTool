@@ -235,11 +235,13 @@ namespace RetentionTool.Areas.Admin.Controllers
         }
         public void getTrainers()
         {
+            int trainerroleid = fetchdet.getDefaultTrainerRoleId();
             var data = (from personalInfo in db.PersonalInfoes
                         join
-trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
-                        //join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
-                        where personalInfo.IsActive == true && trainer.IsActive == true
+//trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
+                         userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                        where personalInfo.IsActive == true && userdet.IsActive == true 
+                        && userdet.Role_Id==trainerroleid
                         //&& 
                         select new
                         {
@@ -252,20 +254,9 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
         }
         public void getManagers()
         {
-
-            int managerroleid = fetchdet.getDefaultManagerRoleId();
-            var val = (from personalInfo in db.PersonalInfoes
-
-                       join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
-                       where personalInfo.IsActive == true && userdet.IsActive == true
-                       && userdet.Role_Id == managerroleid
-                       select new
-                       {
-                           Id = personalInfo.Id,
-                           Name = personalInfo.Name
-                       }).ToList();
-
+            var val = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
             ViewData["managerslist"] = val;
+           
         }
 
         public ActionResult getEmployeeDetails(int moduleid)

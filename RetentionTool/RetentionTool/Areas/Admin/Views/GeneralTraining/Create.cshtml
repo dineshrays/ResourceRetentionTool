@@ -24,7 +24,7 @@
     <div class="card-body card-block">
         @*@using (Html.BeginForm())
 
-            {*@
+        {*@
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.Date, new { @class = " form-control-label" })
@@ -56,10 +56,11 @@
         <br />
         <div class="row form-group">
             <div class="col col-md-3">
-                @Html.LabelFor(m => m.managername, new { @class = " form-control-label" })
+                @Html.Label("Manager Name", new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
                 @Html.DropDownListFor(m => m.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control", @id = "managerid", style = "width:30%" })
+
             </div>
         </div>
         <br />
@@ -68,7 +69,7 @@
                 @Html.LabelFor(m => m.modulename, new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.Module_Id, ViewData["moduleslist"] as SelectList, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+                @Html.DropDownListFor(m => m.Module_Id, ViewData["moduleslist"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
             </div>
 
 
@@ -305,7 +306,7 @@
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
                 $.ajax({
-                    url: "/GeneralTraining/getEmployee",
+                    url: "/Admin/GeneralTraining/getEmployee",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",

@@ -260,7 +260,18 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
         public void getManagers()
         {
 
-            var val = new SelectList(db.PersonalInfoes.ToList(), "id", "Name");
+            int managerroleid = fetchdet.getDefaultManagerRoleId();
+            var val = (from personalInfo in db.PersonalInfoes
+
+                       join userdet in db.UserDetails on personalInfo.Id equals userdet.Emp_Id
+                       where personalInfo.IsActive == true && userdet.IsActive == true
+                       && userdet.Role_Id == managerroleid
+                       select new
+                       {
+                           Id = personalInfo.Id,
+                           Name = personalInfo.Name
+                       }).ToList();
+
             ViewData["managerslist"] = val;
         }
 
