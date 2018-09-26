@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @*<!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+        <!-- plugins:css -->
+        <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+        <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
+        <!-- endinject -->
+        <!-- plugin css for this page -->
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="css/style.css">
+        <!-- endinject -->
+        <link rel="shortcut icon" href="images/favicon.png" />*@
+
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Scripts/Manager_Layout/vendors/lightgallery/css/lg-fb-comment-box.min.css" rel="stylesheet" />
+    <link href="~/Scripts/Manager_Layout/vendors/lightgallery/css/lightgallery.min.css" rel="stylesheet" />
+    <link href="~/Scripts/Manager_Layout/vendors/lightgallery/css/lightgallery.css" rel="stylesheet" />
+    <link href="~/Scripts/Manager_Layout/vendors/lightgallery/css/lg-transitions.min.css" rel="stylesheet" />
+    <link href="~/Scripts/Manager_Layout/vendors/lightgallery/css/lg-transitions.css" rel="stylesheet" />
+    <link href="~/Scripts/Manager_Layout/vendors/lightgallery/css/lg-fb-comment-box.css" rel="stylesheet" />
+    <link href="~/Scripts/assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
+    <link href="~/Scripts/Manager_Layout/vendors/css/vendor.bundle.base.css" rel="stylesheet" />
+    <link href="~/Scripts/Manager_Layout/vendors/css/vendor.bundle.addons.css" rel="stylesheet" />
+    <link href="~/Scripts/Manager_Layout/css/style.css" rel="stylesheet" />
+    <script src="~/Scripts/Manager_Layout/vendors/js/vendor.bundle.addons.js"></script>
+    <script src="~/Scripts/Manager_Layout/vendors/js/vendor.bundle.base.js"></script>
+
+    @*<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link href="~/Scripts/assets/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/Scripts/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Scripts/assets/css/cs-skin-elastic.css" rel="stylesheet" />
+        <link href="~/Scripts/assets/css/font-awesome.min.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="~/Scripts/assets/css/themify-icons.css">
+        <link href="~/Scripts/assets/css/normalize.css" rel="stylesheet" />
+
+        <link href="~/Scripts/assets/css/style.css" rel="stylesheet" />
+
+        <script src="~/Scripts/assets/js/vendor/modernizr-2.8.3.min.js"></script>*@
+
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+                <a class="navbar-brand brand-logo" href="index.html">
+                    <img src="images/logo.svg" alt="logo" />
+                </a>
+                <a class="navbar-brand brand-logo-mini" href="index.html">
+                    <img src="images/logo-mini.svg" alt="logo" />
+                </a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center">
+                <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Schedule
+                            <span class="badge badge-primary ml-1">New</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link">
+                            <i class="mdi mdi-elevation-rise"></i>Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="mdi mdi-bookmark-plus-outline"></i>Score
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <i class="mdi mdi-file-document-box"></i>
+                            <span class="count">7</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                            <div class="dropdown-item">
+                                <p class="mb-0 font-weight-normal float-left">
+                                    You have 7 unread mails
+                                </p>
+                                <span class="badge badge-info badge-pill float-right">View all</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-medium text-dark">
+                                        David Grey
+                                        <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                                    </h6>
+                                    <p class="font-weight-light small-text">
+                                        The meeting is cancelled
+                                    </p>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-medium text-dark">
+                                        Tim Cook
+                                        <span class="float-right font-weight-light small-text">15 Minutes ago</span>
+                                    </h6>
+                                    <p class="font-weight-light small-text">
+                                        New product launch
+                                    </p>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                                </div>
+                                <div class="preview-item-content flex-grow">
+                                    <h6 class="preview-subject ellipsis font-weight-medium text-dark">
+                                        Johnson
+                                        <span class="float-right font-weight-light small-text">18 Minutes ago</span>
+                                    </h6>
+                                    <p class="font-weight-light small-text">
+                                        Upcoming board meeting
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                            <i class="mdi mdi-bell"></i>
+                            <span class="count">4</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                            <a class="dropdown-item">
+                                <p class="mb-0 font-weight-normal float-left">
+                                    You have 4 new notifications
+                                </p>
+                                <span class="badge badge-pill badge-warning float-right">View all</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-success">
+                                        <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-medium text-dark">Application Error</h6>
+                                    <p class="font-weight-light small-text">
+                                        Just now
+                                    </p>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-warning">
+                                        <i class="mdi mdi-comment-text-outline mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-medium text-dark">Settings</h6>
+                                    <p class="font-weight-light small-text">
+                                        Private message
+                                    </p>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-info">
+                                        <i class="mdi mdi-email-outline mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-medium text-dark">New user registration</h6>
+                                    <p class="font-weight-light small-text">
+                                        2 days ago
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown d-none d-xl-inline-block">
+                        <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <span class="profile-text">Hello, Richard V.Welsh !</span>
+                            <img class="img-xs rounded-circle" src="images/faces/face1.jpg" alt="Profile image">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                            <a class="dropdown-item p-0">
+                                <div class="d-flex border-bottom">
+                                    <div class="py-3 px-4 d-flex align-items-center justify-content-center">
+                                        <i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
+                                    </div>
+                                    <div class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
+                                        <i class="mdi mdi-account-outline mr-0 text-gray"></i>
+                                    </div>
+                                    <div class="py-3 px-4 d-flex align-items-center justify-content-center">
+                                        <i class="mdi mdi-alarm-check mr-0 text-gray"></i>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item mt-2">
+                                Manage Accounts
+                            </a>
+                            <a class="dropdown-item">
+                                Change Password
+                            </a>
+                            <a class="dropdown-item">
+                                Check Inbox
+                            </a>
+                            <a class="dropdown-item">
+                                Sign Out
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <div id="main-menu" class="main-menu collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="@Url.Action("Index","ProjectWorked")">Assign Team Members</a></li>
+                        <li><a href="@Url.Action("Index", "SearchEmpSkill")">Search Based on Skills</a></li>
+                        <li><a href="@Url.Action("Index", "CriticalResource")"> Critical Resource</a></li>
+                        <li><a href="@Url.Action("Index", "AssignResource")">Create Backup</a></li>
+                        <li><a href="@Url.Action("Index", "PromoteEmployee")">Promote Employee</a></li>
+                        <li><a href="@Url.Action("Index", "GeneralTraining")">Plan Training</a></li>
+                        <li><a href="@Url.Action( "Index","AssignEvaluater")">Assign Evaluater</a></li>
+                        <li><a href="@Url.Action("Index","ApproveEmpSkills")">ApproveEmpSkills</a></li>
+
+                    </ul>
+
+                </div>               
+            </nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <header id="header" class="header">
+                        <div class="header-menu">
+                            <div class="col-sm-7">
+                                <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                                <div class="header-left">
+                                    @if (int.Parse(Session["Notifict"].ToString()) > 0)
+                                    {
+                                        <div class="dropdown for-notification">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" onclick="myfunction(@Session["uid"]);" aria-expanded="false">
+                                                <i class="fa fa-bell"></i>
+                                                <span class="count bg-danger"> @Session["Notifict"] </span>
+                                            </button>
+                                            <div class="dropdown-menu bg-flat-color-1" id="notifi" aria-labelledby="notification">
+                                                <p class="red">You have @Session["Notifict"]  Notification</p>                                               
+                                                <p id="disablenotification" style="display:block">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="dropdown for-notification">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" onclick="myfunction(@Session["uid"]);" aria-expanded="false">
+                                                <i class="fa fa-bell"></i>
+                                                <span class="count bg-danger"> @Session["Notifict"] </span>
+                                            </button>                                            
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="user-area dropdown float-right">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img class="user-avatar rounded-circle" src='@Session["userpath"].ToString()' alt="User Image" height="32px" width="30px">
+                                    </a>
+                                    <div class="user-menu dropdown-menu">
+                                        <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                                        @*<a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>*@
+                                        <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                                        <a class="nav-link" href='@Url.Action("Index","Login",new {area=""})'><i class="fa fa-power -off"></i>Logout</a>
+                                    </div>
+                                </div>
+                                <div class="language-select dropdown" id="language-select">
+                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+                                        <i class="flag-icon flag-icon-us"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="language">
+                                        <div class="dropdown-item">
+                                            <span class="flag-icon flag-icon-fr"></span>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <i class="flag-icon flag-icon-es"></i>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <i class="flag-icon flag-icon-us"></i>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <i class="flag-icon flag-icon-it"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="container-fluid clearfix">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
+                            Copyright © 2018
+                            <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.
+                        </span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+                            Hand-crafted & made with
+                            <i class="mdi mdi-heart text-danger"></i>
+                        </span>
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <script src="vendors/js/vendor.bundle.addons.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="js/off-canvas.js"></script>
+    <script src="js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="js/dashboard.js"></script>
+    <!-- End custom js for this page-->
+</body>
+
+</html>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+@*<script src="https://popper.js.org"></script>*@
+<script>
+
+    function myfunction(id) {
+    
+        $.ajax(
+            {
+                url: '/Manager/SearchEmpSkill/getNotifications',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({ userid: id }),
+                success: function (result) {
+                    //  alert(result);
+                    $("#notifi").empty();
+                    var markup = "<p class='red'>You have @Session["Notifict"]  Notification</p>";
+
+                    $("#notifi").append(markup);
+                    $.each(result, function (i, notif) {
+                        //alert('insuccess') Name
+                        if (i < 2) {
+                          
+                            var markup = "<a class='dropdown-item media' style='background-color:#b3bdce' href='#' onclick='viewmore(" + notif.Id + "," + notif.type + ")'><i class='fa fa-check'></i><h6>" + notif.Message + "</h6></a><p class='dropdown-item media' style='background-color:#b3bdce'>" + notif.subMessage + "</p>";
+                           
+                            $("#notifi").append(markup);
+                        }
+                        else if (i == 2) {
+                            var markup = "<a class='dropdown-item media' style='background-color:#b3bdce' href='@Url.Action("Notification", "SearchEmpSkill", new { userid = Session["uid"]})'>View More</a>";
+                       $("#notifi").append(markup);
+                        }
+                        else if (i > 2) {
+                          
+                        }
+
+                       
+                    });
+                },
+                error: function () { alert("Something Gone Wrong") },
+            });
+    }
+    function viewmore(id,type) {
+      
+           var newUrl= '/Manager/SearchEmpSkill/Index';
+           $.ajax(
+            {
+                   url: '/Manager/SearchEmpSkill/Notif',
+                type: 'POST',
+                datatype: 'application/json',
+                   contentType: 'application/json',
+                   data: JSON.stringify({ notificationid: id, type: type }),
+                   success: function (result) {
+                       window.location.href = newUrl;
+
+                },
+                error: function () { alert("Something Gone Wrong") },
+            });
+      
+    }
+</script>
