@@ -7,51 +7,71 @@
 
 @using (Html.BeginForm())
 {
-    <div class="card">
-        <div class="card-header">
-
-            <h2>Delete Assign Evaluater</h2>
-        </div>
-        <div class="card-body card-block">
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.Label("Project Name")</div>
-
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Delete Assign Evaluater</h1>
                 </div>
-                <div class="col-12 col-md-9">
-                    <div class="col-12 col-md-9">
-                        @Html.HiddenFor(m => m.Id)
-                        @Html.DisplayTextFor(m => m.AssignResource.ProjectsDetail.Name)
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        <li><a href="#">Modules /</a></li>
+                        <li><a href="@Url.Action("Index", "AssignEvaluater")"> Assign Evaluater /</a></li>
+                        <li class="active"> Delete  </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="card">
+            @*<div class="card-header">
+
+                    <h2>Delete Assign Evaluater</h2>
+                </div>*@
+            <div class="card-body card-block">
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.Label("Project Name")</div>
 
                     </div>
-                    <br />
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.Label("Trainer Name")</div>
-
-                </div>
-                <div class="col-12 col-md-9">
                     <div class="col-12 col-md-9">
-                        @Html.DisplayTextFor(m=>m.Trainer.PersonalInfo.Name)
-                       
+                        <div class="col-12 col-md-9">
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.DisplayTextFor(m => m.AssignResource.ProjectsDetail.Name)
+
+                        </div>
+                        <br />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <div>@Html.Label("Trainer Name")</div>
 
                     </div>
-               
+                    <div class="col-12 col-md-9">
+                        <div class="col-12 col-md-9">
+                            @Html.DisplayTextFor(m => m.Trainer.PersonalInfo.Name)
+
+
+                        </div>
+
+                    </div>
                 </div>
-            </div>
 
-            <br />
+                <br />
 
-            <div class="card-body">
-                <input type="submit" value="Delete" class="btn btn-danger" /> @Html.ActionLink("Back to List", "Index")
+                <div class="card-body">
+                    <input type="submit" value="Delete" class="btn btn-danger" /> @Html.ActionLink("Back to List", "Index")
+                </div>
+
             </div>
 
         </div>
-
-    </div>
-}
+        }
 
 
 
