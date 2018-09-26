@@ -6,7 +6,26 @@
 }
 @using (Html.BeginForm())
 {
-
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Delete Critical Resource</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        <li><a href="#">Modules /</a></li>
+                        <li><a href="@Url.Action("Index", "CriticalResource")">Projects List /</a></li>
+                        <li class="active"> Delete </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card-body card-block">
         <div class="row form-group">
             <div class="col-md-3">
@@ -44,20 +63,20 @@
                             @{ bool IsCriticalRes = false;
 
                             }
-                           
+
                             @if (ViewBag.CriticalRes.PersonalInfo_Id == item.PersonalInfo1.Id)
                             {
                                 IsCriticalRes = true;
                                 criticalId = ViewBag.CriticalRes.Id;
                             }
-                            
+
                             @if (IsCriticalRes == true)
                             {
-                                <input type="radio" @*"checkbox"*@ name="critical" class="chck" checked disabled="disabled"  />
+                                <input type="radio" @*"checkbox"*@ name="critical" class="chck" checked disabled="disabled" />
                             }
                             else
                             {
-                                <input type="radio" @*"checkbox"*@ name="critical" class="chck" disabled="disabled"  />
+                                <input type="radio" @*"checkbox"*@ name="critical" class="chck" disabled="disabled" />
                             }
 
                         </td>
@@ -94,10 +113,10 @@
             <br />
             <div id="accountinfo">
                 @*<div class="row form-group">
-                    <input class="form-control" style="width:30%" id="reporting" placeholder="reporting" />
-                    <input id="Information" placeholder="Information" />
-                    <input type="button" value="Add" class="add-accountability" />
-                </div>*@
+                        <input class="form-control" style="width:30%" id="reporting" placeholder="reporting" />
+                        <input id="Information" placeholder="Information" />
+                        <input type="button" value="Add" class="add-accountability" />
+                    </div>*@
                 <h4>Responsibilities</h4>
                 <br />
                 <table class="table table-striped" id="table-accountability" style="width:100%">
@@ -117,7 +136,7 @@
                     }
 
                 </table>
-                
+
 
                 <br />
                 @*<button type="button" class="del-accountability">Delete</button>*@

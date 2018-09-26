@@ -9,12 +9,31 @@
 @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Create Project Team Members</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="#">Modules /</a></li>
+                    <li><a href="@Url.Action("Index", "ProjectWorked")">Project Team Members /</a></li>
+                    <li class="active"> Create </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
-    <div class="card-header">
+    @*<div class="card-header">
         <h2>Assign Team Members</h2>
 
-    </div>
+    </div>*@
     <div class="card-body card-block">
         <div class="row form-group">
             <div class="col-md-3">
@@ -47,7 +66,7 @@
 
             </div>
             <div class="col-12 col-md-9">
-                @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
+                @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%"} })
 
             </div>
 
@@ -113,7 +132,7 @@
         </div>
 
         <br />
-        <div>
+        <div id="tblDiv" style="display:none">
 
             <table id="myTable" class="table table-striped" style="width:50%">
                 <tr>
@@ -153,7 +172,9 @@
 <script>
     var empid = [];
     $("#btnSave").click(function () {
-
+        //$("#btnSave")
+        $("#btnSave").attr("disabled", true);
+        alert('hello')
         var itemlist = [];
         var projectid = $("#projectid").val();
       
@@ -212,6 +233,8 @@
             });
 
     $(".add-emp").click(function () {
+        $("#tblDiv").show();
+            //attr('style', 'display:block');
         var empcode = $("#searchemp").val();
         var empid = $("#searchid").val();
         var empname = $("#searchname").val();
@@ -254,6 +277,7 @@
 
 </script>
 <script>
+ 
     $(function () {
         $("#searchemp").autocomplete({
             source: function (request, response) {

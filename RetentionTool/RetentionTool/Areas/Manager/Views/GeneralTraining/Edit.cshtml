@@ -11,12 +11,32 @@
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Edit Plan Training</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="#">Modules /</a></li>
+                    <li><a href="@Url.Action("Index", "GeneralTraining")">Plan Training /</a></li>
+                    <li class="active"> Edit </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
 
-    <div class="card-header">
+    @*<div class="card-header">
 
-        <h2>Edit Training </h2>
-    </div>
+            <h2>Edit Training </h2>
+        </div>*@
     @*@using (Html.BeginForm())
 
         {*@
@@ -56,7 +76,7 @@
                 @Html.HiddenFor(m => m.assignResource.Project_Id, new { @id = "Project_Id" })
                 @Html.DisplayFor(m => m.assignResource.projectname)
                 @*<input class="form-control" style="width:30%" id="searchproject" value=@Model.assignResource.projectname />
-                <input id="searchprojectid" style="display:none" />*@
+                    <input id="searchprojectid" style="display:none" />*@
             </div>
         </div>
 
@@ -86,7 +106,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.DropDownListFor(m => m.assignResource.Module_Id, ViewData["moduleslist"] as  IEnumerable< SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+                @Html.DropDownListFor(m => m.assignResource.Module_Id, ViewData["moduleslist"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
 
 
             </div>

@@ -8,10 +8,32 @@
 <script src="~/Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
 
 
-<div class="card">
-    <div class="card-header">
-        <h2>Project Team Members</h2>
 
+<div class="card">
+    @*<div class="card-header">
+            <h2>Project Team Members</h2>
+
+        </div>*@
+
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Project Team Members</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        <li><a href="#">Modules /</a></li>
+                        <li><a href="@Url.Action("Index", "ProjectWorked")">Project Team Members /</a></li>
+                        <li class="active"> Index </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         @Html.ActionLink("Create New", "Create", "ProjectWorked", null, new { @class = "btn btn-outline-primary" })
@@ -148,84 +170,84 @@
 
         </div>
     }
-  
-    </div>
-    @*<style>
-            /* Popup container - can be anything you want */
-            .popup {
-                position: relative;
-                display: inline-block;
-                cursor: pointer;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
+
+</div>
+@*<style>
+        /* Popup container - can be anything you want */
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            /* The actual popup */
+            .popup .popuptext {
+                visibility: hidden;
+                width: 160px;
+                background-color: #fff;
+                color: #555;
+                text-align: center;
+                border-radius: 6px;
+                padding: 8px 0;
+                position: absolute;
+                z-index: 1;
+                bottom: 125%;
+                left: 50%;
+                margin-left: -80px;
+                font-size: 1rem
             }
 
-                /* The actual popup */
-                .popup .popuptext {
-                    visibility: hidden;
-                    width: 160px;
-                    background-color: #fff;
-                    color: #555;
-                    text-align: center;
-                    border-radius: 6px;
-                    padding: 8px 0;
+                /* Popup arrow */
+                .popup .popuptext::after {
+                    content: "";
                     position: absolute;
-                    z-index: 1;
-                    bottom: 125%;
+                    top: 100%;
                     left: 50%;
-                    margin-left: -80px;
-                    font-size: 1rem
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: #555 transparent transparent transparent;
                 }
 
-                    /* Popup arrow */
-                    .popup .popuptext::after {
-                        content: "";
-                        position: absolute;
-                        top: 100%;
-                        left: 50%;
-                        margin-left: -5px;
-                        border-width: 5px;
-                        border-style: solid;
-                        border-color: #555 transparent transparent transparent;
-                    }
+            /* Toggle this class - hide and show the popup */
+            .popup .show {
+                visibility: visible;
+                -webkit-animation: fadeIn 1s;
+                animation: fadeIn 1s;
+            }
+    </style>*@
 
-                /* Toggle this class - hide and show the popup */
-                .popup .show {
-                    visibility: visible;
-                    -webkit-animation: fadeIn 1s;
-                    animation: fadeIn 1s;
+
+<script>
+    // When the user clicks on div, open the popup
+    function myFunction(id) {
+
+        var prjctid = id;
+
+        $(".modal-body p").html("");
+        $.ajax(
+            {
+                url: '/Manager/ProjectWorked/EmpDetails',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({ projectid: prjctid }),
+                success: function (result) {
+                    $.each(result, function (i, empname) {
+                        $(".modal-body").append("<p style='font-size:14px'>" + empname.Name + "</p>")
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
                 }
-        </style>*@
+            });
 
-
-    <script>
-        // When the user clicks on div, open the popup
-        function myFunction(id) {
-
-            var prjctid = id;
-
-            $(".modal-body p").html("");
-            $.ajax(
-                {
-                    url: '/Manager/ProjectWorked/EmpDetails',
-                    type: 'POST',
-                    datatype: 'application/json',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ projectid: prjctid }),
-                    success: function (result) {
-                        $.each(result, function (i, empname) {
-                            $(".modal-body").append("<p style='font-size:14px'>" + empname.Name + "</p>")
-                        });
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-
-        }
-    </script>
+    }
+</script>

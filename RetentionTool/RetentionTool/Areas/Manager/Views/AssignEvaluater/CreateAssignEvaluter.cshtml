@@ -6,77 +6,96 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<div class="card">
-    <div class="card-header">
-
-        <h2>Create Assign Evaluater</h2>
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Create Assign Evaluater</h1>
+            </div>
+        </div>
     </div>
-    <div class="card-body card-block">
-
-        <div class="row form-group">
-            <div class="col col-md-3">
-                <div>
-                    @Html.HiddenFor(m => m.AssignResource_Id, new { @id = "assresid" })
-
-                    <input type="radio" value="employee" name="type" class="chckEmp" checked />Employee
-                </div>
-
-            </div>
-            <div class="col-12 col-md-9">
-                <div class="col-12 col-md-9">
-                    <input type="radio" value="trainer" name="type" class="chckTrain" />Trainer
-                   
-                </div>
-                <br />
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="#">Modules /</a></li>
+                    <li><a href="@Url.Action("Index", "AssignEvaluater")"> Assign Evaluater /</a></li>
+                    <li class="active"> Create  </li>
+                </ol>
             </div>
         </div>
-        <div class="row form-group" id="trainerview" style="display:none">
-            <div class="col col-md-3">
-                <div>@Html.Label("Trainer Name")</div>
+    </div>
+    </div>
+    <div class="card">
+        @*<div class="card-header">
 
-            </div>
-            <div class="col-12 col-md-9">
-                <div class="col-12 col-md-9">
-                    @*@Html.HiddenFor(m => m.AssignResource_Id)*@
-                    @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control",@id="trainerid", style = "width:30%" })
+            <h2>Create Assign Evaluater</h2>
+        </div>*@
+        <div class="card-body card-block">
 
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <div>
+                        @Html.HiddenFor(m => m.AssignResource_Id, new { @id = "assresid" })
 
-                </div>
-                <br />
-            </div>
-        </div>
-
-        <div class="row form-group" id="employeeview" >
-            <div class="col col-md-3">
-                <div>@Html.Label("Employee Name")</div>
-
-            </div>
-            <div class="col-12 col-md-9">
-                <div class="col-12 col-md-9">
-                    @Html.HiddenFor(m => m.AssignResource_Id)
-                    <input class="form-control" style="width:30%" id="searchemp" />
-                    <input id="searchid" style="display:none" />
-                    @*@Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })*@
-
+                        <input type="radio" value="employee" name="type" class="chckEmp" checked />Employee
+                    </div>
 
                 </div>
-                <br />
-            </div>
-        </div>
+                <div class="col-12 col-md-9">
+                    <div class="col-12 col-md-9">
+                        <input type="radio" value="trainer" name="type" class="chckTrain" />Trainer
 
-        <br />
-        @*@using (Html.BeginForm("Create", "AssignEvaluater"))
-        {*@
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="row form-group" id="trainerview" style="display:none">
+                <div class="col col-md-3">
+                    <div>@Html.Label("Trainer Name")</div>
+
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="col-12 col-md-9">
+                        @*@Html.HiddenFor(m => m.AssignResource_Id)*@
+                        @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
+
+
+                    </div>
+                    <br />
+                </div>
+            </div>
+
+            <div class="row form-group" id="employeeview">
+                <div class="col col-md-3">
+                    <div>@Html.Label("Employee Name")</div>
+
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="col-12 col-md-9">
+                        @Html.HiddenFor(m => m.AssignResource_Id)
+                        <input class="form-control" style="width:30%" id="searchemp" />
+                        <input id="searchid" style="display:none" />
+                        @*@Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })*@
+
+
+                    </div>
+                    <br />
+                </div>
+            </div>
+
+            <br />
+            @*@using (Html.BeginForm("Create", "AssignEvaluater"))
+                {*@
             <div class="card-body">
                 <input type="submit" value="Create" id="btnSave" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
             </div>
-        @*}*@
+            @*}*@
+        </div>
+
     </div>
 
-</div>
-
-<script>
+    <script>
     $(function () {
         $("#btnSave").click(function () {
             var isEmp;
@@ -97,7 +116,7 @@
                 var newUrl= '@Url.Action("Index", "AssignEvaluater")';
 
             var mod = { AssignResource_Id: assresid, Trainer_Id: trainerid };
-               
+
                 $.ajax({
                     url: '@Url.Action("Create", "AssignEvaluater")', //
                     dataType: "json",
@@ -105,7 +124,7 @@
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
-                       
+
                         window.location.href = newUrl;
                     },
                     error: function (xhr) {
@@ -169,4 +188,4 @@
             });
     });
     //trainerview
-</script>
+    </script>
