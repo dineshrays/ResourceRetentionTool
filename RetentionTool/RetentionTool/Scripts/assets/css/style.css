@@ -10,6 +10,18 @@
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * Tags: html, themplate, Sufee-Admin
 --------------------------------------------------------- */
+h1 {
+    font-size: 18px;
+    padding: 15px 0;
+}
+.breadcrumbs {
+    background-color: #fff;
+    display: inline-block;
+    margin-top: 0;
+    padding: 0 5px;
+    width: 100%;
+}
+
 .bg-flat-color-1 {
   background: #20a8d8; }
 
@@ -356,13 +368,15 @@ body.open .navbar .navbar-brand.hidden {
   -o-transition: all .35s ease;
   transition: all .35s ease; }
 
-.right-panel header.header {
-  background: #fff;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-  clear: both;
-  display: inline-block;
-  padding: 15px 20px 13px 20px;
-  width: 100%; }
+    .right-panel header.header {
+        background: #fff;
+        
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+        clear: both;
+        display: inline-block;
+        padding: 15px 20px 13px 20px;
+        width: 100%;
+    }
 
 .open .right-panel {
   margin-left: -210px; }
@@ -375,16 +389,18 @@ header.fixed-top {
   position: inherit; }
 
 .menutoggle {
-  background: #e74c3c;
-  border-radius: 50%;
-  color: #fff !important;
-  cursor: pointer;
-  font-size: 18px;
-  height: 43px;
-  line-height: 44px;
-  margin: -2px 20px 0 -57px;
-  text-align: center;
-  width: 43px; }
+    background: #e74c3c;
+    /*#004085*/
+    border-radius: 50%;
+    color: #fff !important;
+    cursor: pointer;
+    font-size: 18px;
+    height: 43px;
+    line-height: 44px;
+    margin: -2px 20px 0 -57px;
+    text-align: center;
+    width: 43px;
+}
 
 .open .menutoggle i:before {
   content: "\f0a4"; }
@@ -430,14 +446,15 @@ header .form-inline {
       border-color: rgba(0, 0, 0, 0.125);
       outline: 0; }
     header .form-inline .search-form button {
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 16px;
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      margin-top: -14px !important; }
+        background: transparent;
+        border: none;
+        color: #69f;
+        font-size: 16px;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        margin-top: -14px !important;
+    }
     header .form-inline .search-form button:active,
     header .form-inline .search-form button:focus,
     header .form-inline .search-form button:visited,
