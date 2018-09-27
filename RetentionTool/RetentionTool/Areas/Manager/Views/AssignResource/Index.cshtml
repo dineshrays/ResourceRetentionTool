@@ -18,7 +18,7 @@
         <div class="page-header float-right">
             <div class="page-title">
                 <ol class="breadcrumb text-right" style="background-color:white">
-                    <li><a href="#">Modules /</a></li>
+                    <li><a href="@Url.Action("Index", "ManagerHome")">Dashboard /</a></li>
                     <li><a href="@Url.Action("Index", "AssignResource")"> Backups /</a></li>
                     <li class="active"> Index </li>
                 </ol>
@@ -108,10 +108,10 @@
 
         </div>
     }
-    else
+    @*else
     {
         <div class="card-body" style="color:red;"><b>No Record Found</b></div>
-    }
+    }*@
     </div>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <style>
