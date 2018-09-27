@@ -81,7 +81,7 @@ namespace RetentionTool.Controllers
                 else if (managerRoleid == userResult.Role_Id)
                 {
                  
-                    return RedirectToAction("Index", "ProjectWorked", new { Area = "Manager" });
+                    return RedirectToAction("Index", "ManagerHome", new { Area = "Manager" });
 
                 }
                 else if (adminRoleid == userResult.Role_Id)
