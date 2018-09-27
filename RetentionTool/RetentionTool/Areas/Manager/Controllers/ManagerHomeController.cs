@@ -19,15 +19,17 @@ namespace RetentionTool.Areas.Manager.Controllers
             var backupcount = 0;
             var assignevalcount = 0;
             var plantrainingcount = 0;
-            projectworkcount = db.ProjectsWorkeds.Where(a => a.Manager_Id == managerid && a.IsActive == true).Count();
+            projectworkcount = db.ProjectsWorkeds.Where(a => a.Manager_Id == managerid && a.IsActive == true).GroupBy(p => p.Project_Id).Count();
+                //.Count();
+            //.GroupBy(p => p.Project_Id).Select(grp => grp.FirstOrDefault());
             Session["projectworkcount"] = projectworkcount;
             int projectid = fetchdet.getDefaultProjectId();
             backupcount = (from assignres in db.AssignResources
                            where assignres.IsActive == true && assignres.Project_Id != projectid
-                          
+                          && assignres.Manager_Id == managerid
                          && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.
                         Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
-                         && assignres.Manager_Id == managerid select assignres).Count();
+                          select assignres).Count();
             Session["backupcount"] = backupcount;
 
             assignevalcount = db.AssignEvaluaters.Where(a =>
