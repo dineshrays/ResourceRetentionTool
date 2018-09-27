@@ -125,7 +125,7 @@
         <br />
         <div>
             
-            <div class="table">
+            <div id="table" style="display:none">
                 <table class="table table-striped" style="width:50%">
                     <tr>
                         <th>Select</th>
@@ -219,7 +219,7 @@
             });
 
     $(".add-emp").click(function () {
-        $(".table").show();
+        $("#table").show();
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();

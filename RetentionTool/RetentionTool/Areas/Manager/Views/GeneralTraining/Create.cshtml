@@ -114,7 +114,7 @@
             <div class="col-12 col-md-9">
                 <input class="form-control" style="width:30%" id="searchemp" />
                 <input id="searchid" style="display:none" />
-                <input id="searchempname" style="display:none" />
+                <input id="searchempname" style="display:none" /> <br />
                 <input type="button" value="Add" class="add-emp" />
 
             </div>
@@ -123,16 +123,17 @@
 
         <br />
         <div>
+            <div id="tbl" style="display:none">
+                <table class="table table-striped" style="width:50%">
+                    <tr>
+                        <th>Select</th>
+                        <th>Employee Name</th>
+                        <th style="display:none;width:0%">Employee Id</th>
+                        <th>Employee Code</th>
+                    </tr>
 
-            <table class="table table-striped" style="width:50%">
-                <tr>
-                    <th>Select</th>
-                    <th>Employee Name</th>
-                    <th style="display:none;width:0%">Employee Id</th>
-                    <th>Employee Code</th>
-                </tr>
-
-            </table>
+                </table>
+            </div>
             <br />
             @*<button type="button" class="del-emp">Delete</button>*@
 
@@ -217,7 +218,7 @@
             });
 
     $(".add-emp").click(function () {
-
+        $("#tbl").show();
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
