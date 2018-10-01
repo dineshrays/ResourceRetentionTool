@@ -4,14 +4,33 @@
     ViewBag.Title = "Delete Assign Evaluater";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
 }
-
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Delete  Assign Evaluater</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "AssignEvaluater")">Assign Evaluater /</a></li>
+                    <li class="active"> Delete </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 @using (Html.BeginForm())
 {
     <div class="card">
-        <div class="card-header">
+        @*<div class="card-header">
 
             <h2>Delete Assign Evaluater</h2>
-        </div>
+        </div>*@
         <div class="card-body card-block">
             <div class="row form-group">
                 <div class="col col-md-3">

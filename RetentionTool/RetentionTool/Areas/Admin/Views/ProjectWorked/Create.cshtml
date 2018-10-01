@@ -10,12 +10,31 @@
 @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Assign Team Members</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "ProjectWorked")">Assign Team Members  /</a></li>
+                    <li class="active"> Create </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
-    <div class="card-header">
+    @*<div class="card-header">
         <h2>Assign Team Members</h2>
 
-    </div>
+    </div>*@
     <div class="card-body card-block">
         <div class="row form-group">
             <div class="col-md-3">
@@ -83,7 +102,7 @@
                 @Html.TextBoxFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
             </div>
         </div>
-        
+
         <div class="row form-group">
             <div class="col-md-3">
                 @Html.Label("Manager Name")
@@ -112,7 +131,8 @@
         </div>
 
         <br />
-        <div>
+        <div id="tblDiv" style="display:none">
+
 
             <table id="myTable" class="table table-striped" style="width:50%">
                 <tr>
@@ -177,12 +197,10 @@
             itemlist.push(Item);
         })
 
-      
-
-
-
-        var newUrl = '@Url.Action("Index", "ProjectWorked")';
-
+        if (projectid.length > 0 && startdate.length > 0 && enddate.length > 0 && description.length > 0 && managerid.length > 0
+            && teammember.length > 0 && itemlist.length > 0) {
+            var newUrl = '@Url.Action("Index", "ProjectWorked")';
+            $("#btnSave").attr('disabled', true);
         //var mod = {
         //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
         //    , EndDate: enddate,Description: description,Designation: designation
@@ -208,6 +226,14 @@
                         alert("error");
                     }
                 });
+        }
+        else {
+            alert('Please Enter all the details')
+        }
+
+
+
+       
             });
 
     $(".add-emp").click(function () {
@@ -218,25 +244,31 @@
         var responsibilty = $("#responsibilty").val();
         var teamcount = $('#teammember').val();
         var rowCount = $('#myTable tr').length;
-       
-        if (rowCount <= teamcount) {
-            var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
-                empname + "</td><td style='display: none'>" + empid + "</td><td>" +
-                designation + "</td><td>" +
-                responsibilty + "</td></tr>";
-            $("table tbody").append(markup);
-            $("#searchemp").val('');
-            $("#searchid").val('');
-            $("#designation").val('');
-            $("#responsibilty").val('');
+        if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0 && teamcount.length > 0) {
+            if (rowCount <= teamcount) {
+                $("#tblDiv").show();
+                var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
+                    empname + "</td><td style='display: none'>" + empid + "</td><td>" +
+                    designation + "</td><td>" +
+                    responsibilty + "</td></tr>";
+                $("table tbody").append(markup);
+                $("#searchemp").val('');
+                $("#searchid").val('');
+                $("#designation").val('');
+                $("#responsibilty").val('');
+            }
+            else {
+                alert("You cannot select more than the team size !");
+                $("#searchemp").val('');
+                $("#searchid").val('');
+                $("#designation").val('');
+                $("#responsibilty").val('');
+            }
         }
         else {
-            alert("You cannot select more than the team size !");
-            $("#searchemp").val('');
-            $("#searchid").val('');
-            $("#designation").val('');
-            $("#responsibilty").val('');
+            alert('Please Enter all the Details')
         }
+        
        
     });
 

@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Edit Employee</h2>
+
 
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>jQuery UI Tabs - Default functionality</title>
+  
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -22,7 +22,26 @@
     </script>
 </head>
 <body>
-
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1> Edit Employee</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                        <li><a href="@Url.Action("Index", "EmployeeInformation")">Employee Information /</a></li>
+                        <li class="active"> Edit </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1" rel="tab1">Personal Information</a></li>
@@ -432,11 +451,11 @@
 
             @*<div class="col-12 col-md-9">
 
-                    <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-                    @Html.ActionLink("Back to List", "Index", "EmployeeInfo", null, new { @class = "btn btn-outline-link" })
+                        <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+                        @Html.ActionLink("Back to List", "Index", "EmployeeInfo", null, new { @class = "btn btn-outline-link" })
 
-                </div>
-            </div>*@
+                    </div>
+                </div>*@
 
 
             <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -776,7 +795,7 @@
 
                         itemlist2.push(mod2);
                     })
-                    
+
 
                     var itemlist3 = [];
                     var Common_Id = "3";

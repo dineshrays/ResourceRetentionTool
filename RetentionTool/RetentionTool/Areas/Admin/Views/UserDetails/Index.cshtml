@@ -3,12 +3,31 @@
     ViewBag.Title = "Index User Details";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
 }
-
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1> User Details</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "UserDetails")">User Details /</a></li>
+                    <li class="active"> Index </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
-    <div class="card-header">
+    @*<div class="card-header">
         <h2>Index User Details</h2>
 
-    </div>
+    </div>*@
     <div class="card-body">
         @Html.ActionLink("Create New", "Create", "UserDetails", null, new { @class = "btn btn-outline-primary" })
         <div class="container" style="width:100%;margin-top:2%">

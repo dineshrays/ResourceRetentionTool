@@ -7,8 +7,8 @@
     // var value = 0;
 }
 @*<script src="~/Scripts/assets/js/vendor/jquery-3.3.1.js"></script>
-<script src="~/Scripts/assets/js/vendor/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+    <script src="~/Scripts/assets/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
@@ -16,6 +16,26 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Create Session Summary</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "SessionSummary")">Session Summary /</a></li>
+                    <li class="active"> Create </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="card">
     <div class="card-header">
@@ -25,14 +45,14 @@
     <div class="container" style="width:50%;margin-top:2%">
         <table class="table table-striped" id="tble">
             <tr>
-                <th  style="display:none;">@Html.HiddenFor(model => model.session.TrainingDet_Id)</th>
+                <th style="display:none;">@Html.HiddenFor(model => model.session.TrainingDet_Id)</th>
                 <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.Training_Id)</th>
 
                 <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.ModuleDet_Id)</th>
                 @*<th>@Html.DisplayNameFor(model => model.trainername)</th>
-                <th>@Html.DisplayNameFor(model => model.employeename)</th>
+                    <th>@Html.DisplayNameFor(model => model.employeename)</th>
 
-                <th>@Html.DisplayNameFor(model => model.Date)</th>*@
+                    <th>@Html.DisplayNameFor(model => model.Date)</th>*@
                 <th>@Html.Label("Topics")</th>
                 <th>@Html.Label("Actions")</th>
             </tr>
@@ -76,15 +96,15 @@
                         @*</div>*@
                         @*<div id="emp" style="display:none">
 
-            <h1>Heewleoo</h1>
-        </div>*@
+                                <h1>Heewleoo</h1>
+                            </div>*@
                     </td>
                     @*<td>
-                        @Html.ActionLink(" ", "Edit", new {id=item.Id},
-                       //new { id = item.Id }, null)
-                         new { @class = "ti-pencil"} )
-                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-                    </td>*@
+                            @Html.ActionLink(" ", "Edit", new {id=item.Id},
+                           //new { id = item.Id }, null)
+                             new { @class = "ti-pencil"} )
+                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                        </td>*@
                 </tr>
             }
 
@@ -107,9 +127,9 @@
             </div>
             @*<div class="card-body">
 
-                <input type="text" id="date" style="width:30%" />
+                    <input type="text" id="date" style="width:30%" />
 
-            </div>*@
+                </div>*@
             @*<br />*@
             <div class="row form-group">
                 <div class="col col-md-3">
@@ -120,10 +140,10 @@
                 </div>
             </div>
             @*<div class="card-body">
-                Hours:
-                <input type="text" id="hours" style="width:30%" />
+                    Hours:
+                    <input type="text" id="hours" style="width:30%" />
 
-            </div>*@
+                </div>*@
             @*<br />*@
 
             <div class="row form-group">
@@ -135,39 +155,39 @@
                 </div>
             </div>
             @*<div class="card-body">
-                Description:
-                <input type="text" id="desc" style="width:30%" />
+                    Description:
+                    <input type="text" id="desc" style="width:30%" />
 
-            </div>*@
+                </div>*@
             @*<table>
-                <tr>
-                    <td>Date:</td>
-                    <td><input type="text" id="date" /></td>
-                    <td><br /></td>
-                </tr>
+                    <tr>
+                        <td>Date:</td>
+                        <td><input type="text" id="date" /></td>
+                        <td><br /></td>
+                    </tr>
 
-                <tr>
-                    <td>Hours:</td>
-                    <td><input type="text" id="hours" /></td>
-                    <td><br /></td>
-                </tr>
+                    <tr>
+                        <td>Hours:</td>
+                        <td><input type="text" id="hours" /></td>
+                        <td><br /></td>
+                    </tr>
 
-                <tr>
-                    <td>Description:</td>
-                    <td><input type="text" id="des" /></td>
-                    <td><br /></td>
-                </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td><input type="text" id="des" /></td>
+                        <td><br /></td>
+                    </tr>
 
-            </table>*@
+                </table>*@
             <br />
 
 
             @*<form>
-                <input type="text" id="empname" placeholder="Employee Name">
-                <input id="empid" style="display:none" />
-                <input type="text" id="Remark" placeholder="Remark">
-                <input type="button" class="add-row" value="Add Row">
-            </form>*@
+                    <input type="text" id="empname" placeholder="Employee Name">
+                    <input id="empid" style="display:none" />
+                    <input type="text" id="Remark" placeholder="Remark">
+                    <input type="button" class="add-row" value="Add Row">
+                </form>*@
             <br />
             <table class="mytbl table table-striped">
                 <thead>
@@ -181,21 +201,21 @@
                 </thead>
                 <tbody>
                     @*@if ( empDetails  != null)
-                    {
-                        foreach (var emplist in empDetails)
                         {
+                            foreach (var emplist in empDetails)
+                            {
 
-                            <tr>
-                                <td><input type="checkbox" name="record" /></td>
-                                <td style="display:none">@emplist.Id</td>
-                                <td>@emplist.Name</td>
-                                <td><input type="checkbox" name="attendance" /></td>
-                                <td><input type="text" name="remark" /></td>
-                            </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="record" /></td>
+                                    <td style="display:none">@emplist.Id</td>
+                                    <td>@emplist.Name</td>
+                                    <td><input type="checkbox" name="attendance" /></td>
+                                    <td><input type="text" name="remark" /></td>
+                                </tr>
 
 
-                        }
-                    }*@
+                            }
+                        }*@
 
                 </tbody>
 
@@ -203,23 +223,23 @@
             </table>
             <button type="button" class="delete-row">Delete Row</button>
             @*<div class="row form-group">
-                <div class="col col-md-3">
+                    <div class="col col-md-3">
 
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>
-                        @Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:40%" })
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div>
+                            @Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:40%" })
 
-                    </div><br />
-                </div>
-            </div>*@
+                        </div><br />
+                    </div>
+                </div>*@
 
 
         </div>
         @*@if(value != 0)
-        {
-            <div>Hello</div>
-        }*@
+            {
+                <div>Hello</div>
+            }*@
     </div>
 
 </div>
@@ -289,7 +309,7 @@
 
 
              $.ajax({
-                    url: '@Url.Action("CreateSession", "SessionSummary")', 
+                    url: '@Url.Action("CreateSession", "SessionSummary")',
                  dataType: "json",
                  data: JSON.stringify({ trainingid: trainingid, moduledetid: moduleid}),
                     type: "POST",
@@ -301,7 +321,7 @@
                      //    $(".mytbl").append(markup);
                      //    //$('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
                      //});
-                   
+
                    //  $(".myclass").show();
                         //alert("success");
                         //$("#date").val('');

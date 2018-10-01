@@ -6,10 +6,30 @@
     var empevalDetails = ViewBag.empevalDetails;
     var assignevaluat = ViewBag.asseval;
 }
-<div class="card">
-    <div class="card-header">
-        <h2>Employee Evaluation</h2>
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Index Employee Evaluation</h1>
+            </div>
+        </div>
     </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "EmployeeEvaTaskl")">Employee Evaluation /</a></li>
+                    <li class="active"> Index </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    @*<div class="card-header">
+        <h2>Employee Evaluation</h2>
+    </div>*@
     @if (assResDetails.Count > 0 && assignevaluat.Count > 0)
     {
         <div class="container" style="width:100%;margin-top:2%">

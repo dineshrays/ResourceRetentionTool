@@ -5,6 +5,26 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Project Details</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "ProjectsDetails")">Projects  /</a></li>
+                    <li class="active"> Index </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
     <div class="card-header">
         <h2>Projects</h2>

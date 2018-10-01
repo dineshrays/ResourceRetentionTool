@@ -5,13 +5,32 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     var assResDetails = ViewBag.assResDetails;
 }
-
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Create  Assign Evaluater</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "AssignEvaluater")">Assign Evaluater /</a></li>
+                    <li class="active"> Create </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
-    <div class="card-header">
+    @*<div class="card-header">
 
         <h2>Create  Assign Evaluater</h2>
 
-    </div>
+    </div>*@
     @if (assResDetails.Count > 0)
     {
 
