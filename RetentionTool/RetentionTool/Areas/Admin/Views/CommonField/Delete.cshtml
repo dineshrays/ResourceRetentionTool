@@ -37,13 +37,13 @@
 <div class="card">
 
     @*<div class="card-header">
-        <h2>Delete Primary Skill</h2>
+            <h2>Delete Primary Skill</h2>
 
-    </div>*@
-    <div class="card-body">
+        </div>*@
+    <div class="card-body card-block">
         <div>
             @*<h4>Commonfield</h4>*@
-            <hr />
+
             <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.Name)
@@ -54,12 +54,12 @@
                 </dd>
 
                 @*<dt>
-                    @Html.DisplayNameFor(model => model.IsActive)
-                </dt>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </dt>
 
-                <dd>
-                    @Html.CheckBox("IsActive", new { @disabled = "disabled" })
-                </dd>*@
+                    <dd>
+                        @Html.CheckBox("IsActive", new { @disabled = "disabled" })
+                    </dd>*@
 
             </dl>
 
@@ -67,19 +67,19 @@
             {
                 @Html.AntiForgeryToken()
 
-            <div>
-                @if (ViewData["Message"] == null)
-                {
-            <input type="submit" value="Delete" class="btn btn-danger" /> 
-                }
-                else
-                {
-                <b>@ViewData["Message"]</b>
-                <br />
-                }
-                @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
+                <div>
+                    @if (ViewData["Message"] == null)
+                    {
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    }
+                    else
+                    {
+                        <b>@ViewData["Message"]</b>
+                        <br />
+                    }
+                    @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
 
-            </div>
+                </div>
             }
         </div>
 
