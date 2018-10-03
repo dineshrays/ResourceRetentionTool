@@ -30,164 +30,319 @@
         </div>
     </div>
 </div>
-<div class="card">
-    @*<div class="card-header">
-        <h2>Assign Team Members</h2>
-
-    </div>*@
-    <div class="card-body card-block">
-        <div class="row form-group">
-            <div class="col-md-3">
-                @Html.Label("Project Name")
-                @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
-            </div>
-        </div>
-        @*<div class="row form-group">
-            <div class="col-md-3">
-                @Html.LabelFor(model => model.projects.Designation, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.TextBoxFor(model => model.projects.Designation, new { @class = "form-control-label", @id = "designation", style = "width:30%" })
-            </div>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-3">
-                @Html.LabelFor(model => model.projects.Responsibilities, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.TextBoxFor(model => model.projects.Responsibilities, new { @class = "form-control-label", @id = "responsibilty", style = "width:30%" })
-            </div>
-        </div>*@
-        <div class="row form-group">
-            <div class="col col-md-3">
-                @Html.LabelFor(model => model.projects.StartDate, new { @class = " form-control-label" })
-
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
-
-            </div>
-
-        </div>
-
-        <div class="row form-group">
-            <div class="col col-md-3">
-                @Html.LabelFor(model => model.projects.EndDate, new { @class = " form-control-label" })
-
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.EditorFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
-
-            </div>
-
-        </div>
-
-        <div class="row form-group">
-            <div class="col-md-3">
-                @Html.LabelFor(model => model.projects.Description, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.TextBoxFor(model => model.projects.Description, new { @class = "form-control-label", @id = "description", style = "width:30%" })
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col-md-3">
-                @Html.LabelFor(model => model.projects.TeamMembers, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.TextBoxFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col-md-3">
-                @Html.Label("Manager Name")
-                @*For(model => model.projects.Manager_Id, new { @class = "form-control-label" })*@
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
-            </div>
-        </div>
-        <div class="row form-group">
-            @*<div class="col col-md-3">
-                @Html.LabelFor(model => model.projects.PersonalInfo.EmpCode, new { @class = " form-control-label" })
-
+@*@using (Html.BeginForm())
+{*@
+    @Html.AntiForgeryToken()
+    <div class="card">
+        @*<div class="card-header">
+                <h2>Assign Team Members</h2>
 
             </div>*@
-            @*<div class="col-12 col-md-9">*@
-            <input class="form-control" style="width:30%" id="searchemp" placeholder="Employee Code" />
-            <input id="searchid" style="display:none" />
-            <input id="searchname" style="display:none" />
-            <input id="designation" placeholder="Designation" />
-            <input id="responsibilty" placeholder="Responsibility" />
-            <input type="button" value="Add" class="add-emp" />
+        <div class="card-body card-block">
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.Label("Project Name")
+                    @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
+                    @Html.ValidationMessageFor(model => model.projects.Project_Id, "Required", new { @class = "text-danger", @id = "errorprjctid" })
 
-            @*</div>*@
-
-        </div>
-
-        <br />
-        <div id="tblDiv" style="display:none">
-
-
-            <table id="myTable" class="table table-striped" style="width:50%">
-                <tr>
-                    <th>Select</th>
-                    <th>Employee Name</th>
-                    <th>Employee Code</th>
-                    <th style="display:none;width:0%">Employee Id</th>
-                    <th>Designation</th>
-                    <th>Responsibility</th>
-                    <th>Action</th>
-                </tr>
-
-            </table>
-            @*<br />
-            <button type="button" class="del-emp">Delete</button>*@
-
-        </div>
-
-        <div class="row form-group">
-            <div class="col col-md-3">
-
-
+                </div>
             </div>
-            <div class="col-12 col-md-9">
+            @*<div class="row form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.projects.Designation, new { @class = "form-control-label" })
+                    </div>
+                    <div class="col-12 col-md-9">
+                        @Html.TextBoxFor(model => model.projects.Designation, new { @class = "form-control-label", @id = "designation", style = "width:30%" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.projects.Responsibilities, new { @class = "form-control-label" })
+                    </div>
+                    <div class="col-12 col-md-9">
+                        @Html.TextBoxFor(model => model.projects.Responsibilities, new { @class = "form-control-label", @id = "responsibilty", style = "width:30%" })
+                    </div>
+                </div>*@
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    @Html.LabelFor(model => model.projects.StartDate, new { @class = " form-control-label" })
 
-                <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
+                    @Html.ValidationMessageFor(model => model.projects.StartDate, "Required", new { @class = "text-danger", @id = "errorstartdate" })
+                </div>
 
             </div>
 
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    @Html.LabelFor(model => model.projects.EndDate, new { @class = " form-control-label" })
+
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.EditorFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
+                    @Html.ValidationMessageFor(model => model.projects.EndDate, "Required", new { @class = "text-danger", @id = "errorenddate" })
+                </div>
+
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.Description, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.TextBoxFor(model => model.projects.Description, new { @class = "form-control-label", @id = "description", style = "width:30%" })
+
+                    @Html.ValidationMessageFor(model => model.projects.Description, "Required", new { @class = "text-danger", @id = "errordescription" })
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.TeamMembers, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.TextBoxFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
+                    @Html.ValidationMessageFor(model => model.projects.TeamMembers, "Required", new { @class = "text-danger", @id = "errorteammember" })
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.Label("Manager Name")
+                    @*For(model => model.projects.Manager_Id, new { @class = "form-control-label" })*@
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
+                    @Html.ValidationMessageFor(model => model.projects.Manager_Id, "Required", new { @class = "text-danger", @id = "errormanagerid" })
+                </div>
+            </div>
+            <div class="row form-group">
+                @*<div class="col col-md-3">
+            @Html.LabelFor(model => model.projects.PersonalInfo.EmpCode, new { @class = " form-control-label" })
+
+
+        </div>*@
+                @*<div class="col-12 col-md-9">*@
+                <input class="form-control" style="width:30%" id="searchemp" placeholder="Employee Code" />
+                &nbsp;
+                <input id="searchid" style="display:none" />
+                <input id="searchname" style="display:none" />
+                <input id="designation" placeholder="Designation" /> &nbsp;
+                <input id="responsibilty" placeholder="Responsibility" />&nbsp;
+                <input type="button" value="Add" class="add-emp" />
+
+                @*</div>*@
+
+            </div>
+
+            <br />
+            <div id="tblDiv" style="display:none">
+
+
+                <table id="myTable" class="table table-striped" style="width:50%">
+                    <tr>
+                        <th>Select</th>
+                        <th>Employee Name</th>
+                        <th>Employee Code</th>
+                        <th style="display:none;width:0%">Employee Id</th>
+                        <th>Designation</th>
+                        <th>Responsibility</th>
+                        <th>Action</th>
+                    </tr>
+
+                </table>
+                @*<br />
+                    <button type="button" class="del-emp">Delete</button>*@
+
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+
+
+                </div>
+                <div class="col-12 col-md-9">
+
+                    <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+                    @Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })
+
+                </div>
+
+
+            </div>
 
         </div>
-
     </div>
-</div>
+@*}*@
 
+<script>
+    $(document).ready(function () {
+        $("#errordescription").hide();
+        $("#errorprjctid").hide();
+        $("#errorstartdate").hide();
+        $("#errorenddate").hide();
+        $("#errorteammember").hide();
+        $("#errormanagerid").hide();
+
+    });
+    function validate() {
+        if ($("#projectid").val().length > 0) {
+            $("#errorprjctid").hide();
+        }
+        else {
+            $("#errorprjctid").show();
+        }
+        if ($("#startdate").val().length > 0) {
+            $("#errorstartdate").hide();
+        }
+        else {
+            $("#errorstartdate").show();
+        }
+        if ($("#enddate").val().length > 0) {
+            $("#errorenddate").hide();
+        }
+        else {
+            $("#errorenddate").show();
+        }
+        if ($("#teammember").val().length > 0) {
+            $("#errorteammember").hide();
+        }
+        else {
+            $("#errorteammember").show();
+        }
+        if ($("#managerid").val().length > 0) {
+            $("#errormanagerid").hide();
+        }
+        else {
+            $("#errormanagerid").show();
+        }
+        if ($("#description").val().length > 0) {
+            $("#errordescription").hide();
+        }
+        
+        else {
+           
+            $("#errordescription").show();
+
+        }
+    }
+
+
+    $("#enddate").keydown(function () {
+        if (event.which === 8) {
+            if ($("#enddate").val().length > 0) {
+                $("#errorenddate").hide();
+            }
+            else if ($("#enddate").val() === "" || $("#enddate").val().length === 0) {
+               
+                $("#errorenddate").show();
+            }
+        }
+        else if ($("#enddate").val() == "") {
+            $("#errorenddate").hide();
+        }
+    });
+    $("#teammember").keydown(function (event) {
+     
+        if (event.which === 8) {
+            if ($("#teammember").val().length > 0) {
+            
+                $("#errorteammember").hide();
+            }
+            else if ($("#teammember").val() === "" || $("#teammember").val().length === 0) {
+            
+                $("#errorteammember").show();
+            }
+        }
+        else {
+               $("#errorteammember").hide();
+        }
+      
+    });
+    $("#managerid").keydown(function () {
+        if (event.which === 8) {
+            if ($("#managerid").val().length > 0) {
+                $("#errormanagerid").hide();
+            }
+            else if ($("#managerid").val() === "" || $("#managerid").val().length === 0) {
+
+                $("#errormanagerid").show();
+            }
+        }
+        else {
+            $("#errormanagerid").hide();
+        }
+    });
+
+    $("#startdate").keydown(function () {
+        if (event.which === 8) {
+            if ($("#startdate").val().length > 0) {
+                $("#errorstartdate").hide();
+            }
+            else if ($("#startdate").val() === "" || $("#startdate").val().length === 0) {
+
+                $("#errorstartdate").show();
+            }
+        }
+        else {
+            $("#errorstartdate").hide();
+        }
+    });
+    $("#projectid").keydown(function () {
+        if (event.which === 8) {
+            if ($("#projectid").val().length > 0) {
+                $("#errorprjctid").show();
+            }
+            else if ($("#projectid").val() === "" || $("#projectid").val().length === 0) {
+
+                $("#errorprjctid").show();
+            }
+        }
+        else {
+            $("#errorprjctid").hide();
+             }
+    });
+
+
+    $("#description").keydown(function () {
+        if (event.which === 8) {
+            if ($("#description").val().length > 0) {
+                $("#errordescription").hide();
+            }
+            else if ($("#description").val() === "" || $("#description").val().length === 0) {
+
+                $("#errordescription").show();
+            }
+        }
+        else {
+            $("#errordescription").hide();
+        }
+    });
+</script>
 
 <script>
     var empid = [];
     $("#btnSave").click(function () {
-
+       
         var itemlist = [];
         var projectid = $("#projectid").val();
-      
+
         var startdate = $("#startdate").val();
         var enddate = $("#enddate").val();
         var description = $("#description").val();
 
         var managerid = $("#managerid").val();
         var teammember = $("#teammember").val();
-
+        validate();
         //get cell values, instead of the header text.
         $("table tr:not(:first)").each(function () {
             var tdlist = $(this).find("td");
-           
+
             var Item = {
                 PersonalInfo_Id: $(tdlist[3]).html(),
                 Project_Id: projectid, Manager_Id: managerid, Responsibilities: $(tdlist[5]).html(), StartDate: startdate, TeamMembers: teammember
@@ -228,13 +383,13 @@
                     }
                 });
         }
-        else {
-            alert('Please Enter all the details')
-        }
+        //else {
+        //    alert('Please Enter all the details')
+        //}
 
 
 
-       
+
             });
 
     $(".add-emp").click(function () {
@@ -269,8 +424,8 @@
         else {
             alert('Please Enter all the Details')
         }
-        
-       
+
+
     });
 
     $(".del-emp").click(function () {
@@ -282,9 +437,9 @@
             });
         });
 
- 
+
     function delete_Row(empid) {
-    
+
     $("#" + empid).remove();
     }
 

@@ -62,31 +62,33 @@
             {
                 @Html.AntiForgeryToken()
 
-                <div class="form-group">
-                    <div>
-                        @Html.LabelFor(model => model.Name)
-                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
-                    <br />
-
-                    @*<div>
-                            @Html.LabelFor(model => model.Name)
-                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
-                        </div>
-                        <br />*@
-                    @*<div>
-
-                            @Html.CheckBox("IsActive", false)
-                            @Html.LabelFor(model => model.IsActive)
-                        </div>*@
-                    <div>
-
-                        <input type="submit" value="Create" class="btn btn-success" />
-                        @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
-                    </div>
-
+            <div class="form-group">
+                <div>
+                    @Html.LabelFor(model => model.Name)
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%", @id = "commonfieldname" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
+                   
                 </div>
+                <br />
+
+                @*<div>
+        onpropertychange ="MoniterChange()"
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
+        </div>
+        <br />*@
+                @*<div>
+
+            @Html.CheckBox("IsActive", false)
+            @Html.LabelFor(model => model.IsActive)
+        </div>*@
+                <div>
+
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
+                </div>
+
+            </div>
 
 
             }
@@ -95,6 +97,27 @@
 
         </div>
     </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+    $("#commonfieldname").keypress(function () {
+        //alert('dsjdh')
+        if ($("#commonfieldname").val().length > 0) {
+            $("#validationforcommonfield").show();
+            //$("#errorforCommonfield").val("hello");
+            //$("#errorforCommonfield").show();
+               // val('Required');
+                //attr('enabled', true)
+        }
+        else {
+            // $("#btnSave").attr('disabled', true);
+            $("#validationforcommonfield").hide();
+          
+           // $("#errorforCommonfield").val('');
+               //.attr('disabled', true)
+        }
+    });
 
 
+</script>
 
