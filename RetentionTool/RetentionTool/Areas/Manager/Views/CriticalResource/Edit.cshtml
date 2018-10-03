@@ -3,6 +3,7 @@
     ViewBag.Title = "Edit Critical Resource";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
     var criticalacc =ViewBag.criticalacc;
+    var count = 0;
 }
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -129,23 +130,24 @@
 
                      <table class="table table-striped" id="table-accountability" style="width:100%">
                          <tr>
-                             <th>Select</th>
                              <th>Reporting</th>
                              <th>Information</th>
+                             <th>Action</th>
                          </tr>
                          
                          @foreach (var i in criticalacc)
                          {
-                            <tr>
-                                <td><input type="checkbox" name="chck" /></td>
-                                <td>@i.Name</td>
-                                <td>@i.Value</td>
-                            </tr>
+                             count++;
+                         <tr id="+@count+">
+                             <td>@i.Name</td>
+                             <td>@i.Value</td>
+                             <td> <input type='submit' value='Delete' onclick='delete_Row(" + @count + ")'></td>
+                         </tr>
                          }
 
                      </table>
-                     <br />
-                     <button type="button" class="del-accountability">Delete</button>
+                     @*<br />
+                     <button type="button" class="del-accountability">Delete</button>*@
                  </div>
                  <br />
 
@@ -170,6 +172,11 @@
 </div>
 <script>
 
+
+    function delete_Row(empid) {
+        $("#" + empid).remove();
+    }
+
     function showcheckbox() {
         //$('#tbl input[type="checkbox"]').click(function () {
         if ($('#tbl input[type = "checkbox"]').find('input.chck').is(':checked')) {
@@ -183,13 +190,13 @@
     }
 
     $(".add-accountability").click(function () {
-
+        //count++;
         var reporting = $("#reporting").val();
         var Information = $("#Information").val();
 
-        var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+        var Company = "<tr id=" + count + "><td>" +
             reporting + "</td><td>" +
-            Information + "</td></tr>";
+            Information + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + count + ")></td></tr>";
 
         $("#table-accountability").append(Company);
         $("#reporting").val('');

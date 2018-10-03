@@ -195,7 +195,11 @@
                 var newUrl= '@Url.Action("Index", "AssignResource")';
 
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
-               // alert(mod);
+         // alert(mod);
+         if (managerid.length > 0 && projectid.length > 0 && trainerid.length > 0 && moduleid.length > 0 && date.length > 0)
+         {
+             $("#btnSave").attr('diabled', true);
+         
                 $.ajax({
                     url:'/Manager/AssignResource/Create',
                         @*'@Url.Action("Create", "AssignResource")',*@ 
@@ -216,6 +220,7 @@
                         alert("error");
                     }
                 });
+         }
             });
 
     $(".add-emp").click(function () {
@@ -243,8 +248,10 @@
                 }
             });
         });
-
-
+    
+    function delete_Row(empid) {
+        $("#" + empid).remove();
+    }
 
 </script>
 
@@ -264,7 +271,7 @@
                     success: function (result) {
                         $("table tr:not(:first)").remove();
                         $.each(result, function (i, Skill) {
-                            var markup = "<tr><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+                            var markup = "<tr id =" + Skill.Id + "><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + Skill.Id + ")></td></tr>";
                             $("table tbody").append(markup);
                            // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
                         });
