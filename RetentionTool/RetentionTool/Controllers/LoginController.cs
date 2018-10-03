@@ -86,7 +86,7 @@ namespace RetentionTool.Controllers
                 }
                 else if (adminRoleid == userResult.Role_Id)
                 {
-                    return RedirectToAction("Index", "CommonField", new { Area = "Admin" });
+                    return RedirectToAction("Index", "AdminDashboard", new { Area = "Admin" });
 
                 }else if (trainerRoleid == userResult.Role_Id)
                 {

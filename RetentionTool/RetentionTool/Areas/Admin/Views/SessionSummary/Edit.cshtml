@@ -6,11 +6,31 @@
     var empDetails = ViewBag.sessionDetails;
     }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Edit Session Summary</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "SessionSummary")">Session Summary /</a></li>
+                    <li class="active"> Edit </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
-    <div class="card-header">
+    @*<div class="card-header">
 
         <h2>Edit Session Summary</h2>
-    </div>
+    </div>*@
     <div class="container" style="width:50%;margin-top:2%">
       
         <div >

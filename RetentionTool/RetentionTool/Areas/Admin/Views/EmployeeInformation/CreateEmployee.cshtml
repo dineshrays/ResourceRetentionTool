@@ -5,7 +5,7 @@
     var filepath = "" ;
 }
 
-<h2>Create Employee</h2>
+@*<h2>Create Employee</h2>*@
 
 <html>
 <head>
@@ -23,7 +23,26 @@
     </script>
 </head>
 <body>
-
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1> Create Employee</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                        <li><a href="@Url.Action("Index", "EmployeeInformation")">Employee Information /</a></li>
+                        <li class="active"> Create </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="tabs">
         <ul>
             <li id='tb1'><a href="#tabs-1">Personal Information</a></li>
@@ -194,17 +213,17 @@
 
             <script>
                 function changetab(id) {
-                   // alert(id);
+                    // alert(id);
 
                     $("#tabs-1").hide();
                     $("#tabs-2").show();
-                   
+
                     $("#tb1").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
                     $("#tb2").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
 
 
                 }
-                
+
             </script>
             <br><br>
 
@@ -271,20 +290,20 @@
             </div>
 
             <script>
-            function changetab2(id) {
-               // alert(id);
+                function changetab2(id) {
+                    // alert(id);
 
-                $("#tabs-2").hide();
-                $("#tabs-3").show();
+                    $("#tabs-2").hide();
+                    $("#tabs-3").show();
 
-                $("#tb2").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
-                $("#tb3").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+                    $("#tb2").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+                    $("#tb3").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
 
 
-            }
+                }
             </script>
         </div>
-       
+
         <div id="tabs-3">
 
             <div class="row form-group">
@@ -403,7 +422,7 @@
 
             <script>
                 function changetab3(id) {
-                   // alert(id);
+                    // alert(id);
 
                     $("#tabs-3").hide();
                     $("#tabs-4").show();
@@ -416,7 +435,7 @@
             </script>
 
         </div>
-       
+
         <div id="tabs-4">
 
             <div class="card-body card-block">
@@ -483,11 +502,11 @@
 
             @*<div class="col-12 col-md-9">
 
-                <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Index", "EmployeeInfo", null, new { @class = "btn btn-outline-link" })
+                        <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+                        @Html.ActionLink("Back to List", "Index", "EmployeeInfo", null, new { @class = "btn btn-outline-link" })
 
-            </div>
-        </div>*@
+                    </div>
+                </div>*@
 
 
             <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -537,7 +556,7 @@
 
             <script>
                 function changetab4(id) {
-                   // alert(id);
+                    // alert(id);
 
                     $("#tabs-4").hide();
                     $("#tabs-5").show();
@@ -630,18 +649,18 @@
             </div>
 
             <script>
-               function changetab5(id) {
-              //  alert(id);
+                function changetab5(id) {
+                    //  alert(id);
 
-                $("#tabs-5").hide();
-                $("#tabs-6").show();
+                    $("#tabs-5").hide();
+                    $("#tabs-6").show();
 
-                $("#tb5").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
-                $("#tb6").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
-            }
-                
-        </script>
-            
+                    $("#tb5").removeClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+                    $("#tb6").addClass('ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-state-active ui-tabs-active');
+                }
+
+            </script>
+
         </div>
 
         <div id="tabs-6">

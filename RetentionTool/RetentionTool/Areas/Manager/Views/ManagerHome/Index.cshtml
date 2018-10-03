@@ -53,7 +53,7 @@
                 <h4 class="mb-0">
                     <span class="count">@Session["projectworkcount"]</span>
                 </h4>
-                <p class="text-light">Assign Team Members</p>
+                <p class="text-light"><a class="text-light" href="@Url.Action("Index", "ProjectWorked")">Assign Team Members</a></p>
 
                 <div class="chart-wrapper px-0" style="height:70px;" height="70">
                     <canvas id="widgetChart1"></canvas>
@@ -84,7 +84,7 @@
                 <h4 class="mb-0">
                     <span class="count">@Session["backupcount"]</span>
                 </h4>
-                <p class="text-light">Backup</p>
+                <p class="text-light"><a class="text-light" href="@Url.Action("Index", "AssignResource")">Backup</a></p>
 
                 <div class="chart-wrapper px-0" style="height:70px;" height="70">
                     <canvas id="widgetChart2"></canvas>
@@ -113,7 +113,7 @@
                 <h4 class="mb-0">
                     <span class="count">@Session["plantrainingcount"]</span>
                 </h4>
-                <p class="text-light">Plan Training</p>
+                <p class="text-light"><a class="text-light" href="@Url.Action("Index", "GeneralTraining")"> Plan Training </a></p>
 
             </div>
 
@@ -142,7 +142,7 @@
                 <h4 class="mb-0">
                     <span class="count">@Session["assignevalcount"]</span>
                 </h4>
-                <p class="text-light">Assign Evaluater</p>
+                <p class="text-light"><a class="text-light" href="@Url.Action("Index", "AssignEvaluater")"> Assign Evaluater </a></p>
 
                 <div class="chart-wrapper px-3" style="height:70px;" height="70">
                     <canvas id="widgetChart4"></canvas>

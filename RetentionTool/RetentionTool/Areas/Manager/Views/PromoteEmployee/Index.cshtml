@@ -99,7 +99,7 @@
                             @*<a href="javascript:;" class="anchorDetail" id="myPopup-@item.Id" data-id="@item.Id" onclick="myPopupFun(@item.Id)">List Employee</a>*@
                         </td>
                         <td>In Process</td>
-                        <td> @Html.ActionLink("Promote", "Promote", new { id = item.Id, empid = item.Employee_Id })</td>
+                        <td> @Html.ActionLink("Promote", "Promote", new { id = item.Id, empid = item.Employee_Id },new { @class="btn btn-success"})</td>
                         @*@{DateTime? fromdate = null;
                             DateTime? todate = null;
                         }

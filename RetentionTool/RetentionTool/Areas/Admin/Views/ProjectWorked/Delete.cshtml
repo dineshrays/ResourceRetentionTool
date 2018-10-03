@@ -7,117 +7,137 @@
 
 @using (Html.BeginForm())
 {
-<div class="card">
-    <div class="card-header">
-        <h2>Delete Assigned Team Members</h2>
-
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Delete Assign Team Member</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                        <li><a href="@Url.Action("Index", "ProjectWorked")">Assign Team Members  /</a></li>
+                        <li class="active"> Delete </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body card-block">
-        <div class="row form-group">
-            <div class="col-md-3">
-                @Html.Label("Project Name")
-                @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.DisplayFor(model => model.projects.ProjectsDetail.Name,  new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
-            </div>
-        </div>
+    <div class="card">
+        @*<div class="card-header">
+            <h2>Delete Assigned Team Members</h2>
 
-        <div class="row form-group">
-            <div class="col col-md-3">
-                @Html.LabelFor(model => model.projects.StartDate, new { @class = " form-control-label" })
-
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.DisplayFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
-
+        </div>*@
+        <div class="card-body card-block">
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.Label("Project Name")
+                    @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
+                </div>
             </div>
 
-        </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    @Html.LabelFor(model => model.projects.StartDate, new { @class = " form-control-label" })
 
-        <div class="row form-group">
-            <div class="col col-md-3">
-                @Html.LabelFor(model => model.projects.EndDate, new { @class = " form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
 
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.DisplayFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
+                </div>
 
             </div>
 
-        </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    @Html.LabelFor(model => model.projects.EndDate, new { @class = " form-control-label" })
 
-        <div class="row form-group">
-            <div class="col-md-3">
-                @Html.LabelFor(model => model.projects.Description, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.DisplayFor(model => model.projects.Description, new { @class = "form-control-label", @id = "description", style = "width:30%" })
-            </div>
-        </div>
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
 
-        <div class="row form-group">
-            <div class="col-md-3">
-                @Html.LabelFor(model => model.projects.TeamMembers, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.DisplayFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
-            </div>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-3">
-                @Html.LabelFor(model => model.projects.Manager_Id, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                @Html.DisplayFor(model => model.projects.PersonalInfo.Name, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
-            </div>
-        </div>
-        
-        <div>
+                </div>
 
-            <table class="table table-striped" style="width:50%">
-                <tr>
-                    <th>Select</th>
-                    <th>Employee Name</th>
-                    <th>Employee Code</th>
-                    <th style="display:none;width:0%">Employee Id</th>
-                    <th>Designation</th>
-                    <th>Responsibility</th>
-                    <th style="display:none;width:0%">ProjectWorked Id</th>
-                </tr>
-                @foreach (var i in Model.projectvm)
-                {
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.Description, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.projects.Description, new { @class = "form-control-label", @id = "description", style = "width:30%" })
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.TeamMembers, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.projects.Manager_Id, new { @class = "form-control-label" })
+                </div>
+                <div class="col-12 col-md-9">
+                    @Html.DisplayFor(model => model.projects.PersonalInfo.Name, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
+                </div>
+            </div>
+
+            <div>
+
+                <table class="table table-striped" style="width:50%">
                     <tr>
-                        <td><input type="checkbox" name="chck" /></td>
-                        <td>@i.PersonalInfo1.Name</td>
-                        <td>@i.PersonalInfo1.EmpCode</td>
-                        <td style="display:none">@i.PersonalInfo_Id</td>
-                        <td>@i.Designation</td>
-                        <td>@i.Responsibilities</td>
-                        <td style="display:none">@i.Id</td>
+                        <th>Select</th>
+                        <th>Employee Name</th>
+                        <th>Employee Code</th>
+                        <th style="display:none;width:0%">Employee Id</th>
+                        <th>Designation</th>
+                        <th>Responsibility</th>
+                        <th style="display:none;width:0%">ProjectWorked Id</th>
                     </tr>
-                }
+                    @foreach (var i in Model.projectvm)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="chck" /></td>
+                            <td>@i.PersonalInfo1.Name</td>
+                            <td>@i.PersonalInfo1.EmpCode</td>
+                            <td style="display:none">@i.PersonalInfo_Id</td>
+                            <td>@i.Designation</td>
+                            <td>@i.Responsibilities</td>
+                            <td style="display:none">@i.Id</td>
+                        </tr>
+                    }
 
-            </table>
-        
-
-        </div>
-
-        <div class="row form-group">
-            <div class="col col-md-3">
+                </table>
 
 
             </div>
-            <div class="col-12 col-md-9">
 
-                <input type="submit" value="Delete" class="btn-danger" />
-                @Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })
+            <div class="row form-group">
+                <div class="col col-md-3">
+
+
+                </div>
+                <div class="col-12 col-md-9">
+
+                    <input type="submit" value="Delete" class="btn-danger" />
+                    @Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })
+
+                </div>
+
 
             </div>
 
-
         </div>
-
     </div>
-</div>
 }

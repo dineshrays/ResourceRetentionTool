@@ -5,13 +5,32 @@
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
     var assignDetails = ViewBag.AssignResDetails;
 }
-
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Delete Backup</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "AssignResource")">Backup /</a></li>
+                    <li class="active"> Delete </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
 
-    <div class="card-header">
+    @*<div class="card-header">
 
         <h2>Delete Backup</h2>
-    </div>
+    </div>*@
     @using (Html.BeginForm())
 
     {

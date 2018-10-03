@@ -68,7 +68,8 @@ namespace RetentionTool.Areas.Admin.Controllers
         {
             if(prjctwrkvm!=null)
             {
-                foreach(var prjctwrk in prjctwrkvm)
+                // System.Threading.Thread.Sleep(10000);
+                foreach (var prjctwrk in prjctwrkvm)
                 {
                     prjctwrk.IsActive = true;
                     db.ProjectsWorkeds.Add(prjctwrk);

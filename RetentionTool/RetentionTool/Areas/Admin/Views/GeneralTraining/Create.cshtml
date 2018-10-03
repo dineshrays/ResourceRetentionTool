@@ -1,9 +1,11 @@
 ﻿@model RetentionTool.Models.AssignResourceViewModel
 @{
-    /**/
+                /**/
 
-    ViewBag.Title = "Create Training";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+                /**/
+
+                ViewBag.Title = "Create Training";
+                Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
 }
 
 
@@ -13,18 +15,37 @@
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1> Create Training</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "GeneralTraining")">Plan Training /</a></li>
+                    <li class="active"> Create </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
 
-    <div class="card-header">
+    @*<div class="card-header">
 
         <h2>Create Training</h2>
-    </div>
+    </div>*@
 
     <div class="card-body card-block">
         @*@using (Html.BeginForm())
 
-        {*@
+            {*@
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.Date, new { @class = " form-control-label" })
@@ -47,7 +68,7 @@
             <div class="col-12 col-md-9">
                 @Html.Label("Training")
                 @*<input class="form-control" style="width:30%" id="searchproject" />
-                <input id="searchprojectid" style="display:none" />*@
+                    <input id="searchprojectid" style="display:none" />*@
             </div>
 
 
@@ -247,60 +268,60 @@
     //            });
     //    })
     //});
-  
 
-        //$("#searchproject").autocomplete({
 
-        //    source: function (request, response) {
-        //        var param = { name: $('#searchproject').val() };
+    //$("#searchproject").autocomplete({
 
-        //        $.ajax({
-        //            url: "/AssignResource/getProjects",
-        //            data: JSON.stringify(param),
-        //            dataType: "json",
-        //            type: "POST",
-        //            contentType: "application/json; charset=utf-8",
-        //            dataFilter: function (data) { return data; },
-        //            success: function (data) {
-        //                response($.map(data, function (item) {
-        //                    return {
-        //                        label: item.Name, id: item.Id
+    //    source: function (request, response) {
+    //        var param = { name: $('#searchproject').val() };
 
-        //                    }
-        //                }))
-        //            },
-        //            error: function (XMLHttpRequest, textStatus, errorThrown) {
-        //                alert(textStatus);
-        //            }
-        //        });
-        //    },
-        //    select: function (event, ui) {
+    //        $.ajax({
+    //            url: "/AssignResource/getProjects",
+    //            data: JSON.stringify(param),
+    //            dataType: "json",
+    //            type: "POST",
+    //            contentType: "application/json; charset=utf-8",
+    //            dataFilter: function (data) { return data; },
+    //            success: function (data) {
+    //                response($.map(data, function (item) {
+    //                    return {
+    //                        label: item.Name, id: item.Id
 
-        //        event.preventDefault();
-        //        $(this).val(ui.item.label);
-        //        $("#searchprojectid").val(ui.item.id);
-        //        var param = { id: ui.item.id };
-        //        $.ajax({
-        //            url: "/AssignResource/getProjectInfo",
-        //            data: JSON.stringify(param),
-        //            dataType: "json",
-        //            type: "POST",
-        //            contentType: "application/json; charset=utf-8",
+    //                    }
+    //                }))
+    //            },
+    //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //                alert(textStatus);
+    //            }
+    //        });
+    //    },
+    //    select: function (event, ui) {
 
-        //            success: function (data) {
+    //        event.preventDefault();
+    //        $(this).val(ui.item.label);
+    //        $("#searchprojectid").val(ui.item.id);
+    //        var param = { id: ui.item.id };
+    //        $.ajax({
+    //            url: "/AssignResource/getProjectInfo",
+    //            data: JSON.stringify(param),
+    //            dataType: "json",
+    //            type: "POST",
+    //            contentType: "application/json; charset=utf-8",
 
-        //                $("#managerid").val(data.Manager_Id);
+    //            success: function (data) {
 
-        //                $("#trainerid").val(data.Trainer_Id);
+    //                $("#managerid").val(data.Manager_Id);
 
-        //            },
-        //            error: function (XMLHttpRequest, textStatus, errorThrown) {
-        //                alert(textStatus);
-        //            }
-        //        });
-        //    }
+    //                $("#trainerid").val(data.Trainer_Id);
 
-        //});
+    //            },
+    //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //                alert(textStatus);
+    //            }
+    //        });
+    //    }
+
+    //});
     $(function () {
         $("#searchemp").autocomplete({
             source: function (request, response) {

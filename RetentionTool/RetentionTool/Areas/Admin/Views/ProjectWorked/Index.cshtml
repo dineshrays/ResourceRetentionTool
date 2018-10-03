@@ -8,11 +8,30 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
 @*<script src="~/Scripts/assets/js/plugins.js"></script>*@
-
-<div class="card">
-    <div class="card-header">
-        <h2>Assign Team Members</h2>
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Assign Team Members</h1>
+            </div>
+        </div>
     </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    <li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>
+                    <li><a href="@Url.Action("Index", "ProjectWorked")">Assign Team Members  /</a></li>
+                    <li class="active"> Index </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    @*<div class="card-header">
+        <h2>Assign Team Members</h2>
+    </div>*@
 
 
 
