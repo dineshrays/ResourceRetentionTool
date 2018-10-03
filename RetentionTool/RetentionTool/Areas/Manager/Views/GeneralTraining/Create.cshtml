@@ -34,44 +34,26 @@
         </div>
     </div>
 </div>
+
 <div class="card">
 
-    @*<div class="card-header">
-
-        <h2>Create Training</h2>
-    </div>*@
-
     <div class="card-body card-block">
-        @*@using (Html.BeginForm())
-
-            {*@
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.Date, new { @class = " form-control-label" })
-
             </div>
             <div class="col-12 col-md-9">
                 @Html.EditorFor(m => m.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
-
             </div>
-
-
-
         </div>
         <br />
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.Label("Project Name", new { @class = " form-control-label" })
-
             </div>
             <div class="col-12 col-md-9">
                 @Html.Label("Training")
-                @*<input class="form-control" style="width:30%" id="searchproject" />
-                    <input id="searchprojectid" style="display:none" />*@
             </div>
-
-
-
         </div>
         <br />
         <div class="row form-group">
@@ -126,10 +108,10 @@
             <div id="tbl" style="display:none">
                 <table class="table table-striped" style="width:100%">
                     <tr>
-                        <th>Select</th>
                         <th>Employee Name</th>
                         <th style="display:none;width:0%">Employee Id</th>
                         <th>Employee Code</th>
+                        <th>Actions</th>
                     </tr>
 
                 </table>
@@ -160,61 +142,58 @@
 
 <script>
     var empid = [];
-     $("#btnSave").click(function () {
+    $("#btnSave").click(function () {
 
-                var itemlist = [];
+        var itemlist = [];
 
-                //get cell values, instead of the header text.
-         $("table tr:not(:first)").each(function () {
+        //get cell values, instead of the header text.
+        $("table tr:not(:first)").each(function () {
 
 
-             if ($(this).find('input[name="chck"]').is(':checked')) {
-                 var tdlist = $(this).find("td");
-                 var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
-                 itemlist.push(Item);
-             }
+            if ($(this).find('input[name="chck"]').is(':checked')) {
+                var tdlist = $(this).find("td");
+                var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
+                itemlist.push(Item);
+            }
 
-         })
+        })
 
-         //$("table tbody").find('input[name="chck"]').each(function () {
-         //    if ($(this).is(":checked")) {
-         //        var tdlist = $(this).find("td");
-         //        var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
-         //        itemlist.push(Item);
-         //    }
-         //});
+        var date = $("#date").val();
+        var projectid = '1';
+        //$("#searchprojectid").val();
+        var managerid = $("#managerid").val();
+        var moduleid = $("#moduleid").val();
+        var trainerid = $("#trainerid").val();
 
-         var date = $("#date").val();
-         var projectid = '1';
-             //$("#searchprojectid").val();
-         var managerid = $("#managerid").val();
-         var moduleid = $("#moduleid").val();
-         var trainerid = $("#trainerid").val();
+        var newUrl = '@Url.Action("Index", "GeneralTraining")';
+        if (trainerid.length > 0 && managerid.length > 0 && moduleid.length > 0 && date.length > 0 && projectid.length > 0) {
+            $("#btnSave").attr('disabled', true);
 
-                var newUrl= '@Url.Action("Index", "GeneralTraining")';
-
-         var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
-               // alert(mod);
-                $.ajax({
-                    url:"/Manager/GeneralTraining/Create",
-                        @*'@Url.Action("Create", "GeneralTraining")',*@
-                    dataType: "json",
-                    data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        //alert("success");
-                        $("#date").val('');
-                        $("#managerid").val('');
-                        $("#moduleid").val('');
-                        $("#trainerid").val('');
-                        $("table tbody").empty();
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+            var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
+            // alert(mod);
+            $.ajax({
+                url: "/Manager/GeneralTraining/Create",
+                            @*'@Url.Action("Create", "GeneralTraining")',*@
+                dataType: "json",
+                data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    //alert("success");
+                    $("#date").val('');
+                    $("#managerid").val('');
+                    $("#moduleid").val('');
+                    $("#trainerid").val('');
+                    $("table tbody").empty();
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+        } else {
+            alert("Please Enter all field details");
+        }
             });
 
     $(".add-emp").click(function () {
@@ -222,11 +201,13 @@
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        var markup = "<tr><td><input type='checkbox' checked name='chck'></td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td></tr>";
-        $("table tbody").append(markup);
-        $("#searchemp").val('');
-        $("#searchid").val('');
-        $("#searchempname").val('');
+
+        var markup = "<tr id=" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+            $("table tbody").append(markup);
+            $("#searchemp").val('');
+            $("#searchid").val('');
+            $("#searchempname").val('');
+        
     });
 
     $(".del-emp").click(
@@ -240,7 +221,9 @@
             });
         });
 
-
+    function delete_Row(empid) {
+        $("#" + empid).remove();
+    }
 
 </script>
 

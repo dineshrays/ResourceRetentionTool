@@ -130,27 +130,29 @@
         $("#btnSearch").click(function () {
             var skillid = $("#skillid").val();
             var param = { id: skillid };
-            $.ajax({
-               // url: "/SearchEmpSkills/getEmployeeDetails",
-                 url:'@Url.Action("getEmployeeDetails", "SearchEmpSkill")',
-                data: JSON.stringify(param),
-                dataType: "json",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
+                       
+                 $.ajax({
+                   // url: "/SearchEmpSkills/getEmployeeDetails",
+                     url:'@Url.Action("getEmployeeDetails", "SearchEmpSkill")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
 
-                success: function (data) {
-                    $(".emplist").show();
-                    $("table tr:not(:first)").remove();
-                    $.each(data, function (i, employeeList) {
-                        var markup = "<tr><td>" + employeeList.Name + "</td><td style='display: none'>" + employeeList.Id + "</td><td>" + employeeList.EmpCode + "</td></tr>";
-                        $("#emptable").append(markup);
+                    success: function (data) {
+                        $(".emplist").show();
+                        $("table tr:not(:first)").remove();
+                        $.each(data, function (i, employeeList) {
+                            var markup = "<tr><td>" + employeeList.Name + "</td><td style='display: none'>" + employeeList.Id + "</td><td>" + employeeList.EmpCode + "</td></tr>";
+                            $("#emptable").append(markup);
 
-                    })
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(textStatus);
-                }
-            });
+                        })
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                 });
+            
         });
       
     });

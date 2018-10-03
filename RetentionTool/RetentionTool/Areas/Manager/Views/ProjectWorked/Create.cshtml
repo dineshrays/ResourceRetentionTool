@@ -136,17 +136,17 @@
 
             <table id="myTable" class="table table-striped" style="width:100%">
                 <tr>
-                    <th>Select</th>
                     <th>Employee Name</th>
                     <th>Employee Code</th>
                     <th style="display:none;width:0%">Employee Id</th>
                     <th>Designation</th>
-                    <th>Responsibility</th> 
+                    <th>Responsibility</th>
+                    <th>Action</th>
                 </tr>
 
             </table>
-            <br />
-            <button type="button" class="del-emp">Delete</button>
+            @*<br />
+            <button type="button" class="del-emp">Delete</button>*@
 
         </div>
 
@@ -193,24 +193,15 @@
                 PersonalInfo_Id: $(tdlist[3]).html(),
                 Project_Id: projectid, Manager_Id: managerid, Responsibilities: $(tdlist[5]).html(), StartDate: startdate, TeamMembers: teammember
                 , EndDate: enddate, Description: description, Designation: $(tdlist[4]).html()
-                //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
+               
             };
-            //    { Name: $(tdlist[1]).html(), Id: $(tdlist[3]).html(), EmpCode: $(tdlist[2]).html() };
+            
             itemlist.push(Item);
         })
-
-      
-
-
-
+        
         var newUrl = '@Url.Action("Index", "ProjectWorked")';
 
-        //var mod = {
-        //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
-        //    , EndDate: enddate,Description: description,Designation: designation
-        //     //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
-        // };
-               // alert(mod);
+        
                 $.ajax({
                     url: '@Url.Action("Create", "ProjectWorked")', //
                     dataType: "json",
@@ -218,12 +209,7 @@
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
-                        //alert("success");
-                        //$("#date").val('');
-                        //$("#managerid").val('');
-                        //$("#moduleid").val('');
-                        //$("#trainerid").val('');
-                        //$("table tbody").empty();
+                        
                         window.location.href = newUrl;
                     },
                     error: function (xhr) {
@@ -242,24 +228,29 @@
         var responsibilty = $("#responsibilty").val();
         var teamcount = $('#teammember').val();
         var rowCount = $('#myTable tr').length;
-       
-        if (rowCount <= teamcount) {
-            var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
-                empname + "</td><td style='display: none'>" + empid + "</td><td>" +
-                designation + "</td><td>" +
-                responsibilty + "</td></tr>";
-            $("table tbody").append(markup);
-            $("#searchemp").val('');
-            $("#searchid").val('');
-            $("#designation").val('');
-            $("#responsibilty").val('');
+
+        if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0 && teamcount.length > 0) {
+            if (rowCount <= teamcount) {
+                var markup = "<tr id=" + empid + "><td>" + empcode + "</td><td>" +
+                    empname + "</td><td style='display: none'>" + empid + "</td><td>" +
+                    designation + "</td><td>" +
+                    responsibilty + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+                $("table tbody").append(markup);
+                $("#searchemp").val('');
+                $("#searchid").val('');
+                $("#designation").val('');
+                $("#responsibilty").val('');
+            }
+            else {
+                alert("You cannot select more than the team size !");
+                $("#searchemp").val('');
+                $("#searchid").val('');
+                $("#designation").val('');
+                $("#responsibilty").val('');
+            }
         }
         else {
-            alert("You cannot select more than the team size !");
-            $("#searchemp").val('');
-            $("#searchid").val('');
-            $("#designation").val('');
-            $("#responsibilty").val('');
+            alert('Please Enter all the Details')
         }
        
     });
@@ -273,7 +264,9 @@
             });
         });
 
-
+    function delete_Row(empid) {
+        $("#" + empid).remove();
+    }
 
 </script>
 <script>

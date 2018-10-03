@@ -18,43 +18,18 @@ namespace RetentionTool.Areas.Manager.Controllers
               List<ProjectsWorked> prjctwrk = db.ProjectsWorkeds.Where(a=>a.Manager_Id==managerid && a.IsActive==true).ToList();
 
             var result1 = prjctwrk.Where(a => a.IsActive == true).GroupBy(p => p.Project_Id).Select(grp => grp.FirstOrDefault());
-            //var result = prjctwrk.Select(s => s.Project_Id).Distinct();
-            //var value = db.ProjectsWorkeds.Where(a => a.IsActive == true).ToList();
-
-            //.Distinct().ToList();
-            //var prjctwrk = (from projectworked in db.ProjectsWorkeds
-            //                                   where projectworked.IsActive == true
-
-            //                                   select new ProjectsWorked
-            //                                   {
-            //                                      Project_Id=projectworked.Project_Id,
-            //                                    //  ProjectsDetail=projectworked.ProjectsDetail,
-            //                                      StartDate=projectworked.StartDate,
-            //                                      EndDate=projectworked.EndDate,
-            //                                      Description=projectworked.Description,
-            //                                      TeamMembers=projectworked.TeamMembers,
-            //                                      Manager_Id=projectworked.Manager_Id
-            //                                   }).Distinct().ToList();
-            //foreach (var value in result1)
-            //{
-
-            //}
+            
             ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
 
             prjctwrkvm.projectvm = result1.ToList();
-            //select   AssignResource_Id from EmployeeEvalTask
-
-            //            select assres.Project_Id from EmployeeEvalTask empeval
-            //inner join AssignResources assres on
-            //empeval.AssignResource_Id = assres.Id
+           
             ViewBag.CompletedAssId = (from empeval in db.EmployeeEvalTasks 
                                       join assignres in db.AssignResources
                                       on empeval.AssignResource_Id equals assignres.Id
                                       where empeval.IsActive==true && assignres.IsActive==true
                                       && assignres.Manager_Id==managerid
                                       select assignres.Project_Id).ToList();
-            //db.EmployeeEvalTasks.ToList().Select(a => a.AssignResource_Id);
-            //ViewBag.pro = prjctwrk;
+    
             ViewBag.CriticalRes = db.CriticalResources.Where(a => a.IsActive == true).Select(a => a.Project_Id).Distinct().ToList();
             return View(prjctwrkvm);
         }

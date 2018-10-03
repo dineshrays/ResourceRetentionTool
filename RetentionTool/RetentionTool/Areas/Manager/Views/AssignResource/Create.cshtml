@@ -108,7 +108,7 @@
         <br />
         <div class="row form-group">
             <div class="col col-md-3">
-                @Html.LabelFor(m => m.employeename, new { @class = " form-control-label" })
+                @Html.LabelFor(m => m.employeename, new {@id="empname", @class = " form-control-label" })
 
             </div>
             
@@ -128,10 +128,10 @@
             <div id="table" style="display:none">
                 <table class="table table-striped" style="width:100%">
                     <tr>
-                        <th>Select</th>
                         <th>Employee Name</th>
                         <th style="display:none;width:0%">Employee Id</th>
                         <th>Employee Code</th>
+                        <th>Action</th>
                     </tr>
 
                 </table>
@@ -223,11 +223,14 @@
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td></tr>";
+        var markup = "<tr id =" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
         $("table tbody").append(markup);
         $("#searchemp").val('');
         $("#searchid").val('');
         $("#searchempname").val('');
+        //if (empname.length > 0) {
+
+        //}
     });
 
     $(".del-emp").click(
@@ -249,6 +252,7 @@
 <script>
     $(document).ready(function () {
         $('#moduleid').change(function () {
+            $("#table").show();
             var selected = $('#moduleid').val();
             $.ajax(
                 {
@@ -260,7 +264,7 @@
                     success: function (result) {
                         $("table tr:not(:first)").remove();
                         $.each(result, function (i, Skill) {
-                            var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
+                            var markup = "<tr><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
                             $("table tbody").append(markup);
                            // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
                         });
