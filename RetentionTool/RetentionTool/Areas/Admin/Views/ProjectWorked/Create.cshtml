@@ -142,11 +142,12 @@
                     <th style="display:none;width:0%">Employee Id</th>
                     <th>Designation</th>
                     <th>Responsibility</th>
+                    <th>Action</th>
                 </tr>
 
             </table>
-            <br />
-            <button type="button" class="del-emp">Delete</button>
+            @*<br />
+            <button type="button" class="del-emp">Delete</button>*@
 
         </div>
 
@@ -247,10 +248,10 @@
         if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0 && teamcount.length > 0) {
             if (rowCount <= teamcount) {
                 $("#tblDiv").show();
-                var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
+                var markup = "<tr id=" + empid + "><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
                     empname + "</td><td style='display: none'>" + empid + "</td><td>" +
                     designation + "</td><td>" +
-                    responsibilty + "</td></tr>";
+                    responsibilty + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
                 $("table tbody").append(markup);
                 $("#searchemp").val('');
                 $("#searchid").val('');
@@ -281,7 +282,11 @@
             });
         });
 
-
+ 
+    function delete_Row(empid) {
+    
+    $("#" + empid).remove();
+    }
 
 </script>
 <script>
