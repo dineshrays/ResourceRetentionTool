@@ -35,12 +35,7 @@
         </div>
     </div>
 </div>
-<div class="card">
 
-    @*<div class="card-header">
-
-        <h2>Create Training</h2>
-    </div>*@
 
     <div class="card-body card-block">
         @*@using (Html.BeginForm())
@@ -49,15 +44,10 @@
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.Date, new { @class = " form-control-label" })
-
             </div>
             <div class="col-12 col-md-9">
                 @Html.EditorFor(m => m.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
-
             </div>
-
-
-
         </div>
         <br />
         <div class="row form-group">
@@ -116,7 +106,7 @@
             <div class="col-12 col-md-9">
                 <input class="form-control" style="width:30%" id="searchemp" />
                 <input id="searchid" style="display:none" />
-                <input id="searchempname" style="display:none" />
+                <input id="searchempname" style="display:none" /><br />
                 <input type="button" value="Add" class="add-emp" />
 
             </div>
@@ -124,14 +114,13 @@
         </div>
 
         <br />
-        <div>
-
-            <table class="table table-striped" style="width:50%">
+        <div id="tbl" style="display:none">
+            <table class="table table-striped" style="width:100%">
                 <tr>
-                    <th>Select</th>
                     <th>Employee Name</th>
                     <th style="display:none;width:0%">Employee Id</th>
                     <th>Employee Code</th>
+                    <th>Action</th>
                 </tr>
 
             </table>
@@ -157,7 +146,7 @@
         @*}*@
     </div>
 
-</div>
+
 
 <script>
     var empid = [];
@@ -218,15 +207,19 @@
             });
 
     $(".add-emp").click(function () {
-
+        $("#tbl").show();
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        var markup = "<tr><td><input type='checkbox' checked name='chck'></td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td></tr>";
-        $("table tbody").append(markup);
-        $("#searchemp").val('');
-        $("#searchid").val('');
-        $("#searchempname").val('');
+        if (empname.length > 0 && empid.length > 0 && name.length > 0)
+        {
+            var markup = "<tr id=" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+            $("table tbody").append(markup);
+            $("#searchemp").val('');
+            $("#searchid").val('');
+            $("#searchempname").val('');
+        }
+       
     });
 
     $(".del-emp").click(
@@ -239,6 +232,10 @@
                 }
             });
         });
+
+    function delete_Row(empid) {
+        $("#" + empid).remove();
+    }
 
 
 

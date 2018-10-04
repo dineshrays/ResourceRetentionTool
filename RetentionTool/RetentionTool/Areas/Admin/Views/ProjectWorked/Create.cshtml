@@ -33,11 +33,7 @@
 @*@using (Html.BeginForm())
 {*@
     @Html.AntiForgeryToken()
-    <div class="card">
-        @*<div class="card-header">
-                <h2>Assign Team Members</h2>
-
-            </div>*@
+    
         <div class="card-body card-block">
             <div class="row form-group">
                 <div class="col-md-3">
@@ -144,7 +140,7 @@
             <div id="tblDiv" style="display:none">
 
 
-                <table id="myTable" class="table table-striped" style="width:50%">
+                <table id="myTable" class="table table-striped" style="width:100%">
                     <tr>
                         <th style="display:none;width:0%">Select</th>
                         <th>Employee Name</th>
@@ -177,8 +173,7 @@
             </div>
 
         </div>
-    </div>
-@*}*@
+ 
 
 <script>
     $(document).ready(function () {
