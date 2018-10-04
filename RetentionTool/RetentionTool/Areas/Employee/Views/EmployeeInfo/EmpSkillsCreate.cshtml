@@ -30,28 +30,30 @@
         </div>
 
         <div class="row form-group">
-            <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />
+            <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />&nbsp;
             <input id="searchid" style="display:none" />
             @*<input id="searchskill" type="text" />*@
-            <input id="Years" placeholder="Years" />
-            <input id="Months" placeholder="Months" />
-            <input id="Status" placeholder="Status" />
+            <input id="Years" placeholder="Years" />&nbsp;
+            <input id="Months" placeholder="Months" />&nbsp;
+            <input id="Status" placeholder="Status" />&nbsp;
             <input type="button" value="Add" class="add-emp" />
         </div>
 
-        <table class="table table-striped" style="width:50%">
-            <tr>
-                <th>Select</th>
-                <th> Skills</th>
-                <th style="display:none;width:0%">Skill Id</th>
-                <th>Years</th>
-                <th>Months</th>
-                <th>Status</th>
-            </tr>
+        <div id="tbl" style="display:none">
+            <table class="table table-striped" style="width:100%">
+                <tr>
+                    <th> Skills</th>
+                    <th style="display:none;width:0%">Skill Id</th>
+                    <th>Years</th>
+                    <th>Months</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
 
-        </table>
-        <br />
-        <button type="button" class="del-emp">Delete</button>
+            </table>
+        </div>
+        @*<br />
+        <button type="button" class="del-emp">Delete</button>*@
     </div>
 
     <div class="col-12 col-md-9">
@@ -69,8 +71,9 @@
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+    
     $(".add-emp").click(function () {
-
+        $("#tbl").show();
         var skillname = $("#searchskill").val();
 
 
@@ -79,18 +82,31 @@
         var Years = $("#Years").val();
         var Months = $("#Months").val();
         var Status = $("#Status").val();
-        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-            skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
-            Years + "</td><td>" +
-            Months + "</td><td>" +
-            Status + "</td></tr>";
-        $("table tbody").append(markup);
-        $("#searchskill").val('');
-        $("#searchid").val('');
-        $("#Years").val('');
-        $("#Months").val('');
-        $("#Status").val('');
+
+        if (skillname.length > 0 && Years.length > 0 && Months.length > 0 && Status.length > 0)
+        {
+            var markup = "<tr id=" + skillid + "><td>" +
+                skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
+                Years + "</td><td>" +
+                Months + "</td><td>" +
+                Status + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + skillid + ")></td></tr>";
+            $("table tbody").append(markup);
+            $("#searchskill").val('');
+            $("#searchid").val('');
+            $("#Years").val('');
+            $("#Months").val('');
+            $("#Status").val('');
+        }
+        else
+        {
+            alert("Enter all Required details");
+        }
     });
+    
+    function delete_Row(skill)
+    {
+        $("#" + skill).remove();
+    }
 
     $(".del-emp").click(function () {
 
@@ -104,8 +120,7 @@
 </script>
 <script type="text/javascript">
             //$(function () {
-                $("#btnSave").click(function () {
-                  
+                $("#btnSave").click(function () {                 
                     
                     var itemlist = [];
                     

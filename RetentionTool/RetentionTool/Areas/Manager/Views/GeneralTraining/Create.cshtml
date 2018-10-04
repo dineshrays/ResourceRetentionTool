@@ -26,8 +26,8 @@
         <div class="page-header float-right">
             <div class="page-title">
                 <ol class="breadcrumb text-right" style="background-color:white">
-                    <li><a href="@Url.Action("Index", "ManagerHome")">Dashboard /</a></li>
-                    <li><a href="@Url.Action("Index", "GeneralTraining")">Plan Training /</a></li>
+                    <li><a href="@Url.Action("Index", "ManagerHome")">Dashboard </a></li>
+                    <li><a href="@Url.Action("Index", "GeneralTraining")">Plan Training</a></li>
                     <li class="active"> Create </li>
                 </ol>
             </div>
@@ -202,11 +202,15 @@
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
 
-        var markup = "<tr id=" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+        if (name.length > 0) {
+            var markup = "<tr id=" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
             $("table tbody").append(markup);
             $("#searchemp").val('');
             $("#searchid").val('');
             $("#searchempname").val('');
+        }
+        else { alert("Enter Employee Name") }
+       
         
     });
 

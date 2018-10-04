@@ -6,6 +6,11 @@
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
 }
 
+<style>
+    .form-control-label{
+        margin-top:0.5rem;
+    }
+</style>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
@@ -25,8 +30,8 @@
         <div class="page-header float-right">
             <div class="page-title">
                 <ol class="breadcrumb text-right" style="background-color:white">
-                    <li><a href="@Url.Action("Index", "ManagerHome")">Dashboard /</a></li>
-                    <li><a href="@Url.Action("Index", "AssignResource")"> Backups /</a></li>
+                    <li><a href="@Url.Action("Index", "ManagerHome")">Dashboard </a></li>
+                    <li><a href="@Url.Action("Index", "AssignResource")"> Backups </a></li>
                     <li class="active"> Create </li>
                 </ol>
             </div>
@@ -46,7 +51,7 @@
             {*@
         <div class="row form-group">
             <div class="col col-md-3">
-                @Html.LabelFor(m => m.Date, new { @class = " form-control-label" })
+                @Html.LabelFor(m => m.Date, new { @class = " form-control-label", style="" })
 
             </div>
             <div class="col-12 col-md-9">
@@ -57,7 +62,7 @@
 
 
         </div>
-        <br />
+       
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.Label("Project Name", new { @class = " form-control-label" })
@@ -71,18 +76,18 @@
 
 
         </div>
-        <br />
+        
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.managername, new { @class = " form-control-label" })
             </div>
-            <div class="col-12 col-md-9">
-                @Html.DisplayFor(m=>m.managername, new { @class = "form-control" })
+            <div class="col-12 col-md-9" style="margin-top: 0.5rem;">
+                @Html.DisplayFor(m=>m.managername, new { @id= "managerid", @class = "form-control"})
 
                     
             </div>
         </div>
-        <br />
+        
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.modulename, new { @class = " form-control-label" })
@@ -94,7 +99,7 @@
 
 
         </div>
-        <br />
+        
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.trainername, new { @class = " form-control-label" })
@@ -105,7 +110,7 @@
             </div>
 
         </div>
-        <br />
+        
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.LabelFor(m => m.employeename, new {@id="empname", @class = " form-control-label" })
@@ -128,6 +133,7 @@
             <div id="table" style="display:none">
                 <table class="table table-striped" style="width:100%">
                     <tr>
+                        <th>Select</th>
                         <th>Employee Name</th>
                         <th style="display:none;width:0%">Employee Id</th>
                         <th>Employee Code</th>
@@ -195,27 +201,34 @@
                 var newUrl= '@Url.Action("Index", "AssignResource")';
 
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
-               // alert(mod);
-                $.ajax({
-                    url:'/Manager/AssignResource/Create',
+         // alert(mod);
+         if (/*managerid.length > 0 &&*/ projectid.length > 0 && trainerid.length > 0 && moduleid.length > 0 && date.length > 0) {
+             $("#btnSave").attr('diabled', true);
+
+             $.ajax({
+                 url: '/Manager/AssignResource/Create',
                         @*'@Url.Action("Create", "AssignResource")',*@ 
-                    dataType: "json",
-                    data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        //alert("success");
-                        $("#date").val('');
-                        $("#managerid").val('');
-                        $("#moduleid").val('');
-                        $("#trainerid").val('');
-                        $("table tbody").empty();
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+                 dataType: "json",
+                 data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
+                 type: "POST",
+                 contentType: "application/json; charset=utf-8",
+                 success: function (result) {
+                     //alert("success");
+                     $("#date").val('');
+                     $("#managerid").val('');
+                     $("#moduleid").val('');
+                     $("#trainerid").val('');
+                     $("table tbody").empty();
+                     window.location.href = newUrl;
+                 },
+                 error: function (xhr) {
+                     alert("error");
+                 }
+             });
+         }
+         else {
+             alert("Enter all the details");
+         }
             });
 
     $(".add-emp").click(function () {
@@ -223,14 +236,17 @@
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        var markup = "<tr id =" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
-        $("table tbody").append(markup);
-        $("#searchemp").val('');
-        $("#searchid").val('');
-        $("#searchempname").val('');
-        //if (empname.length > 0) {
 
-        //}
+        if (name.length > 0) {
+            var markup = "<tr id =" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+            $("table tbody").append(markup);
+            $("#searchemp").val('');
+            $("#searchid").val('');
+            $("#searchempname").val('');
+        }
+        else {
+            alert("Enter the Employee name");
+        }
     });
 
     $(".del-emp").click(
@@ -243,8 +259,10 @@
                 }
             });
         });
-
-
+    
+    function delete_Row(empid) {
+        $("#" + empid).remove();
+    }
 
 </script>
 
@@ -264,7 +282,7 @@
                     success: function (result) {
                         $("table tr:not(:first)").remove();
                         $.each(result, function (i, Skill) {
-                            var markup = "<tr><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+                            var markup = "<tr id =" + Skill.Id + "><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + Skill.Id + ")></td></tr>";
                             $("table tbody").append(markup);
                            // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
                         });
