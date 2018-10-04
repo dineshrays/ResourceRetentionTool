@@ -77,7 +77,7 @@
                 @Html.LabelFor(m => m.managername, new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DisplayFor(m=>m.managername, new { @class = "form-control" })
+                @Html.DisplayFor(m=>m.managername, new { @id= "managerid", @class = "form-control" })
 
                     
             </div>
@@ -196,30 +196,32 @@
 
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
          // alert(mod);
-         if (managerid.length > 0 && projectid.length > 0 && trainerid.length > 0 && moduleid.length > 0 && date.length > 0)
-         {
+         if (/*managerid.length > 0 &&*/ projectid.length > 0 && trainerid.length > 0 && moduleid.length > 0 && date.length > 0) {
              $("#btnSave").attr('diabled', true);
-         
-                $.ajax({
-                    url:'/Manager/AssignResource/Create',
+
+             $.ajax({
+                 url: '/Manager/AssignResource/Create',
                         @*'@Url.Action("Create", "AssignResource")',*@ 
-                    dataType: "json",
-                    data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        //alert("success");
-                        $("#date").val('');
-                        $("#managerid").val('');
-                        $("#moduleid").val('');
-                        $("#trainerid").val('');
-                        $("table tbody").empty();
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+                 dataType: "json",
+                 data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
+                 type: "POST",
+                 contentType: "application/json; charset=utf-8",
+                 success: function (result) {
+                     //alert("success");
+                     $("#date").val('');
+                     $("#managerid").val('');
+                     $("#moduleid").val('');
+                     $("#trainerid").val('');
+                     $("table tbody").empty();
+                     window.location.href = newUrl;
+                 },
+                 error: function (xhr) {
+                     alert("error");
+                 }
+             });
+         }
+         else {
+             alert("Enter all the details");
          }
             });
 
@@ -228,14 +230,17 @@
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        var markup = "<tr id =" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
-        $("table tbody").append(markup);
-        $("#searchemp").val('');
-        $("#searchid").val('');
-        $("#searchempname").val('');
-        //if (empname.length > 0) {
 
-        //}
+        if (name.length > 0) {
+            var markup = "<tr id =" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+            $("table tbody").append(markup);
+            $("#searchemp").val('');
+            $("#searchid").val('');
+            $("#searchempname").val('');
+        }
+        else {
+            alert("Enter the Employee name");
+        }
     });
 
     $(".del-emp").click(
