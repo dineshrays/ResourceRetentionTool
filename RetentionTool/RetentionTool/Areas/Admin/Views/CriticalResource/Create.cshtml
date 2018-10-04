@@ -3,11 +3,15 @@
     ViewBag.Title = "Identify Critical Resource";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    var count = 0;
+    var number = 0;
 }
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
+
 <div class="breadcrumbs">
     <div class="col-sm-6">
         <div class="page-header float-left">
@@ -29,7 +33,6 @@
     </div>
 </div>
 
-<div class="card">
     <div class="card-body card-block">
         <div class="row form-group">
             <div class="col-md-3">
@@ -38,14 +41,14 @@
             <div class="col-12 col-md-9">
                 @Html.HiddenFor(model => model.projects.Project_Id, new { @id = "projectId" })
                 @Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
-          
+
             </div>
         </div>
 
         <br />
         <div>
 
-            <table class="table table-striped" id="tbl" style="width:50%">
+            <table class="table table-striped" id="tbl" style="width:100%">
                 <tr>
                     <th>Select</th>
 
@@ -62,7 +65,7 @@
                     <tr>
                         <td>
                             <input type="radio" @*"checkbox"*@ name="critic" class="chck" />
-                           
+
 
                         </td>
                         <td>@item.PersonalInfo1.Name</td>
@@ -72,7 +75,7 @@
                         <td>@item.Responsibilities</td>
                         <td>
                             <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" />
-                           
+
 
                         </td>
                     </tr>
@@ -82,25 +85,29 @@
             <div style="display:none" id="accountinfo">
                 <div class="row form-group">
                     <input class="form-control" style="width:30%" id="reporting" placeholder="Reporting" />  &nbsp;
-                    <input id="Information" placeholder="Information" />
+                    <input id="Information" placeholder="Information" />&nbsp;
                     <input type="button" value="Add" class="add-accountability" />
                 </div>
 
-                <table class="table table-striped" id="table-accountability" style="width:50%">
+                <table class="table table-striped" id="table-accountability" style="width:100%">
                     <tr>
-                        <th>Select</th>
+                        <th style="display:none">Select</th>
                         <th>Reporting</th>
                         <th>Information</th>
+                        <th>Action</th>
                     </tr>
 
                 </table>
-                <br />
-                <button type="button" class="del-accountability">Delete</button>
+                @*<br />
+                <button type="button" class="del-accountability">Delete</button>*@
             </div>
             <br />
         </div>
 
         <div class="row form-group">
+            <div class="col col-md-3">
+
+            </div>
             <div class="col-12 col-md-9">
 
                 <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
@@ -111,13 +118,13 @@
         </div>
 
     </div>
-</div>
+
 
 <script type="text/javascript">
 
     $(function () {
         $('input.chck').change(
-            
+
             function() {
                 if ($('input.chck').is(':checked')) {
                 $('#accountinfo').show();
@@ -127,20 +134,29 @@
         });
     });
 
-        $(".add-accountability").click(function () {
+  
+    function Delete_Row(id) {
+        $('#' + id).remove();
+    }
+
+    $(".add-accountability").click(function () {
 
             var reporting = $("#reporting").val();
             var Information = $("#Information").val();
-            if (reporting.length > 0 && Information.length > 0) {
-                var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-                    reporting + "</td><td>" +
-                    Information + "</td></tr>";
+        if (reporting.length > 0 && Information.length > 0) {
+            //var a = parseInt("10")
+           // =parseInt(@count,1);
+            //1;
+            var idval = reporting + Information;
+            var Company = "<tr id=" + idval + "><td style='display:none'><input type='checkbox'  name='chck'></td><td>" +
+                reporting + "</td><td>" +
+                Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='Delete_Row(" + idval + ")'></td></tr>";
 
                 $("#table-accountability").append(Company);
                 $("#reporting").val('');
                 $("#Information").val('');
             }
-            
+
         });
 
         $(".del-accountability").click(function () {
@@ -151,7 +167,7 @@
                 }
             });
         });
-    
+
 </script>
 
 
@@ -184,18 +200,21 @@
 
           })
           var accinfo = [];
-          
+
           $("#table-accountability tr:not(:first)").each(function ()
           {
               var tdlist = $(this).find("td");
 
               var Item = { Name: $(tdlist[1]).html(), Value: $(tdlist[2]).html()};
-              
+
               accinfo.push(Item);
-             
+
           })
 
-         var newUrl= '@Url.Action("Index", "CriticalResource")';
+
+          if (accinfo.length > 0 && trainerlist.PersonalInfo_Id > 0 && cri.PersonalInfo_Id > 0 && projectId > 0) {
+              var newUrl = '@Url.Action("Index", "CriticalResource")';
+              $("#btnSave").attr('disabled', true);
                 $.ajax({
                     url: '@Url.Action("Create", "CriticalResource")', //
                     dataType: "json",
@@ -209,6 +228,12 @@
                         alert("error");
                     }
         });
+          }
+          else {
+              alert('Please fill all the details')
+          }
+
+         
         });
 
 
