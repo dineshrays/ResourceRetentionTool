@@ -43,6 +43,8 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.projects.Project_Id, "Required", new { @class = "text-danger", @id = "errorprjctid" })
+
             </div>
         </div>
 
@@ -53,6 +55,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
+                @Html.ValidationMessageFor(model => model.projects.StartDate, "Required", new { @class = "text-danger", @id = "errorstartdate" })
 
             </div>
 
@@ -65,6 +68,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.EditorFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
+                @Html.ValidationMessageFor(model => model.projects.EndDate, "Required", new { @class = "text-danger", @id = "errorenddate" })
 
             </div>
 
@@ -76,6 +80,8 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.TextBoxFor(model => model.projects.Description, new { @class = "form-control-label", @id = "description", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.projects.Description, "Required", new { @class = "text-danger", @id = "errordescription" })
+
             </div>
         </div>
 
@@ -85,6 +91,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.TextBoxFor(model => model.projects.TeamMembers, new { @class = "form-control-label", @id = "teammember", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.projects.TeamMembers, "Required", new { @class = "text-danger", @id = "errorteammember" })
             </div>
         </div>
         <div class="row form-group">
@@ -93,15 +100,17 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.projects.Manager_Id, "Required", new { @class = "text-danger", @id = "errormanagerid" })
+
             </div>
         </div>
         <div class="row form-group">
 
-            <input class="form-control" style="width:30%" id="searchemp" placeholder="Employee Code" />
+            <input class="form-control" style="width:30%" id="searchemp" placeholder="Employee Code" />&nbsp;
             <input id="searchid" style="display:none" />
             <input id="searchname" style="display:none" />
-            <input id="designation" placeholder="Designation" />
-            <input id="responsibilty" placeholder="Responsibility" />
+            <input id="designation" placeholder="Designation" />&nbsp;
+            <input id="responsibilty" placeholder="Responsibility" />&nbsp;
             <input type="button" value="Add" class="add-emp" />
 
 
@@ -109,34 +118,36 @@
         </div>
 
         <br />
-        <div>
+        <div id="tblDiv" >
 
             <table class="table table-striped" style="width:50%">
                 <tr>
-                    <th>Select</th>
+                    <th style="display:none;width:0%">Select</th>
                     <th>Employee Name</th>
                     <th>Employee Code</th>
                     <th style="display:none;width:0%">Employee Id</th>
                     <th>Designation</th>
                     <th>Responsibility</th>
                     <th style="display:none;width:0%">ProjectWorked Id</th>
+                    <th>Action</th>
                 </tr>
                 @foreach (var i in Model.projectvm)
                 {
-                <tr>
-                    <td><input type="checkbox" name="chck" /></td>
+                <tr id="@i.PersonalInfo_Id">
+                    <td style="display:none;width:0%"><input type="checkbox" name="chck" /></td>
                     <td>@i.PersonalInfo1.Name</td>
                     <td>@i.PersonalInfo1.EmpCode</td>
                     <td style="display:none">@i.PersonalInfo_Id</td>
                     <td>@i.Designation</td>
                     <td>@i.Responsibilities</td>
                     <td style="display:none">@i.Id</td>
+                    <td><input type="submit" value="Delete" onclick="delete_Row(@i.PersonalInfo_Id)"></td>
                 </tr>
                 }
 
             </table>
-            <br />
-            <button type="button" class="del-emp">Delete</button>
+            @*<br />
+            <button type="button" class="del-emp">Delete</button>*@
 
         </div>
 
@@ -158,7 +169,138 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $("#errordescription").hide();
+        $("#errorprjctid").hide();
+        $("#errorstartdate").hide();
+        $("#errorenddate").hide();
+        $("#errorteammember").hide();
+        $("#errormanagerid").hide();
 
+    });
+    function validate() {
+        if ($("#projectid").val().length > 0) {
+            $("#errorprjctid").hide();
+        }
+        else {
+            $("#errorprjctid").show();
+        }
+        if ($("#startdate").val().length > 0) {
+            $("#errorstartdate").hide();
+        }
+        else {
+            $("#errorstartdate").show();
+        }
+        if ($("#enddate").val().length > 0) {
+            $("#errorenddate").hide();
+        }
+        else {
+            $("#errorenddate").show();
+        }
+        if ($("#teammember").val().length > 0) {
+            $("#errorteammember").hide();
+        }
+        else {
+            $("#errorteammember").show();
+        }
+        if ($("#managerid").val().length > 0) {
+            $("#errormanagerid").hide();
+        }
+        else {
+            $("#errormanagerid").show();
+        }
+        if ($("#description").val().length > 0) {
+            $("#errordescription").hide();
+        }
+
+        else {
+
+            $("#errordescription").show();
+
+        }
+    }
+
+
+    $("#enddate").change(function () {
+
+        if ($("#enddate").val().length > 0) {
+            $("#errorenddate").hide();
+        }
+        else {
+
+            $("#errorenddate").show();
+        }
+
+    });
+    $("#teammember").keydown(function (event) {
+
+        if (event.which === 8) {
+            if ($("#teammember").val().length > 0) {
+
+                $("#errorteammember").hide();
+            }
+            else if ($("#teammember").val() === "" || $("#teammember").val().length === 0) {
+
+                $("#errorteammember").show();
+            }
+        }
+        else {
+            $("#errorteammember").hide();
+        }
+
+    });
+    $("#managerid").change(function () {
+
+        if ($("#managerid").val() > 0) {
+            $("#errormanagerid").hide();
+        }
+        else {
+
+            $("#errormanagerid").show();
+        }
+
+    });
+
+    $("#startdate").change(function () {
+
+        if ($("#startdate").val().length > 0) {
+            $("#errorstartdate").hide();
+        }
+        else {
+
+            $("#errorstartdate").show();
+        }
+
+    });
+    $("#projectid").change(function () {
+
+        if ($("#projectid").val() > 0) {
+            $("#errorprjctid").hide();
+        }
+        else {
+
+            $("#errorprjctid").show();
+        }
+
+    });
+
+
+    $("#description").keydown(function () {
+        if (event.which === 8) {
+            if ($("#description").val().length > 0) {
+                $("#errordescription").hide();
+            }
+            else if ($("#description").val() === "" || $("#description").val().length === 0) {
+
+                $("#errordescription").show();
+            }
+        }
+        else {
+            $("#errordescription").hide();
+        }
+    });
+</script>
 <script>
     var empid = [];
     $("#btnSave").click(function () {
@@ -177,7 +319,7 @@
         //get cell values, instead of the header text.
         $("table tr:not(:first)").each(function () {
             var tdlist = $(this).find("td");
-
+           
             var Item = {
                 PersonalInfo_Id: $(tdlist[3]).html(),
                 Project_Id: projectid, Manager_Id: managerid, Responsibilities: $(tdlist[5]).html(), StartDate: startdate, TeamMembers: teammember
@@ -190,36 +332,42 @@
 
 
 
+        if (projectid.length > 0 && startdate.length > 0 && enddate.length > 0 && description.length > 0 && managerid.length > 0
+            && teammember.length > 0 && itemlist.length > 0) {
+            $("#btnSave").attr('disabled', true);
+            var newUrl = '@Url.Action("Index", "ProjectWorked")';
 
-
-        var newUrl = '@Url.Action("Index", "ProjectWorked")';
-
-        //var mod = {
-        //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
-        //    , EndDate: enddate,Description: description,Designation: designation
-        //     //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
-        // };
-               // alert(mod);
-                $.ajax({
-                    url: '@Url.Action("Edit", "ProjectWorked")', //
-                    dataType: "json",
-                    data: JSON.stringify({ prjctwrkvm: itemlist, id: projectid }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        //alert("success");
-                        //$("#date").val('');
-                        //$("#managerid").val('');
-                        //$("#moduleid").val('');
-                        //$("#trainerid").val('');
-                        //$("table tbody").empty();
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+            //var mod = {
+            //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
+            //    , EndDate: enddate,Description: description,Designation: designation
+            //     //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
+            // };
+            // alert(mod);
+            $.ajax({
+                url: '@Url.Action("Edit", "ProjectWorked")', //
+                dataType: "json",
+                data: JSON.stringify({ prjctwrkvm: itemlist, id: projectid }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    //alert("success");
+                    //$("#date").val('');
+                    //$("#managerid").val('');
+                    //$("#moduleid").val('');
+                    //$("#trainerid").val('');
+                    //$("table tbody").empty();
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
             });
+        }
+            });
+    function delete_Row(empid) {
+
+        $("#" + empid).remove();
+    }
 
     $(".add-emp").click(function () {
 
@@ -228,15 +376,37 @@
         var empname = $("#searchname").val();
         var designation = $("#designation").val();
         var responsibilty = $("#responsibilty").val();
-        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
-            empname + "</td><td style='display: none'>" + empid + "</td><td>" +
-            designation + "</td><td>" +
-            responsibilty + "</td><td style='display: none'>0</td></tr>";
-        $("table tbody").append(markup);
-        $("#searchemp").val('');
-        $("#searchid").val('');
-        $("#designation").val('');
-        $("#responsibilty").val('');
+        var teamcount = $('#teammember').val();
+        var rowCount = $('#myTable tr').length;
+        if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0 && teamcount.length > 0) {
+            if (rowCount <= teamcount) {
+                $("#tblDiv").show();
+                var markup = "<tr id=" + empid + "><td style='display:none; width:0%'><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
+                    empname + "</td><td style='display: none'>" + empid + "</td><td>" +
+                    designation + "</td><td>" +
+                    responsibilty + "</td><td style='display: none'>0</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+
+                //var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
+                //    empname + "</td><td style='display: none'>" + empid + "</td><td>" +
+                //    designation + "</td><td>" +
+                //    responsibilty + "</td><td style='display: none'>0</td></tr>";
+                $("table tbody").append(markup);
+                $("#searchemp").val('');
+                $("#searchid").val('');
+                $("#designation").val('');
+                $("#responsibilty").val('');
+            }
+            else {
+                alert("You cannot select more than the team size !");
+                $("#searchemp").val('');
+                $("#searchid").val('');
+                $("#designation").val('');
+                $("#responsibilty").val('');
+            }
+        }
+        else {
+            alert('Please Enter all the Details')
+        }
     });
 
     $(".del-emp").click(

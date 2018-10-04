@@ -45,7 +45,7 @@
                     @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
                 </div>
                 <div class="col-12 col-md-9">
-                    @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
+                    @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, "Select",new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
                     @Html.ValidationMessageFor(model => model.projects.Project_Id, "Required", new { @class = "text-danger", @id = "errorprjctid" })
 
                 </div>
@@ -117,7 +117,7 @@
                     @*For(model => model.projects.Manager_Id, new { @class = "form-control-label" })*@
                 </div>
                 <div class="col-12 col-md-9">
-                    @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
+                    @Html.DropDownListFor(model => model.projects.Manager_Id, ViewData["managerslist"] as SelectList, "Select",new { @class = "form-control-label", @id = "managerid", style = "width:30%" })
                     @Html.ValidationMessageFor(model => model.projects.Manager_Id, "Required", new { @class = "text-danger", @id = "errormanagerid" })
                 </div>
             </div>
@@ -146,7 +146,7 @@
 
                 <table id="myTable" class="table table-striped" style="width:50%">
                     <tr>
-                        <th>Select</th>
+                        <th style="display:none;width:0%">Select</th>
                         <th>Employee Name</th>
                         <th>Employee Code</th>
                         <th style="display:none;width:0%">Employee Id</th>
@@ -233,19 +233,16 @@
     }
 
 
-    $("#enddate").keydown(function () {
-        if (event.which === 8) {
+    $("#enddate").change(function () {
+       
             if ($("#enddate").val().length > 0) {
                 $("#errorenddate").hide();
             }
-            else if ($("#enddate").val() === "" || $("#enddate").val().length === 0) {
+            else  {
                
                 $("#errorenddate").show();
             }
-        }
-        else if ($("#enddate").val() == "") {
-            $("#errorenddate").hide();
-        }
+     
     });
     $("#teammember").keydown(function (event) {
      
@@ -264,48 +261,39 @@
         }
       
     });
-    $("#managerid").keydown(function () {
-        if (event.which === 8) {
-            if ($("#managerid").val().length > 0) {
+    $("#managerid").change(function () {
+     
+            if ($("#managerid").val() > 0) {
                 $("#errormanagerid").hide();
             }
-            else if ($("#managerid").val() === "" || $("#managerid").val().length === 0) {
+            else {
 
                 $("#errormanagerid").show();
             }
-        }
-        else {
-            $("#errormanagerid").hide();
-        }
+       
     });
 
-    $("#startdate").keydown(function () {
-        if (event.which === 8) {
+    $("#startdate").change(function () {
+        
             if ($("#startdate").val().length > 0) {
                 $("#errorstartdate").hide();
             }
-            else if ($("#startdate").val() === "" || $("#startdate").val().length === 0) {
+            else {
 
                 $("#errorstartdate").show();
             }
-        }
-        else {
-            $("#errorstartdate").hide();
-        }
+       
     });
-    $("#projectid").keydown(function () {
-        if (event.which === 8) {
-            if ($("#projectid").val().length > 0) {
-                $("#errorprjctid").show();
-            }
-            else if ($("#projectid").val() === "" || $("#projectid").val().length === 0) {
-
-                $("#errorprjctid").show();
-            }
-        }
-        else {
+    $("#projectid").change(function () {
+       
+        if ($("#projectid").val() > 0) {
             $("#errorprjctid").hide();
-             }
+            }
+            else  {
+
+            $("#errorprjctid").show();
+            }
+        
     });
 
 
@@ -403,8 +391,8 @@
         if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0 && teamcount.length > 0) {
             if (rowCount <= teamcount) {
                 $("#tblDiv").show();
-                //<td><input type='checkbox'  name='chck'></td>
-                var markup = "<tr id=" + empid + "><td>" + empcode + "</td><td>" +
+                //<td style="display:none;width:0%"><input type='checkbox'  name='chck'></td>
+                var markup = "<tr id=" + empid + "><td style='display:none; width:0%'><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
                     empname + "</td><td style='display: none'>" + empid + "</td><td>" +
                     designation + "</td><td>" +
                     responsibilty + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
