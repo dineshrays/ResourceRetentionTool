@@ -403,7 +403,8 @@
         if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0 && teamcount.length > 0) {
             if (rowCount <= teamcount) {
                 $("#tblDiv").show();
-                var markup = "<tr id=" + empid + "><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
+                //<td><input type='checkbox'  name='chck'></td>
+                var markup = "<tr id=" + empid + "><td>" + empcode + "</td><td>" +
                     empname + "</td><td style='display: none'>" + empid + "</td><td>" +
                     designation + "</td><td>" +
                     responsibilty + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";

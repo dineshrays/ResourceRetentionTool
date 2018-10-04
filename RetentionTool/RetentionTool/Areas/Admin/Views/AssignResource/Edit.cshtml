@@ -35,8 +35,8 @@
 
     @*<div class="card-header">
 
-        <h2>Edit Backup</h2>
-    </div>*@
+            <h2>Edit Backup</h2>
+        </div>*@
     @*@using (Html.BeginForm())
 
         {*@
@@ -49,24 +49,26 @@
             <div class="col-12 col-md-9">
                 @Html.HiddenFor(m => m.assignResource.Id, new { @id = "assresid" })
                 @Html.EditorFor(m => m.assignResource.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
+                @Html.ValidationMessageFor(m => m.assignResource.Date, "Required", new { @class = "text-danger", @id = "errdate" })
+
             </div>
 
 
 
         </div>
-        <br />
+       
 
         @*<div class="row form-group">
-            <div class="col col-md-3">
-                @Html.Label("Project Name", new { @class = " form-control-label" })
+                <div class="col col-md-3">
+                    @Html.Label("Project Name", new { @class = " form-control-label" })
 
-            </div>
-            <div class="col-12 col-md-9">
-                @*<input class="form-control" style="width:30%" id="searchproject" value="" />
+                </div>
+                <div class="col-12 col-md-9">
+                    @*<input class="form-control" style="width:30%" id="searchproject" value="" />
 
-                <input id="searchprojectid" style="display:none" />
-            </div>
-        </div>*@
+                    <input id="searchprojectid" style="display:none" />
+                </div>
+            </div>*@
         <div class="row form-group">
             <div class="col col-md-3">
                 @Html.Label("Project Name", new { @class = " form-control-label" })
@@ -77,122 +79,280 @@
                 @*@Html.DisplayFor(m => m.assignResource.projectname)*@
                 <input class="form-control" style="width:30%" id="searchproject" value=@Model.assignResource.projectname />
                 <input id="searchprojectid" style="display:none" />
-            </div>
-                        </div>
-
-
-
-                <br />
-                <div class="row form-group">
-                    <div class="col col-md-3">
-
-                        @Html.LabelFor(m => m.assignResource.managername, new { @class = " form-control-label" })
-                    </div>
-                    <div class="col-12 col-md-9">
-                        @Html.DropDownListFor(m => m.assignResource.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control", @id = "managerid", style = "width:30%" })
-
-
-                    </div>
-
-
-
-                </div>
-                <br />
-                <div class="row form-group">
-                    <div class="col col-md-3">
-
-                        @Html.LabelFor(m => m.assignResource.modulename, new { @class = " form-control-label" })
-                    </div>
-                    <div class="col-12 col-md-9">
-
-                        @Html.DropDownListFor(m => m.assignResource.Module_Id, ViewData["moduleslist"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
-
-
-                    </div>
-
-
-                </div>
-                <br />
-                <div class="row form-group">
-                    <div class="col col-md-3">
-
-                        @Html.LabelFor(m => m.assignResource.trainername, new { @class = " form-control-label" })
-                    </div>
-                    <div class="col-12 col-md-9">
-
-                        @Html.DropDownListFor(m => m.assignResource.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
-
-                    </div>
-
-
-
-                </div>
-                <br />
-                <div class="row form-group">
-                    <div class="col col-md-3">
-                        @Html.LabelFor(m => m.assignResource.employeename, new { @class = " form-control-label" })
-
-                    </div>
-                    <div class="col-12 col-md-9">
-                        @*@Html.DropDownListFor(m => m.assignResource.Employee_Id, ViewData["employeeslist"] as SelectList, new { @class = "form-control", style = "width:30%" })
-        @Html.HiddenFor(m => m.assignResource.AssignResourceId)*@
-                        <input class="form-control" style="width:30%" id="searchemp" />
-                        <input id="searchid" style="display:none" />
-                        <input id="searchempname" style="display:none" />
-                        <input type="button" value="Add" class="add-emp" />
-                    </div>
-
-
-
-                </div>
-
-
-                <br />
-                <div>
-
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Select</th>
-                            <th>Employee Name</th>
-                            <th style="display:none">Employee Id</th>
-                            <th>Employee Code</th>
-
-                        </tr>
-                        @*<tbody>*@
-                        @foreach (var i in assignDetails)
-                        {
-                        <tr>
-                            <td><input type="checkbox" name="chck" checked /></td>
-                            <td>@i.PersonalInfo.Name</td>
-                            <td style="display:none">@i.Employee_Id</td>
-                            <td>@i.PersonalInfo.EmpCode</td>
-                        </tr>
-                        }
-
-                        @*</tbody>*@
-                    </table>
-                    <br />
-                    <button type="button" class="del-emp">Delete</button>
-
-                </div>
-                <br />
-                <div class="row form-group">
-                    <div class="col col-md-3">
-
-
-                    </div>
-                    <div class="col-12 col-md-9">
-
-                        <input type="submit" value="Save" id="btnSave" class="btn btn-success" />
-                        @Html.ActionLink("Back to List", "Index", "AssignResource", null, new { @class = "btn btn-outline-link" })
-
-                    </div>
-
-                </div>
+                @Html.ValidationMessageFor(model => model.assignResource.projectname, "Required", new { @class = "text-danger", @id = "errsearchproject" })
 
             </div>
+        </div>
+
+
+
+    
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+                @Html.LabelFor(m => m.assignResource.managername, new { @class = " form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+                @Html.DropDownListFor(m => m.assignResource.Manager_Id, ViewData["managerslist"] as SelectList, "Select", new { @class = "form-control", @id = "managerid", style = "width:30%" })
+
+                @Html.ValidationMessageFor(m => m.assignResource.Manager_Id, "Required", new { @class = "text-danger", @id = "errmanagerid" })
+
+            </div>
+
+
+
+        </div>
+   
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+                @Html.LabelFor(m => m.assignResource.modulename, new { @class = " form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+
+                @Html.DropDownListFor(m => m.assignResource.Module_Id, ViewData["moduleslist"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+
+                @Html.ValidationMessageFor(m => m.assignResource.Module_Id, "Required", new { @class = "text-danger", @id = "errmoduleid" })
+
+            </div>
+
+
+        </div>
+       
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+                @Html.LabelFor(m => m.assignResource.trainername, new { @class = " form-control-label" })
+            </div>
+            <div class="col-12 col-md-9">
+
+                @Html.DropDownListFor(m => m.assignResource.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
+                @Html.ValidationMessageFor(m => m.assignResource.Trainer_Id, "Required", new { @class = "text-danger", @id = "errtrainerid" })
+
+            </div>
+
+
+
+        </div>
+     
+        <div class="row form-group">
+            <div class="col col-md-3">
+                @Html.LabelFor(m => m.assignResource.employeename, new { @class = " form-control-label" })
+
+            </div>
+            <div class="col-12 col-md-9">
+                @*@Html.DropDownListFor(m => m.assignResource.Employee_Id, ViewData["employeeslist"] as SelectList, new { @class = "form-control", style = "width:30%" })
+                    @Html.HiddenFor(m => m.assignResource.AssignResourceId)*@
+                <input class="form-control" style="width:30%" id="searchemp" />
+                <input id="searchid" style="display:none" />
+                <input id="searchempname" style="display:none" />
+                <br />
+                <input type="button" value="Add" class="add-emp" />
+            </div>
+
+
+
+        </div>
+
+
+      
+        <div id="tblDiv">
+
+            <table class="table table-striped" style="width:100%">
+                <tr>
+                    @*<th>Select</th>*@
+                    <th>Employee Name</th>
+                    <th style="display:none">Employee Id</th>
+                    <th>Employee Code</th>
+                    <th>Action</th>
+
+                </tr>
+                @*<tbody>*@
+                @foreach (var i in assignDetails)
+                {
+                <tr id="@i.Employee_Id">
+
+                    <td>@i.PersonalInfo.Name</td>
+                    <td style="display:none">@i.Employee_Id</td>
+                    <td>@i.PersonalInfo.EmpCode</td>
+                    <td><input type="submit" class="btn btn-danger" value="Delete" onclick="Delete_Row(@i.Employee_Id)" /></td>
+                </tr>
+                }
+
+                @*</tbody>*@
+            </table>
+            @*<br />
+            <button type="button" class="del-emp">Delete</button>*@
+
+        </div>
+        
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                <input type="submit" value="Save" id="btnSave" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "AssignResource", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+        </div>
+
+    </div>
     @*}*@
 </div>
+<script>
+    $(document).ready(function () {
+        $("#errdate").hide();
+        $("#errsearchproject").hide();
+        //$("#errmanagerid").hide();
+        $("#errmoduleid").hide();
+        $("#errmanagerid").hide();
+        $("#errtrainerid").hide();
+
+
+    });
+
+    $("#date").change(function () {
+        //if (event.which === 8) {
+        //    if ($("#date").val().length > 0) {
+        //        $("#errdate").hide();
+        //    }
+        //    else if ($("#date").val() === "" || $("#date").val().length === 0) {
+
+        //        $("#errdate").show();
+        //    }
+        //}
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else
+        //if ($("#date").val() == "")
+        {
+            $("#errdate").hide();
+        }
+    });
+
+    $("#searchproject").keydown(function () {
+        if (event.which === 8) {
+            if ($("#searchproject").val().length > 0) {
+                $("#errsearchproject").hide();
+            }
+            else if ($("#searchproject").val() === "" || $("#searchproject").val().length === 0) {
+
+                $("#errsearchproject").show();
+            }
+        }
+        else if ($("#searchproject").val() == "") {
+            $("#errsearchproject").hide();
+        }
+        
+    });
+    ////managerid  errmanagerid
+    $("#managerid").change(
+        function () {
+            if ($("#managerid").val() > 0) {
+                $("#errmanagerid").hide();
+            }
+            else {
+                $("#errmanagerid").show();
+            }
+            //if (event.which === 8) {
+            //    if ($("#managerid").val().length > 0) {
+            //        $("#errmanagerid").hide();
+            //    }
+            //    else if ($("#managerid").val() === "" || $("#managerid").val().length === 0) {
+
+            //        $("#errmanagerid").show();
+            //    }
+            //}
+            //else
+            //    if ($("#managerid").val() == "")
+            //{
+            //    $("#errmanagerid").hide();
+            //}
+        });
+    // moduleid,errmoduleid
+    $("#moduleid").change(function () {
+        if ($("#moduleid").val() > 0) {
+            $("#errmoduleid").hide();
+        }
+        else {
+
+            $("#errmoduleid").show();
+            $("#tblDiv").hide();
+        }
+        //if (event.which === 8) {
+        //    if ($("#moduleid").val().length > 0) {
+        //        $("#errmoduleid").hide();
+        //    }
+        //    else if ($("#moduleid").val() === "" || $("#moduleid").val().length === 0) {
+
+        //        $("#errmoduleid").show();
+        //    }
+        //}
+        //else
+        //    if ($("#moduleid").val() == "")
+        //{
+        //    $("#errmoduleid").hide();
+        //}
+    });
+    //trainerid,errtrainerid
+    $("#trainerid").change(function () {
+        if ($("#trainerid").val() > 0) {
+            $("#errtrainerid").hide();
+        }
+        else {
+
+            $("#errtrainerid").show();
+        }
+   
+    });
+
+    function validate() {
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+
+            $("#errdate").show();
+        }
+        if ($("#searchproject").val().length > 0) {
+            $("#errsearchproject").hide();
+        }
+        else {
+
+            $("#errsearchproject").show();
+        }
+
+        if ($("#managerid").val().length > 0) {
+            $("#errmanagerid").hide();
+        }
+        else {
+
+            $("#errmanagerid").show();
+        }
+        //  alert($("#moduleid").val());
+        if ($("#moduleid").val() > 0) {
+            $("#errmoduleid").hide();
+        }
+        else {
+
+            $("#errmoduleid").show();
+        }
+
+        if ($("#trainerid").val().length > 0) {
+            $("#errtrainerid").hide();
+        }
+        else {
+
+            $("#errtrainerid").show();
+        }
+    }
+</script>
+
 <script>
     var empid = [];
      $("#btnSave").click(function () {
@@ -207,11 +367,11 @@
          //    itemlist.push(Item);
          //}
          $("table tr:not(:first)").each(function () {
-             if ($(this).find('input[name="chck"]').is(':checked')) {
+            // if ($(this).find('input[name="chck"]').is(':checked')) {
                  var tdlist = $(this).find("td");
                  var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
                  itemlist.push(Item);
-             }
+             //}
                     //var tdlist = $(this).find("td");
                     //var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
                     //itemlist.push(Item);
@@ -225,8 +385,10 @@
          var trainerid = $("#trainerid").val();
 
          var assignresid = $("assresid").val();
+         validate();
+         if (date.length > 0 && projectid > 0 && managerid > 0 && moduleid > 0 && trainerid > 0 && itemlist.length > 0) {
                 var newUrl= '@Url.Action("Index", "AssignResource")';
-
+             $("#btnSave").attr('disabled', true);
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
                // alert(mod);
                 $.ajax({
@@ -248,18 +410,29 @@
                         alert("error");
                     }
                 });
+         }
+             
             });
-
+    function Delete_Row(id) {
+        $('#' + id).remove();
+    }
     $(".add-emp").click(function () {
 
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        var markup = "<tr><td><input type='checkbox'  name='chck' checked></td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td></tr>";
-        $("table tbody").append(markup);
-        $("#searchemp").val('');
-        $("#searchid").val('');
-        $("#searchempname").val('');
+        if (empname.length > 0 && empid > 0 && name.length > 0) {
+            var markup = "<tr id=" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  class='btn btn-danger' value='Delete' onclick=Delete_Row(" + empid + ")></td></tr>";
+
+            $('#tblDiv').show();
+            $("table tbody").append(markup);
+            $("#searchemp").val('');
+            $("#searchid").val('');
+            $("#searchempname").val('');
+        }
+        else {
+            alert('Please fill all the fields')
+        }
     });
 
     $(".del-emp").click(
@@ -379,19 +552,24 @@
                     success: function (result) {
                         $("table tr:not(:first)").remove();
                         $.each(result, function (i, Skill) {
-//                            $("table tr:not(:first)").each(function () {
-                                
-//                                    var tdlist = $(this).find("td");
-////var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
-//                                    // itemlist.push(Item);
-//                                if ($(tdlist[2].html().eq(Skill.Id))) {
-//                                }
-//                                else {
-                                    var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
-                                    $("table tbody").append(markup);
-                                //}
-                                //})
-                           
+                            //                            $("table tr:not(:first)").each(function () {
+
+                            //                                    var tdlist = $(this).find("td");
+                            ////var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
+                            //                                    // itemlist.push(Item);
+                            //                                if ($(tdlist[2].html().eq(Skill.Id))) {
+                            //                                }
+                            //                                else {
+                            $('#tblDiv').show();
+                            var markup = "<tr id=" + Skill.Id + "><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit'  class='btn btn-danger' value='Delete' onclick=Delete_Row(" + Skill.Id + ")></td></tr>";
+
+                            // var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
+                            $("table tbody").append(markup);
+                            //var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
+                            //$("table tbody").append(markup);
+                            //}
+                            //})
+
                             // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
                         });
                     },

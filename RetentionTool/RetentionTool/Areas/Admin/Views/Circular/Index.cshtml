@@ -36,7 +36,7 @@
         <div class="row form-group">
             <div class="col col-md-3">
                 <div>
-                    <input type="radio" value="assignres" name="type" class="chckNor" checked />Normal
+                    <input type="radio" value="assignres" name="type" class="chckNor" checked />  Normal
 
 
                    
@@ -45,10 +45,10 @@
             </div>
             <div class="col-12 col-md-9">
 
-                <input type="radio" value="assignres" name="type" class="chckAssRes" />Assign Resource
+                <input type="radio" value="assignres" name="type" class="chckAssRes" />  Assign Resource
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <input type="radio" value="project" name="type" class="chckProj" />Project
+                <input type="radio" value="project" name="type" class="chckProj" />  Project
 
 
             </div>
@@ -71,6 +71,8 @@
                 <div class="col-12 col-md-9">
                     <input class="form-control" style="width:30%" id="searchproject" />
                     <input id="searchprojectid" style="display:none" />
+                    @Html.ValidationMessageFor(m => m.roleId, "Required", new { @class = "text-danger", @id = "errsearchproject" })
+
                     @*@Html.TextAreaFor(a => a.Contents)*@
                     @*@Html.HiddenFor(m => m.AssignResource_Id)
         @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
@@ -87,6 +89,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.DropDownListFor(m => m.roleId, ViewData["roledetails"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "roleid", style = "width:30%" })
+                @Html.ValidationMessageFor(m=>m.roleId, "Required", new { @class = "text-danger", @id = "errroleid" })
 
             </div>
         </div>
@@ -97,7 +100,8 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.TextAreaFor(a => a.Contents, new { @class = "form-control", @id="content", style = "width:50%" })
+                @Html.TextAreaFor(a => a.Contents, new { @class = "form-control", @id = "content", style = "width:50%" })
+                @Html.ValidationMessageFor(m => m.Contents, "Required", new { @class = "text-danger", @id = "errcontent" })
 
 
 
@@ -111,8 +115,9 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:50%" } })
-               
+                @Html.EditorFor(a => a.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
+
+                @Html.ValidationMessageFor(m => m.Date, "Required", new { @class = "text-danger", @id = "errdate" })
 
 
             </div>
@@ -127,6 +132,7 @@
 
                 @Html.EditorFor(a => a.ValidFrom, new { htmlAttributes = new { @class = "form-control", @id = "validfrom", style = "width:30%" } })
 
+                @Html.ValidationMessageFor(m => m.ValidFrom, "Required", new { @class = "text-danger", @id = "errvalidfrom" })
 
 
             </div>
@@ -140,6 +146,7 @@
             <div class="col-12 col-md-9">
 
                 @Html.EditorFor(a => a.ValidTo, new { htmlAttributes = new { @class = "form-control", @id = "validto", style = "width:30%" } })
+                @Html.ValidationMessageFor(m => m.ValidTo, "Required", new { @class = "text-danger", @id = "errvalidto" })
 
 
 
@@ -167,14 +174,120 @@
         <br />
         @*@using (Html.BeginForm("Create", "AssignEvaluater"))
             {*@
-        <div class="card-body">
+        @*<div class="card-body">*@
             <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-        </div>
+        @*</div>*@
         @*}*@
     </div>
 
 </div>
+<script>
 
+    $(document).ready(function () {
+        $("#errvalidto").hide();
+        $("#errroleid").hide();
+        $("#errvalidfrom").hide();
+        $("#errdate").hide();
+        $("#errcontent").hide();
+        $("#errsearchproject").hide();
+       
+    });
+    $("#searchproject").keydown(function () {
+        if (event.which === 8) {
+            if ($("#searchproject").val().length > 0) {
+                $("#errsearchproject").hide();
+            }
+            else if ($("#searchproject").val() === "" || $("#searchproject").val().length === 0) {
+
+                $("#errsearchproject").show();
+            }
+        }
+        else if ($("#searchproject").val() == "") {
+            $("#errsearchproject").hide();
+        }
+    });
+
+    $("#validfrom").change(function () {
+
+        if ($("#validfrom").val().length > 0) {
+            $("#errvalidfrom").hide();
+        }
+        else {
+            $("#errvalidfrom").hide();
+        }
+    });
+    $("#validto").change(function () {
+
+        if ($("#validto").val().length > 0) {
+            $("#errvalidto").hide();
+        }
+        else {
+            $("#errvalidto").hide();
+        }
+    });
+    $("#date").change(function () {
+
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+            $("#errdate").hide();
+        }
+    });
+
+    $("#content").keydown(function () {
+        if (event.which === 8) {
+            if ($("#content").val().length > 0) {
+                $("#errcontent").hide();
+            }
+            else if ($("#content").val() === "" || $("#content").val().length === 0) {
+
+                $("#errcontent").show();
+            }
+        }
+        else if ($("#content").val() == "") {
+            $("#errcontent").hide();
+        }
+    });
+    function validate(type) {
+        if (type != 0) {
+            if ($("#searchproject").val().length > 0) {
+                $("#errsearchproject").hide();
+            }
+            else {
+
+                $("#errsearchproject").show();
+            }
+        }
+        
+        if ($("#validfrom").val().length > 0) {
+            $("#errvalidfrom").hide();
+        }
+        else {
+            $("#errvalidfrom").show();
+        }
+        if ($("#validto").val().length > 0) {
+            $("#errvalidto").hide();
+        }
+        else {
+            $("#errvalidto").show();
+        }
+        if ($("#content").val().length > 0) {
+            $("#errcontent").hide();
+        }
+        else {
+
+            $("#errcontent").show();
+        }
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+            $("#errdate").show();
+        }
+    }
+
+</script>
 
 <script>
     $("#btnSave").click(function () {
@@ -185,32 +298,38 @@
         var validto = $("#validto").val();
         var param = { Contents: content, Date: date, ValidFrom: validfrom, ValidTo: validto, roleId: roleid };
         var type = 0;
-        var projectid = 0;
+        var projectid;
         if ($('input.chckAssRes').is(':checked')) {
             type = 1;
             projectid = $("#searchprojectid").val();
         }
         if ($('input.chckNor').is(':checked')) {
             type = 0;
+            projectid = 0;
         }
         if ($('input.chckProj').is(':checked')) {
             type = 2;
             projectid = $("#searchprojectid").val();
         }
-        $.ajax({
-            url: "/Admin/Circular/Create",
-            dataType: "json",
-            data: JSON.stringify({ circularvm: param, type: type, projectid: projectid }),
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            success: function (result) {
+        validate(type);
+        if (content.length > 0 && date.length > 0 && validfrom.length > 0 && validto.length > 0 && type>= 0 && projectid>=0) {
+            $("#btnSave").attr('disabled', true);
+            $.ajax({
+                url: "/Admin/Circular/Create",
+                dataType: "json",
+                data: JSON.stringify({ circularvm: param, type: type, projectid: projectid }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
 
-                window.location.href = "/Admin/Circular/Index";
-            },
-            error: function (xhr) {
-                alert("error");
-            }
-        });
+                    window.location.href = "/Admin/Circular/Index";
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+        }
+     
     });
     $(document).ready(function () {
         $('input.chckProj').change(

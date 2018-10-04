@@ -29,8 +29,8 @@
 <div class="card">
     @*<div class="card-header">
 
-        <h2>Edit Primary Skill</h2>
-    </div>*@
+            <h2>Edit Primary Skill</h2>
+        </div>*@
     <div class="card-body">
         @using (Html.BeginForm())
         {
@@ -40,15 +40,16 @@
                 <div>
 
                     @Html.LabelFor(model => model.Name)
-                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" ,@id= "commonfieldname"})
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
 
 
                 </div>
-
+                <br />
                 @*<div>
-                    @Html.CheckBox("IsActive")
-                    @Html.LabelFor(model => model.IsActive)
-                </div>*@
+                        @Html.CheckBox("IsActive")
+                        @Html.LabelFor(model => model.IsActive)
+                    </div>*@
                 <div>
 
                     <input type="submit" value="Save" class="btn btn-success" />
@@ -65,5 +66,31 @@
 </div>
 
 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
+<script>
+
+    $("#commonfieldname").keydown(function () {
+        alert($("#commonfieldname").val());
+        if (event.which === 8) {
+            if ($("#commonfieldname").val().length > 0) {
+                $("#validationforcommonfield").hide();
+            }
+            else if ($("#commonfieldname").val() === "" || $("#commonfieldname").val().length === 0) {
+
+                $("#validationforcommonfield").show();
+            }
+        }
+        else if ($("#commonfieldname").val() == "") {
+            alert('ddd')
+            $("#validationforcommonfield").show();
+        }
+        else {
+            alert('eee')
+            $("#validationforcommonfield").hide();
+        }
+    });
+
+
+</script>
 
