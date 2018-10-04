@@ -30,7 +30,7 @@
         </div>
     </div>
 </div>
-<div class="card">
+@*<div class="card">*@
     @*<div class="card-header">
         <h2>Edit Critical Resource</h2>
 
@@ -124,29 +124,32 @@
                  <div  id="accountinfo">
                      <div class="row form-group">
                          <input class="form-control" style="width:30%" id="reporting" placeholder="Reporting" /> &nbsp;
-                         <input id="Information" placeholder="Information" />
+                         <input id="Information" placeholder="Information" />&nbsp;
                          <input type="button" value="Add" class="add-accountability" />
                      </div>
 
                      <table class="table table-striped" id="table-accountability" style="width:100%">
                          <tr>
-                             <th>Select</th>
+                             <th style="display:none">Select</th>
                              <th>Reporting</th>
                              <th>Information</th>
+                             <th>Action</th>
                          </tr>
                          
                          @foreach (var i in criticalacc)
                          {
-                            <tr>
-                                <td><input type="checkbox" name="chck" /></td>
-                                <td>@i.Name</td>
-                                <td>@i.Value</td>
-                            </tr>
+                         <tr id="@i.Name@i.Value">
+                             <td style="display:none"><input type="checkbox" name="chck" /></td>
+                             <td>@i.Name</td>
+                             <td>@i.Value</td>
+                             <td><input type='submit' class='btn btn-danger' value='Delete' onclick="Delete_Row('@i.Name@i.Value')"></td>
+
+                         </tr>
                          }
 
                      </table>
-                     <br />
-                     <button type="button" class="del-accountability">Delete</button>
+                     @*<br />
+                     <button type="button" class="del-accountability">Delete</button>*@
                  </div>
                  <br />
 
@@ -168,7 +171,7 @@
         </div>
 
     </div>
-</div>
+@*</div>*@
 <script>
 
     function showcheckbox() {
@@ -187,16 +190,30 @@
 
         var reporting = $("#reporting").val();
         var Information = $("#Information").val();
+          if (reporting.length > 0 && Information.length > 0) {
+            //var a = parseInt("10")
+           // =parseInt(,1);
+              //1;
+              var idval = reporting + Information;
+              var Company = "<tr id=" + idval+ "><td style='display:none'><input type='checkbox'  name='chck'></td><td>" +
+                    reporting + "</td><td>" +
+                  Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='Delete_Row(" + idval + ")'></td></tr>";
 
-        var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-            reporting + "</td><td>" +
-            Information + "</td></tr>";
+                $("#table-accountability").append(Company);
+                $("#reporting").val('');
+                $("#Information").val('');
+            }
+        //var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+        //    reporting + "</td><td>" +
+        //    Information + "</td></tr>";
 
-        $("#table-accountability").append(Company);
-        $("#reporting").val('');
-        $("#Information").val('');
+        //$("#table-accountability").append(Company);
+        //$("#reporting").val('');
+        //$("#Information").val('');
     });
-
+    function Delete_Row(id) {
+        $("#" + id).remove();
+    }
     $(".del-accountability").click(function () {
         $("#table-accountability").find('input[name="chck"]').each(function () {
             if ($(this).is(":checked")) {
@@ -232,23 +249,29 @@
               var Item = { criticalresource_Id: criticalid, Name: $(tdlist[1]).html(), Value: $(tdlist[2]).html() };
               accinfo.push(Item);
           })
-              
-         var newUrl= '@Url.Action("Index", "CriticalResource")';
-                $.ajax({
-                    url: '@Url.Action("Edit", "CriticalResource")', //
-                    dataType: "json",
-                    data: JSON.stringify({
-                        criticallist: criticallist, trainerlist: trainerlist, criticalacc: accinfo
-                    }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-        });
+
+          if (accinfo.length > 0 && trainerlist.PersonalInfo_Id > 0 && criticallist.PersonalInfo_Id > 0 && projectId > 0) {
+              $("#btnSave").attr('disabled', true);
+              var newUrl = '@Url.Action("Index", "CriticalResource")';
+              $.ajax({
+                  url: '@Url.Action("Edit", "CriticalResource")', //
+                  dataType: "json",
+                  data: JSON.stringify({
+                      criticallist: criticallist, trainerlist: trainerlist, criticalacc: accinfo
+                  }),
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  success: function (result) {
+                      window.location.href = newUrl;
+                  },
+                  error: function (xhr) {
+                      alert("error");
+                  }
+              });
+          }
+          else {
+              alert('Please Enter all the details')
+          }
         });
 
 
