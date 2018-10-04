@@ -38,6 +38,7 @@
             <div class="col-12 col-md-9">
                 @Html.HiddenFor(model => model.projects.Project_Id, new { @id = "projectId" })
                 @Html.DisplayFor(model => model.projectname, new { @class = "form-control-label", @id = "projectname", style = "width:30%" })
+          
             </div>
         </div>
 
@@ -130,14 +131,16 @@
 
             var reporting = $("#reporting").val();
             var Information = $("#Information").val();
+            if (reporting.length > 0 && Information.length > 0) {
+                var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                    reporting + "</td><td>" +
+                    Information + "</td></tr>";
 
-            var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-                reporting + "</td><td>" +
-                Information + "</td></tr>";
-
-            $("#table-accountability").append(Company);
-            $("#reporting").val('');
-            $("#Information").val('');
+                $("#table-accountability").append(Company);
+                $("#reporting").val('');
+                $("#Information").val('');
+            }
+            
         });
 
         $(".del-accountability").click(function () {

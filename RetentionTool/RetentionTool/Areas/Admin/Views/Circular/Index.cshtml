@@ -39,7 +39,7 @@
                     <input type="radio" value="assignres" name="type" class="chckNor" checked />  Normal
 
 
-                   
+
                 </div>
 
             </div>
@@ -54,12 +54,12 @@
             </div>
 
             @*<div class="col-12 col-md-9">
-                @*<div class="col-12 col-md-9">*@
+            @*<div class="col-12 col-md-9">*@
 
 
             @*</div>
 
-                </div>*@
+            </div>*@
         </div>
 
         <div class="row form-group" id="projectdiv" style="display:none">
@@ -69,13 +69,13 @@
             </div>
             <div class="col-12 col-md-9">
                 <div class="col-12 col-md-9">
-                    <input class="form-control" style="width:30%" id="searchproject" />
+                    <input class="form-control" style="width:50%" id="searchproject" />
                     <input id="searchprojectid" style="display:none" />
                     @Html.ValidationMessageFor(m => m.roleId, "Required", new { @class = "text-danger", @id = "errsearchproject" })
 
                     @*@Html.TextAreaFor(a => a.Contents)*@
                     @*@Html.HiddenFor(m => m.AssignResource_Id)
-        @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
+                    @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
                     *@
 
                 </div>
@@ -88,8 +88,8 @@
                 @Html.Label("User Type", new { @class = "form-control-label", style = "width:150%" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.roleId, ViewData["roledetails"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "roleid", style = "width:30%" })
-                @Html.ValidationMessageFor(m=>m.roleId, "Required", new { @class = "text-danger", @id = "errroleid" })
+                @Html.DropDownListFor(m => m.roleId, ViewData["roledetails"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "roleid", style = "width:50%" })
+                @Html.ValidationMessageFor(m => m.roleId, "Required", new { @class = "text-danger", @id = "errroleid" })
 
             </div>
         </div>
@@ -115,7 +115,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
+                @Html.EditorFor(a => a.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:50%" } })
 
                 @Html.ValidationMessageFor(m => m.Date, "Required", new { @class = "text-danger", @id = "errdate" })
 
@@ -130,7 +130,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.ValidFrom, new { htmlAttributes = new { @class = "form-control", @id = "validfrom", style = "width:30%" } })
+                @Html.EditorFor(a => a.ValidFrom, new { htmlAttributes = new { @class = "form-control", @id = "validfrom", style = "width:50%" } })
 
                 @Html.ValidationMessageFor(m => m.ValidFrom, "Required", new { @class = "text-danger", @id = "errvalidfrom" })
 
@@ -145,7 +145,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.ValidTo, new { htmlAttributes = new { @class = "form-control", @id = "validto", style = "width:30%" } })
+                @Html.EditorFor(a => a.ValidTo, new { htmlAttributes = new { @class = "form-control", @id = "validto", style = "width:50%" } })
                 @Html.ValidationMessageFor(m => m.ValidTo, "Required", new { @class = "text-danger", @id = "errvalidto" })
 
 
@@ -154,28 +154,40 @@
         </div>
 
         @*<div class="row form-group" id="employeeview">
-            <div class="col col-md-3">
-                <div>@Html.Label("Employee Name")</div>
+        <div class="col col-md-3">
+            <div>@Html.Label("Employee Name")</div>
 
-            </div>
+        </div>
+        <div class="col-12 col-md-9">
             <div class="col-12 col-md-9">
-                <div class="col-12 col-md-9">
-                    @Html.HiddenFor(m => m.AssignResource_Id)
-                    <input class="form-control" style="width:30%" id="searchemp" />
-                    <input id="searchid" style="display:none" />*@
+                @Html.HiddenFor(m => m.AssignResource_Id)
+                <input class="form-control" style="width:30%" id="searchemp" />
+                <input id="searchid" style="display:none" />*@
         @*@Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })*@
 
 
         @*</div>
-                    <br />
-                </div>
-            </div>*@
+                <br />
+            </div>
+        </div>*@
 
         <br />
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+            </div>
+
+        </div>
         @*@using (Html.BeginForm("Create", "AssignEvaluater"))
-            {*@
+        {*@
         @*<div class="card-body">*@
-            <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+        
         @*</div>*@
         @*}*@
     </div>
