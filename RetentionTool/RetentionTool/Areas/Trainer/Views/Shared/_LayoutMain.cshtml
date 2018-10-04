@@ -35,7 +35,12 @@
     <link rel="stylesheet" href="~/Scripts/assets/scss/style.css">
     <script src="~/Scripts/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
-
+    <style>
+        /*Notification background*/
+        .header-left.dropdown.dropdown-menu {
+            background: #fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -185,33 +190,35 @@
                     <div class="header-left">
                         @if (int.Parse(Session["Notifict"].ToString()) > 0)
                         {
-                            <div class="dropdown for-notification">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" onclick="myfunction(@Session["uid"]);" aria-expanded="false">
-                                    <i class="fa fa-bell"></i>
-                                    <span class="count bg-danger"> @Session["Notifict"] </span>
-                                </button>
-                                <div class="dropdown-menu bg-flat-color-1" id="notifi" aria-labelledby="notification">
-                                    <p class="red">You have @Session["Notifict"]  Notification</p>
-                                 
+                        <div class="dropdown for-notification">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" onclick="myfunction(@Session["uid"]);" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="count bg-danger"> @Session["Notifict"] </span>
+                            </button>
+                            <div class="dropdown-menu bg-flat-color-1" style="border-style: solid; border-color:#e0d0d0;width:500px" id="notifi" aria-labelledby="notification">
+                                <p class="red" style="color:#69f">You have @Session["Notifict"]  Notification</p>
+                                @*<div class="dropdown-menu bg-flat-color-1" id="notifi" aria-labelledby="notification">
+                                    <p class="red">You have @Session["Notifict"]  Notification</p>*@
+
                                     <p id="disablenotification" style="display:block">
 
                                     </p>
                                 </div>
                             </div>
-                        }
-                        else
-                        {
+                            }
+                            else
+                            {
                             <div class="dropdown for-notification">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" onclick="myfunction(@Session["uid"]);" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
                                     <span class="count bg-danger"> @Session["Notifict"] </span>
                                 </button>
-                            
+
                             </div>
-                        }
-                       
-                     
-                    </div>
+                            }
+
+
+                        </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
@@ -308,11 +315,12 @@
                       
                         if (i < 2) {
                          
-                            var markup = "<a class='dropdown-item media' style='background-color:#b3bdce' href='#' onclick='viewmore(" + notif.Id + "," + notif.type + ")'><i class='fa fa-check'></i><h6>" + notif.Message + "</h6></a><p class='dropdown-item media' style='background-color:#b3bdce'>" + notif.subMessage + "</p>";
-                           $("#notifi").append(markup);
+                            var markup = "<a class='dropdown-item media' style='background-color:#fff' href='#' onclick='viewmore(" + notif.Id + "," + notif.type + ")'><i class='fa fa-check'></i><h6>" + notif.Message + "</h6></a><p class='dropdown-item media' style='background-color:#fff'>" + notif.subMessage + "</p>";
+                            //#b3bdce --> Ash color
+                            $("#notifi").append(markup);
                         }
                         else if (i == 2) {
-                            var markup = "<a class='dropdown-item media' style='background-color:#b3bdce' href='@Url.Action("Notification", "Training", new { userid = Session["uid"]})'>View More</a>";
+                            var markup = "<a class='dropdown-item media' style='background-color:#fff' href='@Url.Action("Notification", "Training", new { userid = Session["uid"]})'>View More</a>";
                          $("#notifi").append(markup);
                         }
                         else if (i > 2) {

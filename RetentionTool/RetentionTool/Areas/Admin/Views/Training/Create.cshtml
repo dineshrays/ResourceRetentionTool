@@ -25,10 +25,6 @@
     </div>
 </div>
 
-<div class="card">
-    @*<div class="card-header">
-        <h2>Create Topics</h2>
-    </div>*@
 
 
     <div class="card-body card-block">
@@ -69,10 +65,15 @@
 
         </table>
         <div class="card-body">
-            <button type="button" id="btnGet" class="btn btn-success">Create</button>@Html.ActionLink("Back to List", "Index")
+            <div class="row form-group">
+                <div class="col-12 col-md-9">
+                    
+                    <button type="button" id="btnGet" class="btn btn-success">Create</button>@Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
     var assignresid;

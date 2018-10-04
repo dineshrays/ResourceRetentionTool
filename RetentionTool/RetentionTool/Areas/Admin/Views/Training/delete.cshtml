@@ -25,10 +25,7 @@
     </div>
 </div>
 @using (Html.BeginForm())
-{<div class="card">
-    @*<div class="card-header">
-        <h2>Delete Topics</h2>
-    </div>*@
+{
 
 
     <div class="card-body card-block">
@@ -76,6 +73,6 @@
             <input type="submit" value="Delete" class="btn btn-danger" /> | @Html.ActionLink("Back to List", "Index", "Training", null, new { @class = "btn btn-outline-link" })
         </div>
     </div>
-</div>
+
 
 }
