@@ -66,8 +66,10 @@ namespace RetentionTool.Areas.Admin.Controllers
             prjctwrkvm.projects = prjctwrk;
             prjctwrkvm.projectvm = prjctwrklist;
          //   List<CriticalResource> criticalRes
-                 ViewBag.CriticalRes = db.CriticalResources.Where(a=>a.IsActive==true).ToList().Select(a => a.PersonalInfo_Id).Distinct();
-            ViewBag.TrainerDet= db.Trainers.Where(a => a.IsActive == true).ToList().Select(a => a.PersonalInfo_Id).Distinct();
+                 ViewBag.CriticalRes = db.CriticalResources.Where(a=>a.IsActive==true && a.Project_Id==id).ToList().Select(a => a.PersonalInfo_Id).Distinct();
+            ViewBag.TrainerDet= db.Trainers.Where(a => a.IsActive == true 
+            
+            ).ToList().Select(a => a.PersonalInfo_Id).Distinct();
             return View(prjctwrkvm);
         }
         [HttpPost]

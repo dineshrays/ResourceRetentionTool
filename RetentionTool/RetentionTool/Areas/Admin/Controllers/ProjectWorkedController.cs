@@ -279,6 +279,7 @@ namespace RetentionTool.Areas.Admin.Controllers
                                          // join user in db.UserDetails
                                         // on personalinfo.Id equals user.Emp_Id
                                           where projectwork.Project_Id == projectid
+                                          && projectwork.IsActive==true && personalinfo.IsActive==true
                                          // && user.IsActive==true && user.Role_Id==emproleid
                                           select new EmployeeList
                                           {
