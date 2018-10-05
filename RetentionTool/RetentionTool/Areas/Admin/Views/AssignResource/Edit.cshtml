@@ -376,7 +376,7 @@
          var moduleid = $("#moduleid").val();
          var trainerid = $("#trainerid").val();
 
-         var assignresid = $("assresid").val();
+         var assignresid = $("#assresid").val();
          validate();
          if (date.length > 0 && projectid > 0 && managerid > 0 && moduleid > 0 && trainerid > 0 && itemlist.length > 0) {
                 var newUrl= '@Url.Action("Index", "AssignResource")';
