@@ -29,11 +29,7 @@
         </div>
     </div>
 </div>
-<div class="card">
-    @*<div class="card-header">
-        <h2>Create User Details</h2>
 
-    </div>*@
    
     <div class="card-body card-block">
         <div class="row form-group">
@@ -80,21 +76,21 @@
 
         </div>
    
-        <table id="tblUser">
+        <table class="table table-striped" id="tblUser" style="display:none">
             <tr>
-                <th>Select</th>
                 <th style="display:none">Employee Id</th>
                 <th>Employee Name</th>
                 <th>Employee EmailId</th>
                 <th style="display:none">Role Id</th>
                 <th>Role Name</th>
                 <th>Password</th>
+                <th>Action</th>
             </tr>
         </table>
 
         <div class="row form-group">
             <div class="col-md-3">
-                <input type="submit" value="Delete" class="delEmp"   />       
+                @*<input type="submit" value="Delete" class="delEmp"   />*@       
             </div>
             <div class="col-12 col-md-9">
                 <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
@@ -103,9 +99,7 @@
             </div>
 
         </div>
-    </div>
    
-    @*}*@
 
     <script>
 
@@ -214,34 +208,33 @@
             });
 
 
-    $(".btnAdd").click(function () {
-        var searchid = $("#searchid").val();
-        var searchempcode = $("#searchempcode").val();
-        var searchname = $("#searchname").val();
-        var roleid = $("#roleid").val();
-        var rolename = $("#roleid :selected").text();
-        var password = $("#Password").val();
-        if (searchid > 0 && roleid > 0 && password.length>0) {
-           
-           
-           
-            var value = "<tr><td><input type='checkbox'  name='chck'></td><td style='display:none'>" +
-                searchid + "</td><td>" +
-                searchempcode + "</td><td>" +
-                searchname + "</td><td style='display:none'>" + roleid + "</td><td>" +
-                rolename + "</td><td>" +
-                password + "</td></tr>";
+        $(".btnAdd").click(function () {
+            $("#tblUser").show();
+            var searchid = $("#searchid").val();
+            var searchempcode = $("#searchempcode").val();
+            var searchname = $("#searchname").val();
+            var roleid = $("#roleid").val();
+            var rolename = $("#roleid :selected").text();
+            var password = $("#Password").val();
 
-            $("#tblUser").append(value);
-            $("#searchempcode").val('');
-            $("#searchname").val('');
-            $("#searchid").val('');
-            $("#roleid").val('');
-            $("#Password").val('');
-        }
+            if (searchid > 0 && roleid > 0 && password.length > 0 )
+            {
+                var value = "<tr id=" + searchid + "><td style='display:none'>" +
+                    searchid + "</td><td>" +
+                    searchempcode + "</td><td>" +
+                    searchname + "</td><td style='display:none'>" + roleid + "</td><td>" +
+                    rolename + "</td><td>" +
+                    password + "</td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
 
+                $("#tblUser").append(value);
+                $("#searchempcode").val('');
+                $("#searchname").val('');
+                $("#searchid").val('');
+                $("#roleid").val('');
+                $("#Password").val('');
+             }
 
-    });
+        });
 
     $(".delEmp").click(function () {
 
@@ -250,7 +243,13 @@
                 $(this).parents("tr").remove();
             }
         });
-    });
+        });
+
+
+        function delete_Row(empid) {
+            $("#" + empid).remove();
+        }
+
     </script>
 
 

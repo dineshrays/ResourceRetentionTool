@@ -24,15 +24,10 @@
         </div>
     </div>
 </div>
-<div class="card">
-    @*<div class="card-header">
-        <h2>Create Rate Employee</h2>
-    </div>*@
+
     <div class="container" style="width:100%;margin-top:2%">
         <table class="table table-striped" id="tble">
             <tr>
-
-
                 <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
                 <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.PersonalInfo.Name)</th>
                 <th>@Html.Label("Grade")</th>
@@ -51,7 +46,7 @@
         </table>
         <input type="button" class="btn btn-success" id="btnSave" value="Create" /> @Html.ActionLink("Back to List", "Index")
     </div>       
-    </div>
+   
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>    

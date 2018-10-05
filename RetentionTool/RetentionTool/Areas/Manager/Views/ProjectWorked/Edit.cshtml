@@ -103,47 +103,41 @@
             <input id="designation" placeholder="Designation" />&nbsp;
             <input id="responsibilty" placeholder="Responsibility" />&nbsp;
             <input type="button" value="Add" class="add-emp" />
-
-
-
         </div>
-
         <br />
         <div>
-
             <table class="table table-striped" style="width:100%">
                 <tr>
-                    <th>Select</th>
                     <th>Employee Name</th>
                     <th>Employee Code</th>
                     <th style="display:none;width:0%">Employee Id</th>
                     <th>Designation</th>
                     <th>Responsibility</th>
                     <th style="display:none;width:0%">ProjectWorked Id</th>
+                    <th>Action</th>
                 </tr>
                 @foreach (var i in Model.projectvm)
                 {
-                <tr>
-                    <td><input type="checkbox" name="chck" /></td>
+                <tr id="+@i.Id+">
+                    @*<td><input type="checkbox" name="chck" /></td>*@
                     <td>@i.PersonalInfo1.Name</td>
                     <td>@i.PersonalInfo1.EmpCode</td>
                     <td style="display:none">@i.PersonalInfo_Id</td>
                     <td>@i.Designation</td>
                     <td>@i.Responsibilities</td>
                     <td style="display:none">@i.Id</td>
+                    <td><input type='submit' value='Delete' onclick='delete_Row(" + @i.Id + ")'></td>
                 </tr>
                 }
 
             </table>
-            <br />
-            <button type="button" class="del-emp">Delete</button>
+            @*<br />
+            <button type="button" class="del-emp">Delete</button>*@
 
         </div>
 
         <div class="row form-group">
             <div class="col col-md-3">
-
-
             </div>
             <div class="col-12 col-md-9">
 
@@ -151,8 +145,6 @@
                 @Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })
 
             </div>
-
-
         </div>
 
     </div>
@@ -228,15 +220,18 @@
         var empname = $("#searchname").val();
         var designation = $("#designation").val();
         var responsibilty = $("#responsibilty").val();
-        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
-            empname + "</td><td style='display: none'>" + empid + "</td><td>" +
-            designation + "</td><td>" +
-            responsibilty + "</td><td style='display: none'>0</td></tr>";
-        $("table tbody").append(markup);
-        $("#searchemp").val('');
-        $("#searchid").val('');
-        $("#designation").val('');
-        $("#responsibilty").val('');
+        if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0)
+        {
+            var markup = "<tr id=" + empid + "><td>" + empcode + "</td><td>" +
+                empname + "</td><td style='display: none'>" + empid + "</td><td>" +
+                designation + "</td><td>" +
+                responsibilty + "</td><td style='display: none'>0</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+            $("table tbody").append(markup);
+            $("#searchemp").val('');
+            $("#searchid").val('');
+            $("#designation").val('');
+                $("#responsibilty").val('');
+        }
     });
 
     $(".del-emp").click(
@@ -250,7 +245,9 @@
             });
         });
 
-
+    function delete_Row(empid) {
+        $("#" + empid).remove();
+    }
 
 </script>
 <script>

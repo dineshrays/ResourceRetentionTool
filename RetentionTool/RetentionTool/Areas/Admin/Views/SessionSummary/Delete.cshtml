@@ -28,12 +28,8 @@
 </div>
 @using (Html.BeginForm())
 {
-    <div class="card">
-        @*<div class="card-header">
-
-            <h2>Delete Session Summary</h2>
-        </div>*@
-        <div class="container" style="width:50%;margin-top:2%">
+    
+        <div class="container" style="margin-top:2%">
 
             <div>
                 <div class="row form-group">
@@ -44,7 +40,7 @@
                         <div>
                             @Html.HiddenFor(m => m.session.Id, new { @id = "sessionid" })
                             @Html.HiddenFor(m => m.session.TrainingDet_Id, new { @id = "transdetid" })
-                            @Html.DisplayFor(m => m.session.Date)
+                            @Html.DisplayFor(m => m.session.Date, new { style = "width:30%" })
 
 
                         </div><br />
@@ -56,9 +52,8 @@
                         <div>@Html.LabelFor(m => m.session.Hours, new { @class = "form-control-label" })</div>
                     </div>
                     <div class="col-12 col-md-9">
-                        <div>
-                            @Html.DisplayFor(m => m.session.Hours)
-                    </div><br />
+                        <div>@Html.DisplayFor(m => m.session.Hours, new { style = "width:30%" })</div>
+                        <br />
                 </div>
             </div>
 
@@ -67,9 +62,8 @@
                     <div>@Html.LabelFor(m => m.session.Description, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>
-                        @Html.DisplayFor(m => m.session.Description)
-                </div><br />
+                    <div>@Html.DisplayFor(m => m.session.Description, new { style = "width:30%" })</div>
+                    <br />
             </div>
         </div>
 
@@ -126,5 +120,5 @@
 
 </div>
 
-</div>
+
 }
