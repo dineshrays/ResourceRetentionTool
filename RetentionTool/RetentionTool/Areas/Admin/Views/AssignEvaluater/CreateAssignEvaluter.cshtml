@@ -45,7 +45,7 @@
             <div class="col-12 col-md-9">
                 <div class="col-12 col-md-9">
                     <input type="radio" value="trainer" name="type" class="chckTrain" />Trainer
-                   
+
                 </div>
                 <br />
             </div>
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="row form-group" id="employeeview" >
+        <div class="row form-group" id="employeeview">
             <div class="col col-md-3">
                 <div>@Html.Label("Employee Name")</div>
 
@@ -89,13 +89,18 @@
         <br />
         @*@using (Html.BeginForm("Create", "AssignEvaluater"))
         {*@
-            <div class="card-body">
+        <div class="row form-group" >
+            <div class="col col-md-3">
+                
+
+            </div>
+            <div class="col-12 col-md-9">
                 <input type="submit" value="Create" id="btnSave" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
             </div>
-        @*}*@
-    </div>
+            @*}*@
+        </div>
 
-</div>
+    </div>
 <script>
 
     $(document).ready(function () {

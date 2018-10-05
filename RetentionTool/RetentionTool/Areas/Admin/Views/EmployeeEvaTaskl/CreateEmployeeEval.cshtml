@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<div class="card">
+@*<div class="card">*@
     @*<div class="card-header">
 
         <h2>Create Employee Evaluation</h2>
@@ -37,23 +37,23 @@
         <div class="row form-group">
             <div class="col col-md-3">
                 <div>@Html.Label("Trainer Name")</div>
-                   
+
             </div>
             <div class="col-12 col-md-9">
                 <div class="col-12 col-md-9">
                     @Html.DisplayFor(m => m.EmployeeEvalTask.Trainer.PersonalInfo.Name, new { @class = "form-control", style = "width:30%" })
-                    @Html.HiddenFor(m=>m.EmployeeEvalTask.Trainer_Id,new { @id = "trainerid" })
+                    @Html.HiddenFor(m => m.EmployeeEvalTask.Trainer_Id, new { @id = "trainerid" })
 
 
                 </div>
-                <br />
             </div>
+            <br />
         </div>
 
         <br />
 
 
-        <table class="mytbl table table-striped">
+        <table class="mytbl table table-striped" style="width:100%">
             <thead>
                 <tr>
 
@@ -68,15 +68,15 @@
                 @foreach (var emplist in empDetails)
                 {
 
-                <tr>
+                    <tr>
 
-                    <td style="display:none">@emplist.Id</td>
-                    <td>@emplist.Name</td>
-                    <td><input type="text" name="taskassign" required/></td>
-                    <td><input type="text" name="status" /></td>
-                    <td><input type="checkbox" class="chck" name="iseligible" /></td>
-                  
-                </tr>
+                        <td style="display:none">@emplist.Id</td>
+                        <td>@emplist.Name</td>
+                        <td><input type="text" name="taskassign" required /></td>
+                        <td><input type="text" name="status" /></td>
+                        <td><input type="checkbox" class="chck" name="iseligible" /></td>
+
+                    </tr>
                 }
 
             </tbody>
@@ -85,13 +85,18 @@
         </table>
 
 
-        <div class="card-body">
-            <input id="btnSave" type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
+            <div class="col-12 col-md-9">
+                <input id="btnSave" type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+            </div>
+
         </div>
 
     </div>
-
-</div>
 <script>
     var assignresid;
     
@@ -130,24 +135,30 @@
                 })
 
           var trainerid = $("#trainerid").val();
-        
-          var mod = [];
-          mod = { AssignResource_Id: assignresid, Trainer_Id: trainerid };
+          if (trainerid > 0 && itemlist.length > 0) {
+              var mod = [];
+              mod = { AssignResource_Id: assignresid, Trainer_Id: trainerid };
 
-         var newUrl= '@Url.Action("Index", "EmployeeEvaTaskl")';
-                $.ajax({
-                    url: '@Url.Action("Create", "EmployeeEvaTaskl")', //
-                    dataType: "json",
-                    data: JSON.stringify({ list: itemlist, empeval: mod }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+              $("#btnSave").attr('disabled', true);
+              var newUrl = '@Url.Action("Index", "EmployeeEvaTaskl")';
+              $.ajax({
+                  url: '@Url.Action("Create", "EmployeeEvaTaskl")', //
+                  dataType: "json",
+                  data: JSON.stringify({ list: itemlist, empeval: mod }),
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  success: function (result) {
+                      window.location.href = newUrl;
+                  },
+                  error: function (xhr) {
+                      alert("error");
+                  }
+              });
+          }
+          else {
+              alert('Please fill all the fields')
+          }
+         
             });
 </script>
 

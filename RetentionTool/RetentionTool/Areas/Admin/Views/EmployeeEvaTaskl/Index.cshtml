@@ -10,7 +10,7 @@
     <div class="col-sm-6">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Index Employee Evaluation</h1>
+                <h1> Employee Evaluation</h1>
             </div>
         </div>
     </div>
@@ -26,14 +26,14 @@
         </div>
     </div>
 </div>
-<div class="card">
+@*<div class="card">*@
     @*<div class="card-header">
         <h2>Employee Evaluation</h2>
     </div>*@
     @if (assResDetails.Count > 0 && assignevaluat.Count > 0)
     {
         <div class="container" style="width:100%;margin-top:2%">
-            <table class="table table-striped">
+            <table class="table table-striped" style="width:100%;">
                 <tr>
                     <th>@Html.Label("Project Name")</th>
                     <th>@Html.DisplayNameFor(model => model.EmployeeEvalTask.AssignResource.Module.ModuleName)</th>
@@ -132,4 +132,4 @@
         <div class="card-body" style="color:red;"><b>No Record Found</b></div>
     }
 
-</div>
+@*</div>*@
