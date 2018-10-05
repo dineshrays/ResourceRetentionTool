@@ -167,7 +167,7 @@
             $("#errdate").hide();
         }
         else {
-            $("#errdate").hide();
+            $("#errdate").show();
         }
     });
 
@@ -323,7 +323,7 @@
         var name = $("#searchempname").val();
         if (empname.length > 0 && empid.length > 0 && name.length > 0) {
             $("#tbl").show();
-            var markup = "<tr id=" + empid + "><td style='display:none'>'d'</td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+            var markup = "<tr id=" + empid + "><td style='display:none'>'d'</td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit' class='btn btn-danger'  value='Delete' onclick='delete_Row(" + empid + ")'></td></tr>";
             $("table tbody").append(markup);
             $("#searchemp").val('');
             $("#searchid").val('');

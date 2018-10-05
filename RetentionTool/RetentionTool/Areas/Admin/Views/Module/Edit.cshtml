@@ -5,6 +5,8 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
     var mDetails = ViewBag.ModuleDetails;
+    var countval = ViewBag.ModuleDetails.Count;
+    var count = 0;
 }
 
 <script src="~/Scripts/assets/js/vendor/jquery-3.3.1.js"></script>
@@ -31,82 +33,222 @@
 </div>
 
 
-    <div class="card-body card-block">
+<div class="card-body card-block">
 
-        <div class="row form-group">
-            <div class="col col-md-3">
-                @Html.LabelFor(m => Model.module.ModuleName, new { @class = "form-control-label" })
+    <div class="row form-group">
+        <div class="col col-md-3">
+            @Html.LabelFor(m => Model.module.ModuleName, new { @class = "form-control-label" })
 
-            </div>
-            <div class="col-12 col-md-9">
-
-                <div>
-                    @Html.TextBoxFor(m => Model.module.ModuleName, new { @id = "ModuleName", @class = "form-control", style = "width:40%", placeholder = "Enter Module Name" })
-                </div><br />
-                @Html.HiddenFor(m => Model.module.Module_Id, new { @id = "ModuleID" })
-            </div>
         </div>
+        <div class="col-12 col-md-9">
 
-        <div class="row form-group">
-            <div class="col col-md-3">
-                @Html.LabelFor(m => Model.module.CommonField, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                <div>@Html.DropDownListFor(m => Model.module.SelectedCommonFields, Model.module.CommonField, "Select", new { @id = "Common_Id", @class = "form-control", style = "width:40%" })</div><br />
-            </div>
+            <div>
+                @Html.TextBoxFor(m => Model.module.ModuleName, new { @id = "ModuleName", @class = "form-control", style = "width:40%", placeholder = "Enter Module Name" })
+                @Html.ValidationMessageFor(model => model.module.ModuleName, "Required", new { @class = "text-danger", @id = "errmoduleid" })
+
+            </div><br />
+            @Html.HiddenFor(m => Model.module.Module_Id, new { @id = "ModuleID" })
         </div>
+    </div>
 
-        <div class="row form-group">
-            <div class="col col-md-3">
-                @Html.LabelFor(m => Model.module.Skill, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                <div>@Html.DropDownListFor(m => Model.module.SelectedSkills, new SelectList(Model.module.Skill, "Value", "Text"), new { @Id = "skill_Id", @class = "form-control", style = "width:40%" })</div><br />
-            </div>
+    <div class="row form-group">
+        <div class="col col-md-3">
+            @Html.LabelFor(m => Model.module.CommonField, new { @class = "form-control-label" })
         </div>
+        <div class="col-12 col-md-9">
+            <div>@Html.DropDownListFor(m => Model.module.SelectedCommonFields, Model.module.CommonField, "Select", new { @id = "Common_Id", @class = "form-control", style = "width:40%" })</div><br />
 
-        <div class="row form-group">
-            <div class="col col-md-3">
-                @Html.LabelFor(m => Model.module.Date, new { @class = "form-control-label" })
-            </div>
-            <div class="col-12 col-md-9">
-                <div>@Html.EditorFor(m => Model.module.Date, new { htmlAttributes = new { @Id = "DateId", @class = "form-control", style = "width:40%" } })</div><br />
-            </div>
+            @Html.ValidationMessageFor(model => model.module.SelectedCommonFields, "Required", new { @class = "text-danger", @id = "errcomm_id" })
+
         </div>
+    </div>
 
-        <style type="text/css">
-            form {
-                margin: 20px 0;
+    <div class="row form-group">
+        <div class="col col-md-3">
+            @Html.LabelFor(m => Model.module.Skill, new { @class = "form-control-label" })
+        </div>
+        <div class="col-12 col-md-9">
+            <div>@Html.DropDownListFor(m => Model.module.SelectedSkills, new SelectList(Model.module.Skill, "Value", "Text"), new { @Id = "skill_Id", @class = "form-control", style = "width:40%" })</div><br />
+            @Html.ValidationMessageFor(model => model.module.SelectedSkills, "Required", new { @class = "text-danger", @id = "errskill" })
+
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col col-md-3">
+            @Html.LabelFor(m => Model.module.Date, new { @class = "form-control-label" })
+        </div>
+        <div class="col-12 col-md-9">
+            <div>@Html.EditorFor(m => Model.module.Date, new { htmlAttributes = new { @Id = "DateId", @class = "form-control", style = "width:40%" } })</div><br />
+            @Html.ValidationMessageFor(model => model.module.Date, "Required", new { @class = "text-danger", @id = "errdate" })
+
+        </div>
+    </div>
+
+    <style type="text/css">
+        form {
+            margin: 20px 0;
+        }
+
+            form input, button {
+                padding: 5px;
             }
 
-                form input, button {
-                    padding: 5px;
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #cdcdcd;
+        }
+
+            table th, table td {
+                padding: 10px;
+                text-align: left;
+            }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            $("#errtpc").hide();
+            $("#errdate").hide();
+            $("#errskill").hide();
+            $("#errmoduleid").hide();
+            $("#errcomm_id").hide();
+
+
+        });
+        $("#DateId").change(function () {
+
+            if ($("#DateId").val().length > 0) {
+                $("#errdate").hide();
+            }
+            else {
+                $("#errdate").show();
+            }
+        });
+
+        $("#ModuleName").keydown(function () {
+            if (event.which === 8) {
+                if ($("#ModuleName").val().length > 0) {
+                    $("#errmoduleid").hide();
+                }
+                else if ($("#ModuleName").val() === "" || $("#ModuleName").val().length === 0) {
+
+                    $("#errmoduleid").show();
+                }
+            }
+            else if ($("#ModuleName").val() == "") {
+                $("#errmoduleid").hide();
+            }
+        });
+        //Common_Id,errcomm_id,skill_Id,errskill
+        $("#Common_Id").change(
+            function () {
+                if ($("#Common_Id").val() > 0) {
+                    $("#errcomm_id").hide();
+                }
+                else {
+                    $("#errcomm_id").show();
                 }
 
-            table {
-                width: 100%;
-                margin-bottom: 20px;
-                border-collapse: collapse;
+            });
+        // moduleid,errmoduleid
+        $("#skill_Id").change(function () {
+            if ($("#skill_Id").val() > 0) {
+                $("#errskill").hide();
+            }
+            else {
+
+                $("#errskill").show();
             }
 
-            table, th, td {
-                border: 1px solid #cdcdcd;
+        });
+        //trainerid,errtrainerid
+
+
+        function validate() {
+            //if ($("#date").val().length > 0) {
+            //    $("#errdate").hide();
+            //}
+            //else {
+
+            //    $("#errdate").show();
+            //}
+            if ($("#DateId").val().length > 0) {
+                $("#errdate").hide();
+            }
+            else {
+                $("#errdate").show();
+            }
+            if ($("#skill_Id").val() > 0) {
+                $("#errskill").hide();
+            }
+            else {
+
+                $("#errskill").show();
             }
 
-                table th, table td {
-                    padding: 10px;
-                    text-align: left;
-                }
-        </style>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script type="text/javascript">
+            if ($("#Common_Id").val() > 0) {
+                $("#errcomm_id").hide();
+            }
+            else {
+                $("#errcomm_id").show();
+            }
+            if ($("#ModuleName").val().length > 0) {
+                $("#errmoduleid").hide();
+            }
+            else {
+
+                $("#errmoduleid").show();
+            }
+            //if ($("#searchemp").val().length > 0) {
+            //    $("#errempname").hide();
+            //}
+            //else {
+
+            //    $("#errempname").show();
+            //}
+
+        }
+
+
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+            function delete_Row(idval) {
+
+                $("#" + idval).remove();
+            }
             $(document).ready(function () {
+                var count1 = @mDetails.Count;
+                //alert(@countval);
                 $(".add-row").click(function () {
+                   // count = count + 1;
 
                     var Topics = $("#Topics").val();
                     var HoursRequired = $("#HoursRequired").val();
-                    var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + Topics + "</td><td>" + HoursRequired + "</td></tr>";
-                    $("table tbody").append(markup);
+
+                    if (Topics.length > 0 && HoursRequired.length > 0) {
+                        $("#errtpc").hide();
+                          $("#tblDiv").show();
+                        count1 = count1 + 1;
+                        var idvalue = count1;
+
+                        //Topics + HoursRequired;
+
+                        var markup = "<tr id=" + idvalue + "><td style='display:none'><input type='checkbox' name='record'></td><td>" + Topics + "</td><td>" + HoursRequired + "</td><td><input type='submit'  class='btn btn-danger'   value='Delete' onclick=delete_Row(" + idvalue + ")></td></tr>";
+                        $("table").append(markup);
+                        $("#Topics").val('');
+                        $("#HoursRequired").val('');
+                    }
+                    else {
+                        $("#errtpc").show();
+                    }
+                    //var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + Topics + "</td><td>" + HoursRequired + "</td></tr>";
+                    //$("table tbody").append(markup);
                 });
 
                 // Find and remove selected table rows
@@ -116,43 +258,45 @@
                             $(this).parents("tr").remove();
                         }
                     });
-                });            
+                });
 
-            
+
         });
-        </script>
+    </script>
 
-        <form>
-            <input type="text" id="Topics" placeholder="Topics">
-            <input type="text" id="HoursRequired" placeholder="Hours Required">
-            <input type="button" class="add-row" value="Add Row">
-        </form>
-        <table>
-            <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>Topics</th>
-                    <th>HoursRequired</th>
-
+    <form>
+        <input type="text" id="Topics" placeholder="Topics">
+        <input type="text" id="HoursRequired" placeholder="Hours Required">
+        <input type="button" class="add-row" value="Add Row">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th style="display:none">Select</th>
+                <th>Topics</th>
+                <th>HoursRequired</th>
+                <th>Actionss</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i1 in mDetails)
+            {
+                count = count + 1;
+                <tr id="@count">
+                    <td style="display:none"><input type="checkbox" name="record"></td>
+                    <td>@i1.Topics</td>
+                    <td>@i1.HoursRequired</td>
+                    <td><input type="submit" class="btn btn-danger" value="Delete" onclick="delete_Row(@count)"></td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var i1 in mDetails)
-                {
-                    <tr>
-                        <td><input type="checkbox" name="record"></td>
-                        <td>@i1.Topics</td>
-                        <td>@i1.HoursRequired</td>                        
-                    </tr>
-                }
+            }
 
-            </tbody>
-        </table>
-        <button type="button" class="delete-row">Delete Row</button>
-        <br />
+        </tbody>
+    </table>
+    @*<button type="button" class="delete-row">Delete Row</button>
+        <br />*@
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script type="text/javascript">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
         $(function () {
             $("#btnSave").click(function () {
                 //debugger;
@@ -169,36 +313,40 @@
                 var mod2 = $("#Common_Id").val();
                 var mod3 = $("#skill_Id").val();
                 var mod4 = $("#DateId").val();
+                validate();
+                if (mod1.length > 0 && mod2.length > 0 && mod3.length > 0 && mod4.length > 0 && itemlist.length > 0) {
+                    var newUrl = '@Url.Action("Index","Module")';
 
-                var newUrl= '@Url.Action("Index","Module")';
+                    $("#btnSave").attr('disabled', true);
 
-                var mod = { ModuleName: mod1, SelectedCommonFields: mod2, SelectedSkills:mod3, Date:mod4 };
-               // alert(mod);
-                $.ajax({
-                    url: '@Url.Action("Edit", "Module")', //
-                    dataType: "json",
-                    data: JSON.stringify({ itemlist: itemlist, mvm: mod, id: modid }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                     
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+                    var mod = { ModuleName: mod1, SelectedCommonFields: mod2, SelectedSkills: mod3, Date: mod4 };
+                    // alert(mod);
+                    $.ajax({
+                        url: '@Url.Action("Edit", "Module")', //
+                        dataType: "json",
+                        data: JSON.stringify({ itemlist: itemlist, mvm: mod, id: modid }),
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+
+                            window.location.href = newUrl;
+                        },
+                        error: function (xhr) {
+                            alert("error");
+                        }
+                    });
+                } 
             });
         });
-        </script>
+    </script>
 
-        @Html.HiddenFor(m1 => Model.module.ModuleDetId)
-        @*<input type="hidden" id="custId" name="custId" value=@Model.ModuleDetId>*@
-        <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index", "module", null, new { @class = "btn btn-outline-link" })
-        @*</div>*@
+    @Html.HiddenFor(m1 => Model.module.ModuleDetId)
+    @*<input type="hidden" id="custId" name="custId" value=@Model.ModuleDetId>*@
+    <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index", "module", null, new { @class = "btn btn-outline-link" })
+    @*</div>*@
 
 
-    </div>
+</div>
 
 
 

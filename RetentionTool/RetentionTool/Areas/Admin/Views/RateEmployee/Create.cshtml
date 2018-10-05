@@ -85,22 +85,27 @@
 
             var Item = { AssignResources_Id: assignresid, Employee_Id: $(tdlist[0]).html(), Name: $(tdlist[1]).html(), Grade: grade, IsEligible: IsEligible };
                     itemlist.push(Item);
-                })
-         
-         var newUrl= '@Url.Action("Index", "RateEmployee")';
-                $.ajax({
-                    url: '@Url.Action("Create", "RateEmployee")', //
-                    dataType: "json",
-                    data: JSON.stringify({ RateEmployeeVm: itemlist }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+        })
+        if (itemlist.length > 0) {
+            var newUrl = '@Url.Action("Index", "RateEmployee")';
+            $.ajax({
+                url: '@Url.Action("Create", "RateEmployee")', //
+                dataType: "json",
+                data: JSON.stringify({ RateEmployeeVm: itemlist }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+        }
+        else {
+            alert('Please enter all the details')
+        }
+       
             });
 
 </script>

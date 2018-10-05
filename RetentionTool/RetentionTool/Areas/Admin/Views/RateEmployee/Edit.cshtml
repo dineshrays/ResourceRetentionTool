@@ -143,22 +143,28 @@
 
             var Item = { AssignResources_Id: assignresid, Id: $(tdlist[0]).html(), Employee_Id: $(tdlist[1]).html(), Grade: grade, IsEligible: IsEligible };
                     itemlist.push(Item);
-                })
+        })
+        if (itemlist.length > 0) {
+            var newUrl = '@Url.Action("Index", "RateEmployee")';
+            $.ajax({
+                url: '@Url.Action("Edit", "RateEmployee")', //
+                dataType: "json",
+                data: JSON.stringify({ id: assignresid, RateEmployeeVm: itemlist }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+        }
+        else {
+            alert('Please enter all the details')
+        }
 
-         var newUrl= '@Url.Action("Index", "RateEmployee")';
-                $.ajax({
-                    url: '@Url.Action("Edit", "RateEmployee")', //
-                    dataType: "json",
-                    data: JSON.stringify({ id: assignresid,RateEmployeeVm: itemlist }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+         
             });
 
 </script>

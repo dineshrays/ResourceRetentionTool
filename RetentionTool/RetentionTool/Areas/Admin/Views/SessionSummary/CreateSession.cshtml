@@ -32,8 +32,8 @@
 <div class="card">
     @*<div class="card-header">
 
-        <h2>Create Session Summary</h2>
-    </div>*@
+            <h2>Create Session Summary</h2>
+        </div>*@
     <div class="card-body card-block">
 
         <div class="row form-group">
@@ -44,6 +44,7 @@
                 <div>
                     @Html.EditorFor(m => m.session.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:60%" } })
 
+                    @Html.ValidationMessageFor(model => model.session.Date, "Required", new { @class = "text-danger", @id = "errdate" })
 
                 </div><br />
             </div>
@@ -55,6 +56,7 @@
             </div>
             <div class="col-12 col-md-9">
                 <div>@Html.TextBoxFor(m => m.session.Hours, new { @id = "hours", @class = "form-control", style = "width:60%" })</div><br />
+                @Html.ValidationMessageFor(model => model.session.Hours, "Required", new { @class = "text-danger", @id = "errhour" }) 
             </div>
         </div>
 
@@ -64,6 +66,7 @@
             </div>
             <div class="col-12 col-md-9">
                 <div>@Html.TextBoxFor(m => m.session.Description, new { @id = "descr", @class = "form-control", style = "width:60%" })</div><br />
+                @Html.ValidationMessageFor(model => model.session.Description, "Required", new { @class = "text-danger", @id = "errdesc" }) 
             </div>
         </div>
 
@@ -109,6 +112,103 @@
 
 </div>
 <script>
+
+    $(document).ready(function () {
+        $("#errtpc").hide();
+        $("#errdate").hide();
+        $("#errskill").hide();
+        $("#errmoduleid").hide();
+        $("#errcomm_id").hide();
+
+
+    });
+    ////date, errdate
+    $("#date").change(function () {
+
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+            $("#errdate").show();
+        }
+    });
+    ////hours,errhour
+    $("#hours").keydown(function () {
+        if (event.which === 8) {
+            if ($("#hours").val().length > 0) {
+                $("#errhour").hide();
+            }
+            else if ($("#hours").val() === "" || $("#hours").val().length === 0) {
+
+                $("#errhour").show();
+            }
+        }
+        else if ($("#hours").val() == "") {
+            $("#errhour").hide();
+        }
+    });
+    ////descr,errdesc
+    //Common_Id,errcomm_id,skill_Id,errskill
+    $("#Common_Id").change(
+        function () {
+            if ($("#Common_Id").val() > 0) {
+                $("#errcomm_id").hide();
+            }
+            else {
+                $("#errcomm_id").show();
+            }
+
+        });
+    // moduleid,errmoduleid
+    $("#skill_Id").change(function () {
+        if ($("#skill_Id").val() > 0) {
+            $("#errskill").hide();
+        }
+        else {
+
+            $("#errskill").show();
+        }
+
+    });
+    //trainerid,errtrainerid
+
+
+    function validate() {
+       
+        if ($("#DateId").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+            $("#errdate").show();
+        }
+        if ($("#skill_Id").val() > 0) {
+            $("#errskill").hide();
+        }
+        else {
+
+            $("#errskill").show();
+        }
+
+        if ($("#Common_Id").val() > 0) {
+            $("#errcomm_id").hide();
+        }
+        else {
+            $("#errcomm_id").show();
+        }
+        if ($("#ModuleName").val().length > 0) {
+            $("#errmoduleid").hide();
+        }
+        else {
+
+            $("#errmoduleid").show();
+        }
+        
+
+    }
+
+
+</script>
+<script>
     var trainingdetid;
     //$(document).ready(function () {
 
@@ -117,6 +217,10 @@
 
     //});
     $(document).ready(function () {
+        $("#errdate").hide();
+        $("#errdesc").hide();
+        $("#errhour").hide();
+
         //alert("Load...");
         var training = location.search.substring(1).split('&');
             //location.search.split('trainingid=');
