@@ -91,9 +91,9 @@
 
             <div>
 
-                <table class="table table-striped" style="width:50%">
+                <table class="table table-striped" style="width:100%">
                     <tr>
-                        <th>Select</th>
+                        
                         <th>Employee Name</th>
                         <th>Employee Code</th>
                         <th style="display:none;width:0%">Employee Id</th>
@@ -104,7 +104,7 @@
                     @foreach (var i in Model.projectvm)
                     {
                         <tr>
-                            <td><input type="checkbox" name="chck" /></td>
+                            
                             <td>@i.PersonalInfo1.Name</td>
                             <td>@i.PersonalInfo1.EmpCode</td>
                             <td style="display:none">@i.PersonalInfo_Id</td>

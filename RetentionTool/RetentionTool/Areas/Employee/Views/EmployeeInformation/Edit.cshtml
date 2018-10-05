@@ -206,32 +206,33 @@
                 <input type="button" value="Add" class="add-quali" />
             </div>
 
-            <table class="table table-striped" id="table-quali" style="width:50%">
+            <table class="table table-striped" id="table-quali" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Select</th>
                         <th>Degree</th>
                         <th>Board</th>
                         <th>Year Of Passing</th>
                         <th>Percentage</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var quali in Model.EducationQualification)
                     {
-                    <tr>
-                        <td><input type='checkbox' name='chck'></td>
+                    <tr id="+@quali.Id+">
+                        @*<td><input type='checkbox' name='chck'></td>*@
                         <td>@quali.Degree</td>
                         <td>@quali.Board</td>
                         <td>@quali.YearOfPassing</td>
                         <td>@quali.Percentage</td>
+                        <td><input type='submit' value='Delete' class="btn-danger" onclick='delete_Row(" +@quali.Id + ")'></td>
                     </tr>
                     }
 
                 </tbody>
             </table>
-            <br />
-            <button type="button" class="del-quali">Delete</button>
+            @*<br />
+            <button type="button" class="del-quali">Delete</button>*@
 
             <script>
                 $(".add-quali").click(function () {
@@ -240,18 +241,24 @@
                     var Board = $("#Board").val();
                     var YearOfPassing = $("#YearOfPassing").val();
                     var Percentage = $("#Percentage").val();
+                    var tid2 = Degree + Board;
+                    if (Degree.length > 0 && Board.length > 0 && YearOfPassing.length > 0 && Percentage.length > 0) {
+                        var Qualification = "<tr id=" + tid2 + "><td>" +
+                            Degree + "</td><td>" +
+                            Board + "</td><td>" +
+                            YearOfPassing + "</td><td>" +
+                            Percentage + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + tid2 + ")></td></tr>";
+                        $("#table-quali").append(Qualification);
+                        $("#Degree").val('');
+                        $("#Board").val('');
+                        $("#YearOfPassing").val('');
+                        $("#Percentage").val('');
+                    }
+                    else {
+                        alert("Enter all the data");
+                    }
 
-                    var Qualification = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-                        Degree + "</td><td>" +
-                        Board + "</td><td>" +
-                        YearOfPassing + "</td><td>" +
-                        Percentage + "</td></tr>";
-
-                    $("#table-quali").append(Qualification);
-                    $("#Degree").val('');
-                    $("#Board").val('');
-                    $("#YearOfPassing").val('');
-                    $("#Percentage").val('');
+                    
                 });
 
                 $(".del-quali").click(function () {
@@ -263,6 +270,9 @@
                     });
                 });
 
+                function delete_Row(empid) {
+                    $("#" + empid).remove();
+                }
             </script>
 
         </div>
@@ -326,36 +336,37 @@
 
             <input type="button" value="Add" class="add-exp" />
 
-            <table class="table table-striped" id="table-exp" style="width:50%">
+            <table class="table table-striped" id="table-exp" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Select</th>
                         <th> CompanyName</th>
                         <th>FromDate</th>
                         <th>ToDate</th>
                         <th>Designation</th>
                         <th>ProjectWorked</th>
                         <th>TechnologiesUsed</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var exp in Model.Experience)
                     {
-                    <tr>
-                        <td><input type='checkbox' name='chck'></td>
+                    <tr id="+@exp.Id+">
+                        @*<td><input type='checkbox' name='chck'></td>*@
                         <td>@exp.CompanyName</td>
                         <td>@exp.FromDate</td>
                         <td>@exp.ToDate</td>
                         <td>@exp.Designation</td>
                         <td>@exp.ProjectWorked</td>
                         <td>@exp.TechnologiesUsed</td>
+                        <td><input type='submit' value='Delete' class="btn-danger" onclick='delete_Ro(" + @exp.Id + ")'></td>
                     </tr>
                     }
 
                 </tbody>
             </table>
-            <br />
-            <button type="button" class="del-exp">Delete</button>
+            @*<br />
+            <button type="button" class="del-exp">Delete</button>*@
 
             <script>
                 $(".add-exp").click(function () {
@@ -367,13 +378,14 @@
                     var ProjectWorked = $("#ProjectWorked").val();
                     var TechnologiesUsed = $("#TechnologiesUsed").val();
 
-                    var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                    var tid3 = CompanyName + FromDate;
+                    var Company = "<tr id="+tid3+"><td>" +
                         CompanyName + "</td><td>" +
                         FromDate + "</td><td>" +
                         ToDate + "</td><td>" +
                         Designation + "</td><td>" +
                         ProjectWorked + "</td><td>" +
-                        TechnologiesUsed + "</td></tr>";
+                        TechnologiesUsed + "</td><td><input type='submit'  value='Delete' onclick=delete_Ro(" + tid3 + ")></td></tr>";
 
                     $("#table-exp").append(Company);
                     $("#CompanyName").val('');
@@ -393,6 +405,10 @@
                     });
                 });
 
+                function delete_Ro(tid3) {
+                    $("#" + tid3).remove();
+                }
+
             </script>
 
 
@@ -403,44 +419,48 @@
             <div class="card-body card-block">
 
                 <div class="row form-group">
-                    <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />
+                    <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />&nbsp;
                     <input id="searchid" style="display:none" />
-                    <input id="Years" placeholder="Years" />
-                    <input id="Months" placeholder="Months" />
-                    <input id="Status" placeholder="Status" />
+                    <input id="Years" placeholder="Years" />&nbsp;
+                    <input id="Months" placeholder="Months" />&nbsp;
+                    <input id="Status" placeholder="Status" />&nbsp;
+                    <br />
                     <input type="button" value="Add" class="add-skill" />
                 </div>
 
-                <table class="table table-striped" id="table-skill" style="width:50%">
-                    <thead>
-                        <tr>
-                            <th>Select</th>
-                            <th> Skills</th>
-                            <th style="display:none;width:0%">Skill Id</th>
-                            <th>Years</th>
-                            <th>Months</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(var ski in Model.EmployeeSkills)
-                        {
-                        <tr>
-                            <td><input type='checkbox' name='chck'></td>
-                            <td>@ski.Skills</td>
-                            <td>@ski.Years</td>
-                            <td>@ski.Months</td>
-                            <td>@ski.Status</td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-                <br />
-                <button type="button" class="del-emp">Delete</button>
+                <div class="tblemp">
+                    <table class="table table-striped" id="table-skill" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th> Skills</th>
+                                <th style="display:none;width:0%">Skill Id</th>
+                                <th>Years</th>
+                                <th>Months</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ski in Model.EmployeeSkills)
+                            {
+                            <tr id="+ski.Id+">
+                                @*<td><input type='checkbox' name='chck'></td>*@
+                                <td>@ski.Skills</td>
+                                <td>@ski.Years</td>
+                                <td>@ski.Months</td>
+                                <td>@ski.Status</td>
+                                <td><input type='submit' class="btn-danger" value='Delete' onclick='delete_R(" + ski.Id + ")'></td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @*<br />
+                <button type="button" class="del-emp">Delete</button>*@
 
                 <script>
                     $(".add-skill").click(function () {
-
+                        
                         var skillname = $("#searchskill").val();
 
                         var skillid = $("#searchid").val();
@@ -448,11 +468,12 @@
                         var Years = $("#Years").val();
                         var Months = $("#Months").val();
                         var Status = $("#Status").val();
-                        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+
+                        var markup = "<tr id=" + skillid + "><td><input type='checkbox'  name='chck'></td><td>" +
                             skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
                             Years + "</td><td>" +
                             Months + "</td><td>" +
-                            Status + "</td></tr>";
+                            Status + "</td><td><input type='submit' value='Delete' onclick=delete_R(" + skillid + ")></td></tr>";
                         $("#table-skill").append(markup);
                         $("#searchskill").val('');
                         $("#searchid").val('');
@@ -469,6 +490,10 @@
                             }
                         });
                     });
+
+                    function delete_R(empid) {
+                        $("#" + empid).remove();
+                    }
 
                 </script>
 

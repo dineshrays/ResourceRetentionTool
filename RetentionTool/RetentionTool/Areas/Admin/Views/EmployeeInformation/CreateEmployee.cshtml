@@ -3,6 +3,7 @@
     ViewBag.Title = "Create Employee";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     var filepath = "" ;
+    var count = 0;
 }
 
 @*<h2>Create Employee</h2>*@
@@ -13,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    @*<link rel="stylesheet" href="/resources/demos/style.css">*@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     
     <script>
@@ -206,10 +207,10 @@
              });
          });
             </script>
-            <div class="row card-footer">
+            @*<div class="row card-footer">
 
                 <input type="button" id="my-text-link" style="float:right" class="btn btn-success" value="Next" onclick="" />
-            </div>
+            </div>*@
 
             <script>
                 function changetab(id) {
@@ -232,40 +233,51 @@
         <div id="tabs-2">
             <div class="row form-group">
 
-                <input class="form-control" style="width:30%" id="Degree" placeholder="Degree" />
-                <input id="Board" placeholder="Board" />
-                <input id="YearOfPassing" placeholder="Year Of Passing" />
-                <input id="Percentage" placeholder="Percentage" />
+                <input class="form-control" style="width:30%" id="Degree" placeholder="Degree" /> &nbsp;
+                <input id="Board" placeholder="Board" />&nbsp;
+                <input id="YearOfPassing" placeholder="Year Of Passing" />&nbsp;
+                <input id="Percentage" placeholder="Percentage" />&nbsp;
 
                 <input type="button" value="Add" class="add-quali" />
             </div>
 
-            <table class="table table-striped" id="table-quali" style="width:50%">
-                <tr>
-                    <th>Select</th>
-                    <th> Degree</th>
-                    <th>Board</th>
-                    <th>Year Of Passing</th>
-                    <th>Percentage</th>
-                </tr>
+            <div id="tbl2" style="display:none">
+                <table class="table table-striped" id="table-quali" style="width:100%">
+                    <tr>
+                        <th> Degree</th>
+                        <th>Board</th>
+                        <th>Year Of Passing</th>
+                        <th>Percentage</th>
+                        <th>Action</th>
+                    </tr>
 
-            </table>
-            <br />
-            <button type="button" class="del-quali">Delete</button>
+                </table>
+            </div>
+            @*<br />
+            <button type="button" class="del-quali">Delete</button>*@
 
             <script>
                 $(".add-quali").click(function () {
-
+                   
                     var Degree = $("#Degree").val();
                     var Board = $("#Board").val();
                     var YearOfPassing = $("#YearOfPassing").val();
                     var Percentage = $("#Percentage").val();
-
-                    var Qualification = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-                        Degree + "</td><td>" +
-                        Board + "</td><td>" +
-                        YearOfPassing + "</td><td>" +
-                        Percentage + "</td></tr>";
+                    //var count = count + 1;
+                    var tid2 = count;
+                        
+                    if (Degree.length > 0 && Board.length > 0 && YearOfPassing.length > 0 && Percentage.length > 0) {
+                        $("#tbl2").show();
+                        var Qualification = "<tr id=" + tid2 + "><td>" +
+                            Degree + "</td><td>" +
+                            Board + "</td><td>" +
+                            YearOfPassing + "</td><td>" +
+                            Percentage + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + tid2 + ")></td></tr>";
+                    }
+                    else {
+                        alert("Enter all the details");
+                    }
+                   
 
                     $("#table-quali").append(Qualification);
                     $("#Degree").val('');
@@ -283,11 +295,14 @@
                     });
                 });
 
+                function delete_Row(tid2) {
+                    $('#' + tid2).remove();
+                }
             </script>
-            <div class="row card-footer">
+            @*<div class="row card-footer">
 
                 <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab2(2)" />
-            </div>
+            </div>*@
 
             <script>
                 function changetab2(id) {
@@ -362,47 +377,57 @@
 
 
             <input type="button" value="Add" class="add-exp" />
+            <div id="tbl3" style="display:none">
+                <table class="table table-striped" id="table-exp" style="width:100%">
+                    <tr>
+                        <th> CompanyName</th>
+                        <th>FromDate</th>
+                        <th>ToDate</th>
+                        <th>Designation</th>
+                        <th>ProjectWorked</th>
+                        <th>TechnologiesUsed</th>
+                        <th>Action</th>
+                    </tr>
 
-            <table class="table table-striped" id="table-exp" style="width:50%">
-                <tr>
-                    <th>Select</th>
-                    <th> CompanyName</th>
-                    <th>FromDate</th>
-                    <th>ToDate</th>
-                    <th>Designation</th>
-                    <th>ProjectWorked</th>
-                    <th>TechnologiesUsed</th>
-                </tr>
-
-            </table>
-            <br />
-            <button type="button" class="del-exp">Delete</button>
+                </table>
+            </div>
+            @*<br />
+            <button type="button" class="del-exp">Delete</button>*@
 
             <script>
                 $(".add-exp").click(function () {
-
+                   
                     var CompanyName = $("#CompanyName").val();
                     var FromDate = $("#FromDate").val();
                     var ToDate = $("#ToDate").val();
                     var Designation = $("#Designation").val();
                     var ProjectWorked = $("#ProjectWorked").val();
                     var TechnologiesUsed = $("#TechnologiesUsed").val();
+                    var tid3 = CompanyName + FromDate;
+                    if (CompanyName.length > 0 && FromDate.length > 0 && ToDate.length > 0 && Designation.length > 0 && ProjectWorked.length > 0 && TechnologiesUsed.length > 0) {
+                        $("#tbl3").show();
 
-                    var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-                        CompanyName + "</td><td>" +
-                        FromDate + "</td><td>" +
-                        ToDate + "</td><td>" +
-                        Designation + "</td><td>" +
-                        ProjectWorked + "</td><td>" +
-                        TechnologiesUsed + "</td></tr>";
+                        var Company = "<tr id=" + tid3 + "><td>" +
+                            CompanyName + "</td><td>" +
+                            FromDate + "</td><td>" +
+                            ToDate + "</td><td>" +
+                            Designation + "</td><td>" +
+                            ProjectWorked + "</td><td>" +
+                            TechnologiesUsed + "</td><td><input type='submit'  value='Delete' onclick=delete_Ro(" + tid3 + ")></td></tr>";
 
-                    $("#table-exp").append(Company);
-                    $("#CompanyName").val('');
-                    $("#FromDate").val('');
-                    $("#ToDate").val('');
-                    $("#Designation").val('');
-                    $("#ProjectWorked").val('');
-                    $("#TechnologiesUsed").val('');
+                        $("#table-exp").append(Company);
+                        $("#CompanyName").val('');
+                        $("#FromDate").val('');
+                        $("#ToDate").val('');
+                        $("#Designation").val('');
+                        $("#ProjectWorked").val('');
+                        $("#TechnologiesUsed").val('');
+                    }
+                    else {
+                        alert("Enter all the details");
+                    }
+
+                    
                 });
 
                 $(".del-exp").click(function () {
@@ -414,11 +439,15 @@
                     });
                 });
 
+                function delete_Ro(tid3) {
+                    $('#' + tid3).remove();
+                }
+
             </script>
-            <div class="row card-footer">
+            @*<div class="row card-footer">
 
                 <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab3(3)" />
-            </div>
+            </div>*@
 
             <script>
                 function changetab3(id) {
@@ -441,31 +470,33 @@
             <div class="card-body card-block">
 
                 <div class="row form-group">
-                    <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />
+                    <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />&nbsp;
                     <input id="searchid" style="display:none" />
-                    <input id="Years" placeholder="Years" />
-                    <input id="Months" placeholder="Months" />
-                    <input id="Status" placeholder="Status" />
+                    <input id="Years" placeholder="Years" />&nbsp;
+                    <input id="Months" placeholder="Months" />&nbsp;
+                    <input id="Status" placeholder="Status" />&nbsp;
                     <input type="button" value="Add" class="add-skill" />
                 </div>
 
-                <table class="table table-striped" id="table-skill" style="width:50%">
-                    <tr>
-                        <th>Select</th>
-                        <th> Skills</th>
-                        <th style="display:none;width:0%">Skill Id</th>
-                        <th>Years</th>
-                        <th>Months</th>
-                        <th>Status</th>
-                    </tr>
+                <div id="tbl4" style="display:none">
+                    <table class="table table-striped" id="table-skill" style="width:100%">
+                        <tr>
+                            <th> Skills</th>
+                            <th style="display:none;width:0%">Skill Id</th>
+                            <th>Years</th>
+                            <th>Months</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
 
-                </table>
-                <br />
-                <button type="button" class="del-emp">Delete</button>
+                    </table>
+                </div>
+                @*<br />
+                <button type="button" class="del-emp">Delete</button>*@
 
                 <script>
                     $(".add-skill").click(function () {
-
+                       
                         var skillname = $("#searchskill").val();
 
                         var skillid = $("#searchid").val();
@@ -473,11 +504,18 @@
                         var Years = $("#Years").val();
                         var Months = $("#Months").val();
                         var Status = $("#Status").val();
-                        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-                            skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
-                            Years + "</td><td>" +
-                            Months + "</td><td>" +
-                            Status + "</td></tr>";
+                        if (skillname.length > 0 && Years.length > 0 && months.length > 0 && status.length > 0) {
+                            $("#tbl4").show();
+                            var markup = "<tr id=" + skillid + "><td>" +
+                                skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
+                                Years + "</td><td>" +
+                                Months + "</td><td>" +
+                                Status + "</td><td><input type='submit'  value='Delete' onclick=delete_R(" + skillid + ")></td></tr>";
+                        }
+                        else {
+                            alert("Enter all the details");
+                        }
+                        
                         $("#table-skill").append(markup);
                         $("#searchskill").val('');
                         $("#searchid").val('');
@@ -495,25 +533,20 @@
                         });
                     });
 
+                    function delete_R(skillid) {
+                        $('#' + skillid).remove();
+                    }
+                    
+
                 </script>
 
 
             </div>
 
-            @*<div class="col-12 col-md-9">
-
-                        <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-                        @Html.ActionLink("Back to List", "Index", "EmployeeInfo", null, new { @class = "btn btn-outline-link" })
-
-                    </div>
-                </div>*@
-
-
             <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
             <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 
             <script>
                 $(function () {
@@ -549,10 +582,10 @@
 
             </script>
 
-            <div class="row card-footer">
+            @*<div class="row card-footer">
 
                 <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab4(4)" />
-            </div>
+            </div>*@
 
             <script>
                 function changetab4(id) {
@@ -643,10 +676,10 @@
                     @Html.DropDownListFor(m => m.ProjectsWorkedVm.Manager_Id, ViewData["managerslist"] as SelectList, new { @id = "Manager_Id", @class = "form-control", style = "width:40%" })
                 </div>
             </div>
-            <div class="row card-footer">
+            @*<div class="row card-footer">
 
                 <input type="button" style="float:right" class="btn btn-success" value="Next" id="td" onclick="changetab5" />
-            </div>
+            </div>*@
 
             <script>
                 function changetab5(id) {

@@ -58,7 +58,7 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-6 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DisplayFor(m => m.PersonalInfoVm.EmpCode, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
 
@@ -221,7 +221,7 @@
                 <input type="button" value="Add" class="add-quali" />
             </div>
 
-            <table class="table table-striped" id="table-quali" style="width:50%">
+            <table class="table table-striped" id="table-quali" style="width:100%">
                 <tr>
                     <th>Select</th>
                     <th> Degree</th>
@@ -327,20 +327,21 @@
 
             <input type="button" value="Add" class="add-exp" />
 
-            <table class="table table-striped" id="table-exp" style="width:50%">
+            <table class="table table-striped" id="table-exp" style="width:100%">
                 <tr>
-                    <th>Select</th>
+
                     <th> CompanyName</th>
                     <th>FromDate</th>
                     <th>ToDate</th>
                     <th>Designation</th>
                     <th>ProjectWorked</th>
                     <th>TechnologiesUsed</th>
+                    <th>Action</th>
                 </tr>
 
             </table>
-            <br />
-            <button type="button" class="del-exp">Delete</button>
+            @*<br />
+            <button type="button" class="del-exp">Delete</button>*@
 
             <script>
                 $(".add-exp").click(function () {
@@ -352,7 +353,7 @@
                     var ProjectWorked = $("#ProjectWorked").val();
                     var TechnologiesUsed = $("#TechnologiesUsed").val();
 
-                    var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                    var Company = "<tr id="++"><td>" +
                         CompanyName + "</td><td>" +
                         FromDate + "</td><td>" +
                         ToDate + "</td><td>" +
@@ -377,6 +378,7 @@
                         }
                     });
                 });
+                
 
             </script>
 
@@ -388,22 +390,23 @@
             <div class="card-body card-block">
 
                 <div class="row form-group">
-                    <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />
+                    <input class="form-control" style="width:30%" id="searchskill" placeholder="Skills" />&nbsp;
                     <input id="searchid" style="display:none" />
-                    <input id="Years" placeholder="Years" />
-                    <input id="Months" placeholder="Months" />
-                    <input id="Status" placeholder="Status" />
+                    <input id="Years" placeholder="Years" />&nbsp;
+                    <input id="Months" placeholder="Months" />&nbsp;
+                    <input id="Status" placeholder="Status" />&nbsp;
                     <input type="button" value="Add" class="add-skill" />
                 </div>
 
-                <table class="table table-striped" id="table-skill" style="width:50%">
+                <table class="table table-striped" id="table-skill" style="width:100%">
                     <tr>
-                        <th>Select</th>
+
                         <th> Skills</th>
                         <th style="display:none;width:0%">Skill Id</th>
                         <th>Years</th>
                         <th>Months</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
 
                 </table>
@@ -420,11 +423,11 @@
                         var Years = $("#Years").val();
                         var Months = $("#Months").val();
                         var Status = $("#Status").val();
-                        var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+                        var markup = "<tr id=" + skillid + "><td><input type='checkbox'  name='chck'></td><td>" +
                             skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
                             Years + "</td><td>" +
                             Months + "</td><td>" +
-                            Status + "</td></tr>";
+                            Status + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='Delete_Row(" + skillid + ")'></td></tr>";
                         $("#table-skill").append(markup);
                         $("#searchskill").val('');
                         $("#searchid").val('');
@@ -441,6 +444,10 @@
                             }
                         });
                     });
+
+                    function Delete_Row(skillid) {
+                        $('#' + skillid).remove();
+                    }
 
                 </script>
 

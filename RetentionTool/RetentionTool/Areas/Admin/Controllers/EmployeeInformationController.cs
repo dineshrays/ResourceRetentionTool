@@ -299,7 +299,7 @@ namespace RetentionTool.Areas.Admin.Controllers
                                              {
                                                  Id = es.Id,
                                                  P_Id = es.P_Id,
-                                                 // Skills=es.Skills,
+                                                 Skills=es.Skill.Name,
                                                  Years = es.Years,
                                                  Months = es.Months,
                                                  Status = es.Status
@@ -623,7 +623,7 @@ namespace RetentionTool.Areas.Admin.Controllers
                                              {
                                                  Id = es.Id,
                                                  P_Id = es.P_Id,
-                                                 // Skills=es.Skills,
+                                                 Skills=es.Skill.Name,
                                                  Years = es.Years,
                                                  Months = es.Months,
                                                  Status = es.Status
