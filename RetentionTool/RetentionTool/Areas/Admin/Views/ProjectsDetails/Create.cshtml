@@ -25,30 +25,70 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
-    
-        <div class="card-body card-block">
-            <div class="row form-group">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Name, new { @class = "form-control-label" })
-                </div>
-                <div class="col-12 col-md-9">
-                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" })
-                </div>
+    @Html.AntiForgeryToken()
+
+    <div class="card-body card-block">
+        <div class="row form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Name, new { @class = "form-control-label" })
             </div>
-            <div class="row form-group">
-                <div class="col-md-3">
-                  
-                </div>
-                <div class="col-12 col-md-9">
-                    <input type="submit" value="Create" class="btn btn-success" />
-                    @Html.ActionLink("Back to List", "Index")
-                </div>
+            <div class="col-12 col-md-9">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%",@id= "commonfieldname" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
+
+
             </div>
         </div>
- 
-   
+        <div class="row form-group">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-12 col-md-9">
+                <input type="submit" value="Create" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+
+
 }
+<script>
+    $("#commonfieldname").keydown(function () {
+        if (event.which === 8) {
+            if ($("#commonfieldname").val().length > 0) {
+                $("#validationforcommonfield").hide();
+            }
+            else if ($("#commonfieldname").val() === "" || $("#commonfieldname").val().length === 0) {
+
+                $("#validationforcommonfield").show();
+            }
+        }
+        else if ($("#commonfieldname").val() == "") {
+            $("#validationforcommonfield").hide();
+        }
+    });
+    //$("#commonfieldname").keypress(function () {
+    //    //alert('dsjdh')
+    //    if ($("#commonfieldname").val().length > 0) {
+    //        $("#validationforcommonfield").show();
+    //        //$("#errorforCommonfield").val("hello");
+    //        //$("#errorforCommonfield").show();
+    //           // val('Required');
+    //            //attr('enabled', true)
+    //    }
+    //    else {
+    //        // $("#btnSave").attr('disabled', true);
+    //        $("#validationforcommonfield").hide();
+
+    //       // $("#errorforCommonfield").val('');
+    //           //.attr('disabled', true)
+    //    }
+    //});
+
+
+</script>
+
 
 

@@ -11,7 +11,8 @@ namespace RetentionTool.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ProjectsDetail
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,7 @@ namespace RetentionTool.Models
         }
     
         public int Id { get; set; }
+        [Required(ErrorMessage = "Required")]
         public string Name { get; set; }
         public Nullable<bool> IsActive { get; set; }
     

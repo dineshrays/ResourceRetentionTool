@@ -1,8 +1,5 @@
 ﻿@model RetentionTool.Models.AssignResourceViewModel
-@{
-                /**/
-
-                /**/
+@{ 
 
                 ViewBag.Title = "Create Training";
                 Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
@@ -47,6 +44,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.EditorFor(m => m.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
+                @Html.ValidationMessageFor(model => model.Date, "Required", new { @class = "text-danger", @id = "errdate" })
             </div>
         </div>
         <br />
@@ -70,7 +68,8 @@
                 @Html.Label("Manager Name", new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control", @id = "managerid", style = "width:30%" })
+                @Html.DropDownListFor(m => m.Manager_Id, ViewData["managerslist"] as SelectList,"Select" ,new { @class = "form-control", @id = "managerid", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.Manager_Id, "Required", new { @class = "text-danger", @id = "errmanagerid" })
 
             </div>
         </div>
@@ -81,6 +80,8 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.DropDownListFor(m => m.Module_Id, ViewData["moduleslist"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.Module_Id, "Required", new { @class = "text-danger", @id = "errmoduleid" })
+
             </div>
 
 
@@ -91,7 +92,8 @@
                 @Html.LabelFor(m => m.trainername, new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
+                @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList,"Select", new { @class = "form-control", @id = "trainerid", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.Trainer_Id, "Required", new { @class = "text-danger", @id = "errtrainerid" })
 
             </div>
 
@@ -104,7 +106,9 @@
 
             </div>
             <div class="col-12 col-md-9">
-                <input class="form-control" style="width:30%" id="searchemp" />
+                <input class="form-control" style="width:30%" id="searchemp" />&nbsp;
+                @Html.ValidationMessageFor(model => model.employeename, "Required", new { @class = "text-danger", @id = "errempname" })
+
                 <input id="searchid" style="display:none" />
                 <input id="searchempname" style="display:none" /><br />
                 <input type="button" value="Add" class="add-emp" />
@@ -146,7 +150,117 @@
         @*}*@
     </div>
 
+<script>
 
+    $(document).ready(function () {
+        $("#errdate").hide();
+        $("#errempname").hide();
+        $("#errtrainerid").hide();
+        $("#errmoduleid").hide();
+        $("#errmanagerid").hide();
+        
+
+    });
+    $("#date").change(function () {
+
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+            $("#errdate").show();
+        }
+    });
+
+    $("#searchemp").keydown(function () {
+        if (event.which === 8) {
+            if ($("#searchemp").val().length > 0) {
+                $("#errempname").hide();
+            }
+            else if ($("#searchemp").val() === "" || $("#searchemp").val().length === 0) {
+
+                $("#errempname").show();
+            }
+        }
+        else if ($("#searchemp").val() == "") {
+            $("#errempname").hide();
+        }
+    });
+    $("#managerid").change(
+        function () {
+            if ($("#managerid").val() > 0) {
+                $("#errmanagerid").hide();
+            }
+            else {
+                $("#errmanagerid").show();
+            }
+
+        });
+    // moduleid,errmoduleid
+    $("#moduleid").change(function () {
+        if ($("#moduleid").val() > 0) {
+            $("#errmoduleid").hide();
+        }
+        else {
+
+            $("#errmoduleid").show();
+        }
+
+    });
+    //trainerid,errtrainerid
+    $("#trainerid").change(function () {
+        if ($("#trainerid").val() > 0) {
+            $("#errtrainerid").hide();
+        }
+        else {
+
+            $("#errtrainerid").show();
+        }
+
+    });
+
+    function validate() {
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+
+            $("#errdate").show();
+        }
+        //if ($("#searchemp").val().length > 0) {
+        //    $("#errempname").hide();
+        //}
+        //else {
+
+        //    $("#errempname").show();
+        //}
+
+        if ($("#managerid").val().length > 0) {
+            $("#errmanagerid").hide();
+        }
+        else {
+
+            $("#errmanagerid").show();
+        }
+        //  alert($("#moduleid").val());
+        if ($("#moduleid").val() > 0) {
+            $("#errmoduleid").hide();
+        }
+        else {
+
+            $("#errmoduleid").show();
+        }
+
+        if ($("#trainerid").val().length > 0) {
+            $("#errtrainerid").hide();
+        }
+        else {
+
+            $("#errtrainerid").show();
+        }
+    }
+
+
+</script>
 
 <script>
     var empid = [];
@@ -158,31 +272,25 @@
          $("table tr:not(:first)").each(function () {
 
 
-             if ($(this).find('input[name="chck"]').is(':checked')) {
+            // if ($(this).find('input[name="chck"]').is(':checked')) {
                  var tdlist = $(this).find("td");
                  var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
                  itemlist.push(Item);
-             }
+            // }
 
          })
 
-         //$("table tbody").find('input[name="chck"]').each(function () {
-         //    if ($(this).is(":checked")) {
-         //        var tdlist = $(this).find("td");
-         //        var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
-         //        itemlist.push(Item);
-         //    }
-         //});
-
+      
          var date = $("#date").val();
          var projectid = '1';
              //$("#searchprojectid").val();
          var managerid = $("#managerid").val();
          var moduleid = $("#moduleid").val();
          var trainerid = $("#trainerid").val();
-
-                var newUrl= '@Url.Action("Index", "GeneralTraining")';
-
+         validate();
+         if (itemlist.length > 0 && date.length > 0 && projectid > 0 && managerid > 0 && moduleid > 0 && trainerid > 0) {
+               var newUrl= '@Url.Action("Index", "GeneralTraining")';
+             $("#btnSave").attr('disabled', true);
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
                // alert(mod);
                 $.ajax({
@@ -204,20 +312,25 @@
                         alert("error");
                     }
                 });
+         }
+              
             });
 
     $(".add-emp").click(function () {
-        $("#tbl").show();
+      
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        if (empname.length > 0 && empid.length > 0 && name.length > 0)
-        {
-            var markup = "<tr id=" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+        if (empname.length > 0 && empid.length > 0 && name.length > 0) {
+            $("#tbl").show();
+            var markup = "<tr id=" + empid + "><td style='display:none'>'d'</td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit' class='btn btn-danger'  value='Delete' onclick='delete_Row(" + empid + ")'></td></tr>";
             $("table tbody").append(markup);
             $("#searchemp").val('');
             $("#searchid").val('');
             $("#searchempname").val('');
+        }
+        else {
+            $("#errempname").show();
         }
        
     });

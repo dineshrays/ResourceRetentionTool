@@ -3,6 +3,7 @@
     ViewBag.Title = "Edit Training";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     var assignDetails = ViewBag.AssignResDetails;
+    var count = 0;
 }
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -40,6 +41,8 @@
             <div class="col-12 col-md-9">
                 @Html.HiddenFor(m => m.assignResource.Id, new { @id = "assresid" })
                 @Html.EditorFor(m => m.assignResource.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
+                @Html.ValidationMessageFor(model => model.assignResource.Date, "Required", new { @class = "text-danger", @id = "errdate" })
+
             </div>
 
 
@@ -81,6 +84,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.DropDownListFor(m => m.assignResource.Manager_Id, ViewData["managerslist"] as SelectList, new { @class = "form-control", @id = "managerid", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.assignResource.Manager_Id, "Required", new { @class = "text-danger", @id = "errmanagerid" })
 
 
             </div>
@@ -97,6 +101,7 @@
             <div class="col-12 col-md-9">
 
                 @Html.DropDownListFor(m => m.assignResource.Module_Id, ViewData["moduleslist"] as SelectList, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.assignResource.Module_Id, "Required", new { @class = "text-danger", @id = "errmoduleid" })
 
 
             </div>
@@ -112,6 +117,7 @@
             <div class="col-12 col-md-9">
 
                 @Html.DropDownListFor(m => m.assignResource.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
+                @Html.ValidationMessageFor(model => model.assignResource.Trainer_Id, "Required", new { @class = "text-danger", @id = "errtrainerid" })
 
             </div>
 
@@ -126,8 +132,11 @@
             </div>
             <div class="col-12 col-md-9">
                 @*@Html.DropDownListFor(m => m.assignResource.Employee_Id, ViewData["employeeslist"] as SelectList, new { @class = "form-control", style = "width:30%" })
-                    @Html.HiddenFor(m => m.assignResource.AssignResourceId)*@
+        @Html.HiddenFor(m => m.assignResource.AssignResourceId)*@
                 <input class="form-control" style="width:30%" id="searchemp" />
+                @Html.ValidationMessageFor(model => model.assignResource.employeename, "Required", new { @class = "text-danger", @id = "errempname" })
+
+
                 <input id="searchid" style="display:none" />
                 <input id="searchempname" style="display:none" /><br />
                 <input type="button" value="Add" class="add-emp" />
@@ -142,6 +151,7 @@
         <div id="tbl" >
             <table class="table table-striped">
                 <tr>
+                    <th style="display:none">Select</th>
                     <th>Employee Name</th>
                     <th style="display:none">Employee Id</th>
                     <th>Employee Code</th>
@@ -150,12 +160,12 @@
                 @*<tbody>*@
                 @foreach (var i in assignDetails)
                 {
-                    <tr id="+@i.Id+">
-                        @*<td><input type="checkbox" checked name="chck" /></td>*@
+                    <tr id=@i.Id>
+                        <td style="display:none"><input type="checkbox" checked name="chck" /></td>
                         <td>@i.PersonalInfo.Name</td>
                         <td style="display:none">@i.Employee_Id</td>
                         <td>@i.PersonalInfo.EmpCode</td>
-                        <td><input type='submit' value='Delete' onclick='delete_Row(" + @i.Id + ")'></td>
+                        <td><input type='submit' value='Delete' onclick='delete_Row(@i.Id)'></td>
                     </tr>
                 }
 
@@ -181,7 +191,117 @@
         </div>
 
     </div>
-   
+    <script>
+
+        $(document).ready(function () {
+            $("#errdate").hide();
+            $("#errempname").hide();
+            $("#errtrainerid").hide();
+            $("#errmoduleid").hide();
+            $("#errmanagerid").hide();
+
+
+        });
+        $("#date").change(function () {
+
+            if ($("#date").val().length > 0) {
+                $("#errdate").hide();
+            }
+            else {
+                $("#errdate").hide();
+            }
+        });
+
+        $("#searchemp").keydown(function () {
+            if (event.which === 8) {
+                if ($("#searchemp").val().length > 0) {
+                    $("#errempname").hide();
+                }
+                else if ($("#searchemp").val() === "" || $("#searchemp").val().length === 0) {
+
+                    $("#errempname").show();
+                }
+            }
+            else if ($("#searchemp").val() == "") {
+                $("#errempname").hide();
+            }
+        });
+        $("#managerid").change(
+            function () {
+                if ($("#managerid").val() > 0) {
+                    $("#errmanagerid").hide();
+                }
+                else {
+                    $("#errmanagerid").show();
+                }
+
+            });
+        // moduleid,errmoduleid
+        $("#moduleid").change(function () {
+            if ($("#moduleid").val() > 0) {
+                $("#errmoduleid").hide();
+            }
+            else {
+
+                $("#errmoduleid").show();
+            }
+
+        });
+        //trainerid,errtrainerid
+        $("#trainerid").change(function () {
+            if ($("#trainerid").val() > 0) {
+                $("#errtrainerid").hide();
+            }
+            else {
+
+                $("#errtrainerid").show();
+            }
+
+        });
+
+        function validate() {
+            if ($("#date").val().length > 0) {
+                $("#errdate").hide();
+            }
+            else {
+
+                $("#errdate").show();
+            }
+            //if ($("#searchemp").val().length > 0) {
+            //    $("#errempname").hide();
+            //}
+            //else {
+
+            //    $("#errempname").show();
+            //}
+
+            if ($("#managerid").val().length > 0) {
+                $("#errmanagerid").hide();
+            }
+            else {
+
+                $("#errmanagerid").show();
+            }
+            //  alert($("#moduleid").val());
+            if ($("#moduleid").val() > 0) {
+                $("#errmoduleid").hide();
+            }
+            else {
+
+                $("#errmoduleid").show();
+            }
+
+            if ($("#trainerid").val().length > 0) {
+                $("#errtrainerid").hide();
+            }
+            else {
+
+                $("#errtrainerid").show();
+            }
+        }
+
+
+    </script>
     <script>
     var empid = [];
      $("#btnSave").click(function () {
@@ -189,16 +309,16 @@
                 var itemlist = [];
 
          $("table tr:not(:first)").each(function () {
-             if ($(this).find('input[name="chck"]').is(':checked')) {
+           //  if ($(this).find('input[name="chck"]').is(':checked')) {
                  var tdlist = $(this).find("td");
                  var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
                  itemlist.push(Item);
-             }
+            // }
                     //var tdlist = $(this).find("td");
                     //var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
                     //itemlist.push(Item);
          })
-
+         validate();
          var projectid = $("#Project_Id").val();
 
          var date = $("#date").val();
@@ -206,8 +326,11 @@
          var moduleid = $("#moduleid").val();
          var trainerid = $("#trainerid").val();
 
-         var assignresid = $("assresid").val();
-                var newUrl= '@Url.Action("Index", "GeneralTraining")';
+         var assignresid = $("#assresid").val();
+         if (projectid > 0 && date.length > 0 && managerid > 0 && moduleid > 0 && trainerid > 0 && itemlist.length>0 && assignresid > 0) {
+               var newUrl= '@Url.Action("Index", "GeneralTraining")';
+
+             $("#btnSave").attr('disabled', true);
 
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
                // alert(mod);
@@ -230,6 +353,8 @@
                         alert("error");
                     }
                 });
+         }
+              
             });
 
     $(".add-emp").click(function () {
@@ -237,13 +362,16 @@
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        if (empname.length > 0 && empid.length > 0 && name.length > 0)
-        {
-            var markup = "<tr id=" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit' value='Delete' onclick='delete_Row(" + empid + ")'></td></tr>";
+        if (empname.length > 0 && empid.length > 0 && name.length > 0) {
+            $("#tbl").show();
+            var markup = "<tr id=" + empid + "><td style='display:none'>'ss'</td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit' value='Delete' onclick='delete_Row(" + empid + ")'></td></tr>";
             $("table tbody").append(markup);
             $("#searchemp").val('');
             $("#searchid").val('');
             $("#searchempname").val('');
+        }
+        else {
+            $("#errempname").show();
         }
 
     });
