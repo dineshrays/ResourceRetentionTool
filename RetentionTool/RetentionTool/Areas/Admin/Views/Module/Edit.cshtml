@@ -46,7 +46,7 @@
                 @Html.TextBoxFor(m => Model.module.ModuleName, new { @id = "ModuleName", @class = "form-control", style = "width:40%", placeholder = "Enter Module Name" })
                 @Html.ValidationMessageFor(model => model.module.ModuleName, "Required", new { @class = "text-danger", @id = "errmoduleid" })
 
-            </div><br />
+            </div>
             @Html.HiddenFor(m => Model.module.Module_Id, new { @id = "ModuleID" })
         </div>
     </div>
@@ -56,7 +56,7 @@
             @Html.LabelFor(m => Model.module.CommonField, new { @class = "form-control-label" })
         </div>
         <div class="col-12 col-md-9">
-            <div>@Html.DropDownListFor(m => Model.module.SelectedCommonFields, Model.module.CommonField, "Select", new { @id = "Common_Id", @class = "form-control", style = "width:40%" })</div><br />
+            <div>@Html.DropDownListFor(m => Model.module.SelectedCommonFields, Model.module.CommonField, "Select", new { @id = "Common_Id", @class = "form-control", style = "width:40%" })</div>
 
             @Html.ValidationMessageFor(model => model.module.SelectedCommonFields, "Required", new { @class = "text-danger", @id = "errcomm_id" })
 
@@ -68,7 +68,7 @@
             @Html.LabelFor(m => Model.module.Skill, new { @class = "form-control-label" })
         </div>
         <div class="col-12 col-md-9">
-            <div>@Html.DropDownListFor(m => Model.module.SelectedSkills, new SelectList(Model.module.Skill, "Value", "Text"), new { @Id = "skill_Id", @class = "form-control", style = "width:40%" })</div><br />
+            <div>@Html.DropDownListFor(m => Model.module.SelectedSkills, new SelectList(Model.module.Skill, "Value", "Text"), new { @Id = "skill_Id", @class = "form-control", style = "width:40%" })</div>
             @Html.ValidationMessageFor(model => model.module.SelectedSkills, "Required", new { @class = "text-danger", @id = "errskill" })
 
         </div>
@@ -79,7 +79,7 @@
             @Html.LabelFor(m => Model.module.Date, new { @class = "form-control-label" })
         </div>
         <div class="col-12 col-md-9">
-            <div>@Html.EditorFor(m => Model.module.Date, new { htmlAttributes = new { @Id = "DateId", @class = "form-control", style = "width:40%" } })</div><br />
+            <div>@Html.EditorFor(m => Model.module.Date, new { htmlAttributes = new { @Id = "DateId", @class = "form-control", style = "width:40%" } })</div>
             @Html.ValidationMessageFor(model => model.module.Date, "Required", new { @class = "text-danger", @id = "errdate" })
 
         </div>
@@ -245,6 +245,7 @@
                         $("#HoursRequired").val('');
                     }
                     else {
+
                         $("#errtpc").show();
                     }
                     //var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + Topics + "</td><td>" + HoursRequired + "</td></tr>";
@@ -268,17 +269,17 @@
         <input type="text" id="Topics" placeholder="Topics">
         <input type="text" id="HoursRequired" placeholder="Hours Required">
         <input type="button" class="add-row" value="Add Row">
+        <br />
+        @Html.ValidationMessageFor(model => model.module.Date, "Required", new { @class = "text-danger", @id = "errtpc" })
     </form>
-    <table>
-        <thead>
+    <table class="table table-striped" style="width:100%">
             <tr>
                 <th style="display:none">Select</th>
                 <th>Topics</th>
                 <th>HoursRequired</th>
                 <th>Actionss</th>
             </tr>
-        </thead>
-        <tbody>
+       
             @foreach (var i1 in mDetails)
             {
                 count = count + 1;
@@ -289,8 +290,6 @@
                     <td><input type="submit" class="btn btn-danger" value="Delete" onclick="delete_Row(@count)"></td>
                 </tr>
             }
-
-        </tbody>
     </table>
     @*<button type="button" class="delete-row">Delete Row</button>
         <br />*@
@@ -335,17 +334,27 @@
                             alert("error");
                         }
                     });
-                } 
+                }
             });
         });
     </script>
 
     @Html.HiddenFor(m1 => Model.module.ModuleDetId)
     @*<input type="hidden" id="custId" name="custId" value=@Model.ModuleDetId>*@
-    <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index", "module", null, new { @class = "btn btn-outline-link" })
+    
     @*</div>*@
 
+    <div class="row form-group">
+    <div class="col col-md-3">
 
+
+    </div>
+    <div class="col-12 col-md-9">
+        <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index", "module", null, new { @class = "btn btn-outline-link" })
+       
+    </div>
+
+</div>
 </div>
 
 

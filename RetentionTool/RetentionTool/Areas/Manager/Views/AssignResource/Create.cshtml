@@ -56,7 +56,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.EditorFor(m => m.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
-
+                @Html.ValidationMessageFor(m => m.Date, "Required", new { @class = "text-danger", @id = "errdate" })
             </div>
 
 
@@ -71,6 +71,7 @@
             <div class="col-12 col-md-9">
                 <input class="form-control" style="width:30%" id="searchproject" />
                 <input id="searchprojectid" style="display:none" />
+                @Html.ValidationMessageFor(m => m.Project_Id, "Required", new { @class = "text-danger", @id = "errsearchproject" })
             </div>
 
 
@@ -83,7 +84,6 @@
             </div>
             <div class="col-12 col-md-9" style="margin-top: 0.5rem;">
                 @Html.DisplayFor(m=>m.managername, new { @id= "managerid", @class = "form-control"})
-
                     
             </div>
         </div>
@@ -95,6 +95,7 @@
             <div class="col-12 col-md-9">
                 @*"Select Module",*@
                 @Html.DropDownListFor(m => m.Module_Id, ViewData["moduleslist"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "moduleid", style = "width:30%" })
+                @Html.ValidationMessageFor(m => m.Module_Id, "Required", new { @class = "text-danger", @id = "errmoduleid" })
             </div>
 
 
@@ -106,7 +107,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", @id = "trainerid", style = "width:30%" })
-
+                @Html.ValidationMessageFor(m => m.Trainer_Id, "Required", new { @class = "text-danger", @id = "errtrainerid" })
             </div>
 
         </div>
@@ -167,6 +168,118 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $("#errdate").hide();
+        $("#errsearchproject").hide();
+        //$("#errmanagerid").hide();
+        $("#errmoduleid").hide();
+        $("#errmanagerid").hide();
+        $("#errtrainerid").hide();
+
+
+    });
+
+    $("#date").change(function () {
+
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+            $("#errdate").hide();
+        }
+    });
+
+    $("#searchproject").keydown(function () {
+        if (event.which === 8) {
+            if ($("#searchproject").val().length > 0) {
+                $("#errsearchproject").hide();
+            }
+            else if ($("#searchproject").val() === "" || $("#searchproject").val().length === 0) {
+
+                $("#errsearchproject").show();
+            }
+        }
+        else if ($("#searchproject").val() == "") {
+            $("#errsearchproject").hide();
+        }
+    });
+    ////managerid  errmanagerid
+    $("#managerid").change(
+        function () {
+            if ($("#managerid").val() > 0) {
+                $("#errmanagerid").hide();
+            }
+            else {
+                $("#errmanagerid").show();
+            }
+
+        });
+    // moduleid,errmoduleid
+    $("#moduleid").change(function () {
+        if ($("#moduleid").val() > 0) {
+            $("#errmoduleid").hide();
+        }
+        else {
+
+            $("#errmoduleid").show();
+        }
+
+    });
+    //trainerid,errtrainerid
+    $("#trainerid").change(function () {
+        if ($("#trainerid").val() > 0) {
+            $("#errtrainerid").hide();
+        }
+        else {
+
+            $("#errtrainerid").show();
+        }
+
+    });
+
+    function validate() {
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+
+            $("#errdate").show();
+        }
+        if ($("#searchproject").val().length > 0) {
+            $("#errsearchproject").hide();
+        }
+        else {
+
+            $("#errsearchproject").show();
+        }
+
+        //if ($("#managerid").val().length > 0) {
+        //    $("#errmanagerid").hide();
+        //}
+        //else {
+
+        //    $("#errmanagerid").show();
+        //}
+        //  alert($("#moduleid").val());
+        if ($("#moduleid").val() > 0) {
+            $("#errmoduleid").hide();
+        }
+        else {
+
+            $("#errmoduleid").show();
+        }
+
+        if ($("#trainerid").val().length > 0) {
+            $("#errtrainerid").hide();
+        }
+        else {
+
+            $("#errtrainerid").show();
+        }
+    }
+</script>
+
+<script>
     var empid = [];
      $("#btnSave").click(function () {
 
@@ -197,34 +310,37 @@
          var managerid = $("#managerid").val();
          var moduleid = $("#moduleid").val();
          var trainerid = $("#trainerid").val();
-
-                var newUrl= '@Url.Action("Index", "AssignResource")';
+         validate();
+         if (date.length > 0 && projectid > 0 && /*managerid > 0 &&*/ moduleid > 0 && trainerid > 0 && itemlist.length > 0) {
+              var newUrl= '@Url.Action("Index", "AssignResource")';
+             $("#btnSave").attr('disabled', true);
 
          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
          // alert(mod);
-         if (/*managerid.length > 0 &&*/ projectid.length > 0 && trainerid.length > 0 && moduleid.length > 0 && date.length > 0) {
-             $("#btnSave").attr('diabled', true);
+             if (/*managerid.length > 0 &&*/ projectid.length > 0 && trainerid.length > 0 && moduleid.length > 0 && date.length > 0) {
+                 $("#btnSave").attr('diabled', true);
 
-             $.ajax({
-                 url: '/Manager/AssignResource/Create',
+                 $.ajax({
+                     url: '/Manager/AssignResource/Create',
                         @*'@Url.Action("Create", "AssignResource")',*@ 
-                 dataType: "json",
-                 data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
-                 type: "POST",
-                 contentType: "application/json; charset=utf-8",
-                 success: function (result) {
-                     //alert("success");
-                     $("#date").val('');
-                     $("#managerid").val('');
-                     $("#moduleid").val('');
-                     $("#trainerid").val('');
-                     $("table tbody").empty();
-                     window.location.href = newUrl;
-                 },
-                 error: function (xhr) {
-                     alert("error");
-                 }
-             });
+                     dataType: "json",
+                     data: JSON.stringify({ list: itemlist, assgnResvm: mod }),
+                     type: "POST",
+                     contentType: "application/json; charset=utf-8",
+                     success: function (result) {
+                         //alert("success");
+                         $("#date").val('');
+                         $("#managerid").val('');
+                         $("#moduleid").val('');
+                         $("#trainerid").val('');
+                         $("table tbody").empty();
+                         window.location.href = newUrl;
+                     },
+                     error: function (xhr) {
+                         alert("error");
+                     }
+                 });
+             }
          }
          else {
              alert("Enter all the details");
@@ -232,12 +348,13 @@
             });
 
     $(".add-emp").click(function () {
-        $("#table").show();
+       
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
 
         if (name.length > 0) {
+            $("#table").show();
             var markup = "<tr id =" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
             $("table tbody").append(markup);
             $("#searchemp").val('');

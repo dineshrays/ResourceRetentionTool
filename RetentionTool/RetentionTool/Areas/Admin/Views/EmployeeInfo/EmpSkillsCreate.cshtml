@@ -49,7 +49,7 @@
             <input type="button" value="Add" class="add-emp" />
         </div>
 
-        <div id="tbl" style="display:none">
+        <div id="tblid" style="display:none">
             <table class="table table-striped" style="width:100%">
                 <tr>
                     <th> Skills</th>
@@ -65,13 +65,20 @@
         @*<br />
         <button type="button" class="del-emp">Delete</button>*@
     </div>
+    <div class="row form-group">
+        <div class="col col-md-3">
 
-    <div class="col-12 col-md-9">
 
-        <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-        @Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })
+        </div>
+        <div class="col-12 col-md-9">
+            <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+            @*@Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })*@
+
+
+        </div>
 
     </div>
+    
 
 
 
@@ -88,8 +95,9 @@
         var Years = $("#Years").val();
         var Months = $("#Months").val();
         var Status = $("#Status").val();
-        if (skillname.length > 0 && skillid.length > 0 && Years.length > 0 && Months.length > 0 && Status.length > 0)
-        {
+
+        if (skillname.length > 0 && skillid.length > 0 && Years.length > 0 && Months.length > 0 && Status.length > 0) {
+            $("#tblid").show();
             var markup = "<tr id=" + skillid + "><td>" +
                 skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
                 Years + "</td><td>" +
@@ -101,6 +109,9 @@
             $("#Years").val('');
             $("#Months").val('');
             $("#Status").val('');
+        }
+        else {
+            alert("Enter all the details");
         }
         
     });
@@ -114,6 +125,10 @@
         });
     });
 
+    function delete_Row(idval) {
+
+        $("#" + idval).remove();
+    }
 </script>
 <script type="text/javascript">
             $(function () {

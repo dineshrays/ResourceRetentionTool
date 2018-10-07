@@ -35,43 +35,52 @@
         {
 
             
-            <div class="container" style="width:100%;margin-top:2%">
-                <table class="table table-striped" id="tble" style="width:100%">
+        <div class="container" style="width:100%;margin-top:2%">
+            <table class="table table-striped" id="tble" style="width:100%">
+                <tr>
+                    @*<th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource_Id)</th>*@
+
+                    <th>@Html.Label("Project Name")</th>
+
+                    <th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource.Module.ModuleName)</th>
+
+
+
+                    <th>@Html.Label("Actions")</th>
+                </tr>
+                @foreach (var item in assResDetails)
+                {
                     <tr>
-                        @*<th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource_Id)</th>*@
+                        @*<td>@item.Id</td>*@
+                        <td>@item.ProjectsDetail.Name</td>
 
-                        <th>@Html.Label("Project Name")</th>
-
-                        <th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource.Module.ModuleName)</th>
-
+                        <td>@item.Module.ModuleName</td>
 
 
-                        <th>@Html.Label("Actions")</th>
+                        <td>
+                            <a href='@Url.Action("CreateAssignEvaluter", "AssignEvaluater", new {assignresid=@item.Id})'>Add Details</a>
+
+                        </td>
+
                     </tr>
-                    @foreach (var item in assResDetails)
-                    {
-                        <tr>
-                            @*<td>@item.Id</td>*@
-                            <td>@item.ProjectsDetail.Name</td>
+                }
 
-                            <td>@item.Module.ModuleName</td>
+            </table>
+            <div class="row form-group">
+                <div class="col col-md-3">
 
 
-                            <td>
-                                <a href='@Url.Action("CreateAssignEvaluter", "AssignEvaluater", new {assignresid=@item.Id})'>Add Details</a>
-
-                            </td>
-
-                        </tr>
-                    }
-
-                </table>
-                <div class="card-body">
+                </div>
+                <div class="col-12 col-md-9">                   
                     @Html.ActionLink("Back to List", "Index")
+
                 </div>
 
-
             </div>
+           
+
+
+        </div>
         }
         else
         {

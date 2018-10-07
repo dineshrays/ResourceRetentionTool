@@ -311,7 +311,7 @@
          if (date.length > 0 && projectid > 0 && managerid > 0 && moduleid > 0 && trainerid > 0 && itemlist.length > 0) {
               var newUrl= '@Url.Action("Index", "AssignResource")';
              $("#btnSave").attr('disabled', true);
-         var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
+          var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
                // alert(mod);
                 $.ajax({
                     url: '@Url.Action("Create", "AssignResource")', //

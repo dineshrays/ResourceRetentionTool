@@ -1,7 +1,9 @@
 ﻿@model RetentionTool.ViewModel.EmployeeInformationViewModel
 @{
-    ViewBag.Title = "Edit Employee";   
+    ViewBag.Title = "Edit Employee";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+    //var countval = ViewBag.ModuleDetails.Count;
+    var count = 0;var coun = 0;var cou = 0;
 }
 
 <html>
@@ -172,7 +174,7 @@
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.BloodGroup, new { @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
-            <input type="file" id="uploadEditorImage" enctype="multipart/form-data" />
+            @*<input type="file" id="uploadEditorImage" enctype="multipart/form-data" />*@
 
             <script>
          $(function () {
@@ -223,36 +225,57 @@
 
             <table class="table table-striped" id="table-quali" style="width:100%">
                 <tr>
-                    <th>Select</th>
+                   
                     <th> Degree</th>
                     <th>Board</th>
                     <th>Year Of Passing</th>
                     <th>Percentage</th>
+                    <th>Actions</th>
                 </tr>
-
+                @foreach (var eduquali in Model.EducationQualification)
+                {
+                    count = count + 1;
+                <tr id="@count">
+                    <td>@eduquali.Degree</td>
+                    <td>@eduquali.Board</td>
+                    <td>@eduquali.YearOfPassing</td>
+                    <td>@eduquali.Percentage</td>
+                    <td><input type="submit" class="btn btn-danger" value="Delete" onclick="delete_Row(@count)"></td>
+                </tr>
+                }
             </table>
-            <br />
-            <button type="button" class="del-quali">Delete</button>
+            @*<br />
+            <button type="button" class="del-quali">Delete</button>*@
 
             <script>
+                 var count1 = @Model.EducationQualification.Count;
                 $(".add-quali").click(function () {
-
+                    
                     var Degree = $("#Degree").val();
                     var Board = $("#Board").val();
                     var YearOfPassing = $("#YearOfPassing").val();
                     var Percentage = $("#Percentage").val();
 
-                    var Qualification = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-                        Degree + "</td><td>" +
-                        Board + "</td><td>" +
-                        YearOfPassing + "</td><td>" +
-                        Percentage + "</td></tr>";
+                    if (Degree.length > 0 && Board.length > 0 && YearOfPassing.length > 0 && Percentage.length > 0) {
+                        count1 = count1 + 1;
+                        var idvalue = count1;
 
-                    $("#table-quali").append(Qualification);
-                    $("#Degree").val('');
-                    $("#Board").val('');
-                    $("#YearOfPassing").val('');
-                    $("#Percentage").val('');
+                        var Qualification = "<tr id="+idvalue+"><td>" +
+                            Degree + "</td><td>" +
+                            Board + "</td><td>" +
+                            YearOfPassing + "</td><td>" +
+                            Percentage + "</td><td><input type='submit' value='Delete' class='btn btn-danger' onclick=delete_Row(" + idvalue + ")></td></tr>";
+                        $("#table-quali").append(Qualification);
+                        $("#Degree").val('');
+                        $("#Board").val('');
+                        $("#YearOfPassing").val('');
+                        $("#Percentage").val('');
+                    }
+                    else {
+                        alert("Enter all details");
+                    }
+                   
+                   
                 });
 
                 $(".del-quali").click(function () {
@@ -263,6 +286,11 @@
                         }
                     });
                 });
+
+                function delete_Row(idvalue) {
+
+                    $("#" + idvalue).remove();
+                }
 
             </script>
 
@@ -338,12 +366,25 @@
                     <th>TechnologiesUsed</th>
                     <th>Action</th>
                 </tr>
-
+                @foreach (var exp in Model.Experience)
+                {
+                    coun = coun + 1;
+                <tr id="@coun">
+                    <td>@exp.CompanyName</td>
+                    <td>@exp.FromDate</td>
+                    <td>@exp.ToDate</td>
+                    <td>@exp.Designation</td>
+                    <td>@exp.ProjectWorked</td>
+                    <td>@exp.TechnologiesUsed</td>
+                    <td><input type="submit" class="btn btn-danger" value="Delete" onclick="delete_Ro(@coun)"></td>
+                </tr>
+                }
             </table>
             @*<br />
             <button type="button" class="del-exp">Delete</button>*@
 
             <script>
+                var coun1 = @Model.Experience.Count;
                 $(".add-exp").click(function () {
 
                     var CompanyName = $("#CompanyName").val();
@@ -353,21 +394,31 @@
                     var ProjectWorked = $("#ProjectWorked").val();
                     var TechnologiesUsed = $("#TechnologiesUsed").val();
 
-                    var Company = "<tr id="++"><td>" +
-                        CompanyName + "</td><td>" +
-                        FromDate + "</td><td>" +
-                        ToDate + "</td><td>" +
-                        Designation + "</td><td>" +
-                        ProjectWorked + "</td><td>" +
-                        TechnologiesUsed + "</td></tr>";
+                   
 
-                    $("#table-exp").append(Company);
-                    $("#CompanyName").val('');
-                    $("#FromDate").val('');
-                    $("#ToDate").val('');
-                    $("#Designation").val('');
-                    $("#ProjectWorked").val('');
-                    $("#TechnologiesUsed").val('');
+                    if (CompanyName.length > 0 && FromDate.length > 0 && ToDate.length > 0 && Designation.length > 0 && ProjectWorked.length > 0 && TechnologiesUsed.length > 0) {
+                        coun1 = coun1 + 1;
+                        var idvalu = coun1;
+                        var Company = "<tr id=" + idvalu + "><td>" +
+                            CompanyName + "</td><td>" +
+                            FromDate + "</td><td>" +
+                            ToDate + "</td><td>" +
+                            Designation + "</td><td>" +
+                            ProjectWorked + "</td><td>" +
+                            TechnologiesUsed + "</td><td><input type='submit' value='Delete' class='btn btn-danger' onclick=delete_Ro(" + idvalu + ")></td></tr>";
+
+                        $("#table-exp").append(Company);
+                        $("#CompanyName").val('');
+                        $("#FromDate").val('');
+                        $("#ToDate").val('');
+                        $("#Designation").val('');
+                        $("#ProjectWorked").val('');
+                        $("#TechnologiesUsed").val('');
+                    }
+                    else {
+                        alert("Enter all the details");
+                    }
+                   
                 });
 
                 $(".del-exp").click(function () {
@@ -378,7 +429,11 @@
                         }
                     });
                 });
-                
+
+                function delete_Ro(idvalu) {
+
+                    $("#" + idvalu).remove();
+                }
 
             </script>
 
@@ -408,10 +463,22 @@
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
+                    @foreach (var es in Model.EmployeeSkills)
+                    {
+                        cou = cou + 1;
+                    <tr id="@cou">
+                        <td>@es.Skills</td>
+                        <td>@es.Years</td>
+                        <td>@es.Months</td>
+                        <td>@es.Status</td>
+                        <td><input type='submit' class='btn btn-danger' value='Delete' onclick="delete_R(@cou)"></td>
+                        
+                    </tr>
+                    }
 
                 </table>
-                <br />
-                <button type="button" class="del-emp">Delete</button>
+                @*<br />
+                <button type="button" class="del-emp">Delete</button>*@
 
                 <script>
                     $(".add-skill").click(function () {
@@ -423,17 +490,24 @@
                         var Years = $("#Years").val();
                         var Months = $("#Months").val();
                         var Status = $("#Status").val();
-                        var markup = "<tr id=" + skillid + "><td><input type='checkbox'  name='chck'></td><td>" +
-                            skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
-                            Years + "</td><td>" +
-                            Months + "</td><td>" +
-                            Status + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='Delete_Row(" + skillid + ")'></td></tr>";
-                        $("#table-skill").append(markup);
-                        $("#searchskill").val('');
-                        $("#searchid").val('');
-                        $("#Years").val('');
-                        $("#Months").val('');
-                        $("#Status").val('');
+
+                        if (skillname.length > 0 && Years.length > 0 && Months.length & 0 && status.length > 0) {
+                            var markup = "<tr id=" + skillid + "><td><td>" +
+                                skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
+                                Years + "</td><td>" +
+                                Months + "</td><td>" +
+                                Status + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='delete_R(" + skillid + ")'></td></tr>";
+                            $("#table-skill").append(markup);
+                            $("#searchskill").val('');
+                            $("#searchid").val('');
+                            $("#Years").val('');
+                            $("#Months").val('');
+                            $("#Status").val('');
+                        }
+                        else {
+                            alert("Enter all the details");
+                        }
+                       
                     });
 
                     $(".del-emp").click(function () {
@@ -445,8 +519,8 @@
                         });
                     });
 
-                    function Delete_Row(skillid) {
-                        $('#' + skillid).remove();
+                    function delete_R(idva) {
+                        $('#' + idva).remove();
                     }
 
                 </script>
@@ -737,7 +811,18 @@
                 </div>
             </div>
 
-            <input id="btnSave" type="submit" value="Create" class="btn btn-success" />
+            <div class="row form-group">
+                <div class="col col-md-3">
+
+
+                </div>
+                <div class="col-12 col-md-9">
+                    <input id="btnSave" type="submit" value="Save" class="btn btn-success" />
+
+                </div>
+
+            </div>
+           
 
             <script type="text/javascript">
 

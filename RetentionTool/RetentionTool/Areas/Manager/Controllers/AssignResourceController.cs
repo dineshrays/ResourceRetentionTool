@@ -126,7 +126,7 @@ namespace RetentionTool.Areas.Manager.Controllers
             assVM.assignResource.Trainer_Id = assignresourcedb.Trainer_Id;
             assVM.assignResource.modulename = assignresourcedb.Module.ModuleName;
                assVM.assignResource.Module_Id = assignresourcedb.Module_Id;
-
+            //assVM.assignResource
             //AssignResourceViewModel assResvm = new AssignResourceViewModel()
             //{
             //    Id= assignres.Id,

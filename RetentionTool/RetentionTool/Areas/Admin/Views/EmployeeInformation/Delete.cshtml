@@ -43,7 +43,7 @@
                 <div class="page-title">
                     <ol class="breadcrumb text-right" style="background-color:white">
                         <li><a href="@Url.Action(" Index","AdminDashboard")">Dashboard /</a></li>
-                        <li><a href="@Url.Action(" Index","EmployeeInformation")">Employee Information /</a></li>
+                        <li><a href="@Url.Action("Index", "EmployeeInformation")">Employee Information /</a></li>                        
                         <li class="active"> View Employee </li>
                     </ol>
                 </div>
@@ -234,7 +234,7 @@
                     <input type="button" value="Add" class="add-quali" />
                 </div>*@
 
-                <table class="table table-striped" id="table-quali" style="width:50%">
+                <table class="table table-striped" id="table-quali" style="width:100%">
                     <thead>
                         <tr>
                             @*
@@ -358,7 +358,7 @@
 
                 @*<input type="button" value="Add" class="add-exp" />*@
 
-                <table class="table table-striped" id="table-exp" style="width:50%">
+                <table class="table table-striped" id="table-exp" style="width:100%">
                     <thead>
                         <tr>
                             @*
@@ -444,7 +444,7 @@
                         <input type="button" value="Add" class="add-skill" />
                     </div>*@
 
-                    <table class="table table-striped" id="table-skill" style="width:50%">
+                    <table class="table table-striped" id="table-skill" style="width:100%">
                         <thead>
                             <tr>
                                 @*
@@ -793,158 +793,170 @@
                     <div>@Html.DisplayFor(m => m.CurrentInfoVm.CTC, new { @id = "CTC", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
 
-            <input id="btnSave" type="submit" value="Delete" class="btn btn-danger" /> | @Html.ActionLink("Back to List", "Index")
+
+                </div>
+                <div class="col-12 col-md-9">
+                    
+
+                    @Html.ActionLink("Back to List", "Index")
+
+                </div>
+
+            </div>
+            
 
             @*
-            <script type="text/javascript">
+        <script type="text/javascript">
 
-                $("#btnSave").click(function () {
-                    // debugger;
+            $("#btnSave").click(function () {
+                // debugger;
 
-                    var EmpCode = $("#EmpCode").val();
-                    var Name = $("#Name").val();
-                    var FName = $("#FName").val();
-                    var DOB = $("#DOB").val();
-                    var Gender = $("#Gender").val();
-                    var PermntAdd = $("#PermntAdd").val();
-                    var CommAdd = $("#CommAdd").val();
-                    var Contact = $("#Contact").val();
-                    var Qualification = $("#Qualification").val();
-                    var Email = $("#Email").val();
-                    var PanNo = $("#PanNo").val();
-                    var AadharNo = $("#AadharNo").val();
-                    var BloodGroup = $("#BloodGroup").val();
+                var EmpCode = $("#EmpCode").val();
+                var Name = $("#Name").val();
+                var FName = $("#FName").val();
+                var DOB = $("#DOB").val();
+                var Gender = $("#Gender").val();
+                var PermntAdd = $("#PermntAdd").val();
+                var CommAdd = $("#CommAdd").val();
+                var Contact = $("#Contact").val();
+                var Qualification = $("#Qualification").val();
+                var Email = $("#Email").val();
+                var PanNo = $("#PanNo").val();
+                var AadharNo = $("#AadharNo").val();
+                var BloodGroup = $("#BloodGroup").val();
 
-                    var mod = {
-                        EmpCode: EmpCode, Name: Name, FatherName: FName, DOB: DOB, Gender: Gender, PermanentAddress: PermntAdd, CommunicationAddress: CommAdd,
-                        Contact: Contact, Qualification: Qualification, Email: Email, PanNo: PanNo, AadharNo: AadharNo, BloodGroup: BloodGroup
+                var mod = {
+                    EmpCode: EmpCode, Name: Name, FatherName: FName, DOB: DOB, Gender: Gender, PermanentAddress: PermntAdd, CommunicationAddress: CommAdd,
+                    Contact: Contact, Qualification: Qualification, Email: Email, PanNo: PanNo, AadharNo: AadharNo, BloodGroup: BloodGroup
+                };
+
+
+                var itemlist1 = [];
+
+                $("#table-quali tr:not(:first)").each(function () {
+                    var tdlist = $(this).find("td");
+
+                    var Degree = $(tdlist[1]).html();
+                    var Board = $(tdlist[2]).html();
+                    var YearOfPassing = $(tdlist[3]).html();
+                    var Percentage = $(tdlist[4]).html();
+
+                    var mod1 = {
+                        Degree: Degree, Board: Board, YearOfPassing: YearOfPassing, Percentage: Percentage
                     };
 
-
-                    var itemlist1 = [];
-
-                    $("#table-quali tr:not(:first)").each(function () {
-                        var tdlist = $(this).find("td");
-
-                        var Degree = $(tdlist[1]).html();
-                        var Board = $(tdlist[2]).html();
-                        var YearOfPassing = $(tdlist[3]).html();
-                        var Percentage = $(tdlist[4]).html();
-
-                        var mod1 = {
-                            Degree: Degree, Board: Board, YearOfPassing: YearOfPassing, Percentage: Percentage
-                        };
-
-                        itemlist1.push(mod1);
-                        //alert(itemlist);
-                    })
+                    itemlist1.push(mod1);
+                    //alert(itemlist);
+                })
 
 
 
-                    var itemlist2 = [];
+                var itemlist2 = [];
 
-                    $("#table-exp tr:not(:first)").each(function () {
-                        var tdlist1 = $(this).find("td");
+                $("#table-exp tr:not(:first)").each(function () {
+                    var tdlist1 = $(this).find("td");
 
-                        var CompanyName = $(tdlist1[1]).html();
-                        var FromDate = $(tdlist1[2]).html();
-                        var ToDate = $(tdlist1[3]).html();
-                        var Designation1 = $(tdlist1[4]).html();
-                        var ProjectWorked = $(tdlist1[5]).html();
-                        var TechnologiesUsed = $(tdlist1[6]).html();
+                    var CompanyName = $(tdlist1[1]).html();
+                    var FromDate = $(tdlist1[2]).html();
+                    var ToDate = $(tdlist1[3]).html();
+                    var Designation1 = $(tdlist1[4]).html();
+                    var ProjectWorked = $(tdlist1[5]).html();
+                    var TechnologiesUsed = $(tdlist1[6]).html();
 
-                        var mod2 = { CompanyName: CompanyName, FromDate: FromDate, ToDate: ToDate, Designation: Designation1, ProjectWorked: ProjectWorked, TechnologiesUsed: TechnologiesUsed };
+                    var mod2 = { CompanyName: CompanyName, FromDate: FromDate, ToDate: ToDate, Designation: Designation1, ProjectWorked: ProjectWorked, TechnologiesUsed: TechnologiesUsed };
 
-                        itemlist2.push(mod2);
-                    })
-
-
-                    var itemlist3 = [];
-                    var Common_Id = "3";
-
-                    $("#table-skill tr:not(:first)").each(function () {
-                        var tdlist2 = $(this).find("td");
-
-                        var skill_id = $(tdlist2[2]).html();
-                        var years = $(tdlist2[3]).html();
-                        var months = $(tdlist2[4]).html();
-                        var status = $(tdlist2[5]).html();
-
-                        var mod3 = { CommonField_Id: Common_Id, Skills_Id: skill_id, Years: years, Months: months, Status: status };
-
-                        itemlist3.push(mod3);
-                    })
-
-                    var Project_Id = $("#Project_Id").val();
-                    var PwDesignation = $("#PwDesignation").val();
-                    var Responsibilities = $("#Responsibilities").val();
-                    var StartDate = $("#StartDate").val();
-                    var EndDate = $("#EndDate").val();
-                    var Description = $("#Description").val();
-                    var TeamMembers = $("#TeamMembers").val();
-                    var Manager_Id = $("#Manager_Id").val();
-
-                    var mod4 = {
-                        Project_Id: Project_Id, Designation: PwDesignation, Responsibilities: Responsibilities, StartDate: StartDate, EndDate: EndDate, Description: Description
-                        , TeamMembers: TeamMembers, Manager_Id: Manager_Id
-                    };
+                    itemlist2.push(mod2);
+                })
 
 
-                    var Designation = $("#Designation2").val();
-                    var DOJ = $("#DOJ").val();
-                    var DateOfRelieving = $("#DateOfRelieving").val();
-                    var ReportingManager = $("#ReportingManager").val();
-                    var JobType = $("#JobType").val();
-                    var DeployedCompanyDetails = $("#DeployedCompanyDetails").val();
-                    var DeployedFromDate = $("#DeployedFromDate").val();
-                    var DeployedToDate = $("#DeployedToDate").val();
-                    var CompanyMailId = $("#CompanyMailId").val();
-                    var BankName = $("#BankName").val();
-                    var IFSC = $("#IFSC").val();
-                    var ModeOfPayment = $("#ModeOfPayment").val();
-                    var WorkLocation = $("#WorkLocation").val();
-                    var Department = $("#Department").val();
-                    var Grade = $("#Grade").val();
-                    var Salary = $("#Salary").val();
-                    var CTC = $("#CTC").val();
+                var itemlist3 = [];
+                var Common_Id = "3";
 
-                    var mod5 = {
-                        Designation: Designation, DOJ: DOJ, DateOfRelieving: DateOfRelieving, ReportingManager: ReportingManager, JobType: JobType,
-                        DeployedCompanyDetails: DeployedCompanyDetails, DeployedFromDate: DeployedFromDate, DeployedToDate: DeployedToDate, CompanyMailId: CompanyMailId,
-                        BankName: BankName, IFSC: IFSC, ModeOfPayment: ModeOfPayment, WorkLocation: WorkLocation, Department: Department, Grade: Grade, Salary: Salary, CTC: CTC
-                    };
+                $("#table-skill tr:not(:first)").each(function () {
+                    var tdlist2 = $(this).find("td");
 
-                    var data = new FormData();
-                    var files = $("#uploadEditorImage").get(0).files;
-                    //  alert(files[0]);
-                    if (files.length > 0) {
-                        data.append("HelpSectionImages", files[0]);
+                    var skill_id = $(tdlist2[2]).html();
+                    var years = $(tdlist2[3]).html();
+                    var months = $(tdlist2[4]).html();
+                    var status = $(tdlist2[5]).html();
+
+                    var mod3 = { CommonField_Id: Common_Id, Skills_Id: skill_id, Years: years, Months: months, Status: status };
+
+                    itemlist3.push(mod3);
+                })
+
+                var Project_Id = $("#Project_Id").val();
+                var PwDesignation = $("#PwDesignation").val();
+                var Responsibilities = $("#Responsibilities").val();
+                var StartDate = $("#StartDate").val();
+                var EndDate = $("#EndDate").val();
+                var Description = $("#Description").val();
+                var TeamMembers = $("#TeamMembers").val();
+                var Manager_Id = $("#Manager_Id").val();
+
+                var mod4 = {
+                    Project_Id: Project_Id, Designation: PwDesignation, Responsibilities: Responsibilities, StartDate: StartDate, EndDate: EndDate, Description: Description
+                    , TeamMembers: TeamMembers, Manager_Id: Manager_Id
+                };
+
+
+                var Designation = $("#Designation2").val();
+                var DOJ = $("#DOJ").val();
+                var DateOfRelieving = $("#DateOfRelieving").val();
+                var ReportingManager = $("#ReportingManager").val();
+                var JobType = $("#JobType").val();
+                var DeployedCompanyDetails = $("#DeployedCompanyDetails").val();
+                var DeployedFromDate = $("#DeployedFromDate").val();
+                var DeployedToDate = $("#DeployedToDate").val();
+                var CompanyMailId = $("#CompanyMailId").val();
+                var BankName = $("#BankName").val();
+                var IFSC = $("#IFSC").val();
+                var ModeOfPayment = $("#ModeOfPayment").val();
+                var WorkLocation = $("#WorkLocation").val();
+                var Department = $("#Department").val();
+                var Grade = $("#Grade").val();
+                var Salary = $("#Salary").val();
+                var CTC = $("#CTC").val();
+
+                var mod5 = {
+                    Designation: Designation, DOJ: DOJ, DateOfRelieving: DateOfRelieving, ReportingManager: ReportingManager, JobType: JobType,
+                    DeployedCompanyDetails: DeployedCompanyDetails, DeployedFromDate: DeployedFromDate, DeployedToDate: DeployedToDate, CompanyMailId: CompanyMailId,
+                    BankName: BankName, IFSC: IFSC, ModeOfPayment: ModeOfPayment, WorkLocation: WorkLocation, Department: Department, Grade: Grade, Salary: Salary, CTC: CTC
+                };
+
+                var data = new FormData();
+                var files = $("#uploadEditorImage").get(0).files;
+                //  alert(files[0]);
+                if (files.length > 0) {
+                    data.append("HelpSectionImages", files[0]);
+                }
+                //file
+                //var datavalue = fileValue;
+                //alert(datavalue);
+
+                $.ajax({
+
+                    url: '@Url.Action("Create", "EmployeeInformation")',  //'/EmployeeInformation/CreateEmployee',
+                    dataType: "json",
+                    data: JSON.stringify({ path: filepath, personalInfo: mod, eductionQualifi: itemlist1, exper: itemlist2, empSkill: itemlist3, projectWorked: mod4, currentInfo: mod5 }),
+                    type: 'POST',
+                    //processData: false,
+                    // contentType: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        alert("Successfully Added");
+                        window.location.href = '@Url.Action("Index", "EmployeeInformation")';
+                    },
+                    error: function (xhr) {
+                        alert("error");
                     }
-                    //file
-                    //var datavalue = fileValue;
-                    //alert(datavalue);
-
-                    $.ajax({
-
-                        url: '@Url.Action("Create", "EmployeeInformation")',  //'/EmployeeInformation/CreateEmployee',
-                        dataType: "json",
-                        data: JSON.stringify({ path: filepath, personalInfo: mod, eductionQualifi: itemlist1, exper: itemlist2, empSkill: itemlist3, projectWorked: mod4, currentInfo: mod5 }),
-                        type: 'POST',
-                        //processData: false,
-                        // contentType: false,
-                        contentType: "application/json; charset=utf-8",
-                        success: function (result) {
-                            alert("Successfully Added");
-                            window.location.href = '@Url.Action("Index", "EmployeeInformation")';
-                        },
-                        error: function (xhr) {
-                            alert("error");
-                        }
-                    });
                 });
+            });
 
-            </script>*@
+        </script>*@
         </div>
     </div>
 

@@ -36,7 +36,7 @@
             <div>@Html.LabelFor(m => m.ModuleName, new { @class = "form-control-label" })</div>
         </div>
         <div class="col-12 col-md-9">
-            <div>@Html.TextBoxFor(m => m.ModuleName, new { @id = "ModuleName", @class = "form-control", style = "width:40%", placeholder = "Enter Module Name" })</div><br />
+            <div>@Html.TextBoxFor(m => m.ModuleName, new { @id = "ModuleName", @class = "form-control", style = "width:40%", placeholder = "Enter Module Name" })</div>
             @Html.ValidationMessageFor(model => model.ModuleName, "Required", new { @class = "text-danger", @id = "errmoduleid" })
 
         </div>
@@ -47,7 +47,7 @@
             <div>@Html.LabelFor(m => m.CommonField, new { @class = "form-control-label" })</div>
         </div>
         <div class="col-12 col-md-9">
-            <div>@Html.DropDownListFor(m => m.SelectedCommonFields, Model.CommonField, "Select", new { @id = "Common_Id", @class = "form-control", style = "width:40%" })</div><br />
+            <div>@Html.DropDownListFor(m => m.SelectedCommonFields, Model.CommonField, "Select", new { @id = "Common_Id", @class = "form-control", style = "width:40%" })</div>
             @Html.ValidationMessageFor(model => model.SelectedCommonFields, "Required", new { @class = "text-danger", @id = "errcomm_id" })
 
         </div>
@@ -58,7 +58,7 @@
             <div>@Html.LabelFor(m => m.Skill, new { @class = "form-control-label" })</div>
         </div>
         <div class="col-12 col-md-9">
-            <div>@Html.DropDownListFor(m => m.SelectedSkills, new SelectList(Model.Skill, "Value", "Text"), new { @Id = "skill_Id", @class = "form-control", style = "width:40%" })</div><br />
+            <div>@Html.DropDownListFor(m => m.SelectedSkills, new SelectList(Model.Skill, "Value", "Text"), new { @Id = "skill_Id", @class = "form-control", style = "width:40%" })</div>
             @Html.ValidationMessageFor(model => model.SelectedSkills, "Required", new { @class = "text-danger", @id = "errskill" })
           
         </div>
@@ -115,7 +115,7 @@
                     var idvalue = count;
                         //Topics + HoursRequired;
                    
-                    var markup = "<tr id=" + idvalue + "><td style='display:none'><input type='checkbox' name='record'></td><td>" + Topics + "</td><td>" + HoursRequired + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + idvalue + ")></td></tr>";
+                    var markup = "<tr id=" + idvalue + "><td style='display:none'><input type='checkbox' name='record'></td><td>" + Topics + "</td><td>" + HoursRequired + "</td><td><input type='submit' value='Delete' onclick=delete_Row(" + idvalue + ")></td></tr>";
                     $("table").append(markup);
                     $("#Topics").val('');
                     $("#HoursRequired").val('');
@@ -151,26 +151,16 @@
         @Html.ValidationMessageFor(model => model.Date, "Required", new { @class = "text-danger", @id = "errtpc" })
 
     </form>
-    <div id="tblDiv" style="display:none">
-        <table style="width:100%">
-            <thead>
+    <div id="tblDiv" style="display:none" >
+        <table style="width:100%" class="table table-striped">
+           
                 <tr>
                     <th style="display:none">Select</th>
                     <th>Topics</th>
                     <th>Hours Required</th>
                     <th>Action</th>
                 </tr>
-            </thead>
-            @*  <tbody>
-
-        <tr>
-            <td><input type="checkbox" name="record"></td>
-            <td></td>
-            <td></td>
-        </tr>
-            </tbody>*@
-
-
+           
         </table>
     </div>
     @*<button type="button" class="delete-row">Delete Row</button>*@

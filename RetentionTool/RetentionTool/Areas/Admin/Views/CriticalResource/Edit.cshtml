@@ -4,6 +4,8 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
     var criticalacc =ViewBag.criticalacc;
+    var countval = ViewBag.criticalacc.Count;
+    var count = 0;
 }
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -138,11 +140,12 @@
                          
                          @foreach (var i in criticalacc)
                          {
-                         <tr id="@i.Name@i.Value">
+                             count = count + 1;
+                         <tr id="@count">
                              <td style="display:none"><input type="checkbox" name="chck" /></td>
                              <td>@i.Name</td>
                              <td>@i.Value</td>
-                             <td><input type='submit' class='btn btn-danger' value='Delete' onclick="Delete_Row('@i.Name@i.Value')"></td>
+                             <td><input type='submit' class='btn btn-danger' value='Delete' onclick="Delete_Row('@count')"></td>
 
                          </tr>
                          }
@@ -188,13 +191,16 @@
 
     $(".add-accountability").click(function () {
 
+        var count1 = @criticalacc.Count;
+
         var reporting = $("#reporting").val();
         var Information = $("#Information").val();
           if (reporting.length > 0 && Information.length > 0) {
             //var a = parseInt("10")
            // =parseInt(,1);
               //1;
-              var idval = reporting + Information;
+              count1 = count1 + 1;
+              var idval =count1;
               var Company = "<tr id=" + idval+ "><td style='display:none'><input type='checkbox'  name='chck'></td><td>" +
                     reporting + "</td><td>" +
                   Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='Delete_Row(" + idval + ")'></td></tr>";

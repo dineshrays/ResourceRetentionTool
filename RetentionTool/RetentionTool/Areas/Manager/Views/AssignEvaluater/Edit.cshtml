@@ -110,24 +110,81 @@
                     <input class="form-control" style="width:30%" id="searchemp" />
                     <input id="searchid" style="display:none" />
                     @*@Html.DropDownListFor(m => m.Trainer_Id, ViewData["trainerslist"] as SelectList, new { @class = "form-control", style = "width:30%" })*@
+                    @Html.ValidationMessageFor(m => m.Trainer_Id, "Required", new { @class = "text-danger", @id = "errsearchemp" })
 
-
+                </div>
                 </div>
                 <br />
             </div>
         </div>
 
         <br />
+        <div class="row form-group">
+            <div class="col col-md-3">
 
-        <div class="card-body">
-            <input type="submit" value="Edit" id="btnSave" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+
+            </div>
+            <div class="col-12 col-md-9">
+                <input type="submit" value="Edit" id="btnSave" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+
+            </div>
+
         </div>
+      
 
     </div>
 
-</div>
+@*</div>*@
+
+<script>
+
+    $(document).ready(function () {
+        $("#errtrainerid").hide();
+        $("#errsearchemp").hide();
 
 
+    });
+    $("#trainerid").change(function () {
+        if ($("#trainerid").val() > 0) {
+            $("#errtrainerid").hide();
+        }
+        else {
+
+            $("#errtrainerid").show();
+        }
+
+    });
+    $("#searchemp").keydown(function () {
+        if (event.which === 8) {
+            if ($("#searchemp").val().length > 0) {
+                $("#errsearchemp").hide();
+            }
+            else if ($("#searchproject").val() === "" || $("#searchproject").val().length === 0) {
+
+                $("#errsearchemp").show();
+            }
+        }
+        else if ($("#searchemp").val() == "") {
+            $("#errsearchemp").hide();
+        }
+
+    });
+    function validate() {
+        if ($("#trainerid").val() > 0) {
+            $("#errtrainerid").hide();
+        }
+        else {
+            $("#errtrainerid").show();
+        }
+        if ($("#searchemp").val().length > 0) {
+            $("#errsearchemp").hide();
+        }
+        else {
+            $("#errsearchemp").show();
+        }
+    }
+
+</script>
 
 <script>
     $(function () {
@@ -147,9 +204,13 @@
             }
            // var trainerid = $("#trainerid").val();
             var assresid = $("#assresid").val();
-                var newUrl= '@Url.Action("Index", "AssignEvaluater")';
+            validate()
+            if (isEmp.length > 0 && (empid > 0 || trainerid > 0) && assresid > 0) {
+                var newUrl = '@Url.Action("Index", "AssignEvaluater")';
+                $("#btnSave").attr('disabled', true);
+                @*var newUrl= '@Url.Action("Index", "AssignEvaluater")';*@
 
-            var mod = { AssignResource_Id: assresid, Trainer_Id: trainerid };
+                var mod = { AssignResource_Id: assresid, Trainer_Id: trainerid };
 
                 $.ajax({
                     url: '@Url.Action("Edit", "AssignEvaluater")', //
@@ -158,13 +219,14 @@
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
-                       
+
                         window.location.href = newUrl;
                     },
                     error: function (xhr) {
                         alert("error");
                     }
                 });
+            }
         });
         $("#searchemp").autocomplete({
             source: function (request, response) {

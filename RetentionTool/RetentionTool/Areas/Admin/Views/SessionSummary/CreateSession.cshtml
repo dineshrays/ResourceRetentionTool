@@ -56,7 +56,7 @@
             </div>
             <div class="col-12 col-md-9">
                 <div>@Html.TextBoxFor(m => m.session.Hours, new { @id = "hours", @class = "form-control", style = "width:60%" })</div><br />
-                @Html.ValidationMessageFor(model => model.session.Hours, "Required", new { @class = "text-danger", @id = "errhour" }) 
+                @Html.ValidationMessageFor(model => model.session.Hours, "Required", new { @class = "text-danger", @id = "errhour" })
             </div>
         </div>
 
@@ -66,15 +66,15 @@
             </div>
             <div class="col-12 col-md-9">
                 <div>@Html.TextBoxFor(m => m.session.Description, new { @id = "descr", @class = "form-control", style = "width:60%" })</div><br />
-                @Html.ValidationMessageFor(model => model.session.Description, "Required", new { @class = "text-danger", @id = "errdesc" }) 
+                @Html.ValidationMessageFor(model => model.session.Description, "Required", new { @class = "text-danger", @id = "errdesc" })
             </div>
         </div>
 
         <br />
 
 
-        <table class="mytbl table table-striped">
-            <thead>
+        <table class="table table-striped">  @*mytbl*@
+            
                 <tr>
 
                     <th style="display:none">Employee Id</th>
@@ -82,8 +82,7 @@
                     <th>Attendance</th>
                     <th>Remarks</th>
                 </tr>
-            </thead>
-            <tbody>
+            
                 @foreach (var emplist1 in empDetails)
                 {
 
@@ -95,19 +94,22 @@
                         <td><input type="text" name="remark" /></td>
                     </tr>
 
-
-                }
-
-            </tbody>
+                }        
 
 
         </table>
 
+        <div class="row form-group">
+            <div class="col col-md-3">
 
-        <div class="card-body">
-            <input id="btnSave" type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+
+            </div>
+            <div class="col-12 col-md-9">
+                <input id="btnSave" type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+            </div>
+
         </div>
-
+       
     </div>
 
 </div>
@@ -208,6 +210,7 @@
 
 
 </script>
+
 <script>
     var trainingdetid;
     //$(document).ready(function () {
@@ -284,8 +287,12 @@
           var desc = $("#descr").val();
         //  alert(desc);
           var mod = [];
-          mod = { TrainingDet_Id: trainingdetid, Date: date, Hours: hours, Description: desc };
-         var newUrl= '@Url.Action("Index", "SessionSummary")';
+          validate();
+          if (date.length > 0 && hours.length > 0 && desc.length > 0) {
+              var newUrl = '@Url.Action("Index", "SessionSummary")';
+              $("#btnSave").attr('disabled', true);
+               mod = { TrainingDet_Id: trainingdetid, Date: date, Hours: hours, Description: desc };
+           
                 $.ajax({
                     url: '@Url.Action("Create", "SessionSummary")', //
                     dataType: "json",
@@ -299,5 +306,7 @@
                         alert("error");
                     }
                 });
+          }
+         
             });
 </script>

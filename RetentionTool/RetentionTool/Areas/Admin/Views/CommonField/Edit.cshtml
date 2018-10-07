@@ -32,27 +32,38 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-group">
-                <div>
+        <div class="form-group">
+            <div>
 
-                    @Html.LabelFor(model => model.Name)
-                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%" ,@id= "commonfieldname"})
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
+                @Html.LabelFor(model => model.Name)
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%", @id = "commonfieldname" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
+
+
+            </div>
+            <br />
+            @*<div>
+            @Html.CheckBox("IsActive")
+            @Html.LabelFor(model => model.IsActive)
+        </div>*@
+            <div class="row form-group">
+                <div class="col col-md-2">
 
 
                 </div>
-                <br />
-                @*<div>
-                        @Html.CheckBox("IsActive")
-                        @Html.LabelFor(model => model.IsActive)
-                    </div>*@
-                <div>
-
+                <div class="col-12 col-md-9">
                     <input type="submit" value="Save" class="btn btn-success" />
                     @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
-
                 </div>
+
             </div>
+            @*<div>
+
+                <input type="submit" value="Save" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
+
+            </div>*@
+        </div>
 
 
         }

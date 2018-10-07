@@ -12,10 +12,27 @@
 }
 
 <div class="card">
-    <div class="card-header">
-        <h2>Create Employee Skills</h2>
-
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1> Create Employee Skills</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        @*<li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard </a></li>*@
+                        @*<li><a href="@Url.Action("Index", "EmployeeInfo")">Employee Skills  /</a></li>*@
+                        <li class="active"> Employee Skills </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <div class="card-body card-block">
 
@@ -24,8 +41,8 @@
                 <div>@Html.Label("Name")</div>
             </div>
             <div class="col-12 col-md-9">
-                @Html.HiddenFor(model=>model.PersonalInfoVm.Id,new { @id= "P_Id" })
-                @Html.DisplayFor(model => model.PersonalInfoVm.Name,new {  @class = "form-control", style = "width:40%" })
+                @Html.HiddenFor(model => model.PersonalInfoVm.Id, new { @id = "P_Id" })
+                @Html.DisplayFor(model => model.PersonalInfoVm.Name, new { @class = "form-control", style = "width:40%" })
             </div>
         </div>
 
@@ -53,15 +70,23 @@
             </table>
         </div>
         @*<br />
-        <button type="button" class="del-emp">Delete</button>*@
+            <button type="button" class="del-emp">Delete</button>*@
     </div>
 
-    <div class="col-12 col-md-9">
+    <div class="row form-group">
+        <div class="col col-md-3">
 
-        <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-        @Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })
+
+        </div>
+        <div class="col-12 col-md-9">
+            <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+            @*@Html.ActionLink("Back to List", "Index", "ProjectWorked", null, new { @class = "btn btn-outline-link" })*@
+
+
+        </div>
 
     </div>
+   
 </div>
 
 
@@ -73,7 +98,7 @@
 <script>
     
     $(".add-emp").click(function () {
-        $("#tbl").show();
+        
         var skillname = $("#searchskill").val();
 
 
@@ -85,6 +110,7 @@
 
         if (skillname.length > 0 && Years.length > 0 && Months.length > 0 && Status.length > 0)
         {
+            $("#tbl").show();
             var markup = "<tr id=" + skillid + "><td>" +
                 skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
                 Years + "</td><td>" +

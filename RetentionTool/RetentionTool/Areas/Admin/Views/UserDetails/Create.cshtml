@@ -209,7 +209,7 @@
 
 
         $(".btnAdd").click(function () {
-            $("#tblUser").show();
+           
             var searchid = $("#searchid").val();
             var searchempcode = $("#searchempcode").val();
             var searchname = $("#searchname").val();
@@ -217,8 +217,8 @@
             var rolename = $("#roleid :selected").text();
             var password = $("#Password").val();
 
-            if (searchid > 0 && roleid > 0 && password.length > 0 )
-            {
+            if (searchid > 0 && roleid > 0 && password.length > 0) {
+                $("#tblUser").show();
                 var value = "<tr id=" + searchid + "><td style='display:none'>" +
                     searchid + "</td><td>" +
                     searchempcode + "</td><td>" +
@@ -232,7 +232,10 @@
                 $("#searchid").val('');
                 $("#roleid").val('');
                 $("#Password").val('');
-             }
+            }
+            else {
+                alert("Enter all the details");
+            }
 
         });
 

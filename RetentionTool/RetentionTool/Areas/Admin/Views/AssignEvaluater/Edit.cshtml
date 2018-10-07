@@ -193,7 +193,7 @@
             }
            // var trainerid = $("#trainerid").val();
             var assresid = $("#assresid").val();
-
+            validate();
             if (isEmp.length > 0 && (empid > 0 || trainerid > 0) && assresid > 0) {
                   var newUrl= '@Url.Action("Index", "AssignEvaluater")';
                 $("#btnSave").attr('disabled', true);

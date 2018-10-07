@@ -3,8 +3,11 @@
     ViewBag.Title = "Edit Critical Resource";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
     var criticalacc =ViewBag.criticalacc;
+   
+     var countval = ViewBag.criticalacc.Count;
     var count = 0;
 }
+
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
@@ -137,11 +140,11 @@
                          
                          @foreach (var i in criticalacc)
                          {
-                             count++;
-                         <tr id="+@count+">
+                             count = count + 1;
+                         <tr id="@count">
                              <td>@i.Name</td>
                              <td>@i.Value</td>
-                             <td> <input type='submit' value='Delete' onclick='delete_Row(" + @count + ")'></td>
+                             <td> <input type='submit'  class='btn btn-danger' value='Delete' onclick="delete_Row(' @count')"></td>
                          </tr>
                          }
 
@@ -190,19 +193,23 @@
     }
 
     $(".add-accountability").click(function () {
-        //count++;
+        var count1 = @criticalacc.Count;++;
         var reporting = $("#reporting").val();
         var Information = $("#Information").val();
-
-        var Company = "<tr id=" + count + "><td>" +
+        count1 = count1 + 1;
+        var idval = count1;
+        var Company = "<tr id=" + idval + "><td>" +
             reporting + "</td><td>" +
-            Information + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + count + ")></td></tr>";
+            Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick=delete_Row(" + idval + ")></td></tr>";
 
         $("#table-accountability").append(Company);
         $("#reporting").val('');
         $("#Information").val('');
     });
 
+    function delete_Row(id) {
+        $("#" + id).remove();
+    }
     $(".del-accountability").click(function () {
         $("#table-accountability").find('input[name="chck"]').each(function () {
             if ($(this).is(":checked")) {

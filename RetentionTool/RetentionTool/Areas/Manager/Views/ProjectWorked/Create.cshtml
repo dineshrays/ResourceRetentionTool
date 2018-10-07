@@ -30,10 +30,7 @@
     </div>
 </div>
 <div class="card">
-    @*<div class="card-header">
-        <h2>Assign Team Members</h2>
-
-    </div>*@
+   
     <div class="card-body card-block">
         <div class="row form-group">
             <div class="col-md-3">
@@ -171,12 +168,144 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $("#errordescription").hide();
+        $("#errorprjctid").hide();
+        $("#errorstartdate").hide();
+        $("#errorenddate").hide();
+        $("#errorteammember").hide();
+        $("#errormanagerid").hide();
+
+    });
+    function validate() {
+        if ($("#projectid").val().length > 0) {
+            $("#errorprjctid").hide();
+        }
+        else {
+            $("#errorprjctid").show();
+        }
+        if ($("#startdate").val().length > 0) {
+            $("#errorstartdate").hide();
+        }
+        else {
+            $("#errorstartdate").show();
+        }
+        if ($("#enddate").val().length > 0) {
+            $("#errorenddate").hide();
+        }
+        else {
+            $("#errorenddate").show();
+        }
+        if ($("#teammember").val().length > 0) {
+            $("#errorteammember").hide();
+        }
+        else {
+            $("#errorteammember").show();
+        }
+        if ($("#managerid").val().length > 0) {
+            $("#errormanagerid").hide();
+        }
+        else {
+            $("#errormanagerid").show();
+        }
+        if ($("#description").val().length > 0) {
+            $("#errordescription").hide();
+        }
+
+        else {
+
+            $("#errordescription").show();
+
+        }
+    }
+
+
+    $("#enddate").change(function () {
+
+        if ($("#enddate").val().length > 0) {
+            $("#errorenddate").hide();
+        }
+        else {
+
+            $("#errorenddate").show();
+        }
+
+    });
+    $("#teammember").keydown(function (event) {
+
+        if (event.which === 8) {
+            if ($("#teammember").val().length > 0) {
+
+                $("#errorteammember").hide();
+            }
+            else if ($("#teammember").val() === "" || $("#teammember").val().length === 0) {
+
+                $("#errorteammember").show();
+            }
+        }
+        else {
+            $("#errorteammember").hide();
+        }
+
+    });
+    $("#managerid").change(function () {
+
+        if ($("#managerid").val() > 0) {
+            $("#errormanagerid").hide();
+        }
+        else {
+
+            $("#errormanagerid").show();
+        }
+
+    });
+
+    $("#startdate").change(function () {
+
+        if ($("#startdate").val().length > 0) {
+            $("#errorstartdate").hide();
+        }
+        else {
+
+            $("#errorstartdate").show();
+        }
+
+    });
+    $("#projectid").change(function () {
+
+        if ($("#projectid").val() > 0) {
+            $("#errorprjctid").hide();
+        }
+        else {
+
+            $("#errorprjctid").show();
+        }
+
+    });
+
+
+    $("#description").keydown(function () {
+        if (event.which === 8) {
+            if ($("#description").val().length > 0) {
+                $("#errordescription").hide();
+            }
+            else if ($("#description").val() === "" || $("#description").val().length === 0) {
+
+                $("#errordescription").show();
+            }
+        }
+        else {
+            $("#errordescription").hide();
+        }
+    });
+</script>
 
 <script>
     var empid = [];
     $("#btnSave").click(function () {
         //$("#btnSave")
-        $("#btnSave").attr("disabled", true);
+        //$("#btnSave").attr("disabled", true);
        
         var itemlist = [];
         var projectid = $("#projectid").val();
@@ -187,7 +316,7 @@
 
         var managerid = $("#managerid").val();
         var teammember = $("#teammember").val();
-
+        validate();
         //get cell values, instead of the header text.
         $("table tr:not(:first)").each(function () {
             var tdlist = $(this).find("td");
@@ -201,28 +330,30 @@
             
             itemlist.push(Item);
         })
-        
-        var newUrl = '@Url.Action("Index", "ProjectWorked")';
+        if (projectid.length > 0 && startdate.length > 0 && enddate.length > 0 && description.length > 0 && managerid.length > 0
+            && teammember.length > 0 && itemlist.length > 0) {
+            var newUrl = '@Url.Action("Index", "ProjectWorked")';
+            $("#btnSave").attr('disabled', true);
+            
+            $.ajax({
+                url: '@Url.Action("Create", "ProjectWorked")', //
+                dataType: "json",
+                data: JSON.stringify({ prjctwrkvm: itemlist }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
 
-        
-                $.ajax({
-                    url: '@Url.Action("Create", "ProjectWorked")', //
-                    dataType: "json",
-                    data: JSON.stringify({ prjctwrkvm: itemlist }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
             });
+        }
+    });
 
     $(".add-emp").click(function () {
-        $("#tblDiv").show();
+       
             //attr('style', 'display:block');
         var empcode = $("#searchemp").val();
         var empid = $("#searchid").val();
@@ -234,6 +365,7 @@
 
         if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0 && teamcount.length > 0) {
             if (rowCount <= teamcount) {
+                $("#tblDiv").show();
                 var markup = "<tr id=" + empid + "><td>" + empcode + "</td><td>" +
                     empname + "</td><td style='display: none'>" + empid + "</td><td>" +
                     designation + "</td><td>" +
