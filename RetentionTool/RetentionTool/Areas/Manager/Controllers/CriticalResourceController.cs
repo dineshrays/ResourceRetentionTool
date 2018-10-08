@@ -78,7 +78,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         }
         public ActionResult Create(int id)
         {
-            List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id).ToList();
+            List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id && a.IsActive==true).ToList();
             ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);

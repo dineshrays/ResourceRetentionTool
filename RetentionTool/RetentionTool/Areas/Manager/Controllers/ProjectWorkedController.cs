@@ -54,12 +54,12 @@ namespace RetentionTool.Areas.Manager.Controllers
         {
             if(prjctwrkvm!=null)
             {
-                //foreach(var prjctwrk in prjctwrkvm)
-                //{
-                //    prjctwrk.IsActive = true;
-                //    db.ProjectsWorkeds.Add(prjctwrk);
-                //    db.SaveChanges();
-                //}
+                foreach (var prjctwrk in prjctwrkvm)
+                {
+                    prjctwrk.IsActive = true;
+                    db.ProjectsWorkeds.Add(prjctwrk);
+                    db.SaveChanges();
+                }
             }
           
             return Json("", JsonRequestBehavior.AllowGet);

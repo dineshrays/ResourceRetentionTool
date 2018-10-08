@@ -1,23 +1,40 @@
 ﻿@model IEnumerable<RetentionTool.Models.NotificationModel>
-@{
+ @{
     ViewBag.Title = "Notification";
     Layout = "~/Areas/Trainer/Views/Shared/_LayoutMain.cshtml";
-}
+  };
 
 
 
-<div class="card">
-    <div class="card-header">
-        <h2>Notification</h2>
-
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Notification</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        
+                       
+                        <li class="active"> Notification </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div class="card-body">
 
 
 
-        @*<div class="row form-group">*@
-        @foreach (var mess in Model)
-        {
+        @*<div class="row form-group">
+            *@
+            @foreach (var mess in Model)
+            {
             <table class="table table-bordered table-dark" style="width:100%">
                 <tr>
 
@@ -33,14 +50,15 @@
             @*<p> <i class='fa fa-check'></i>@mess.Message </p>*@
 
 
-        }
+            }
 
-        @*</div>*@
+            @*
+        </div>*@
 
 
 
 
 
     </div>
-</div>
+   
 

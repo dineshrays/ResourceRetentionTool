@@ -8,80 +8,98 @@
 }
 @using (Html.BeginForm())
 {
-<div class="card">
-    <div class="card-header">
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Delete Rate Employee</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    @*<li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard </a></li>*@
+                    <li><a href="@Url.Action("Index", "RateEmployee")">Rate Employee </a></li>
+                    <li class="active"> Delete </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <h2>Delete Rate Employee</h2>
+<div class="card-body card-block">
 
+    <div class="row form-group">
+        <div class="col col-md-3">
+            <div>@Html.LabelFor(m => m.RateEmployeeVm.AssignResources_Id)</div>
+        </div>
+        <div class="col-12 col-md-9">
+            <div>
+                @Html.DisplayFor(m => m.RateEmployeeVm.AssignResources_Id, new { @id = "AssignResources_Id" })
+
+                @Html.HiddenFor(m => m.RateEmployeeVm.Id)
+            </div><br />
+            @*<div>@Html.HiddenFor(m => m.AssignResources_Id)</div>*@
+        </div>
     </div>
 
-    <div class="card-body card-block">
-
-        <div class="row form-group">
-            <div class="col col-md-3">
-                <div>@Html.LabelFor(m => m.RateEmployeeVm.AssignResources_Id)</div>
-            </div>
-            <div class="col-12 col-md-9">
-                <div>
-                    @Html.DisplayFor(m => m.RateEmployeeVm.AssignResources_Id, new { @id = "AssignResources_Id" })
-
-                    @Html.HiddenFor(m => m.RateEmployeeVm.Id)
-                </div><br />
-                @*<div>@Html.HiddenFor(m => m.AssignResources_Id)</div>*@
-            </div>
+    <div class="row form-group">
+        <div class="col col-md-3">
+            <div>@Html.Label("Employee Name")</div>
         </div>
-
-        <div class="row form-group">
-            <div class="col col-md-3">
-                <div>@Html.Label("Employee Name")</div>
-            </div>
-            <div class="col-12 col-md-9">
-                <div>@Html.DisplayFor(m => m.RateEmployeeVm.PersonalInfo.Name, new { @id = "Employee_Id" })</div><br />
-                @Html.HiddenFor(m => m.RateEmployeeVm.Employee_Id)
-            </div>
+        <div class="col-12 col-md-9">
+            <div>@Html.DisplayFor(m => m.RateEmployeeVm.PersonalInfo.Name, new { @id = "Employee_Id" })</div><br />
+            @Html.HiddenFor(m => m.RateEmployeeVm.Employee_Id)
         </div>
+    </div>
 
 
-        <div class="row form-group">
-            <div class="col col-md-3">
-                <div>@Html.Label("Project Name")</div>
-            </div>
-            <div class="col-12 col-md-9">
-                <div>@Html.DisplayFor(m => m.RateEmployeeVm.AssignResource.ProjectsDetail.Name)</div><br />
-
-            </div>
+    <div class="row form-group">
+        <div class="col col-md-3">
+            <div>@Html.Label("Project Name")</div>
         </div>
+        <div class="col-12 col-md-9">
+            <div>@Html.DisplayFor(m => m.RateEmployeeVm.AssignResource.ProjectsDetail.Name)</div><br />
 
-        <table class="table table-striped" id="tble">
+        </div>
+    </div>
+
+    <table class="table table-striped" id="tble">
+        <tr>
+
+            <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
+            <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
+            <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.PersonalInfo.Name)</th>
+            <th>@Html.Label("Grade")</th>
+            <th>@Html.Label("IsEligible For Evaluation")</th>
+
+        </tr>
+        @foreach (var item in Model.RateEmployee)
+        {
             <tr>
-
-                <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
-                <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
-                <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.PersonalInfo.Name)</th>
-                <th>@Html.Label("Grade")</th>
-                <th>@Html.Label("IsEligible For Evaluation")</th>
-
+                <td style="display:none">@item.Id</td>
+                <td style="display:none">@item.Employee_Id</td>
+                <td>@item.PersonalInfo.Name</td>
+                <td>@item.Grade</td>
+                <td><input type="checkbox" disabled="disabled" class="chck" checked=@item.IsEligible /></td>
             </tr>
-            @foreach (var item in Model.RateEmployee)
-            {
-                <tr>
-                    <td style="display:none">@item.Id</td>
-                    <td style="display:none">@item.Employee_Id</td>
-                    <td>@item.PersonalInfo.Name</td>
-                    <td>@item.Grade</td>
-                    <td><input type="checkbox" disabled="disabled" class="chck" checked=@item.IsEligible /></td>
-                </tr>
-            }
-        </table>
+        }
+    </table>
+    <div class="row form-group">
+        <div class="col col-md-3">
 
-        <div class="card-body">
+        </div>
+        <div class="col-12 col-md-9">
+
             @*<button type="button" id="btnGet" class="btn btn-success">Save</button>*@
-            <input type="submit" value="Delete"  class="btn-danger" />
+            <input type="submit" value="Delete" class="btn-danger" />
 
             @Html.ActionLink("Back to List", "Index")
         </div>
 
     </div>
+    </div>
 
-</div>
-}
+    }

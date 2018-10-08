@@ -138,8 +138,28 @@ namespace RetentionTool.Areas.Trainer.Controllers
                
                 int managerroleid = fetchdet.getDefaultManagerRoleId();
                 UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == assRes.Manager_Id && a.Role_Id==managerroleid && a.IsActive == true);
+                long id =0;
+                if (userdet==null)
+                {
+                    UserDetail userdetails = new UserDetail();
+                    PersonalInfo personalInfo = db.PersonalInfoes.Find(assRes.Manager_Id);
+                    userdetails.Role_Id = managerroleid;
+                    userdetails.IsActive = true;
+                    userdetails.Email = personalInfo.Email;
+                    userdetails.Name = personalInfo.Name;
+                    userdetails.Password = fetchdet.password;
+                    userdetails.EntryDate = DateTime.Now;
+                    userdetails.Emp_Id = personalInfo.Id;
+                    db.UserDetails.Add(userdetails);
+                    db.SaveChanges();
+                    id = userdetails.Id;
+                }
+                else
+                {
+                    id = userdet.Id;
+                }
                 Notification notif = new Notification();
-                notif.User_Id = userdet.Id;
+                notif.User_Id = id;
                 notif.Sessions_Id = sessionVM.Id;
                 notif.Message = fetchdet.SessionCompletedMsg;
                 notif.IsActive = true;

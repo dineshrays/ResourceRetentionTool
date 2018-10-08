@@ -5,13 +5,31 @@
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
     var moduledetails = ViewBag.ModuleList;
 }
-<div class="card">
-    <div class="card-header">
 
-        <h2>Sessions Summaries</h2>
+
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1> Session Summary</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        @*<li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard </a></li>*@
+                        <li><a href="@Url.Action("Index", "SessionSummary")">Session Summary </a></li>
+                        <li class="active"> Index </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
-
     
+
+
     @*<div class="card-body">
             @Html.ActionLink("Create New", "Create", "SessionSummary", null, new { @class = "btn btn-outline-primary" })
         </div>*@
@@ -80,4 +98,3 @@
         <div class="card-body" style="color:red;"><b>No Record Found</b></div>
     }
 
-    </div>

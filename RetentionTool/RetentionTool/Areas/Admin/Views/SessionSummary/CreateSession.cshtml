@@ -73,31 +73,34 @@
         <br />
 
 
-        <table class="table table-striped">  @*mytbl*@
-            
+        <table class="table table-striped">
+            @*mytbl*@
+
+            <tr>
+
+                <th style="display:none">Employee Id</th>
+                <th>Employee Name</th>
+                <th>Attendance</th>
+                <th>Remarks</th>
+            </tr>
+
+            @foreach (var emplist1 in empDetails)
+            {
+
                 <tr>
 
-                    <th style="display:none">Employee Id</th>
-                    <th>Employee Name</th>
-                    <th>Attendance</th>
-                    <th>Remarks</th>
+                    <td style="display:none">@emplist1.Id</td>
+                    <td>@emplist1.Name</td>
+                    <td><input type="checkbox" class="chck" name="attendance" /></td>
+                    <td><input type="text" name="remark" id="remarkval" /></td>
                 </tr>
-            
-                @foreach (var emplist1 in empDetails)
-                {
 
-                    <tr>
-
-                        <td style="display:none">@emplist1.Id</td>
-                        <td>@emplist1.Name</td>
-                        <td><input type="checkbox" class="chck" name="attendance" /></td>
-                        <td><input type="text" name="remark" /></td>
-                    </tr>
-
-                }        
+            }
 
 
         </table>
+     
+        @Html.ValidationMessageFor(model => model.session.Description, "Required", new { @class = "text-danger", @id = "errtbl" })
 
         <div class="row form-group">
             <div class="col col-md-3">
@@ -109,21 +112,21 @@
             </div>
 
         </div>
-       
+
     </div>
 
 </div>
 <script>
 
-    $(document).ready(function () {
-        $("#errtpc").hide();
-        $("#errdate").hide();
-        $("#errskill").hide();
-        $("#errmoduleid").hide();
-        $("#errcomm_id").hide();
+    //$(document).ready(function () {
+    //    $("#errtpc").hide();
+    //    $("#errdate").hide();
+    //    $("#errhour").hide();
+    //    $("#errmoduleid").hide();
+    //    $("#errcomm_id").hide();
 
 
-    });
+    //});
     ////date, errdate
     $("#date").change(function () {
 
@@ -150,59 +153,83 @@
         }
     });
     ////descr,errdesc
-    //Common_Id,errcomm_id,skill_Id,errskill
-    $("#Common_Id").change(
-        function () {
-            if ($("#Common_Id").val() > 0) {
-                $("#errcomm_id").hide();
+    $("#descr").keydown(function () {
+        if (event.which === 8) {
+            if ($("#descr").val().length > 0) {
+                $("#errdesc").hide();
             }
-            else {
-                $("#errcomm_id").show();
+            else if ($("#descr").val() === "" || $("#descr").val().length === 0) {
+
+                $("#errdesc").show();
             }
-
-        });
-    // moduleid,errmoduleid
-    $("#skill_Id").change(function () {
-        if ($("#skill_Id").val() > 0) {
-            $("#errskill").hide();
         }
-        else {
-
-            $("#errskill").show();
+        else if ($("#descr").val() == "") {
+            $("#errdesc").hide();
         }
-
     });
+    //   //remarkval  errtbl
+    $("#remarkval").keydown(function () {
+        if (event.which === 8) {
+            if ($("#remarkval").val().length > 0) {
+                $("#errtbl").hide();
+            }
+            else if ($("#remarkval").val() === "" || $("#remarkval").val().length === 0) {
+
+                $("#errtbl").show();
+            }
+        }
+        else if ($("#remarkval").val() == "") {
+            $("#errtbl").hide();
+        }
+    });
+    
+    //Common_Id,errcomm_id,skill_Id,errskill
+    //$("#Common_Id").change(
+    //    function () {
+    //        if ($("#Common_Id").val() > 0) {
+    //            $("#errcomm_id").hide();
+    //        }
+    //        else {
+    //            $("#errcomm_id").show();
+    //        }
+
+    //    });
+    // moduleid,errmoduleid
+    //$("#skill_Id").change(function () {
+    //    if ($("#skill_Id").val() > 0) {
+    //        $("#errskill").hide();
+    //    }
+    //    else {
+
+    //        $("#errskill").show();
+    //    }
+
+    //});
     //trainerid,errtrainerid
 
 
     function validate() {
        
-        if ($("#DateId").val().length > 0) {
+        if ($("#date").val().length > 0) {
             $("#errdate").hide();
         }
         else {
             $("#errdate").show();
         }
-        if ($("#skill_Id").val() > 0) {
-            $("#errskill").hide();
+        if ($("#hours").val().length > 0) {
+            $("#errhour").hide();
         }
         else {
 
-            $("#errskill").show();
+            $("#errhour").show();
         }
 
-        if ($("#Common_Id").val() > 0) {
-            $("#errcomm_id").hide();
-        }
-        else {
-            $("#errcomm_id").show();
-        }
-        if ($("#ModuleName").val().length > 0) {
-            $("#errmoduleid").hide();
+        if ($("#descr").val().length > 0) {
+            $("#errdesc").hide();
         }
         else {
 
-            $("#errmoduleid").show();
+            $("#errdesc").show();
         }
         
 
@@ -223,7 +250,7 @@
         $("#errdate").hide();
         $("#errdesc").hide();
         $("#errhour").hide();
-
+        $("#errtbl").hide();
         //alert("Load...");
         var training = location.search.substring(1).split('&');
             //location.search.split('trainingid=');
@@ -262,7 +289,7 @@
 
 
           var itemlist=[];
-
+          var count = 0;
           $("table tr:not(:first)").each(function () {
               var attendance;
               var remark;
@@ -272,12 +299,20 @@
               else {
                   attendance = false;
               }
-
               remark = $(this).find("td:eq(3) input[type='text']").val();
-                    var tdlist = $(this).find("td");
+              if ( remark.length > 0) {
+                  var tdlist = $(this).find("td");
 
-              var Item = { Id: $(tdlist[0]).html(), Name: $(tdlist[1]).html(), Attendance: attendance, Remark: remark };
-                    itemlist.push(Item);
+                  var Item = { Id: $(tdlist[0]).html(), Name: $(tdlist[1]).html(), Attendance: attendance, Remark: remark };
+                  itemlist.push(Item);
+                  count = 1;
+              }
+              else {
+                  $("#errtbl").show();
+                  count = 0;
+              }
+             
+               
                 })
 
           var date = $("#date").val();
@@ -288,7 +323,7 @@
         //  alert(desc);
           var mod = [];
           validate();
-          if (date.length > 0 && hours.length > 0 && desc.length > 0) {
+          if (date.length > 0 && hours.length > 0 && desc.length > 0 && itemlist.length > 0 && count>0) {
               var newUrl = '@Url.Action("Index", "SessionSummary")';
               $("#btnSave").attr('disabled', true);
                mod = { TrainingDet_Id: trainingdetid, Date: date, Hours: hours, Description: desc };

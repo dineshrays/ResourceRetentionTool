@@ -9,22 +9,39 @@
 <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<div class="card">
-    <div class="card-header">
-
-        <h2>Create Employee Evaluation</h2>
+@*<div class="card">*@
+    <div class="breadcrumbs">
+        <div class="col-sm-6">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Create Employee Evaluation</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right" style="background-color:white">
+                        @*<li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard </a></li>*@
+                        <li><a href="@Url.Action("Index", "EmployeeEvaTaskl")">Employee Evaluation </a></li>
+                        <li class="active"> Create </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
+   
     <div class="card-body card-block">
 
         <div class="row form-group">
             <div class="col col-md-3">
                 <div>@Html.Label("Trainer Name")</div>
-                   
+
             </div>
             <div class="col-12 col-md-9">
                 <div class="col-12 col-md-9">
                     @Html.DisplayFor(m => m.EmployeeEvalTask.Trainer.PersonalInfo.Name, new { @class = "form-control", style = "width:30%" })
-                    @Html.HiddenFor(m=>m.EmployeeEvalTask.Trainer_Id,new { @id = "trainerid" })
+                    @Html.HiddenFor(m => m.EmployeeEvalTask.Trainer_Id, new { @id = "trainerid" })
 
 
                 </div>
@@ -50,15 +67,15 @@
                 @foreach (var emplist in empDetails)
                 {
 
-                <tr>
+                    <tr>
 
-                    <td style="display:none">@emplist.Id</td>
-                    <td>@emplist.Name</td>
-                    <td><input type="text" name="taskassign" required/></td>
-                    <td><input type="text" name="status" /></td>
-                    <td><input type="checkbox" class="chck" name="iseligible" /></td>
-                  
-                </tr>
+                        <td style="display:none">@emplist.Id</td>
+                        <td>@emplist.Name</td>
+                        <td><input type="text" name="taskassign" required /></td>
+                        <td><input type="text" name="status" /></td>
+                        <td><input type="checkbox" class="chck" name="iseligible" /></td>
+
+                    </tr>
                 }
 
             </tbody>
@@ -67,25 +84,30 @@
         </table>
 
 
-        <div class="card-body">
-            <input id="btnSave" type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+            </div>
+            <div class="col-12 col-md-9">
+
+                <input id="btnSave" type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
+            </div>
+
         </div>
 
-    </div>
-
-</div>
-<script>
+        </div>
+        <script>
     var assignresid;
-    
+
     $(document).ready(function () {
-        
+
         var assignres = location.search.substring(1).split('&');
-       
+
         var nv = assignres[0].split('=');
         assignresid = nv[1];
                        });
 
-   
+
       $("#btnSave").click(function () {
 
 
@@ -112,25 +134,32 @@
                 })
 
           var trainerid = $("#trainerid").val();
-        
           var mod = [];
           mod = { AssignResource_Id: assignresid, Trainer_Id: trainerid };
+          if (itemlist.length > 0 && assignresid>0) {
+              $("#btnSave").attr('disabled', true);
+              var newUrl = '@Url.Action("Index", "EmployeeEvaTaskl")';
+              $.ajax({
+                  url: '@Url.Action("Create", "EmployeeEvaTaskl")', //
+                  dataType: "json",
+                  data: JSON.stringify({ list: itemlist, empeval: mod }),
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  success: function (result) {
+                      window.location.href = newUrl;
+                  },
+                  error: function (xhr) {
+                      alert("error");
+                  }
+              });
+          }
+          else {
+              alert('Please enter all the details');
+          }
 
-         var newUrl= '@Url.Action("Index", "EmployeeEvaTaskl")';
-                $.ajax({
-                    url: '@Url.Action("Create", "EmployeeEvaTaskl")', //
-                    dataType: "json",
-                    data: JSON.stringify({ list: itemlist, empeval: mod }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+
+
             });
-</script>
+        </script>
 
 

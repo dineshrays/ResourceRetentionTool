@@ -8,8 +8,8 @@
     // var value = 0;
 }
 @*<script src="~/Scripts/assets/js/vendor/jquery-3.3.1.js"></script>
-<script src="~/Scripts/assets/js/vendor/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+    <script src="~/Scripts/assets/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
@@ -18,138 +18,165 @@
 
 
 
-<div class="card">
+@*<div class="card">
     <div class="card-header">
 
         <h2>Create Session Summary</h2>
+    </div>*@
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Create Session Summary</h1>
+            </div>
+        </div>
     </div>
-    <div class="container" style="width:50%;margin-top:2%">
-        @if (trainingDetails.Count > 0)
-        {
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    @*<li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard </a></li>*@
+                    <li><a href="@Url.Action("Index", "SessionSummary")">Session Summary </a></li>
+                    <li class="active"> Create </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="width:100%;margin-top:2%">
+    @if (trainingDetails.Count > 0)
+    {
 
 
-            <table class="table table-striped" id="tble">
-                <tr>
-                    <th style="display:none;">@Html.HiddenFor(model => model.session.TrainingDet_Id)</th>
-                    <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.Training_Id)</th>
+        <table class="table table-striped" id="tble">
+            <tr>
+                <th style="display:none;">@Html.HiddenFor(model => model.session.TrainingDet_Id)</th>
+                <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.Training_Id)</th>
 
-                    <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.ModuleDet_Id)</th>
-                    @*<th>@Html.DisplayNameFor(model => model.trainername)</th>
+                <th style="display:none;width:0%">@Html.DisplayNameFor(model => model.session.TrainingDet.ModuleDet_Id)</th>
+                @*<th>@Html.DisplayNameFor(model => model.trainername)</th>
                     <th>@Html.DisplayNameFor(model => model.employeename)</th>
 
                     <th>@Html.DisplayNameFor(model => model.Date)</th>*@
-                    <th>@Html.Label("Topics")</th>
-                    <th>@Html.Label("Actions")</th>
-                </tr>
-                @foreach (var item in trainingDetails)
-                {
-                    <tr>
-                        <td style="display:none">@item.Id</td>
-                        <td style="display:none">@item.Training_Id</td>
-                        <td style="display:none;width:0%">@item.ModuleDet_Id</td>
-                        <td>@item.ModuleDet.Topics</td>
+                <th>@Html.Label("Topics")</th>
+                <th>@Html.Label("Actions")</th>
+            </tr>
+            @foreach (var item in trainingDetails)
+            {
+                <tr>
+                    <td style="display:none">@item.Id</td>
+                    <td style="display:none">@item.Training_Id</td>
+                    <td style="display:none;width:0%">@item.ModuleDet_Id</td>
+                    <td>@item.ModuleDet.Topics</td>
 
-                        <td>
-                            @*<div id="solTitle"> CreateSession", "SessionSummary*@
-                            @{ bool ispresent = false;
-                                int sessionid = 0;}
-                            @foreach (var i in Model.sessionsvm)
+                    <td>
+                        @*<div id="solTitle"> CreateSession", "SessionSummary*@
+                        @{ bool ispresent = false;
+                            int sessionid = 0;}
+                        @foreach (var i in Model.sessionsvm)
+                        {
+                            if (i.TrainingDet_Id == item.Id)
                             {
-                                if (i.TrainingDet_Id == item.Id)
-                                {
-                                    ispresent = true;
-                                    sessionid = i.Id;
-                                }
+                                ispresent = true;
+                                sessionid = i.Id;
                             }
-                            @if (ispresent == true)
-                            {
-                                @Html.ActionLink(" ", "Edit", new {id= sessionid },
-                             //new { id = item.Id }, null)
-                             new { @class = "ti-pencil"} )
-                                @Html.ActionLink(" ", "Delete", new { id = sessionid }, new { @class = "ti-trash" })
-                            }
-                            else
-                            {
-                                <a href='@Url.Action("CreateSession", "SessionSummary", new {trainingdetid=@item.Id, trainingid = @item.Training_Id, moduledetid = @item.ModuleDet_Id})'>Add Details</a>
+                        }
+                        @if (ispresent == true)
+                        {
+                            @Html.ActionLink(" ", "Edit", new {id= sessionid },
+                         //new { id = item.Id }, null)
+                         new { @class = "ti-pencil"} )
+                            @Html.ActionLink(" ", "Delete", new { id = sessionid }, new { @class = "ti-trash" })
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("CreateSession", "SessionSummary", new {trainingdetid=@item.Id, trainingid = @item.Training_Id, moduledetid = @item.ModuleDet_Id})'>Add Details</a>
 
-                            }
+                        }
 
-                            @*<a href='@Url.Action("CreateSession", "SessionSummary")' onclick='naviagte(this.href,@item.Training_Id, @item.ModuleDet_Id);'>Click</a>*@
+                        @*<a href='@Url.Action("CreateSession", "SessionSummary")' onclick='naviagte(this.href,@item.Training_Id, @item.ModuleDet_Id);'>Click</a>*@
 
 
-                            @*<a href="#" id="@item.Training_Id" modeid="@item.ModuleDet_Id">Add Details</a>*@
-                            @*</div>*@
-                            @*<div id="emp" style="display:none">
+                        @*<a href="#" id="@item.Training_Id" modeid="@item.ModuleDet_Id">Add Details</a>*@
+                        @*</div>*@
+                        @*<div id="emp" style="display:none">
 
                                 <h1>Heewleoo</h1>
                             </div>*@
-                        </td>
-                        @*<td>
+                    </td>
+                    @*<td>
                             @Html.ActionLink(" ", "Edit", new {id=item.Id},
                            //new { id = item.Id }, null)
                              new { @class = "ti-pencil"} )
                             @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
                         </td>*@
-                    </tr>
-                }
+                </tr>
+            }
 
-            </table>
-        }
-        else
-        {
-            <div class="card-body" style="color:red;"><b>No Record Found</b></div>
-        }
-        <div class="card-body">
+        </table>
+    }
+    else
+    {
+        <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+    }
+    <div class="row form-group">
+        <div class="col col-md-3">
+
+        </div>
+        <div class="col-12 col-md-9">
+
             @Html.ActionLink("Back to List", "Index")
         </div>
-        <div class="myclass" style="display:none;">
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.session.Date, new { @class = "form-control-label" })</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>
-                        @Html.EditorFor(m => m.session.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:60%" } })
-
-                        @*new { @Id = "date", @class = "form-control", style = "width:60%" })*@
-                    </div><br />
-                </div>
+    </div>
+    <div class="myclass" style="display:none;">
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.session.Date, new { @class = "form-control-label" })</div>
             </div>
-            @*<div class="card-body">
+            <div class="col-12 col-md-9">
+                <div>
+                    @Html.EditorFor(m => m.session.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:60%" } })
+
+                    @*new { @Id = "date", @class = "form-control", style = "width:60%" })*@
+                </div><br />
+            </div>
+        </div>
+        @*<div class="card-body">
 
                 <input type="text" id="date" style="width:30%" />
 
             </div>*@
-            @*<br />*@
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.session.Hours, new { @class = "form-control-label" })</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.session.Hours, new { @Id = "hours", @class = "form-control", style = "width:60%" })</div><br />
-                </div>
+        @*<br />*@
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.session.Hours, new { @class = "form-control-label" })</div>
             </div>
-            @*<div class="card-body">
+            <div class="col-12 col-md-9">
+                <div>@Html.TextBoxFor(m => m.session.Hours, new { @Id = "hours", @class = "form-control", style = "width:60%" })</div><br />
+            </div>
+        </div>
+        @*<div class="card-body">
                 Hours:
                 <input type="text" id="hours" style="width:30%" />
 
             </div>*@
-            @*<br />*@
+        @*<br />*@
 
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.session.Description, new { @class = "form-control-label" })</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:60%" })</div><br />
-                </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.session.Description, new { @class = "form-control-label" })</div>
             </div>
-            @*<div class="card-body">
+            <div class="col-12 col-md-9">
+                <div>@Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:60%" })</div><br />
+            </div>
+        </div>
+        @*<div class="card-body">
                 Description:
                 <input type="text" id="desc" style="width:30%" />
 
             </div>*@
-            @*<table>
+        @*<table>
                 <tr>
                     <td>Date:</td>
                     <td><input type="text" id="date" /></td>
@@ -169,28 +196,28 @@
                 </tr>
 
             </table>*@
-            <br />
+        <br />
 
 
-            @*<form>
+        @*<form>
                 <input type="text" id="empname" placeholder="Employee Name">
                 <input id="empid" style="display:none" />
                 <input type="text" id="Remark" placeholder="Remark">
                 <input type="button" class="add-row" value="Add Row">
             </form>*@
-            <br />
-            <table class="mytbl table table-striped">
-                <thead>
-                    <tr>
-                        <th>Select</th>
-                        <th style="display:none">Employee Id</th>
-                        <th>Employee Name</th>
-                        <th>Attendance</th>
-                        <th>Remarks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @*@if ( empDetails  != null)
+        <br />
+        <table class="mytbl table table-striped">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th style="display:none">Employee Id</th>
+                    <th>Employee Name</th>
+                    <th>Attendance</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@if ( empDetails  != null)
                     {
                         foreach (var emplist in empDetails)
                         {
@@ -207,12 +234,12 @@
                         }
                     }*@
 
-                </tbody>
+            </tbody>
 
 
-            </table>
-            <button type="button" class="delete-row">Delete Row</button>
-            @*<div class="row form-group">
+        </table>
+        <button type="button" class="delete-row">Delete Row</button>
+        @*<div class="row form-group">
                 <div class="col col-md-3">
 
                 </div>
@@ -225,14 +252,14 @@
             </div>*@
 
 
-        </div>
-        @*@if(value != 0)
+    </div>
+    @*@if(value != 0)
         {
             <div>Hello</div>
         }*@
-    </div>
-
 </div>
+
+@*</div>*@
 @*<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>*@
 <script type="text/javascript">
     $(document).ready(function () {
@@ -299,7 +326,7 @@
 
 
              $.ajax({
-                    url: '@Url.Action("CreateSession", "SessionSummary")', 
+                    url: '@Url.Action("CreateSession", "SessionSummary")',
                  dataType: "json",
                  data: JSON.stringify({ trainingid: trainingid, moduledetid: moduleid}),
                     type: "POST",
@@ -311,7 +338,7 @@
                      //    $(".mytbl").append(markup);
                      //    //$('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
                      //});
-                   
+
                    //  $(".myclass").show();
                         //alert("success");
                         //$("#date").val('');

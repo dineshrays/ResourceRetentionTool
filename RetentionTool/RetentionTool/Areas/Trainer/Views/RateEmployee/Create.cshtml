@@ -3,47 +3,76 @@
     ViewBag.Title = "Create Rate Employee";
     Layout = "~/Areas/Trainer/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
-    var assign=ViewBag.assign;
+    var assign = ViewBag.assign;
 }
 
-<div class="card">
+@*<div class="card">
     <div class="card-header">
         <h2>Create Rate Employee</h2>
+    </div>*@
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Create Rate Employee</h1>
+            </div>
+        </div>
     </div>
-    @if (assign.Count > 0)
-    {
-        <div class="container" style="width:100%;margin-top:2%">
-            <table class="table table-striped" id="tble">
-                <tr>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    @*<li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard </a></li>*@
+                    <li><a href="@Url.Action("Index", "RateEmployee")">Rate Employee </a></li>
+                    <li class="active"> Create </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+@if (assign.Count > 0)
+{
+<div class="container" style="width:100%;margin-top:2%">
+    <table class="table table-striped" id="tble">
+        <tr>
 
 
-                    <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.PersonalInfo.Name)</th>
-                    <th>@Html.Label("Grade")</th>
-                    <th>@Html.Label("IsEligible For Evaluation")</th>
+            <th style="display:none">@Html.DisplayNameFor(model => model.RateEmployeeVm.Employee_Id)</th>
+            <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.PersonalInfo.Name)</th>
+            <th>@Html.Label("Grade")</th>
+            <th>@Html.Label("IsEligible For Evaluation")</th>
 
-                </tr>
-                @foreach (var item in assign)
-                {
-                    <tr>
-                        <td style="display:none">@item.Id</td>
-                        <td>@item.Name</td>
-                        <td><input type="text" name="grade" /></td>
-                        <td><input type="checkbox" class="chck" /></td>
-                    </tr>
-                }
-            </table>
+        </tr>
+        @foreach (var item in assign)
+        {
+            <tr>
+                <td style="display:none">@item.Id</td>
+                <td>@item.Name</td>
+                <td><input type="text" name="grade" /></td>
+                <td><input type="checkbox" class="chck" /></td>
+            </tr>
+        }
+    </table>
+    <div class="row form-group">
+        <div class="col col-md-3">
+
+        </div>
+        <div class="col-12 col-md-9">
+
             <input type="button" class="btn btn-success" id="btnSave" value="Create" /> @Html.ActionLink("Back to List", "Index")
         </div>
-    }
-    else
-    {
+        </div>
+    </div>
+        }
+        else
+        {
         <div class="card-body" style="color:red;"><b>No Record Found</b></div>
-    }
-</div>
+        }
+        @*</div>*@
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script>    
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script>
+
     var assignresid;
     $(document).ready(function () {
 
@@ -52,7 +81,7 @@
 
         var ass = assign[0].split('=');
         assignresid = ass[1];
-        
+
 
     });
     $("#btnSave").click(function () {
@@ -64,7 +93,7 @@
 
             var IsEligible;
             var grade;
-            
+
               if ($(this).find('input.chck').is(':checked')) {
                   IsEligible = true;
               }
@@ -72,7 +101,7 @@
               {
                   IsEligible = false;
             }
-            
+
 
               grade = $(this).find("td:eq(2) input[type='text']").val();
                     var tdlist = $(this).find("td");
@@ -80,7 +109,7 @@
             var Item = { AssignResources_Id: assignresid, Employee_Id: $(tdlist[0]).html(), Name: $(tdlist[1]).html(), Grade: grade, IsEligible: IsEligible };
                     itemlist.push(Item);
                 })
-         
+
          var newUrl= '@Url.Action("Index", "RateEmployee")';
                 $.ajax({
                     url: '@Url.Action("Create", "RateEmployee")', //
@@ -97,4 +126,4 @@
                 });
             });
 
-</script>
+        </script>

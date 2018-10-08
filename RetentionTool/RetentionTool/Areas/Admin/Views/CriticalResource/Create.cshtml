@@ -89,15 +89,17 @@
                     <input type="button" value="Add" class="add-accountability" />
                 </div>
 
-                <table class="table table-striped" id="table-accountability" style="width:100%">
-                    <tr>
-                        <th style="display:none">Select</th>
-                        <th>Reporting</th>
-                        <th>Information</th>
-                        <th>Action</th>
-                    </tr>
+                <div id="tbl" style="display:none">
+                    <table class="table table-striped" id="table-accountability" style="width:100%">
+                        <tr>
+                            <th style="display:none">Select</th>
+                            <th>Reporting</th>
+                            <th>Information</th>
+                            <th>Action</th>
+                        </tr>
 
-                </table>
+                    </table>
+                </div>
                 @*<br />
                 <button type="button" class="del-accountability">Delete</button>*@
             </div>
@@ -138,16 +140,16 @@
     function Delete_Row(id) {
         $('#' + id).remove();
     }
-
+    var count = 0;
     $(".add-accountability").click(function () {
 
             var reporting = $("#reporting").val();
             var Information = $("#Information").val();
         if (reporting.length > 0 && Information.length > 0) {
-            //var a = parseInt("10")
-           // =parseInt(@count,1);
-            //1;
-            var idval = reporting + Information;
+            $("#tbl").show();
+            var idval = count + 1;
+
+                //reporting + Information;
             var Company = "<tr id=" + idval + "><td style='display:none'><input type='checkbox'  name='chck'></td><td>" +
                 reporting + "</td><td>" +
                 Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='Delete_Row(" + idval + ")'></td></tr>";

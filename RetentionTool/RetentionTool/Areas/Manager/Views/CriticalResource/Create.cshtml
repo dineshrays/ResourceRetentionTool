@@ -47,7 +47,7 @@
         <br />
         <div>
 
-            <table class="table table-striped" id="tbl" style="width:50%">
+            <table class="table table-striped" id="tbl" style="width:100%">
                 <tr>
                     <th>Select</th>
 
@@ -62,40 +62,51 @@
                 @foreach (var item in Model.projectvm)
                 {
                     <tr>
-                        <td>
-                            @{ bool IsCriticalRes = false;}
-                            @foreach (var id in ViewBag.CriticalRes)
+                        @*<td>
+                        @{ bool IsCriticalRes = false;}
+                        @foreach (var id in ViewBag.CriticalRes)
+                        {
+                            if (id == item.PersonalInfo1.Id)
                             {
-                                if (id == item.PersonalInfo1.Id)
-                                {
-                                    IsCriticalRes = true;
+                                IsCriticalRes = true;
 
-                                    //<input type="checkbox" class="chck" checked />
-                                }
-                                else
-                                {
-                                    // value = false;
-                                    //<input type="checkbox" class="chck" />
-
-                                }
-                            }
-                            @if (IsCriticalRes == true)
-                            {
-                                <input type="radio"@*"checkbox"*@ class="chck" name="critic" checked id="IsChecked" />
+                                //<input type="checkbox" class="chck" checked />
                             }
                             else
                             {
-                                <input type="radio"@*"checkbox"*@ name="critic" class="chck" />
-                               
+                                // value = false;
+                                //<input type="checkbox" class="chck" />
+
                             }
+                        }
+                        @if (IsCriticalRes == true)
+                        {
+                            <input type="radio"@*"checkbox" class="chck" name="critic" checked id="IsChecked" />
+                                    }
+                                    else
+                                    {
+                                    <input type="radio" @*"checkbox" name="critic" class="chck" />
+
+                                    }
+
+                                    </td>*@
+                        <td>
+                            <input type="radio" @*"checkbox"*@ name="critic" class="chck" />
+
 
                         </td>
                         <td>@item.PersonalInfo1.Name</td>
                         <td>@item.PersonalInfo1.EmpCode</td>
                         <td style="display:none;width:0%">@item.PersonalInfo1.Id</td>
                         <td>@item.Designation</td>
+
                         <td>@item.Responsibilities</td>
                         <td>
+                            <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" />
+
+
+                        </td>
+                        @*<td>
                             @{ bool isTrainer = false;}
 
                             @foreach (var id in ViewBag.TrainerDet)
@@ -112,15 +123,15 @@
                             @if (isTrainer == true)
 
                             {
-                                <input type="radio"@*"checkbox"*@ name="trainer" class="chcktrainer" checked />
+                                <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" checked />
 
                             }
                             else
                             {
-                                <input type="radio"@*"checkbox"*@ name="trainer" class="chcktrainer" />
+                                <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" />
                             }
 
-                        </td>
+                        </td>*@
                     </tr>
                 }
             </table>
@@ -131,36 +142,45 @@
                     <input id="Information" placeholder="Information" />
                     <input type="button" value="Add" class="add-accountability" />
                 </div>
+                <div id="tbls" style="display:none">
+                    <table class="table table-striped" id="table-accountability" style="width:100%">
+                        <tr>
+                            <th style="display:none">Select</th>
+                            <th>Reporting</th>
+                            <th>Information</th>
+                            <th>Action</th>
+                        </tr>
 
-                <table class="table table-striped" id="table-accountability" style="width:50%">
-                    <tr>
-                        <th>Select</th>
-                        <th>Reporting</th>
-                        <th>Information</th>
-                    </tr>
-
-                </table>
-                <br />
-                <button type="button" class="del-accountability">Delete</button>
+                    </table>
+                </div>
+                @*<br />
+                <button type="button" class="del-accountability">Delete</button>*@
             </div>
             <br />
         </div>
 
         <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
             <div class="col-12 col-md-9">
 
                 <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
                 @Html.ActionLink("Back to List", "Index", "CriticalResource", null, new { @class = "btn btn-outline-link" })
 
             </div>
-
         </div>
+
+       
 
     </div>
 </div>
 
 <script type="text/javascript">
-
+    function Delete_Row(id) {
+        $('#' + id).remove();
+    }
     $(function () {
         $('input.chck').change(
             
@@ -172,19 +192,34 @@
             }
         });
     });
-
+    var count = 0;
         $(".add-accountability").click(function () {
 
             var reporting = $("#reporting").val();
             var Information = $("#Information").val();
+             if (reporting.length > 0 && Information.length > 0) {
+                 $("#tbls").show();
+               var idval = count + 1;
 
-            var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-                reporting + "</td><td>" +
-                Information + "</td></tr>";
+                 //reporting + Information;
+                 
+                     var Company = "<tr id=" + idval + "><td style='display:none'><input type='checkbox'  name='chck'></td><td>" +
+                         reporting + "</td><td>" +
+                         Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='Delete_Row(" + idval + ")'></td></tr>";
 
-            $("#table-accountability").append(Company);
-            $("#reporting").val('');
-            $("#Information").val('');
+                     $("#table-accountability").append(Company);
+                     $("#reporting").val('');
+                     $("#Information").val('');
+                 
+            
+            }
+            //var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+            //    reporting + "</td><td>" +
+            //    Information + "</td></tr>";
+
+            //$("#table-accountability").append(Company);
+            //$("#reporting").val('');
+            //$("#Information").val('');
         });
 
         $(".del-accountability").click(function () {

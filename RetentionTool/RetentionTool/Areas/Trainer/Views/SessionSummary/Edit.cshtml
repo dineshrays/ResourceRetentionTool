@@ -6,69 +6,85 @@
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
     var empDetails = ViewBag.sessionDetails;
-    }
+}
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<div class="card">
-    <div class="card-header">
-
-        <h2>Edit Session Summary</h2>
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1> Edit Session Summary</h1>
+            </div>
+        </div>
     </div>
-    <div class="container" style="width:50%;margin-top:2%">
-      
-        <div >
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.session.Date, new { @class = "form-control-label" })</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>
-                    @Html.HiddenFor(m=>m.session.Id, new { @id = "sessionid" })
-                    @Html.HiddenFor(m=>m.session.TrainingDet_Id,new { @id= "transdetid" })
-                        @Html.EditorFor(m => m.session.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:60%" } })
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    @*<li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard </a></li>*@
+                    <li><a href="@Url.Action("Index", "SessionSummary")">Session Summary </a></li>
+                    <li class="active"> Edit </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
-                     
-                    </div><br />
-                </div>
+<div class="container" style="width:50%;margin-top:2%">
+
+    <div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.session.Date, new { @class = "form-control-label" })</div>
             </div>
-          
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.session.Hours, new { @class = "form-control-label" })</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.session.Hours, new { @Id = "hours", @class = "form-control", style = "width:60%" })</div><br />
-                </div>
-            </div>
-           
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <div>@Html.LabelFor(m => m.session.Description, new { @class = "form-control-label" })</div>
-                </div>
-                <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:60%" })</div><br />
-                </div>
-            </div>
-          
-            <br />
+            <div class="col-12 col-md-9">
+                <div>
+                    @Html.HiddenFor(m => m.session.Id, new { @id = "sessionid" })
+                    @Html.HiddenFor(m => m.session.TrainingDet_Id, new { @id = "transdetid" })
+                    @Html.EditorFor(m => m.session.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:60%" } })
 
 
-           
-            <table class="mytbl table table-striped">
-                <thead>
+                </div><br />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.session.Hours, new { @class = "form-control-label" })</div>
+            </div>
+            <div class="col-12 col-md-9">
+                <div>@Html.TextBoxFor(m => m.session.Hours, new { @Id = "hours", @class = "form-control", style = "width:60%" })</div><br />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <div>@Html.LabelFor(m => m.session.Description, new { @class = "form-control-label" })</div>
+            </div>
+            <div class="col-12 col-md-9">
+                <div>@Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:60%" })</div><br />
+            </div>
+        </div>
+
+        <br />
+
+
+
+        <table class="mytbl table table-striped">
+            <thead>
+                <tr>
+
+                    <th style="display:none">Employee Id</th>
+                    <th>Employee Name</th>
+                    <th>Attendance</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var emplist in empDetails)
+                {
+
                     <tr>
-                       
-                        <th style="display:none">Employee Id</th>
-                        <th>Employee Name</th>
-                        <th>Attendance</th>
-                        <th>Remarks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var emplist in empDetails)
-                    {
 
-                    <tr>
-                       
                         <td style="display:none">@emplist.Id</td>
                         <td>@emplist.Name</td>
                         <td><input type="checkbox" name="attendance" class="chck" checked="@emplist.Attendance" /></td>
@@ -76,33 +92,33 @@
                     </tr>
 
 
-                    }
-                   
-
-                </tbody>
+                }
 
 
-            </table>
-           
-            <div class="row form-group">
-                <div class="col col-md-3">
+            </tbody>
 
-                </div>
-                <div class="col-12 col-md-9">
-                   
-                        <input type="submit" value="Save" id="btnSave" class="btn btn-success" />
-                        @Html.ActionLink("Back to List", "Index", "SessionSummary", null, new { @class = "btn btn-outline-link" })
 
-                    
-                </div>
+        </table>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+
             </div>
+            <div class="col-12 col-md-9">
+
+                <input type="submit" value="Save" id="btnSave" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "SessionSummary", null, new { @class = "btn btn-outline-link" })
 
 
+            </div>
         </div>
-   
+
+
     </div>
 
 </div>
+
+
 
 
 <script>

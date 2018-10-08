@@ -52,18 +52,29 @@ namespace RetentionTool.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(SkillsViewModel svm)
         {
-            Skill s = new Skill();
-           // s.id = svm.id;
-            s.Name = svm.SkillName;
-            s.CommonField_Id = svm.selectedCommmonField;
-            s.IsActive = true;
-            db.Skills.Add(s);
-            
-            db.SaveChanges();
-           // long lid = s.id;
-            //var val = new SelectList(db.Commonfields.ToList(), "id", "Name");
-            //ViewData["CommField"] = val;
-            return RedirectToAction("Index");
+            //try
+            //{
+                Skill s = new Skill();
+              
+                    // s.id = svm.id;
+                    s.Name = svm.SkillName;
+                    s.CommonField_Id = svm.selectedCommmonField;
+                    s.IsActive = true;
+                    db.Skills.Add(s);
+
+                    db.SaveChanges();
+            return Json("", JsonRequestBehavior.AllowGet);
+                //RedirectToAction("Index");
+                    // long lid = s.id;
+                    //var val = new SelectList(db.Commonfields.ToList(), "id", "Name");
+                    //ViewData["CommField"] = val;'
+             
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
+           
         }
         [HttpPost]
         public ActionResult Edit(int id,SkillsViewModel svm)

@@ -6,60 +6,87 @@
 }
 
 
-<div class="card">
+@*<div class="card">
     <div class="card-header">
         <h2>Edit Topics</h2>
+    </div>*@
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Edit Topics</h1>
+            </div>
+        </div>
     </div>
-
-
-    <div class="card-body card-block">
-        <div class="row form-group">
-            <div class="col col-md-3">
-                <div>@Html.LabelFor(m => m.TrainingVm.FromDate, new { @class = "form-control-label" })</div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">
+                    @*<li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard /</a></li>*@
+                    <li><a href="@Url.Action("Index", "Training")">Topics </a></li>
+                    <li class="active"> Edit </li>
+                </ol>
             </div>
-            <div class="col-12 col-md-9">
-                @Html.HiddenFor(m=>m.TrainingVm.Id,new { @id="trainingid"})
-                @Html.HiddenFor(m=>m.TrainingVm.AssignResource_Id,new {@id="assignresid" })
-                <div>@Html.EditorFor(m => m.TrainingVm.FromDate, new { htmlAttributes = new { @Id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col col-md-3">
-                <div>@Html.LabelFor(m => m.TrainingVm.ToDate, new { @class = "form-control-label" })</div>
-            </div>
-            <div class="col-12 col-md-9">
-                <div>@Html.EditorFor(m => m.TrainingVm.ToDate, new { htmlAttributes = new { @Id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
-            </div>
-        </div>
-
-        <table class="table table-striped">
-            <tr>
-                <th style="display:none">Module Details Id</th>
-                <th>Topics</th>
-                <th>Hours Required</th>
-            </tr>
-
-            <tbody>
-                @foreach (var emplist1 in details)
-                {
-                    <tr>
-                        <td style="display:none" id="Id">@emplist1.Id</td>
-                        <td id="Topics">@emplist1.Topics</td>
-                        <td><input type="text" id="hours" value="@emplist1.HoursRequired" /></td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-        <div class="card-body">
-            <button type="button" id="btnGet" class="btn btn-success">Save</button>@Html.ActionLink("Back to List", "Index")
         </div>
     </div>
 </div>
+
+
+<div class="card-body card-block">
+    <div class="row form-group">
+        <div class="col col-md-3">
+            <div>@Html.LabelFor(m => m.TrainingVm.FromDate, new { @class = "form-control-label" })</div>
+        </div>
+        <div class="col-12 col-md-9">
+            @Html.HiddenFor(m => m.TrainingVm.Id, new { @id = "trainingid" })
+            @Html.HiddenFor(m => m.TrainingVm.AssignResource_Id, new { @id = "assignresid" })
+            <div>@Html.EditorFor(m => m.TrainingVm.FromDate, new { htmlAttributes = new { @Id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col col-md-3">
+            <div>@Html.LabelFor(m => m.TrainingVm.ToDate, new { @class = "form-control-label" })</div>
+        </div>
+        <div class="col-12 col-md-9">
+            <div>@Html.EditorFor(m => m.TrainingVm.ToDate, new { htmlAttributes = new { @Id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <tr>
+            <th style="display:none">Module Details Id</th>
+            <th>Topics</th>
+            <th>Hours Required</th>
+        </tr>
+
+        <tbody>
+            @foreach (var emplist1 in details)
+            {
+                <tr>
+                    <td style="display:none" id="Id">@emplist1.Id</td>
+                    <td id="Topics">@emplist1.Topics</td>
+                    <td><input type="text" id="hours" value="@emplist1.HoursRequired" /></td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <div class="row form-group">
+        <div class="col col-md-3">
+
+        </div>
+        <div class="col-12 col-md-9">
+            <button type="button" id="btnGet" class="btn btn-success">Save</button>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+       
+    </div>
+    </div>
+@*</div>*@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
-    
+
     $(function () {
         $("#btnGet").click(function () {
            // debugger;

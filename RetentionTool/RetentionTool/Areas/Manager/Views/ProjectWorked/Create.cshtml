@@ -136,6 +136,7 @@
 
             <table id="myTable" class="table table-striped" style="width:100%">
                 <tr>
+                    <th style="display:none"></th>
                     <th>Employee Name</th>
                     <th>Employee Code</th>
                     <th style="display:none;width:0%">Employee Id</th>
@@ -366,10 +367,10 @@
         if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0 && teamcount.length > 0) {
             if (rowCount <= teamcount) {
                 $("#tblDiv").show();
-                var markup = "<tr id=" + empid + "><td>" + empcode + "</td><td>" +
+                var markup = "<tr id=" + empid + "><td style='display:none'></td><td>" + empcode + "</td><td>" +
                     empname + "</td><td style='display: none'>" + empid + "</td><td>" +
                     designation + "</td><td>" +
-                    responsibilty + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+                    responsibilty + "</td><td><input type='submit'  value='Delete' class='btn btn-danger' onclick=delete_Row(" + empid + ")></td></tr>";
                 $("table tbody").append(markup);
                 $("#searchemp").val('');
                 $("#searchid").val('');

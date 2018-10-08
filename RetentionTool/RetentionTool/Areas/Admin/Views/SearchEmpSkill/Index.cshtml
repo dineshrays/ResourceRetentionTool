@@ -91,29 +91,35 @@
 
             source: function (request, response) {
                 $(".emplist").hide();
+                var name = $('#skillname').val();
                 var param = { name: $('#skillname').val() };
+                if (name.length > 0) {
+                    $.ajax({
+                        url: "/SearchEmpSkill/getSkillName",
+                        data: JSON.stringify(param),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                            response($.map(data, function (item) {
 
-                $.ajax({
-                    url: "/SearchEmpSkill/getSkillName",
-                    data: JSON.stringify(param),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    dataFilter: function (data) { return data; },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                           
-                            return {
+                                return {
 
-                                label: item.SkillName, skillid: item.id
+                                    label: item.SkillName, skillid: item.id
 
-                            }
-                        }))
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
+                                }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                }
+                else {
+                    alert('Please enter the Skill name')
+                }
+              
             },
             select: function (event, ui) {
 
@@ -128,27 +134,34 @@
 
         $("#btnSearch").click(function () {
             var skillid = $("#skillid").val();
-            var param = { id: skillid };
-            $.ajax({
-                url: "/SearchEmpSkills/getEmployeeDetails",
-                data: JSON.stringify(param),
-                dataType: "json",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
+            
+            if (skillid > 0) {
+                var param = { id: skillid };
+                $.ajax({
+                    url: "/SearchEmpSkills/getEmployeeDetails",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
 
-                success: function (data) {
-                    $(".emplist").show();
-                    $("table tr:not(:first)").remove();
-                    $.each(data, function (i, employeeList) {
-                        var markup = "<tr><td>" + employeeList.Name + "</td><td style='display: none'>" + employeeList.Id + "</td><td>" + employeeList.EmpCode + "</td></tr>";
-                        $("#emptable").append(markup);
+                    success: function (data) {
+                        $(".emplist").show();
+                        $("table tr:not(:first)").remove();
+                        $.each(data, function (i, employeeList) {
+                            var markup = "<tr><td>" + employeeList.Name + "</td><td style='display: none'>" + employeeList.Id + "</td><td>" + employeeList.EmpCode + "</td></tr>";
+                            $("#emptable").append(markup);
 
-                    })
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(textStatus);
-                }
-            });
+                        })
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            }
+            else {
+                alert('Please enter Skill Id')
+            }
+          
         });
       
     });
