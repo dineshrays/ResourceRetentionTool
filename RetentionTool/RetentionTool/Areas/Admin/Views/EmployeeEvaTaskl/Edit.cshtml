@@ -135,19 +135,25 @@
         var empevalid = $("#empevalid").val();
         var mod = [];
         mod = { Id: empevalid, AssignResource_Id: assignresid, Trainer_Id: trainerid };
-         var newUrl= '@Url.Action("Index", "EmployeeEvaTaskl")';
-                $.ajax({
-                    url: '@Url.Action("Edit", "EmployeeEvaTaskl")', //
-                    dataType: "json",
-                    data: JSON.stringify({ list: itemlist, empeval: mod }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+        if (itemlist.length > 0) {
+            var newUrl = '@Url.Action("Index", "EmployeeEvaTaskl")';
+            $.ajax({
+                url: '@Url.Action("Edit", "EmployeeEvaTaskl")', //
+                dataType: "json",
+                data: JSON.stringify({ list: itemlist, empeval: mod }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+        }
+        else {
+            alert('Please enter all the fields')
+        }
+        
             });
 </script>
