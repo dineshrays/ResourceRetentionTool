@@ -89,7 +89,7 @@
                     <input type="button" value="Add" class="add-accountability" />
                 </div>
 
-                <div id="tbl" style="display:none">
+                <div id="tbldiv" style="display:none">
                     <table class="table table-striped" id="table-accountability" style="width:100%">
                         <tr>
                             <th style="display:none">Select</th>
@@ -146,9 +146,9 @@
             var reporting = $("#reporting").val();
             var Information = $("#Information").val();
         if (reporting.length > 0 && Information.length > 0) {
-            $("#tbl").show();
-            var idval = count + 1;
-
+            $("#tbldiv").show();
+            count = count + 1;
+            var idval = count;
                 //reporting + Information;
             var Company = "<tr id=" + idval + "><td style='display:none'><input type='checkbox'  name='chck'></td><td>" +
                 reporting + "</td><td>" +
