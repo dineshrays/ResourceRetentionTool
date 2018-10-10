@@ -19,6 +19,8 @@ namespace RetentionTool.Models
         public string managerRoleName = "Manager";
         public string internRoleName = "Intern";
         public string commonFieldName = "Development";
+        public int pageSize = 5;
+        public int pageIndex = 1;
         //public string skillName = "Java";
         //public string moduleName = "Java Training";
         //public string topics1 = "OOPs Concepts";

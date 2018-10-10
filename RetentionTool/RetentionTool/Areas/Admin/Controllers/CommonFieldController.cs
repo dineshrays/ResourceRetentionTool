@@ -88,9 +88,17 @@ namespace RetentionTool.Areas.Admin.Controllers
                 comm.id = commfieldvm.id;
                 comm.Name = commfieldvm.Name;
                 comm.IsActive = true;
-                db.Entry(comm).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(comm).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    return Json("", JsonRequestBehavior.AllowGet);
+                        //RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(comm);
+                }
             }
             catch
             {
