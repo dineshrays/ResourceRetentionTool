@@ -4,14 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
+using PagedList;
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
     public class CommonFieldController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: CommanField
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             
             List<Commonfield> commfieldlist = db.Commonfields.Where(m=>m.IsActive==true).ToList();
@@ -24,8 +26,13 @@ namespace RetentionTool.Areas.Admin.Controllers
 
                 }
                 ).ToList();
-           
-            return View(commfieldvm);
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<CommonFieldViewModel> paged = null;
+            paged = commfieldvm.ToPagedList(pageIndex, pageSize);
+
+            return View(paged);
         }
 
         

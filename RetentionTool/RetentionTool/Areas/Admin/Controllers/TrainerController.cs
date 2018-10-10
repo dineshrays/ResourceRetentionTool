@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 
 namespace RetentionTool.Areas.Admin.Controllers
@@ -11,8 +12,9 @@ namespace RetentionTool.Areas.Admin.Controllers
     public class TrainerController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: Trainer
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             List<RetentionTool.Models.Trainer> emp = db.Trainers.Where(m =>m.IsActive == true).ToList();
             List<TrainerModel> e = emp.Select(x => new TrainerModel()
@@ -21,8 +23,12 @@ namespace RetentionTool.Areas.Admin.Controllers
                 Name = x.PersonalInfo.Name,
                 IsActive = x.IsActive
             }).ToList();
-
-            return View(e);
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<TrainerModel> modulepaged = null;
+            modulepaged = e.ToPagedList(pageIndex, pageSize);
+            return View(modulepaged);
         }
 
         public ActionResult Create()

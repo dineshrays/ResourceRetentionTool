@@ -1,9 +1,10 @@
-﻿
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.AssignResourceViewModel>
 @{
     ViewBag.Title = "Promote Employee";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
-    var details = ViewBag.assignresource;
+  //  var details = ViewBag.assignresource;
 }
 <script src="~/Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
 @*<script src="../Scripts/assets/js/plugins.js"></script>*@
@@ -29,24 +30,24 @@
     </div>
 </div>
 
-   
-    <div class="container">
-        @if (details != null && details.Count>0)
-        {<table class="table table-striped">
-                <tr>
-                    <th style="display:none">@Html.DisplayName("Assign Resource Id")</th>
-                    <th>@Html.DisplayName("Project Name")</th>
-                    <th>@Html.DisplayName("Manager Name")</th>
-                    <th style="display:none">@Html.DisplayName("Module Id")</th>
-                    <th>@Html.Label("Module Name")</th>
-                    <th>@Html.Label("Employees Name")</th>
-                    <th>@Html.Label("Remark")</th>
-                    <th>@Html.Label("Status")</th>
-                    <th>@Html.Label("Promote")</th>
-                </tr>
 
-                @foreach (var item in details)
-                {
+<div class="container">
+    @if (Model.Count > 0)
+    {<table class="table table-striped">
+            <tr>
+                <th style="display:none">@Html.DisplayName("Assign Resource Id")</th>
+                <th>@Html.DisplayName("Project Name")</th>
+                <th>@Html.DisplayName("Manager Name")</th>
+                <th style="display:none">@Html.DisplayName("Module Id")</th>
+                <th>@Html.Label("Module Name")</th>
+                <th>@Html.Label("Employees Name")</th>
+                <th>@Html.Label("Remark")</th>
+                <th>@Html.Label("Status")</th>
+                <th>@Html.Label("Promote")</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
                 <tr>
                     <td style="display:none">@item.Id</td>
                     <td>@item.projectname</td>
@@ -59,8 +60,8 @@
                         <div class="animated">
                             @*<div class="card-body">*@
                             @*<button type="button" class="btn btn-secondary mb-1" data-toggle="modal" data-target="#smallmodal" onclick="myPopupFun(@item.Id)">
-                    Employee List
-                </button>*@
+                                    Employee List
+                                </button>*@
                             <p data-toggle="modal" data-target="#smallmodal" onclick="myPopupFun(@item.Id,@item.Employee_Id)">
                                 List
                             </p>
@@ -75,8 +76,8 @@
                                         </div>
                                         <div class="modal-body">
                                             @*<p>
-                                My Popup
-                                                                </p>*@
+                                                My Popup
+                                                                                </p>*@
                                             <table>
                                                 <tr>
                                                     <th>Topics</th>
@@ -100,54 +101,68 @@
                     <td> @Html.ActionLink("Promote", "Promote", new { id = item.Id, empid = item.Employee_Id }, new { @class = "btn btn-success" })</td>
 
                     @*<td> @Html.ActionLink("Promote", "Promote", new { id = item.Id, empid = item.Employee_Id })</td>
-                   @{DateTime? fromdate = null;
-            DateTime? todate = null;
-        }
+                                   @{DateTime? fromdate = null;
+                            DateTime? todate = null;
+                        }
 
-        @{ bool added = false;
-            int trainerid = 0;}
-        @foreach (var training in Model.Training)
-        {
-            if (item.Id == training.AssignResource_Id)
-            {
-                fromdate = training.FromDate;
-                todate = training.ToDate;
-                added = true;
-                trainerid = training.Id;
-            }
-        }
-        <td>@fromdate</td>
-        <td>@todate</td>
-        <td>
-            @if (added == true)
-            {
-                @Html.ActionLink(" ", "Edit", new { id = @trainerid }, new { @class = "ti-pencil" })
-                @Html.ActionLink(" ", "Delete", new { id = @trainerid }, new { @class = "ti-trash" })
-            }
-            else
-            {
-                <a href='@Url.Action("Create", "Training",new { moduleid=@item.Module_Id,assignresid=@item.Id})'>Add Details</a>
-                <a></a>
-            }
+                        @{ bool added = false;
+                            int trainerid = 0;}
+                        @foreach (var training in Model.Training)
+                        {
+                            if (item.Id == training.AssignResource_Id)
+                            {
+                                fromdate = training.FromDate;
+                                todate = training.ToDate;
+                                added = true;
+                                trainerid = training.Id;
+                            }
+                        }
+                        <td>@fromdate</td>
+                        <td>@todate</td>
+                        <td>
+                            @if (added == true)
+                            {
+                                @Html.ActionLink(" ", "Edit", new { id = @trainerid }, new { @class = "ti-pencil" })
+                                @Html.ActionLink(" ", "Delete", new { id = @trainerid }, new { @class = "ti-trash" })
+                            }
+                            else
+                            {
+                                <a href='@Url.Action("Create", "Training",new { moduleid=@item.Module_Id,assignresid=@item.Id})'>Add Details</a>
+                                <a></a>
+                            }
 
-        </td>*@
+                        </td>*@
 
                 </tr>
-                }
+            }
 
-            </table>
-            <div id="dialog" style="display: none"></div>
+        </table>
 
-        }
-        else
-        {
-            <div class="card-body" style="color:red;"><b>No Record Found</b></div>
-        }
+        <div id="container" style="margin-left: 20px">
+            <p></p>
+            <p></p>
+            <div class="pagination" style="margin-left: 400px">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
 
-    </div>
+                of @Model.PageCount
+            </div>
+            <div class="pagination" style="margin-left: 0px;">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+                @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+            </div>
+
+        </div>
+
+    }
+    else
+    {
+        <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+    }
+
+</div>
 
 <script type="text/javascript">
-    function myPopupFun(id,empid) {
+    function myPopupFun(id, empid) {
         $(".modal-body table tr:not(:first)").remove();
         //$("#dialog").dialog({
         //    autoOpen: false,
@@ -168,8 +183,8 @@
             success: function (result) {
 
                 $.each(result, function (i, empname) {
-                    $(".modal-body table").append("<tr><td>" + empname.Topics + "</td><td>" + empname.Remark+"</td></tr>")
-                        //("<p style='font-size:14px'>" + empname.Topics + " and " + empname.Remark + "</p>")
+                    $(".modal-body table").append("<tr><td>" + empname.Topics + "</td><td>" + empname.Remark + "</td></tr>")
+                    //("<p style='font-size:14px'>" + empname.Topics + " and " + empname.Remark + "</p>")
                 });
             },
             failure: function (response) {

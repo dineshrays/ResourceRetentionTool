@@ -499,7 +499,6 @@ C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\Retent
 C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Spire.XLS.xml
 C:\Git Projects\ResourceRetentionTool\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
 C:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
-E:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache
 E:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CoreCompileInputs.cache
 E:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
 E:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
@@ -593,3 +592,4 @@ E:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web
 E:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\System.Web.Mvc.xml
 E:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 E:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyComplete
+E:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache

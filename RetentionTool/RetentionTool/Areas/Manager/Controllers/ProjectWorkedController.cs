@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
-using RetentionTool.ViewModel;
+//using RetentionTool.ViewModel;
 namespace RetentionTool.Areas.Manager.Controllers
 {
     public class ProjectWorkedController : Controller
@@ -19,7 +19,7 @@ namespace RetentionTool.Areas.Manager.Controllers
 
             var result1 = prjctwrk.Where(a => a.IsActive == true).GroupBy(p => p.Project_Id).Select(grp => grp.FirstOrDefault());
             
-            ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
+            ProjectWorkViewModel prjctwrkvm = new ProjectWorkViewModel();
 
             prjctwrkvm.projectvm = result1.ToList();
            
@@ -36,7 +36,7 @@ namespace RetentionTool.Areas.Manager.Controllers
 
         public ActionResult Create()
         {
-            ProjectWorkedViewModel prjctwrkdvm = new ProjectWorkedViewModel();
+            ProjectWorkViewModel prjctwrkdvm = new ProjectWorkViewModel();
             ProjectsWorked prjctswrkd = new ProjectsWorked();
             prjctswrkd.Manager_Id = managerid;
            
@@ -68,7 +68,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         {
            List< ProjectsWorked> prjctwrk = db.ProjectsWorkeds.Where(a => a.Project_Id == id && a.IsActive==true).ToList();
             ProjectsWorked prjctwrok = db.ProjectsWorkeds.Where(a => a.Project_Id == id && a.IsActive==true).FirstOrDefault();
-            ProjectWorkedViewModel prjwrkvm = new ProjectWorkedViewModel();
+            ProjectWorkViewModel prjwrkvm = new ProjectWorkViewModel();
             prjwrkvm.projectvm = prjctwrk;
             prjwrkvm.projects = prjctwrok;
             PersonalInfo personalInfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == managerid && a.IsActive == true);
@@ -176,7 +176,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         {
             List<ProjectsWorked> prjctwrk = db.ProjectsWorkeds.Where(a => a.Project_Id == id && a.IsActive == true).ToList();
             ProjectsWorked prjctwrok = db.ProjectsWorkeds.Where(a => a.Project_Id == id && a.IsActive == true).FirstOrDefault();
-            ProjectWorkedViewModel prjwrkvm = new ProjectWorkedViewModel();
+            ProjectWorkViewModel prjwrkvm = new ProjectWorkViewModel();
             prjwrkvm.projectvm = prjctwrk;
             prjwrkvm.projects = prjctwrok;
             //ProjectsWorked prjctwrk = db.ProjectsWorkeds.Find(id);
@@ -185,7 +185,7 @@ namespace RetentionTool.Areas.Manager.Controllers
             return View(prjwrkvm);
         }
         [HttpPost]
-        public ActionResult Delete(int id, ProjectWorkedViewModel prjctworkvm)
+        public ActionResult Delete(int id, ProjectWorkViewModel prjctworkvm)
         {
             List<ProjectsWorked> projectworkedlist = db.ProjectsWorkeds.Where(a => a.Project_Id == id && a.IsActive == true).ToList();
 

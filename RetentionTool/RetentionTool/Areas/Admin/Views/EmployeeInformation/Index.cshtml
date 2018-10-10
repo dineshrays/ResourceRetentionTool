@@ -1,7 +1,10 @@
-﻿@model RetentionTool.ViewModel.EmployeeInformationViewModel
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.PersonalInfoModel>
 @{
     ViewBag.Title = "Employees";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+  
     var details = ViewBag.details;
 }
 <div class="breadcrumbs">
@@ -25,36 +28,51 @@
     </div>
 </div>
 
-    <div class="card-body">
-        @Html.ActionLink("Create New", "CreateEmployee", "EmployeeInformation", null, new { @class = "btn btn-outline-primary" })
+<div class="card-body">
+    @Html.ActionLink("Create New", "CreateEmployee", "EmployeeInformation", null, new { @class = "btn btn-outline-primary" })
 
-        @if (details.Count > 0)
-        {
-            <div class="container" style="width:100%;margin-top:2%">
-                <table class="table table-striped" id="tble">
+    @if (Model.Count > 0)
+    {
+        <div class="container" style="width:100%;margin-top:2%">
+            <table class="table table-striped" id="tble">
+                <tr>
+                    <th width="40%">@Html.Label("Name")</th>
+                    <th width="30%">@Html.Label("EmpCode")</th>
+                    <th width="30%">@Html.Label("Image")</th>
+                    <th>@Html.Label("Actions")</th>
+                </tr>
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th width="40%">@Html.DisplayNameFor(model => model.PersonalInfoVm.Name)</th>
-                        <th width="30%">@Html.DisplayNameFor(model => model.PersonalInfoVm.EmpCode)</th>
-                        <th width="30%">@Html.Label("Image")</th>
-                        <th>@Html.Label("Actions")</th>
+                        <td>@item.Name</td>
+                        <td>@item.EmpCode</td>
+                        <td><img src=@item.Image height="50" width="50" /></td>
+                        <td>
+                            @Html.ActionLink("View Details", "Delete", new { id = item.Id })
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                            @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })*@
+                        </td>
                     </tr>
-                    @foreach (var item in details)
-                    {
-                        <tr>
-                            <td>@item.Name</td>
-                            <td>@item.EmpCode</td>
-                            <td><img src=@item.Image height="50" width="50" /></td>
-                            <td>
-                                @Html.ActionLink("View Details", "Delete", new { id = item.Id })
-                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
-                                @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })*@
-                            </td>
-                        </tr>
-                    }
+                }
 
-                </table>
+            </table>
 
+        </div>
+        <div id="container" style="margin-left: 20px">
+            <p></p>
+            <p></p>
+            <div class="pagination" style="margin-left: 400px">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+
+                of @Model.PageCount
             </div>
-        }
+            <div class="pagination" style="margin-left: 0px;">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+                @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+            </div>
 
-    </div>
+        </div>
+
+    }
+
+</div>

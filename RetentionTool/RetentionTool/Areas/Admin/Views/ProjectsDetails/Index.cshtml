@@ -1,4 +1,5 @@
-﻿@model IEnumerable<RetentionTool.Models.ProjectsDetail>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.ProjectsDetail>
 
 @{
     ViewBag.Title = "Projects";
@@ -27,37 +28,55 @@
 </div>
 
 
-    <div class="card-body">
-        @Html.ActionLink("Create New", "Create", "ProjectsDetails", null, new { @class = "btn btn-outline-primary" })
-    </div>
-    @if (Model.Count() > 0)
-    {
+<div class="card-body">
+    @Html.ActionLink("Create New", "Create", "ProjectsDetails", null, new { @class = "btn btn-outline-primary" })
+</div>
+@if (Model.Count() > 0)
+{
 
 
-        <table class="table table-striped">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayName("Project Name")
+            </th>
+
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
 
-                <th>Actions</th>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new {id=item.Id},
+                         new { @class = "ti-pencil"} )
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+                </td>
             </tr>
+        }
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
+    </table>
 
-                    <td>
-                        @Html.ActionLink(" ", "Edit", new {id=item.Id},
-                             new { @class = "ti-pencil"} )
-                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-                    </td>
-                </tr>
-            }
+    <div id="container" style="margin-left: 20px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
 
-        </table>
-    }
+            of @Model.PageCount
+        </div>
+        <div class="pagination" style="margin-left: 0px;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+            @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+        </div>
+
+    </div>
+
+
+
+}
 

@@ -1,4 +1,7 @@
-﻿@model RetentionTool.ViewModel.EmployeeEvalViewModel
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.AssignResource>
+@*<link href="~/Scripts/PagesdList.css" rel="stylesheet" />*@
 @{
     ViewBag.Title = "Employee Evaluation";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
@@ -6,6 +9,8 @@
     var empevalDetails = ViewBag.empevalDetails;
     var assignevaluat = ViewBag.asseval;
 }
+
+
 <div class="breadcrumbs">
     <div class="col-sm-6">
         <div class="page-header float-left">
@@ -27,106 +32,120 @@
     </div>
 </div>
 
-    @if (assResDetails.Count > 0 && assignevaluat.Count > 0)
-    {
-        <div class="container" style="width:100%;margin-top:2%">
-            <table class="table table-striped" style="width:100%;">
+@if (Model.Count > 0)
+{
+    <div class="container" style="width:100%;margin-top:2%">
+        <table class="table table-striped" style="width:100%;">
+            <tr>
+                <th>@Html.Label("Project Name")</th>
+                <th>@Html.Label("Module Name")</th>
+                <th>@Html.Label("Trainer Name")</th>
+
+
+                <th>@Html.Label("Actions")</th>
+            </tr>
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <th>@Html.Label("Project Name")</th>
-                    <th>@Html.DisplayNameFor(model => model.EmployeeEvalTask.AssignResource.Module.ModuleName)</th>
+                    @*<td>@item.Id</td>*@
+                    <td>@item.ProjectsDetail.Name</td>
+                    @*<td>@item.Manager.Name</td>*@
+                    <td>@item.Module.ModuleName</td>
+                    @*<td>@item.Trainer.Name</td>*@
+
+                    @{ bool IsAdded = false;
+                        int empeval = 0;
+                        string trainername = "";}
+                    @foreach (var assignev in assignevaluat)
+                    {
+                        if (assignev.AssignResource_Id == item.Id)
+                        {
+                            trainername = assignev.Trainer.PersonalInfo.Name;
+
+                        }
+                    }
+                    @foreach (var empid in empevalDetails)
+                    {
+                        if (empid.AssignResource_Id == item.Id)
+                        {
+                            //trainername = empid.Trainer.PersonalInfo.Name;
+                            IsAdded = true;
+                        }
+
+
+                    }
+                    <td>@trainername</td>
+                    <td>
+                        @if (IsAdded == true)
+                        {
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
+
+
+
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("CreateEmployeeEval", "EmployeeEvaTaskl", new {assignresid=@item.Id})'>Add Details</a>
+
+                        }
+
+
+                    </td>
+
+                </tr>
+            }
+
+            @*<tr>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+
+                    <th>@Html.DisplayNameFor(model => model.AssignResource_Id)</th>
                     <th>@Html.Label("Trainer Name")</th>
-
-
+                    <th>@Html.Label("Module Name")</th>
                     <th>@Html.Label("Actions")</th>
                 </tr>
-                @foreach (var item in assResDetails)
+                @foreach (var item in Model)
                 {
                     <tr>
-                        @*<td>@item.Id</td>*@
-                        <td>@item.ProjectsDetail.Name</td>
-                        @*<td>@item.Manager.Name</td>*@
-                        <td>@item.Module.ModuleName</td>
-                        @*<td>@item.Trainer.Name</td>*@
-
-                        @{ bool IsAdded = false;
-                            int empeval = 0;
-                            string trainername = "";}
-                        @foreach (var assignev in assignevaluat)
-                        {
-                            if (assignev.AssignResource_Id == item.Id)
-                            {
-                                trainername = assignev.Trainer.PersonalInfo.Name;
-
-                            }
-                        }
-                        @foreach (var empid in empevalDetails)
-                        {
-                            if (empid.AssignResource_Id == item.Id)
-                            {
-                                //trainername = empid.Trainer.PersonalInfo.Name;
-                                IsAdded = true;
-                            }
+                        <td>@item.Id</td>
+                        <td>@item.AssignResource_Id</td>
+                        <td>@item.Trainer.Name</td>
+                        <td>@item.AssignResource.Module.ModuleName</td>
 
 
-                        }
-                        <td>@trainername</td>
+
                         <td>
-                            @if (IsAdded == true)
-                            {
-                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
-                                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-
-
-
-                            }
-                            else
-                            {
-                                <a href='@Url.Action("CreateEmployeeEval", "EmployeeEvaTaskl", new {assignresid=@item.Id})'>Add Details</a>
-
-                            }
-
-
+                            @Html.ActionLink(" ", "Edit", new {id=@item.Id},
+                                          new { @class = "ti-pencil"} )
+                            @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
                         </td>
-
                     </tr>
-                }
+                }*@
 
-                @*<tr>
-                        <th>@Html.DisplayNameFor(model => model.Id)</th>
+        </table>
 
-                        <th>@Html.DisplayNameFor(model => model.AssignResource_Id)</th>
-                        <th>@Html.Label("Trainer Name")</th>
-                        <th>@Html.Label("Module Name")</th>
-                        <th>@Html.Label("Actions")</th>
-                    </tr>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.AssignResource_Id</td>
-                            <td>@item.Trainer.Name</td>
-                            <td>@item.AssignResource.Module.ModuleName</td>
+        @*<div data-role="popup" id="transitionExample" class="ui-content" data-theme="a">
+                <p>I'm a simple popup.</p>
+            </div>*@
+    </div>
+    <div id="container" style="margin-left: 20px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
 
-
-
-                            <td>
-                                @Html.ActionLink(" ", "Edit", new {id=@item.Id},
-                                              new { @class = "ti-pencil"} )
-                                @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
-                            </td>
-                        </tr>
-                    }*@
-
-            </table>
-
-            @*<div data-role="popup" id="transitionExample" class="ui-content" data-theme="a">
-                    <p>I'm a simple popup.</p>
-                </div>*@
+            of @Model.PageCount
         </div>
-    }
-    else
-    {
-        <div class="card-body" style="color:red;"><b>No Record Found</b></div>
-    }
+        <div class="pagination" style="margin-left: 0px;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+            @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+}
 
 

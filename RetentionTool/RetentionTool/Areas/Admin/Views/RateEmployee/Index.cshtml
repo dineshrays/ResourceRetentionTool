@@ -1,8 +1,9 @@
-﻿@model RetentionTool.ViewModel.RateEmployeeViewModel
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.AssignResource>
 @{
     ViewBag.Title = "Rate Employees";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
-    var del = ViewBag.assign;
+    //  var del = ViewBag.assign;
     var rateemployeeel = ViewBag.RateEmployeeEl;
 }
 
@@ -29,106 +30,120 @@
     </div>
 </div>
 
-    @if (del.Count > 0)
-    {
-        <div class="container" style="width:100%;margin-top:2%">
-            <table class="table table-striped" id="tble">
+@if (Model.Count > 0)
+{
+    <div class="container" style="width:100%;margin-top:2%">
+        <table class="table table-striped" id="tble">
+            <tr>
+                <th style="display:none">AssignResources_Id</th>
+                <th>
+                    @Html.Label("Project Name")
+                </th>
+                <th>
+                    @Html.Label("Manager Name")
+                </th>
+                <th>
+                    @Html.Label("Employee Name")
+                </th>
+                <th>@Html.DisplayName("ModuleName")</th>
+                @*<th>@Html.Label("Trainer Name")</th>*@
+
+
+                <th>@Html.Label("Actions")</th>
+            </tr>
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <th style="display:none">@Html.HiddenFor(model => model.RateEmployeeVm.AssignResources_Id)</th>
-                    <th>
-                        @Html.Label("Project Name")
-                    </th>
-                    <th>
-                        @Html.Label("Manager Name")
-                    </th>
-                    <th>
-                        @Html.Label("Employee Name")
-                    </th>
-                    <th>@Html.DisplayNameFor(model => model.RateEmployeeVm.AssignResource.Module.ModuleName)</th>
-                    @*<th>@Html.Label("Trainer Name")</th>*@
+                    <td style="display:none">@item.Id</td>
+                    <td>@item.ProjectsDetail.Name</td>
+                    <td>@item.PersonalInfo.Name</td>
+                    @*<td>
+                            <div class="popup" id="@item.Id" onclick="myFunction(@item.Id)">
+                                List Employees
+                                <span class="popuptext" id="myPopup-@item.Id"></span>
+                            </div>
+                        </td>*@
 
+                    <td>
+                        <div class="animated">
 
-                    <th>@Html.Label("Actions")</th>
-                </tr>
-                @foreach (var item in del)
-                {
-                    <tr>
-                        <td style="display:none">@item.Id</td>
-                        <td>@item.ProjectsDetail.Name</td>
-                        <td>@item.PersonalInfo.Name</td>
-                        @*<td>
-                                <div class="popup" id="@item.Id" onclick="myFunction(@item.Id)">
-                                    List Employees
-                                    <span class="popuptext" id="myPopup-@item.Id"></span>
-                                </div>
-                            </td>*@
-
-                        <td>
-                            <div class="animated">
-
-                                <p data-toggle="modal" data-target="#smallmodal" onclick="myFunction(@item.Id)">
-                                    List Employee
-                                </p>
-                                <div class="modal fade show" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" style="display: none; padding-right: 17px;">
-                                    <div class="modal-dialog modal-sm" role="document">
-                                        <div class="modal-content" style="left: 100px;top: 140px;">
-                                            <div class="modal-header">
-                                                <p class="modal-title" style='font-size:16px' id="smallmodalLabel">Employee List</p>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-
-                                                <p>
-                                                    @*My Popup*@
-                                                </p>
-                                            </div>
-
+                            <p data-toggle="modal" data-target="#smallmodal" onclick="myFunction(@item.Id)">
+                                List Employee
+                            </p>
+                            <div class="modal fade show" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" style="display: none; padding-right: 17px;">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content" style="left: 100px;top: 140px;">
+                                        <div class="modal-header">
+                                            <p class="modal-title" style='font-size:16px' id="smallmodalLabel">Employee List</p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
                                         </div>
+                                        <div class="modal-body">
+
+                                            <p>
+                                                @*My Popup*@
+                                            </p>
+                                        </div>
+
                                     </div>
                                 </div>
-
                             </div>
-                        </td>
 
-                        <td>@item.Module.ModuleName</td>
-                        @*<td>@item.Trainer.PersonalInfo.Name</td>*@
+                        </div>
+                    </td>
 
-                        <td>
-                            @{ bool IsAdded = false;
-                            }
-                            @foreach (var rate in rateemployeeel)
+                    <td>@item.Module.ModuleName</td>
+                    @*<td>@item.Trainer.PersonalInfo.Name</td>*@
+
+                    <td>
+                        @{ bool IsAdded = false;
+                        }
+                        @foreach (var rate in rateemployeeel)
+                        {
+                            if (rate == item.Id)
                             {
-                                if (rate == item.Id)
-                                {
-                                    IsAdded = true;
-
-                                }
-                            }
-
-                            @if (IsAdded == true)
-                            {
-                                @Html.ActionLink(" ", "Edit", new { id = @item.Id }, new { @class = "ti-pencil" })
-                                @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
-                            }
-                            else
-                            {
-                                <a href='@Url.Action("Create", "RateEmployee", new {assignresid=@item.Id})'>Add Details</a>
+                                IsAdded = true;
 
                             }
-                        </td>
-                    </tr>
-                }
+                        }
 
-            </table>
+                        @if (IsAdded == true)
+                        {
+                            @Html.ActionLink(" ", "Edit", new { id = @item.Id }, new { @class = "ti-pencil" })
+                            @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("Create", "RateEmployee", new {assignresid=@item.Id})'>Add Details</a>
 
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+    <div id="container" style="margin-left: 20px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+
+            of @Model.PageCount
         </div>
-    }
-    else
-    {
-        <div class="card-body" style="color:red;"><b>No Record Found</b></div>
-    }
+        <div class="pagination" style="margin-left: 0px;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+            @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+}
 
 
 

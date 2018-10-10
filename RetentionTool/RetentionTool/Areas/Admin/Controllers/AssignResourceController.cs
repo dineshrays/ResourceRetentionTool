@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
+using PagedList;
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
@@ -13,17 +14,19 @@ namespace RetentionTool.Areas.Admin.Controllers
         RetentionToolEntities db = new RetentionToolEntities();
         FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: AssignResource
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-           // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
+            // AssignResourceViewModel assignResourceViewModel = new AssignResourceViewModel();
             //var assignres;
+            int projectid = fetchdet.getDefaultProjectId();
             List<AssignResourceViewModel> assgnvm  = (from assignres in db.AssignResources 
                                // join assignresdet in db.AssignResourcesDets
                                // on assignres.Id equals assignresdet.AssignResources_Id
                                
                            
-                                                      where assignres.IsActive== true && assignres.ProjectsDetail.Name != "Training"
-                                                      && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
+                                                      where assignres.IsActive== true && assignres.Project_Id !=projectid
+                                                      && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true 
+                                                      && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
 
                                                       select new AssignResourceViewModel
                                 {
@@ -61,7 +64,15 @@ namespace RetentionTool.Areas.Admin.Controllers
             //    }).ToList();
 
             //  return View(assgnvm);
-            return View(assgnvm);
+            int pageSize = fetchdet.pageSize;
+            int pageIndex = fetchdet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResourceViewModel> pagedlist = null;
+            pagedlist = assgnvm.ToPagedList(pageIndex, pageSize);
+            //assnevalvm.assvm.ToPagedList(pageIndex, pageSize);
+            //.ToPagedList(pageIndex, pageSize);
+            return View(pagedlist);
+          //  return View(assgnvm);
         }
 
         public ActionResult Create()

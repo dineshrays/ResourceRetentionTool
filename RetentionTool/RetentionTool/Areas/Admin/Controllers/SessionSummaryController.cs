@@ -5,31 +5,19 @@ using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
+using PagedList;
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
     public class SessionSummaryController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: SessionSummary
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
 
-            //List<AssignResourceViewModel> assgnvm = (from assignres in db.AssignResources
-            //                                         join m in db.Modules
-            //                                         on assignres.Module_Id equals m.Id
-            //                                         where assignres.IsActive == true
-            //                                         && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
-            //                                         select new AssignResourceViewModel
-            //                                         {
-            //                                             Id = assignres.Id,
-            //                                             modulename = assignres.Module.ModuleName,
-            //                                             Module_Id = assignres.Module_Id,
-            //                                             Project_Id = assignres.Project_Id,
-            //                                             projectname = assignres.ProjectsDetail.Name
-            //                                         }).ToList();
-
-            //ViewBag.details = assgnvm;
+          
 
             List<AssignResourceViewModel> assignreslist = (from assignres in db.AssignResources
                                        //                    join   module in db.Modules
@@ -61,7 +49,13 @@ namespace RetentionTool.Areas.Admin.Controllers
                                            
                                        }).Distinct().ToList();
 
-            ViewBag.ModuleList = assignreslist;
+           // ViewBag.ModuleList = assignreslist;
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResourceViewModel> modulepaged = null;
+            modulepaged =assignreslist.ToPagedList(pageIndex, pageSize);
+
             List<SessionView> sessionview = (from assignres in assignreslist
                                              join training in db.Trainings
                                              on assignres.Id equals training.AssignResource_Id
@@ -92,7 +86,7 @@ namespace RetentionTool.Areas.Admin.Controllers
                                              group sess by sess.moduleid into s
                                              select s.OrderByDescending(t => t.date).FirstOrDefault()
                                 ).ToList();
-
+            ViewBag.sessionlist = sessionlist;
             //List<SessionSummaryModel> sessionvm = (from session in db.Sessions
             //                                         join training in db.TrainingDets
             //                                         on session.TrainingDet_Id equals training.Id
@@ -109,9 +103,9 @@ namespace RetentionTool.Areas.Admin.Controllers
             //                                             Description=session.Description,
             //                                             Date = session.Date,
             //                                             IsActive = session.IsActive
-                            
+
             //                                         }).ToList();
-            return View(sessionlist);
+            return View(modulepaged);
 
 
         }

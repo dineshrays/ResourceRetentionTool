@@ -5,14 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
     public class RateEmployeeController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: RateEmployee
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             List<AssignResource> assignRes = db.AssignResources.Where(a => !db.EmployeeEvalTasks.Any(
                 e=>e.AssignResource_Id==a.Id && e.IsActive==true && 
@@ -61,14 +63,19 @@ namespace RetentionTool.Areas.Admin.Controllers
 
             //  && !db.EmployeeEvalTasks.Any(a => a.AssignResource_Id == assignres.Id && a.IsActive == true && db.EmployeeEvalTaskDets.Any(b => b.EmployeeEvalTask_Id == a.Id && b.IsEligiableMark == true && b.IsActive == true))
 
-            ViewBag.assign = assignRes;
+          //  ViewBag.assign = assignRes;
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResource> pagelist = null;
+            pagelist = assignRes.ToPagedList(pageIndex, pageSize);
             //foreach(var i in assignRes)
             //{
             //    i.ProjectsDetail.Name
             //}
             ViewBag.RateEmployeeEl = db.RateEmployeeEligiabilities.Select(o => o.AssignResources_Id).Distinct().ToList();
             
-            return View();
+            return View(pagelist);
         }
 
         public ActionResult Create(int assignresid)

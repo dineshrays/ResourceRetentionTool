@@ -5,14 +5,16 @@ using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
+using PagedList;
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
     public class EmployeeEvaTasklController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: EmployeeEvaTaskl
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             List<AssignResource> assignResources = db.AssignResources.Where(a => 
             db.AssignEvaluaters.Any(p2 => p2.AssignResource_Id == a.Id && p2.IsActive == true && a.IsActive == true)
@@ -27,8 +29,12 @@ namespace RetentionTool.Areas.Admin.Controllers
             ViewBag.asseval = assignEval;
             List<EmployeeEvalTask> empevaltask = db.EmployeeEvalTasks.Where(a => a.IsActive == true).Distinct().ToList();
             ViewBag.empevalDetails = empevaltask;
-            
-            return View(); 
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResource> modulepaged = null;
+            modulepaged = assignResources.ToPagedList(pageIndex, pageSize);
+            return View(modulepaged); 
         }
         public ActionResult Create()
         {

@@ -5,18 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
 namespace RetentionTool.Areas.Admin.Controllers
 {
     public class TrainingController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         public ActionResult PopupView()
         {
             return View();
         }
         // GET: Training
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
 
            // int trainerid = int.Parse(Session["userid"].ToString());
@@ -36,12 +37,17 @@ namespace RetentionTool.Areas.Admin.Controllers
                                                          projectname=assignres.ProjectsDetail.Name
                                                      }).ToList();
 
-            ViewBag.details = assgnvm;
-            List<Training> trainings = db.Trainings.ToList();
+           // ViewBag.details = assgnvm;
+            List<Training> trainings = db.Trainings.Where(a=>a.IsActive==true).ToList();
             TrainingViewModel trainingvm = new TrainingViewModel();
             trainingvm.Training = trainings;
-
-            return View(trainingvm);
+            ViewBag.Training = trainings;
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResourceViewModel> modulepaged = null;
+            modulepaged = assgnvm.ToPagedList(pageIndex, pageSize);
+            return View(modulepaged);
         }
         // [HttpPost]
         //public ActionResult EmpDetails(int assId)

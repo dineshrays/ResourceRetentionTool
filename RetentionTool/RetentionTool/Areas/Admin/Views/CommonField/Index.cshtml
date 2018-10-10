@@ -1,5 +1,7 @@
-﻿@model IEnumerable<RetentionTool.Models.CommonFieldViewModel>
-
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.CommonFieldViewModel>
+<link href="~/Scripts/PagesdList.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Primary Skills";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
@@ -14,11 +16,10 @@
         /*padding: 0 5px;
         width: 100%;*/
     }
+
     li {
         /*font-size: 16px;*/
     }
-    
-    
 </style>
 @*<style>
         .right-panel .breadcrumbs {
@@ -52,54 +53,70 @@
     </div>
 </div>
 
-    @*<div class="card">*@
-        @*<div class="card-header">
-            <h2>Primary Skills</h2>
-            </div>*@
-        <div class="card-body card-text">
-            @Html.ActionLink("Create New", "Create", "CommonField", null, new { @class = "btn btn-outline-primary" })
+@*<div class="card">*@
+@*<div class="card-header">
+    <h2>Primary Skills</h2>
+    </div>*@
+<div class="card-body card-text">
+    @Html.ActionLink("Create New", "Create", "CommonField", null, new { @class = "btn btn-outline-primary" })
 
+</div>
+
+@if (Model.Count() > 0)
+{
+    <div class="container">
+        <table class="table table-striped" style="width:100%">
+            <tr>
+                <th>
+                    @Html.DisplayName("Name")
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </th>*@
+                <th>
+                    @Html.Label("Actions")
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>*@
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new { id = item.id }, new { @class = "ti-pencil" }) |
+
+                        @Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "ti-trash" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div id="container" style="margin-left: 20px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+
+            of @Model.PageCount
+        </div>
+        <div class="pagination" style="margin-left: 0px;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+            @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
         </div>
 
-        @if (Model.Count() > 0)
-        {
-            <div class="container">
-                <table class="table table-striped" style="width:100%">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Name)
-                        </th>
-                        @*<th>
-                                @Html.DisplayNameFor(model => model.IsActive)
-                            </th>*@
-                        <th>
-                            @Html.Label("Actions")
-                        </th>
-                     
-                    </tr>
+    </div>
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            @*<td>
-                                    @Html.DisplayFor(modelItem => item.IsActive)
-                                </td>*@
-                            <td>
-                                @Html.ActionLink(" ", "Edit", new { id = item.id }, new { @class = "ti-pencil" }) |
 
-                                @Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "ti-trash" })
-                            </td>
-                        </tr>
-                    }
+}
 
-                </table>
-            </div>
-        }
-
-    @*</div>*@
-    @*</div>*@
+@*</div>*@
+@*</div>*@
 
 @*</div>*@

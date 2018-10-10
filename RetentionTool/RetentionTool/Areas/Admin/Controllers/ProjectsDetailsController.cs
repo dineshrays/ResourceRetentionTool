@@ -7,17 +7,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
+using PagedList;
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
     public class ProjectsDetailsController : Controller
     {
         private RetentionToolEntities db = new RetentionToolEntities();
-
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
       
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.ProjectsDetails.ToList());
+            List<ProjectsDetail> projectDet = db.ProjectsDetails.Where(a=>a.IsActive==true).ToList();
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<ProjectsDetail> modulepaged = null;
+            modulepaged = projectDet.ToPagedList(pageIndex, pageSize);
+            return View(modulepaged);
         }
 
        

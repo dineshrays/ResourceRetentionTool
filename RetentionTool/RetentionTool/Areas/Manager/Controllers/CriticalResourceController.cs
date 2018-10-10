@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
-using RetentionTool.ViewModel;
+//using RetentionTool.ViewModel;
 
 namespace RetentionTool.Areas.Manager.Controllers
 {
@@ -79,7 +79,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         public ActionResult Create(int id)
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id && a.IsActive==true).ToList();
-            ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
+            ProjectWorkViewModel prjctwrkvm = new ProjectWorkViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
             prjctwrkvm.projectname = projectDetails.Name;
@@ -148,7 +148,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id).ToList();
             List<criticalResourceAccountability> criticalAccount = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true ).ToList();
-            ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
+            ProjectWorkViewModel prjctwrkvm = new ProjectWorkViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
             prjctwrkvm.projectname = projectDetails.Name;
@@ -269,7 +269,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id).ToList();
             List<criticalResourceAccountability> criticalAccount = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true).ToList();
-            ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
+            ProjectWorkViewModel prjctwrkvm = new ProjectWorkViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
             prjctwrkvm.projectname = projectDetails.Name;

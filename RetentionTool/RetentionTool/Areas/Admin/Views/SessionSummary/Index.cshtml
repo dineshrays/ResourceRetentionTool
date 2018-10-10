@@ -1,8 +1,10 @@
-﻿@model IEnumerable< RetentionTool.ViewModel.SessionView>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.AssignResourceViewModel>
 @{
     ViewBag.Title = "Session Summaries";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
-    var moduledetails = ViewBag.ModuleList;
+    // var moduledetails = ViewBag.ModuleList;
+    var sessionlist = ViewBag.sessionlist;
 }
 <div class="breadcrumbs">
     <div class="col-sm-6">
@@ -25,70 +27,84 @@
     </div>
 </div>
 
-    @if (moduledetails.Count > 0)
-    {
+@if (Model.Count > 0)
+{
 
 
-        <div class="container" style="width:100%;margin-top:2%">
-            <table class="table table-striped">
+    <div class="container" style="width:100%;margin-top:2%">
+        <table class="table table-striped">
+            <tr>
+                @*<th style="display:none">@Html.DisplayNameFor(model => model.Id)</th>
+                    <th style="display:none">@Html.DisplayNameFor(model => model.TrainingDet_Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Topics)</th>
+                    <th>@Html.DisplayNameFor(model => model.Hours)</th>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+
+                    <th>@Html.DisplayNameFor(model => model.Date)</th>*@
+                @*<th>@Html.Label("Link")</th>*@
+                <th>@Html.Label("Project Name")</th>
+                <th>@Html.Label("Module Name")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("Topics")</th>
+            </tr>
+
+            @{ DateTime? date = null;}
+            @foreach (var modulelist in Model)
+            {
                 <tr>
-                    @*<th style="display:none">@Html.DisplayNameFor(model => model.Id)</th>
-                        <th style="display:none">@Html.DisplayNameFor(model => model.TrainingDet_Id)</th>
-                        <th>@Html.DisplayNameFor(model => model.Topics)</th>
-                        <th>@Html.DisplayNameFor(model => model.Hours)</th>
-                        <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <td> @modulelist.projectname </td>
+                    <td> @modulelist.modulename </td>
 
-                        <th>@Html.DisplayNameFor(model => model.Date)</th>*@
-                    @*<th>@Html.Label("Link")</th>*@
-                    <th>@Html.Label("Project Name")</th>
-                    <th>@Html.Label("Module Name")</th>
-                    <th>@Html.Label("Date")</th>
-                    <th>@Html.Label("Topics")</th>
-                </tr>
+                    @foreach (var item in sessionlist)
+                    {
 
-                @{ DateTime? date = null;}
-                @foreach (var modulelist in moduledetails)
-                {
-                    <tr>
-                        <td> @modulelist.projectname </td>
-                        <td> @modulelist.modulename </td>
-
-                        @foreach (var item in Model)
+                        if (item.assignresid == modulelist.Id)
                         {
-
-                            if (item.assignresid == modulelist.Id)
-                            {
-                                date = item.date;
-
-                            }
-
-
-
-
+                            date = item.date;
 
                         }
 
-                        <td> @date </td>
-
-                        <td>
-                            <a href='@Url.Action("Create", "SessionSummary", new { id = modulelist.Id })'>List</a>
-
-                        </td>
-                    </tr>
-                }
 
 
 
-            </table>
 
-            @*<div data-role="popup" id="transitionExample" class="ui-content" data-theme="a">
-                    <p>I'm a simple popup.</p>
-                </div>*@
+                    }
+
+                    <td> @date </td>
+
+                    <td>
+                        <a href='@Url.Action("Create", "SessionSummary", new { id = modulelist.Id })'>List</a>
+
+                    </td>
+                </tr>
+            }
+
+
+
+        </table>
+
+        @*<div data-role="popup" id="transitionExample" class="ui-content" data-theme="a">
+                <p>I'm a simple popup.</p>
+            </div>*@
+    </div>
+    <div id="container" style="margin-left: 20px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+
+            of @Model.PageCount
         </div>
-    }
-    else
-    {
-        <div class="card-body" style="color:red;"><b>No Record Found</b></div>
-    }
+        <div class="pagination" style="margin-left: 0px;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+            @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+}
 
 

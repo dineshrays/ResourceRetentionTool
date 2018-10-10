@@ -130,6 +130,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1504,6 +1505,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\page-login.html" />
     <Content Include="Scripts\page-register.html" />
+    <Content Include="Scripts\PagedList.css" />
     <Content Include="Scripts\pages-forget.html" />
     <Content Include="Scripts\popup\jquery.js" />
     <Content Include="Scripts\popup\jquery.mobile-1.4.5.js" />
@@ -1672,6 +1674,7 @@
     </Compile>
     <Compile Include="Models\ProjectsWorkedmodel.cs" />
     <Compile Include="Models\ProjectWorkedModel.cs" />
+    <Compile Include="Models\ProjectWorkViewModel.cs" />
     <Compile Include="Models\RateEmployeeEligiability.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>

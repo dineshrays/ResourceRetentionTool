@@ -4,15 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
-using RetentionTool.ViewModel;
+//using RetentionTool.ViewModel;
+using PagedList;
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
     public class CriticalResourceController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: CriticalResource
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
 
             //            select projectdetails.*from ProjectsDetails projectdetails
@@ -49,16 +51,20 @@ namespace RetentionTool.Areas.Admin.Controllers
           List<CriticalResource> criticalres = db.CriticalResources.Where(a => a.IsActive == true).Distinct().ToList();
 
             ViewBag.CriticalResPrjct = criticalres;
-           
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<ProjectsDetail> modulepaged = null;
+            modulepaged = projectDet.ToPagedList(pageIndex, pageSize);
             //.Select(a=>a.ProjectName).Distinct();
             //  ProjectWorkedViewModel prjctWrkvm = new ProjectWorkedViewModel();
             //    prjctWrkvm.
-            return View();
+            return View(modulepaged);
         }
         public ActionResult Create(int id)
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id && a.IsActive==true).ToList();
-            ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
+            ProjectWorkViewModel prjctwrkvm = new ProjectWorkViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
             prjctwrkvm.projectname = projectDetails.Name;
@@ -137,7 +143,7 @@ namespace RetentionTool.Areas.Admin.Controllers
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id).ToList();
             List<criticalResourceAccountability> criticalAccount = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true ).ToList();
-            ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
+            ProjectWorkViewModel prjctwrkvm = new ProjectWorkViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
             prjctwrkvm.projectname = projectDetails.Name;
@@ -259,7 +265,7 @@ namespace RetentionTool.Areas.Admin.Controllers
         {
             List<ProjectsWorked> prjctwrklist = db.ProjectsWorkeds.Where(a => a.Project_Id == id).ToList();
             List<criticalResourceAccountability> criticalAccount = db.criticalResourceAccountabilities.Where(a => a.CriticalResource.Project_Id == id && a.IsActive == true).ToList();
-            ProjectWorkedViewModel prjctwrkvm = new ProjectWorkedViewModel();
+            Models.ProjectWorkViewModel prjctwrkvm = new ProjectWorkViewModel();
             ProjectsWorked prjctwrk = new ProjectsWorked();
             ProjectsDetail projectDetails = db.ProjectsDetails.Find(id);
             prjctwrkvm.projectname = projectDetails.Name;

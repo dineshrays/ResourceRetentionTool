@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
@@ -12,7 +13,8 @@ namespace RetentionTool.Areas.Admin.Controllers
     {
         // GET: Skills
         RetentionToolEntities db = new RetentionToolEntities();
-        public ActionResult Index()
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
+        public ActionResult Index(int? page)
         {            
             List<Skill> skillList = db.Skills.Where(m=>m.IsActive==true).ToList();
 
@@ -25,7 +27,13 @@ namespace RetentionTool.Areas.Admin.Controllers
                 SkillName = X.Name
                 
             }).ToList();
-            return View(SkillsvmList);
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<SkillsViewModel> modulepaged = null;
+            modulepaged = SkillsvmList.ToPagedList(pageIndex, pageSize);
+
+            return View(modulepaged);
         }
 
         public ActionResult Create()
