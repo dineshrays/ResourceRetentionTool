@@ -56,7 +56,7 @@ namespace RetentionTool.Areas.Admin.Controllers
 
         public IEnumerable<SelectListItem> getCommonFields()
         {
-            var val = db.Commonfields.ToList();
+            var val = db.Commonfields.Where(a=>a.IsActive==true).ToList();
             var cf = new SelectList(val, "id","Name");
             return cf;
 
@@ -118,7 +118,7 @@ namespace RetentionTool.Areas.Admin.Controllers
 
         public IEnumerable<SelectListItem> getSkillsField(int commonId)
         {
-            IEnumerable<SelectListItem> rs = db.Skills.Where(s => s.CommonField_Id == commonId).Select(x => new SelectListItem
+            IEnumerable<SelectListItem> rs = db.Skills.Where(s => s.CommonField_Id == commonId && s.IsActive==true).Select(x => new SelectListItem
             {
                 Value = x.id.ToString(),
                 Text = x.Name

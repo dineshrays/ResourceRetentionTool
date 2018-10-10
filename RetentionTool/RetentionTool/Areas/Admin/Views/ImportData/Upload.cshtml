@@ -1,21 +1,41 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Upload";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Upload</h2>
+<div class="breadcrumbs">
+    <div class="col-sm-6">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Upload</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right" style="background-color:white">                    
+                    <li><a href="@Url.Action("Index","AdminDashboard")">Dashboard / </a></li>                    
+                    <li class="active"> Index </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<h2>Upload</h2>*@
 <div>
     @using (Html.BeginForm("Upload", "ImportData", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <input name="uploadFile" type="file"  class="btn btn-default"/><br /><br />
-        <input type="submit" value="UploadFile" class="btn btn-success" style="margin-left: 10px;" title="Upload file" onclick="return CheckFileName();" />
+    <input name="uploadFile" type="file" class="btn btn-default" /><br /><br />
+    <input type="submit" value="UploadFile" class="btn btn-success" style="margin-left: 10px;" title="Upload file" onclick="return CheckFileName();" />
     }
 </div>
 
 
 
-@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
+@*
+<script src="~/Scripts/jquery-3.3.1.js"></script>*@
 <script type="text/javascript">
     function CheckFileName() {
         var fileName = document.getElementById("uploadFile").value
