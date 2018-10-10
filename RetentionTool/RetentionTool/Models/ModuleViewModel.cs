@@ -32,6 +32,7 @@ namespace RetentionTool.Models
         public Nullable<int> Module_Id { get; set; }
         public string Topics { get; set; }
         public Nullable<System.TimeSpan> HoursRequired { get; set; }
+       public List<ModuleViewModel> modulevm { get; set; }
 
     }
 

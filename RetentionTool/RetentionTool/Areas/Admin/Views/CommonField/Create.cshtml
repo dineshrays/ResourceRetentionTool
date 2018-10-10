@@ -37,30 +37,37 @@
             {
                 @Html.AntiForgeryToken()
 
-            <div class="form-group">
-                <div>
-                    @Html.LabelFor(model => model.Name)
-                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%", @id = "commonfieldname" })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
-
-                </div>
-                <br />
+            
                 <div class="row form-group">
-                    <div class="col col-md-2">
 
+                    <div class="col col-md-3">
+                        @Html.LabelFor(model => model.Name)
 
                     </div>
                     <div class="col-12 col-md-9">
-                        <input type="submit" value="Create" class="btn btn-success" />
-                        @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
+                       
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%", @id = "commonfieldname" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
+
+                    </div>
+                    </div>
+                  
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+
+
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input type="submit" value="Create" class="btn btn-success" />
+                            @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
+
+                        </div>
 
                     </div>
 
-                </div>
 
-               
 
-            </div>
+                
             }
         </div>
    

@@ -27,60 +27,80 @@
     </div>
 </div>
 
-    <div class="card-body">
-        @using (Html.BeginForm())
+<div class="card-body">
+    @*@using (Html.BeginForm())
         {
-            @Html.AntiForgeryToken()
+            @Html.AntiForgeryToken()*@
 
-        <div class="form-group">
-            <div>
+    <div class="row form-group">
+        
+        <div class="col col-md-3">
+            @Html.LabelFor(model => model.Name)
 
-                @Html.LabelFor(model => model.Name)
+        </div>
+            <div class="col-12 col-md-9">
+               
                 @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%", @id = "commonfieldname" })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
+                @Html.ValidationMessageFor(model => model.Name, "Required", new { @class = "text-danger", @id = "validationforcommonfield" })
 
-
+                @Html.HiddenFor(model => model.id, new { @id = "id" })
             </div>
-            <br />
+           </div>
             @*<div>
             @Html.CheckBox("IsActive")
             @Html.LabelFor(model => model.IsActive)
         </div>*@
             <div class="row form-group">
-                <div class="col col-md-2">
+                <div class="col col-md-3">
 
 
                 </div>
                 <div class="col-12 col-md-9">
-                    <input type="submit" value="Save" class="btn btn-success" />
+                    <input type="submit" value="Save" id="btnSave" class="btn btn-success" />
                     @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
                 </div>
 
             </div>
             @*<div>
 
-                <input type="submit" value="Save" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
+            <input type="submit" value="Save" class="btn btn-success" />
+            @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
 
-            </div>*@
+        </div>*@
         </div>
 
 
-        }
+    @*}*@
 
-    </div>
+</div>
 
 
 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+    $(document).ready(function () {
+     
+        $("#validationforcommonfield").hide();
 
+
+    });
+    function validate() {
+    
+        if ($("#commonfieldname").val().length > 0) {
+            $("#validationforcommonfield").hide();
+        }
+        else {
+            $("#validationforcommonfield").show();
+        }
+    }
     $("#commonfieldname").keydown(function () {
-        alert($("#commonfieldname").val());
+        
         if (event.which === 8) {
             if ($("#commonfieldname").val().length > 0) {
+
                 $("#validationforcommonfield").hide();
             }
             else if ($("#commonfieldname").val() === "" || $("#commonfieldname").val().length === 0) {
@@ -89,15 +109,39 @@
             }
         }
         else if ($("#commonfieldname").val() == "") {
-            alert('ddd')
-            $("#validationforcommonfield").show();
-        }
-        else {
-            alert('eee')
+
             $("#validationforcommonfield").hide();
         }
+       
     });
+    $("#btnSave").click(function () {
+        var name = $("#commonfieldname").val();
+        var id = $("#id").val();
+        validate();
+        if (name.length > 0) {
+             $("#btnSave").attr('disabled', true);
+                var newUrl = '@Url.Action("Index", "CommonField")';
 
+            var mod = { Name: name, id: id };
+
+                $.ajax({
+                    url: '@Url.Action("Edit", "CommonField")', //
+                    dataType: "json",
+                    data: JSON.stringify({ commfieldvm: mod }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("Something Went Wrong!!");
+                    }
+                });
+
+        }
+      
+    });
 
 </script>
 

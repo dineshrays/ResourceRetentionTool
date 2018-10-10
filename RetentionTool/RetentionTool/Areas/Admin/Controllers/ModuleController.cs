@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+
 using RetentionTool.ViewModel;
 namespace RetentionTool.Areas.Admin.Controllers
 {
@@ -13,14 +15,14 @@ namespace RetentionTool.Areas.Admin.Controllers
         RetentionToolEntities db = new RetentionToolEntities();
         FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: Module
-       public ActionResult Index()
-        {           
-
+       public ActionResult Index(int? page)
+        {
+           
             List<Module> modulelist = db.Modules.Where(m=>m.IsActive==true).ToList();
             List<ModuleDet> modulelist1 = db.ModuleDets.ToList();
-            ModuleViewModel modulevm = new ModuleViewModel();
+            ModuleViewModel moduleviewm = new ModuleViewModel();
 
-            var module = (from m in db.Modules
+            moduleviewm.modulevm = (from m in db.Modules
                           join md in db.ModuleDets
                           on m.Id equals md.Module_Id
                           where m.IsActive == true
@@ -40,11 +42,15 @@ namespace RetentionTool.Areas.Admin.Controllers
                               HoursRequired = md.HoursRequired,
 
                           }).ToList();
-            
 
 
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<ModuleViewModel> modulepaged = null;
+            modulepaged = moduleviewm.modulevm.ToPagedList(pageIndex, pageSize);
 
-            return View(module) ;
+            return View(modulepaged) ;
         }
       
 
