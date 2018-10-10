@@ -1,8 +1,14 @@
-﻿@model RetentionTool.ViewModel.AssignEvaluterViewModel
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.AssignEvaluater>
 @{
-    ViewBag.Title = "Assign Evaluater";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
+                /**/
+
+                ViewBag.Title = "Assign Evaluater";
+                Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
 }
+<link href="~/Scripts/PagesdList.css" rel="stylesheet" />
+
 <div class="breadcrumbs">
     <div class="col-sm-6">
         <div class="page-header float-left">
@@ -24,48 +30,62 @@
     </div>
 </div>
 
-    <div class="card-body">
-        @Html.ActionLink("Create New", "Create", "AssignEvaluater", null, new { @class = "btn btn-outline-primary" })
-    </div>
+<div class="card-body">
+    @Html.ActionLink("Create New", "Create", "AssignEvaluater", null, new { @class = "btn btn-outline-primary" })
+</div>
 
-    @if (Model.assvm.Count() > 0)
-    {
-        <div class="container" style="width:100%;margin-top:2%">
-            <table class="table table-striped">
+@if (Model.Count() > 0)
+{
+    <div class="container" style="width:100%;margin-top:2%">
+        <table class="table table-striped">
+            <tr>
+                @*<th>@Html.DisplayNameFor(model => model.AssignEvaluater.Id)</th>
+
+                    <th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource_Id)</th>*@
+                <th>@Html.Label("Project Name")</th>
+                <th>@Html.Label("Module Name")</th>
+                <th>@Html.Label("Assigned Trainer Name")</th>
+                <th>@Html.Label("Actions")</th>
+            </tr>
+            @foreach (var item in Model)
+            {
                 <tr>
-                    @*<th>@Html.DisplayNameFor(model => model.AssignEvaluater.Id)</th>
+                    @*<td>@item.Id</td>
+                        <td>@item.AssignResource_Id</td>*@
+                    <td>@item.AssignResource.ProjectsDetail.Name</td>
+                    <td>@item.AssignResource.Module.ModuleName</td>
 
-                        <th>@Html.DisplayNameFor(model => model.AssignEvaluater.AssignResource_Id)</th>*@
-                    <th>@Html.Label("Project Name")</th>
-                    <th>@Html.Label("Module Name")</th>
-                    <th>@Html.Label("Assigned Trainer Name")</th>
-                    <th>@Html.Label("Actions")</th>
+                    <td>@item.Trainer.PersonalInfo.Name</td>
+
+
+
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new {id=@item.Id},
+                                      new { @class = "ti-pencil"} )
+                        @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
+                    </td>
                 </tr>
-                @foreach (var item in Model.assvm)
-                {
-                    <tr>
-                        @*<td>@item.Id</td>
-                            <td>@item.AssignResource_Id</td>*@
-                        <td>@item.AssignResource.ProjectsDetail.Name</td>
-                        <td>@item.AssignResource.Module.ModuleName</td>
+            }
 
-                        <td>@item.Trainer.PersonalInfo.Name</td>
+        </table>
 
 
+    </div>
+    <div id="container" style="margin-left: 20px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
 
-                        <td>
-                            @Html.ActionLink(" ", "Edit", new {id=@item.Id},
-                                          new { @class = "ti-pencil"} )
-                            @Html.ActionLink(" ", "Delete", new { id = @item.Id }, new { @class = "ti-trash" })
-                        </td>
-                    </tr>
-                }
-
-            </table>
-
-
+            of @Model.PageCount
+        </div>
+        <div class="pagination" style="margin-left: 0px;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+            @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
         </div>
 
-    }
+    </div>
+
+}
 
 

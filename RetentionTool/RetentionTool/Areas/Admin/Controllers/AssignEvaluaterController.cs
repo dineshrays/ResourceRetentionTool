@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
+
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
     public class AssignEvaluaterController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
-      
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: AssignEvaluater
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             List<AssignEvaluater> assneval = db.AssignEvaluaters.Where(a =>
            !db.EmployeeEvalTasks.Any(
@@ -24,7 +26,15 @@ namespace RetentionTool.Areas.Admin.Controllers
             a.IsActive == true).ToList();
             AssignEvaluterViewModel assnevalvm = new AssignEvaluterViewModel();
             assnevalvm.assvm = assneval;
-            return View(assnevalvm);
+
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignEvaluater> pagedlist = null;
+            pagedlist = assneval.ToPagedList(pageIndex, pageSize);
+                //assnevalvm.assvm.ToPagedList(pageIndex, pageSize);
+            //.ToPagedList(pageIndex, pageSize);
+            return View(pagedlist);
         }
         public ActionResult Create()
         {
