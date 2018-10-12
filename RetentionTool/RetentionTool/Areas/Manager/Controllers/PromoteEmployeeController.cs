@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using RetentionTool.ViewModel;
 using RetentionTool.Models;
+using PagedList;
+
 namespace RetentionTool.Areas.Manager.Controllers
 {
     public class PromoteEmployeeController : Controller
@@ -13,7 +15,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         public static FetchDefaultIds fetchdet = new FetchDefaultIds();
         int managerid = fetchdet.getUserDetailsId();
         // GET: PromoteEmployee
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             List<AssignResourceViewModel> assgnvm = (from assignres in db.AssignResources
                                                      join assignresdet in db.AssignResourcesDets
@@ -38,9 +40,14 @@ namespace RetentionTool.Areas.Manager.Controllers
                                                          Employee_Id = assignresdet.Employee_Id,
                                                          employeename=assignresdet.PersonalInfo.Name
                                                      }).ToList();
-
-            ViewBag.assignresource = assgnvm;
-            return View();
+            int pageSize = fetchdet.pageSize;
+            int pageIndex = fetchdet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResourceViewModel> modulepaged = null;
+            modulepaged = assgnvm.ToPagedList(pageIndex, pageSize);
+            // ViewBag.assignresource = assgnvm;
+            return View(modulepaged);
+            
         }
         
 

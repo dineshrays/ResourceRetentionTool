@@ -5,14 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace RetentionTool.Areas.Trainer.Controllers
 {
     public class RateEmployeeController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: RateEmployee
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             int td = int.Parse(Session["userid"].ToString());
 
@@ -37,11 +39,15 @@ namespace RetentionTool.Areas.Trainer.Controllers
                                                   && trainer.IsActive==true
                                                   select assignres).ToList();
             
-            ViewBag.assign = assignRes;
+            //ViewBag.assign = assignRes;
            
             ViewBag.RateEmployeeEl = db.RateEmployeeEligiabilities.Select(o => o.AssignResources_Id).Distinct().ToList();
-            
-            return View();
+            int pageSize = fetchDet.pageSize;
+            int pageIndex = fetchDet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResource> pagelist = null;
+            pagelist = assignRes.ToPagedList(pageIndex, pageSize);
+            return View(pagelist);
         }
 
         public ActionResult Create(int assignresid)

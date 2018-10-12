@@ -1,4 +1,6 @@
-﻿@model RetentionTool.ViewModel.AssignEvaluterViewModel
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.AssignEvaluater>
+@*@model RetentionTool.ViewModel.AssignEvaluterViewModel*@
 @{
     ViewBag.Title = "Assign Evaluater";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
@@ -23,16 +25,12 @@
         </div>
     </div>
 </div>
-<div class="card">
-    @*<div class="card-header">
-        <h2>Assign Evaluater</h2>
 
-    </div>*@
     <div class="card-body">
         @Html.ActionLink("Create New", "Create", "AssignEvaluater", null, new { @class = "btn btn-outline-primary" })
     </div>
 
-    @if (Model.assvm.Count() > 0)
+    @if (Model.Count() > 0)
     {
 
         <div class="container" style="width:100%;margin-top:2%">
@@ -46,7 +44,7 @@
                     <th>@Html.Label("Assigned Trainer Name")</th>
                     <th>@Html.Label("Actions")</th>
                 </tr>
-                @foreach (var item in Model.assvm)
+                @foreach (var item in Model)
                 {
                     <tr>
                         @*<td>@item.Id</td>
@@ -70,6 +68,21 @@
 
 
         </div>
+
+        <div id="container" style="margin-left: 20px">
+            <p></p>
+            <p></p>
+            <div class="pagination" style="margin-left: 400px">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+
+                of @Model.PageCount
+            </div>
+            <div class="pagination" style="margin-left: 0px;">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+                @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+            </div>
+
+        </div>
+
     }
 
-    </div>

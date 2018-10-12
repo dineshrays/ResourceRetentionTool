@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
+using PagedList;
 
 namespace RetentionTool.Areas.Manager.Controllers
 {
@@ -22,7 +23,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         //}
 
         // GET: AssignEvaluater
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             
             List<AssignEvaluater> assneval = db.AssignEvaluaters.Where(a =>
@@ -35,7 +36,16 @@ namespace RetentionTool.Areas.Manager.Controllers
             a.IsActive == true).ToList();
             AssignEvaluterViewModel assnevalvm = new AssignEvaluterViewModel();
             assnevalvm.assvm = assneval;
-            return View(assnevalvm);
+
+            int pageSize = fetchdet.pageSize;
+            int pageIndex = fetchdet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignEvaluater> pagedlist = null;
+            pagedlist = assneval.ToPagedList(pageIndex, pageSize);
+            //assnevalvm.assvm.ToPagedList(pageIndex, pageSize);
+            //.ToPagedList(pageIndex, pageSize);
+            return View(pagedlist);
+            //return View(assnevalvm);
         }
         public ActionResult Create()
         {

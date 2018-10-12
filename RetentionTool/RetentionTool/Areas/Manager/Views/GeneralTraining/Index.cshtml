@@ -1,4 +1,7 @@
-﻿@model IEnumerable<RetentionTool.Models.AssignResourceViewModel>
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.AssignResourceViewModel>
+
 @{
     ViewBag.Title = "Plan Training";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
@@ -27,30 +30,28 @@
         </div>
     </div>
 </div>
-<div class="card">
+
     @*<div class="card-header">
-        <h2>Plan Training</h2>
+            <h2>Plan Training</h2>
 
-    </div>*@
+        </div>*@
 
-  
+
     <div class="card-body">
         @Html.ActionLink("Create New", "Create", "GeneralTraining", null, new { @class = "btn btn-outline-primary" })
     </div>
     @if (Model.Count() > 0)
     {
 
-
         <div class="container" style="width:100%;margin-top:2%">
             <table class="table table-striped">
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.projectname)</th>
-                    <th>@Html.DisplayNameFor(model => model.managername)</th>
-                    <th>@Html.DisplayNameFor(model => model.modulename)</th>
-                    <th>@Html.DisplayNameFor(model => model.trainername)</th>
-                    <th>@Html.DisplayNameFor(model => model.employeename)</th>
-
-                    <th>@Html.DisplayNameFor(model => model.Date)</th>
+                    <th>@Html.DisplayName("projectname")</th>
+                    <th>@Html.DisplayName("managername")</th>
+                    <th>@Html.DisplayName("modulename")</th>
+                    <th>@Html.DisplayName("trainername")</th>
+                    <th>@Html.DisplayName("employeename")</th>
+                    <th>@Html.DisplayName("Date")</th>
                     <th>@Html.Label("Actions")</th>
                 </tr>
                 @foreach (var item in Model)
@@ -109,61 +110,75 @@
             </table>
 
         </div>
+        <div id="container" style="margin-left: 20px">
+            <p></p>
+            <p></p>
+            <div class="pagination" style="margin-left: 400px">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+
+                of @Model.PageCount
+            </div>
+            <div class="pagination" style="margin-left: 0px;">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+                @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+            </div>
+
+        </div>
     }
-   
-    </div>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <style>
-        /* Popup container - can be anything you want */
-        .popup {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<style>
+    /* Popup container - can be anything you want */
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #fff;
+            color: #555;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+            font-size: 1rem
         }
 
-            /* The actual popup */
-            .popup .popuptext {
-                visibility: hidden;
-                width: 160px;
-                background-color: #fff;
-                color: #555;
-                text-align: center;
-                border-radius: 6px;
-                padding: 8px 0;
+            /* Popup arrow */
+            .popup .popuptext::after {
+                content: "";
                 position: absolute;
-                z-index: 1;
-                bottom: 125%;
+                top: 100%;
                 left: 50%;
-                margin-left: -80px;
-                font-size: 1rem
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
             }
 
-                /* Popup arrow */
-                .popup .popuptext::after {
-                    content: "";
-                    position: absolute;
-                    top: 100%;
-                    left: 50%;
-                    margin-left: -5px;
-                    border-width: 5px;
-                    border-style: solid;
-                    border-color: #555 transparent transparent transparent;
-                }
-
-            /* Toggle this class - hide and show the popup */
-            .popup .show {
-                visibility: visible;
-                -webkit-animation: fadeIn 1s;
-                animation: fadeIn 1s;
-            }
-    </style>
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+</style>
 
 
-    <script>
+<script>
 
     function myFunction(id) {
 
@@ -194,4 +209,4 @@
 
 
 }
-    </script>
+</script>

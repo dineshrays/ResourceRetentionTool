@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
+using PagedList;
 
 namespace RetentionTool.Areas.Manager.Controllers
 {
@@ -14,7 +15,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         public static FetchDefaultIds fetchdet = new FetchDefaultIds();
         int managerid = fetchdet.getUserDetailsId();
         // GET: AssignResource
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             
             int projectid = fetchdet.getDefaultProjectId();
@@ -35,9 +36,14 @@ namespace RetentionTool.Areas.Manager.Controllers
                                                           trainername=  assignres.Trainer.PersonalInfo.Name,                      
                                                           Date=  assignres.Date,
                                                          IsActive=   assignres.IsActive
-                                                        }).ToList();           
-
-            return View(assgnvm);
+                                                        }).ToList();
+            int pageSize = fetchdet.pageSize;
+            int pageIndex = fetchdet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResourceViewModel> pagedlist = null;
+            pagedlist = assgnvm.ToPagedList(pageIndex, pageSize);            
+            return View(pagedlist);
+            //return View(assgnvm);
         }
 
         public ActionResult Create()

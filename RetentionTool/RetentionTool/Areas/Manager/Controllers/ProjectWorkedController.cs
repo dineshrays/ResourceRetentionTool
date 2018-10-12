@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
 //using RetentionTool.ViewModel;
+using PagedList;
+
 namespace RetentionTool.Areas.Manager.Controllers
 {
     public class ProjectWorkedController : Controller
@@ -13,7 +15,7 @@ namespace RetentionTool.Areas.Manager.Controllers
         public static FetchDefaultIds fetchdet = new FetchDefaultIds();
         int managerid = fetchdet.getUserDetailsId();
         // GET: ProjectWorked
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
               List<ProjectsWorked> prjctwrk = db.ProjectsWorkeds.Where(a=>a.Manager_Id==managerid && a.IsActive==true).ToList();
 
@@ -31,7 +33,14 @@ namespace RetentionTool.Areas.Manager.Controllers
                                       select assignres.Project_Id).ToList();
     
             ViewBag.CriticalRes = db.CriticalResources.Where(a => a.IsActive == true).Select(a => a.Project_Id).Distinct().ToList();
-            return View(prjctwrkvm);
+
+            int pageSize = fetchdet.pageSize;
+            int pageIndex = fetchdet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<ProjectsWorked> modulepaged = null;
+            modulepaged = prjctwrkvm.projectvm.ToPagedList(pageIndex, pageSize);
+            return View(modulepaged);
+            //return View(prjctwrkvm);
         }
 
         public ActionResult Create()

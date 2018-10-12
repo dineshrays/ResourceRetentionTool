@@ -1,8 +1,11 @@
-﻿@model RetentionTool.ViewModel.TrainingViewModel
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.AssignResourceViewModel>
+
 @{
     ViewBag.Title = "Schedule Topics";
     Layout = "~/Areas/Trainer/Views/Shared/_LayoutMain.cshtml";
-    var details = ViewBag.details;
+    //var details = ViewBag.details;
+    var Training = ViewBag.Training;
     var del = ViewBag.del;
 }
 <script src="~/Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
@@ -146,8 +149,6 @@
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />*@
 
 
-
-<div class="card">
     <div class="breadcrumbs">
         <div class="col-sm-6">
             <div class="page-header float-left">
@@ -169,18 +170,18 @@
         </div>
     </div>
 
-   
+
     <br />
-    @if (details.Count > 0)
+    @if (Model.Count > 0)
     {
 
 
         <div class="container">
             <table class="table table-striped">
                 <tr>
-                    <th style="display:none">@Html.DisplayNameFor(m => m.TrainingVm.AssignResource_Id)</th>
+                    <th style="display:none">@Html.DisplayName("AssignResource_Id")</th>
                     <th>@Html.DisplayName("Project Name")</th>
-                    <th style="display:none">@Html.DisplayNameFor(m => m.TrainingVm.AssignResource.Module_Id)</th>
+                    <th style="display:none">@Html.DisplayName("Module_Id")</th>
                     <th>@Html.Label("Module Name")</th>
                     <th>@Html.Label("Employees Name")</th>
                     <th>@Html.Label("From Date")</th>
@@ -188,7 +189,7 @@
                     <th>@Html.Label("Actions")</th>
                 </tr>
 
-                @foreach (var item in details)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td style="display:none">@item.Id</td>
@@ -237,7 +238,7 @@
 
                         @{ bool added = false;
                             int trainerid = 0;}
-                        @foreach (var training in Model.Training)
+                        @foreach (var training in Training)
                         {
                             if (item.Id == training.AssignResource_Id)
                             {
@@ -267,47 +268,59 @@
                 }
 
             </table>
-            <div id="dialog" style="display: none"></div>
+            @*<div id="dialog" style="display: none"></div>*@
         </div>
+        <div id="container" style="margin-left: 20px">
+            <p></p>
+            <p></p>
+            <div class="pagination" style="margin-left: 400px">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
 
-    }
-    else
-    {
-        <div class="card-body" style="color:red;"><b>No Record Found</b></div>
-    }
-</div>
-<script type="text/javascript">
-    function myPopupFun(id) {
-        $(".modal-body p").remove();
-        //$("#dialog").dialog({
-        //    autoOpen: false,
-        //    modal: true,
-        //    title: "View Details"
-        //});
-        //$("#myPopup-" + id).click(function () {
-            //   debugger;
-          //  var $buttonClicked = $(this);
-          //  var id = $buttonClicked.attr('data-id');
-            //  alert(id);
-            $.ajax({
-                type: "GET",
-                url: '/Trainer/Training/Empdetails',
-                contentType: "application/json; charset=utf-8",
-                data: { "assId": id },
-                datatype: "json",
-                success: function (result) {
-                    
-                    $.each(result, function (i, empname) {
-                        $(".modal-body").append("<p style='font-size:14px'>" + empname.Name + "</p>")
-                    });
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                }
-            });
-        //});
-    };
-</script>
+                of @Model.PageCount
+            </div>
+            <div class="pagination" style="margin-left: 0px;">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+                @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+            </div>
+            </div>
+            }
+            else
+            {
+            <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+            }
+       
+        <script type="text/javascript">
+            function myPopupFun(id) {
+                $(".modal-body p").remove();
+                //$("#dialog").dialog({
+                //    autoOpen: false,
+                //    modal: true,
+                //    title: "View Details"
+                //});
+                //$("#myPopup-" + id).click(function () {
+                //   debugger;
+                //  var $buttonClicked = $(this);
+                //  var id = $buttonClicked.attr('data-id');
+                //  alert(id);
+                $.ajax({
+                    type: "GET",
+                    url: '/Trainer/Training/Empdetails',
+                    contentType: "application/json; charset=utf-8",
+                    data: { "assId": id },
+                    datatype: "json",
+                    success: function (result) {
+
+                        $.each(result, function (i, empname) {
+                            $(".modal-body").append("<p style='font-size:14px'>" + empname.Name + "</p>")
+                        });
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+                //});
+            };
+        </script>

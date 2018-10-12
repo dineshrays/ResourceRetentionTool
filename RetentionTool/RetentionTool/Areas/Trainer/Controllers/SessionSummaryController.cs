@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RetentionTool.Models;
 using RetentionTool.ViewModel;
+using PagedList;
 
 namespace RetentionTool.Areas.Trainer.Controllers
 {
@@ -13,7 +14,7 @@ namespace RetentionTool.Areas.Trainer.Controllers
         RetentionToolEntities db = new RetentionToolEntities();
         FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: SessionSummary
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
 
             int td = int.Parse(Session["userid"].ToString());
@@ -31,12 +32,15 @@ namespace RetentionTool.Areas.Trainer.Controllers
                                                                Module_Id=assignres.Module_Id,
                                                                modulename=assignres.Module.ModuleName,
                                                                Project_Id=assignres.Project_Id,
-                                                               projectname=assignres.ProjectsDetail.Name
-                                         
-                                           
+                                                               projectname=assignres.ProjectsDetail.Name 
                                                            }).Distinct().ToList();
+            //ViewBag.ModuleList = assignreslist;
+            int pageSize = fetchdet.pageSize;
+            int pageIndex = fetchdet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResourceViewModel> modulepaged = null;
+            modulepaged = assignreslist.ToPagedList(pageIndex, pageSize);
 
-            ViewBag.ModuleList = assignreslist;
             List<SessionView> sessionview = (from assignres in assignreslist
                                              join training in db.Trainings
                                              on assignres.Id equals training.AssignResource_Id
@@ -63,8 +67,9 @@ namespace RetentionTool.Areas.Trainer.Controllers
                                              group sess by sess.moduleid into s
                                              select s.OrderByDescending(t => t.date).FirstOrDefault()
                                 ).ToList();
-            
-            return View(sessionlist);
+            ViewBag.sessionlist = sessionlist;
+
+            return View(modulepaged);
 
 
         }

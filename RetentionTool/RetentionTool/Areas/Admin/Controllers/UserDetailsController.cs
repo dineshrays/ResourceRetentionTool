@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RetentionTool.ViewModel;
 using RetentionTool.Models;
+using PagedList;
 
 namespace RetentionTool.Areas.Admin.Controllers
 {
@@ -13,12 +14,18 @@ namespace RetentionTool.Areas.Admin.Controllers
         RetentionToolEntities db = new RetentionToolEntities();
         FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: UserDetails
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             List<UserDetail> userdet = db.UserDetails.Where(a => a.IsActive == true).ToList();
-            UserDetailsViewModel uservm = new UserDetailsViewModel();
-            uservm.userDetailsvm = userdet;
-            return View(uservm);
+       //     UserDetailsViewModel uservm = new UserDetailsViewModel();
+       //     uservm.userDetailsvm = userdet;
+
+            int pageSize = fetchdet.pageSize;
+            int pageIndex = fetchdet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<UserDetail> pagedList = null;
+            pagedList = userdet.ToPagedList(pageIndex, pageSize);
+            return View(pagedList);
         }
         public ActionResult Create()
         {

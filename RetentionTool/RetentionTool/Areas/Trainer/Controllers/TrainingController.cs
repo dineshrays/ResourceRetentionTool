@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace RetentionTool.Areas.Trainer.Controllers
 {
@@ -18,7 +19,7 @@ namespace RetentionTool.Areas.Trainer.Controllers
             return View();
         }
         // GET: Training
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
 
             int trainerid = int.Parse(Session["userid"].ToString());
@@ -44,7 +45,14 @@ namespace RetentionTool.Areas.Trainer.Controllers
             TrainingViewModel trainingvm = new TrainingViewModel();
             trainingvm.Training = trainings;
 
-            return View(trainingvm);
+            ViewBag.Training = trainings;
+            int pageSize = fetchdet.pageSize;
+            int pageIndex = fetchdet.pageIndex;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<AssignResourceViewModel> modulepaged = null;
+            modulepaged = assgnvm.ToPagedList(pageIndex, pageSize);
+            return View(modulepaged);
+            //return View(trainingvm);
         }
         // [HttpPost]
         //public ActionResult EmpDetails(int assId)

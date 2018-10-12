@@ -1,4 +1,5 @@
-﻿@model RetentionTool.ViewModel.ProjectWorkedViewModel
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.ProjectsWorked>
 @{
     ViewBag.Title = "Project Team Members";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
@@ -7,9 +8,6 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/assets/js/vendor/jquery-2.1.4.min.js"></script>
 
-
-
-<div>
     @*<div class="card-header">
             <h2>Project Team Members</h2>
 
@@ -38,7 +36,7 @@
     <div class="card-body">
         @Html.ActionLink("Create New", "Create", "ProjectWorked", null, new { @class = "btn btn-outline-primary" })
     </div>
-    @if (Model.projectvm.Count > 0)
+    @if (Model.Count > 0)
     {
         <div class="container" style="width:100%;margin-top:2%">
             <table class="table table-striped">
@@ -48,12 +46,12 @@
                     <th>@Html.DisplayName("Project Name")</th>
                     @*<th>@Html.DisplayNameFor(model => model.projects.Designation)</th>
                         <th>@Html.DisplayNameFor(model => model.projects.Responsibilities)</th>*@
-                    <th>@Html.DisplayNameFor(model => model.projects.StartDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.projects.EndDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
+                    <th>@Html.DisplayName("StartDate")</th>
+                    <th>@Html.DisplayName("EndDate")</th>
+                    <th>@Html.DisplayName("TeamMembers")</th>
                     <th>@Html.DisplayName("Employee List")</th>
                     <th>@Html.DisplayName("Manager Name")</th>
-                    <th>@Html.DisplayNameFor(model => model.projects.Description)</th>
+                    <th>@Html.DisplayName("Description")</th>
                     @*<th>@Html.DisplayNameFor(model => model.projects.TeamMembers)</th>
                         <th>@Html.DisplayNameFor(model => model.projects.Manager_Id)</th>*@
 
@@ -61,7 +59,7 @@
 
                     <th>@Html.Label("Actions")</th>
                 </tr>
-                @foreach (var item in Model.projectvm)
+                @foreach (var item in Model)
                 {
                     <tr>
                         @*<td>@item.PersonalInfo1.Name</td>
@@ -166,12 +164,24 @@
                 }
 
             </table>
+        </div>
+        <div id="container" style="margin-left: 20px">
+            <p></p>
+            <p></p>
+            <div class="pagination" style="margin-left: 400px">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
 
+                of @Model.PageCount
+            </div>
+            <div class="pagination" style="margin-left: 0px;">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+                @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+            </div>
 
         </div>
     }
 
-</div>
+
 @*<style>
         /* Popup container - can be anything you want */
         .popup {

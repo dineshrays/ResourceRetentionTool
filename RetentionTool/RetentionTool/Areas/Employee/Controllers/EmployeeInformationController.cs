@@ -6,14 +6,16 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace RetentionTool.Areas.Employee.Controllers
 {
     public class EmployeeInformationController : Controller
     {
         RetentionToolEntities db = new RetentionToolEntities();
+        FetchDefaultIds fetchdet = new FetchDefaultIds();
         // GET: EmployeeInformation
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             int td = int.Parse(Session["userid"].ToString());
 
@@ -27,8 +29,15 @@ namespace RetentionTool.Areas.Employee.Controllers
                                                               Image= a.Image
                                                              // "UserImages/logo2.png"
                                                           }).OrderByDescending(a => a.Id).ToList();
-            ViewBag.details = details;
-            return View();
+           // ViewBag.details = details;
+           // return View();
+            int pageIndex = fetchdet.pageIndex;
+
+            int pageSize = fetchdet.pageSize;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<PersonalInfoModel> modulepaged = null;
+            modulepaged = details.ToPagedList(pageIndex, pageSize);
+            return View(modulepaged);
         }
 
         [HttpPost]

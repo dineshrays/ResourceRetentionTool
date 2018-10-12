@@ -1,4 +1,5 @@
-﻿
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.AssignResourceViewModel>
 @{
     ViewBag.Title = "Promote Employee";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
@@ -19,7 +20,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right" style="background-color:white">
                     <li><a href="@Url.Action("Index", "ManagerHome")">Dashboard </a></li>
-                    <li><a href="@Url.Action("Index", "PromoteEmployee")">Promote Employee /</a></li>
+                    <li><a href="@Url.Action("Index", "PromoteEmployee")">Promote Employee </a></li>
                     <li class="active"> Index </li>
                 </ol>
             </div>
@@ -27,13 +28,13 @@
     </div>
 </div>
 
-<div class="card">
+
     @*<div class="card-header">
-        <h2>Promote Employee</h2>
-    </div>*@
+            <h2>Promote Employee</h2>
+        </div>*@
     <br />
     <div class="container">
-        @if (details != null && details.Count>0)
+        @if (details != null && details.Count > 0)
         {<table class="table table-striped">
                 <tr>
                     <th style="display:none">@Html.DisplayName("Assign Resource Id")</th>
@@ -79,7 +80,7 @@
                                                 @*<p>
                                                 My Popup
                                                                                 </p>*@
-                                                <table >
+                                                <table>
                                                     <tr>
                                                         <th>Topics</th>
                                                         <th>Remarks</th>
@@ -99,7 +100,7 @@
                             @*<a href="javascript:;" class="anchorDetail" id="myPopup-@item.Id" data-id="@item.Id" onclick="myPopupFun(@item.Id)">List Employee</a>*@
                         </td>
                         <td>In Process</td>
-                        <td> @Html.ActionLink("Promote", "Promote", new { id = item.Id, empid = item.Employee_Id },new { @class="btn btn-success"})</td>
+                        <td> @Html.ActionLink("Promote", "Promote", new { id = item.Id, empid = item.Employee_Id }, new { @class = "btn btn-success" })</td>
                         @*@{DateTime? fromdate = null;
                             DateTime? todate = null;
                         }
@@ -136,7 +137,21 @@
                 }
 
             </table>
-            <div id="dialog" style="display: none"></div>
+            <div id="container" style="margin-left: 20px">
+                <p></p>
+                <p></p>
+                <div class="pagination" style="margin-left: 400px">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+
+                    of @Model.PageCount
+                </div>
+                <div class="pagination" style="margin-left: 0px;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+                    @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+                </div>
+
+            </div>
+            @*<div id="dialog" style="display: none"></div>*@
 
         }
         else
@@ -145,9 +160,9 @@
         }
 
     </div>
-</div>
+
 <script type="text/javascript">
-    function myPopupFun(id,empid) {
+    function myPopupFun(id, empid) {
         $(".modal-body table tr:not(:first)").remove();
         //$("#dialog").dialog({
         //    autoOpen: false,
@@ -168,8 +183,8 @@
             success: function (result) {
 
                 $.each(result, function (i, empname) {
-                    $(".modal-body table").append("<tr><td>" + empname.Topics + "</td><td>" + empname.Remark+"</td></tr>")
-                        //("<p style='font-size:14px'>" + empname.Topics + " and " + empname.Remark + "</p>")
+                    $(".modal-body table").append("<tr><td>" + empname.Topics + "</td><td>" + empname.Remark + "</td></tr>")
+                    //("<p style='font-size:14px'>" + empname.Topics + " and " + empname.Remark + "</p>")
                 });
             },
             failure: function (response) {

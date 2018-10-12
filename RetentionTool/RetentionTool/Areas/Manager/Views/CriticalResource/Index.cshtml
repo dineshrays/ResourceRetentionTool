@@ -1,10 +1,15 @@
-﻿@model RetentionTool.ViewModel.CriticalResourceViewModel
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<RetentionTool.Models.ProjectsDetail>
+
 @{
     ViewBag.Title = "Critical Resource";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
     var prjctDetails = ViewBag.prjctDetails;
     var criticalDetails = ViewBag.CriticalResPrjct;
 }
+<link href="~/Scripts/PagesdList.css" rel="stylesheet" />
+
 <div class="breadcrumbs">
     <div class="col-sm-6">
         <div class="page-header float-left">
@@ -26,73 +31,80 @@
     </div>
 </div>
 
-<div class="card">
-    @*<div class="card-header">
-        <h2>Projects List</h2>
-    </div>*@
-    @*<div class="card-body">
-            @Html.ActionLink("Create New", "Create", "CriticalResource", null, new { @class = "btn btn-outline-primary" })
-        </div>*@
-    @if (prjctDetails.Count > 0)
-    {
 
+@if (prjctDetails.Count > 0)
+{
+    <div class="container" style="width:100%;margin-top:2%">
+        <table class="table table-striped">
+            <tr>
+                @*<th>@Html.Label("Project Id")</th>*@
+                <th>@Html.Label("Project Name")</th>
+                <th>@Html.Label("Critical Resource")</th>
+                <th>@Html.Label("Actions")</th>
 
-        <div class="container" style="width:100%;margin-top:2%">
-            <table class="table table-striped">
+            </tr>
+            @foreach (var item in prjctDetails)
+            {
                 <tr>
-                    @*<th>@Html.Label("Project Id")</th>*@
-                    <th>@Html.Label("Project Name")</th>
-                    <th>@Html.Label("Critical Resource")</th>
-                    <th>@Html.Label("Actions")</th>
+                    @{ string criticalname = "";
+                        int criticalid = 0;}
 
-                </tr>
-                @foreach (var item in prjctDetails)
-                {
-                    <tr>
-                        @{ string criticalname = "";
-                            int criticalid = 0;}
+                    <td>@item.Name</td>
 
-                        <td>@item.Name</td>
-
-                        @{ bool IsCritical = false;}
-                        @foreach (var critiprjctid in criticalDetails)
+                    @{ bool IsCritical = false;}
+                    @foreach (var critiprjctid in criticalDetails)
+                    {
+                        if (critiprjctid.Project_Id == @item.Id)
                         {
-                            if (critiprjctid.Project_Id == @item.Id)
-                            {
-                                IsCritical = true;
-                                criticalname = critiprjctid.PersonalInfo.Name;
-                                criticalid = critiprjctid.Id;
-                            }
+                            IsCritical = true;
+                            criticalname = critiprjctid.PersonalInfo.Name;
+                            criticalid = critiprjctid.Id;
+                        }
+
+                    }
+                    <td>@criticalname</td>
+                    <td>
+                        @if (IsCritical == true)
+                        {
+
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
+                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
 
                         }
-                        <td>@criticalname</td>
-                        <td>
-                            @if (IsCritical == true)
-                            {
-
-                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
-                                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })
-
-                            }
-                            else
-                            {
-                                <a href='@Url.Action("Create", "CriticalResource", new { id = @item.Id })'>Add Details</a>
-                            }
+                        else
+                        {
+                            <a href='@Url.Action("Create", "CriticalResource", new { id = @item.Id })'>Add Details</a>
+                        }
 
 
 
 
-                        </td>
+                    </td>
 
-                    </tr>
-                }
+                </tr>
+            }
 
-            </table>
+        </table>
 
-        </div>
-    }
-    else
-    {
-        <div class="card-body" style="color:red;"><b>No Record Found</b></div>
-    }
     </div>
+
+    <div id="container" style="margin-left: 20px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+
+            of @Model.PageCount
+        </div>
+        <div class="pagination" style="margin-left: 0px;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false })
+            @*//PagedListRenderOptions.OnlyShowFivePagesAtATime })*@
+        </div>
+
+    </div>
+
+}
+else
+{
+    <div class="card-body" style="color:red;"><b>No Record Found</b></div>
+}
