@@ -29,8 +29,8 @@ namespace RetentionTool.Areas.Employee.Controllers
                                                               Image= a.Image
                                                              // "UserImages/logo2.png"
                                                           }).OrderByDescending(a => a.Id).ToList();
-           // ViewBag.details = details;
-           // return View();
+            //ViewBag.details = details;
+            //return View();
             int pageIndex = fetchdet.pageIndex;
 
             int pageSize = fetchdet.pageSize;

@@ -5,7 +5,7 @@
     ViewBag.Title = "Employees";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutMain.cshtml";
     //Layout = "~/Views/Shared/_LayoutMain.cshtml";
-    var details = ViewBag.details;
+   // var details = ViewBag.details;
 }
 
 <div class="card">
@@ -39,7 +39,7 @@
                 <th width="30%">@Html.Label("Image")</th>
                 <th>@Html.Label("Actions")</th>
             </tr>
-            @foreach (var item in details)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.Name</td>
