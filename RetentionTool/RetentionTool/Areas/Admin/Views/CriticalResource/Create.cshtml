@@ -129,6 +129,8 @@
 
             function() {
                 if ($('input.chck').is(':checked')) {
+                    //$('.chcktrainer').prop("checked", true)
+                   
                 $('#accountinfo').show();
             } else {
                 $('#accountinfo').hide();
@@ -139,6 +141,10 @@
   
     function Delete_Row(id) {
         $('#' + id).remove();
+        var rows = $('#table-accountability tr').length;
+        if (rows == 1) {
+            $("#tbldiv").hide();
+        }
     }
     var count = 0;
     $(".add-accountability").click(function () {
@@ -183,8 +189,12 @@
     }
       $("#btnSave").click(function () {
           var cri;
+        //  cri.PersonalInfo_Id = 0;
+
          // var itemlist = [];
           var trainerlist;
+          var trainerchecked = 0;
+        //  trainerlist.PersonalInfo_Id = 0;
               //= [];
           var projectId = $("#projectId").val();
           $("table tr:not(:first)").each(function () {
@@ -194,7 +204,7 @@
                           //itemlist.push(Item);
               }
               if ($(this).find('input.chcktrainer').is(':checked')) {
-
+                  trainerchecked = 1;
                   var tdlist = $(this).find("td");
                   trainerlist = { PersonalInfo_Id: $(tdlist[3]).html() };
                   //trainerlist.push(Item);
@@ -214,7 +224,7 @@
           })
 
 
-          if (accinfo.length > 0 && trainerlist.PersonalInfo_Id > 0 && cri.PersonalInfo_Id > 0 && projectId > 0) {
+          if (accinfo.length > 0 && trainerchecked > 0 && cri.PersonalInfo_Id > 0 && projectId > 0) {
               var newUrl = '@Url.Action("Index", "CriticalResource")';
               $("#btnSave").attr('disabled', true);
                 $.ajax({

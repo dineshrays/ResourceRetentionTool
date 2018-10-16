@@ -115,7 +115,7 @@
                     var idvalue = count;
                         //Topics + HoursRequired;
                    
-                    var markup = "<tr id=" + idvalue + "><td style='display:none'><input type='checkbox' name='record'></td><td>" + Topics + "</td><td>" + HoursRequired + "</td><td><input type='submit' value='Delete' onclick=delete_Row(" + idvalue + ")></td></tr>";
+                    var markup = "<tr id=" + idvalue + "><td style='display:none'><input type='checkbox' name='record'></td><td>" + Topics + "</td><td>" + HoursRequired + "</td><td><input type='submit' value='Delete' class='btn btn-danger' onclick=delete_Row(" + idvalue + ")></td></tr>";
                     $("table").append(markup);
                     $("#Topics").val('');
                     $("#HoursRequired").val('');
@@ -138,8 +138,13 @@
         });
 
         function delete_Row(idval) {
-          
+           
             $("#" + idval).remove();
+            var rows = $('#tblDisp tr').length;
+            if (rows == 1) {
+                $("#tblDiv").hide();
+            }
+            
         }
     </script>
 
@@ -152,7 +157,7 @@
 
     </form>
     <div id="tblDiv" style="display:none" >
-        <table style="width:100%" class="table table-striped">
+        <table style="width:100%" class="table table-striped" id="tblDisp" >
            
                 <tr>
                     <th style="display:none">Select</th>

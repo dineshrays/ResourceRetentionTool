@@ -330,39 +330,49 @@
 
         if (projectid.length > 0 && startdate.length > 0 && enddate.length > 0 && description.length > 0 && managerid.length > 0
             && teammember.length > 0 && itemlist.length > 0) {
-            $("#btnSave").attr('disabled', true);
-            var newUrl = '@Url.Action("Index", "ProjectWorked")';
+            if (itemlist.length == teammember) {
 
-            //var mod = {
-            //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
-            //    , EndDate: enddate,Description: description,Designation: designation
-            //     //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
-            // };
-            // alert(mod);
-            $.ajax({
-                url: '@Url.Action("Edit", "ProjectWorked")', //
-                dataType: "json",
-                data: JSON.stringify({ prjctwrkvm: itemlist, id: projectid }),
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                success: function (result) {
-                    //alert("success");
-                    //$("#date").val('');
-                    //$("#managerid").val('');
-                    //$("#moduleid").val('');
-                    //$("#trainerid").val('');
-                    //$("table tbody").empty();
-                    window.location.href = newUrl;
-                },
-                error: function (xhr) {
-                    alert("error");
-                }
-            });
+                $("#btnSave").attr('disabled', true);
+                var newUrl = '@Url.Action("Index", "ProjectWorked")';
+
+                //var mod = {
+                //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
+                //    , EndDate: enddate,Description: description,Designation: designation
+                //     //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
+                // };
+                // alert(mod);
+                $.ajax({
+                    url: '@Url.Action("Edit", "ProjectWorked")', //
+                    dataType: "json",
+                    data: JSON.stringify({ prjctwrkvm: itemlist, id: projectid }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        //alert("success");
+                        //$("#date").val('');
+                        //$("#managerid").val('');
+                        //$("#moduleid").val('');
+                        //$("#trainerid").val('');
+                        //$("table tbody").empty();
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+            }
+            else {
+                alert('Team Member Mismatch')
+            }
         }
             });
     function delete_Row(empid) {
 
         $("#" + empid).remove();
+        var rows = $('table tr').length;
+        if (rows == 1) {
+            $("#tblDiv").hide();
+        }
     }
 
     $(".add-emp").click(function () {
@@ -373,7 +383,7 @@
         var designation = $("#designation").val();
         var responsibilty = $("#responsibilty").val();
         var teamcount = $('#teammember').val();
-        var rowCount = $('#myTable tr').length;
+        var rowCount = $('table tr').length;
         if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0 && teamcount.length > 0) {
             if (rowCount <= teamcount) {
                 $("#tblDiv").show();
