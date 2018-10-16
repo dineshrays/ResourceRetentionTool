@@ -432,7 +432,7 @@
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
                 $.ajax({
-                    url: "/AssignResource/getEmployee",
+                    url: "/Manager/AssignResource/getEmployee",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -468,7 +468,7 @@
                 var param = { name: $('#searchproject').val() };
 
                 $.ajax({
-                    url: "/AssignResource/getProjects",
+                    url: "/Manager/AssignResource/getProjects",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -494,7 +494,7 @@
                 $("#searchprojectid").val(ui.item.id);
                 var param = { id: ui.item.id };
                 $.ajax({
-                    url: "/AssignResource/getProjectInfo",
+                    url: "/Manager/AssignResource/getProjectInfo",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -521,7 +521,7 @@
             var selected = $('#moduleid').val();
             $.ajax(
                 {
-                    url: '/AssignResource/getEmployeeDetails',
+                    url: '/Manager/AssignResource/getEmployeeDetails',
                     type: 'POST',
                     datatype: 'application/json',
                     contentType: 'application/json',
@@ -529,20 +529,10 @@
                     success: function (result) {
                         $("table tr:not(:first)").remove();
                         $.each(result, function (i, Skill) {
-                            //                            $("table tr:not(:first)").each(function () {
-
-                            //                                    var tdlist = $(this).find("td");
-                            ////var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
-                            //                                    // itemlist.push(Item);
-                            //                                if ($(tdlist[2].html().eq(Skill.Id))) {
-                            //                                }
-                            //                                else {
-                            var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
+                            var markup = "<tr id =" + Skill.Id + "><td style='display: none'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick=delete_Row(" + Skill.Id + ")></td></tr>";
+                           // var markup = "<tr ><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
                             $("table tbody").append(markup);
-                            //}
-                            //})
-
-                            // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
+                           
                         });
                     },
                     error: function () { alert("Something Gone Wrong") },
