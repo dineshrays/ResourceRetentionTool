@@ -27,54 +27,62 @@
 
 <div class="card-body">
     @*@using (Html.BeginForm())
-    {*@
-        @*@Html.AntiForgeryToken()*@
-        <div>
-            @Html.LabelFor(model => model.CommonFieldName)
+        {*@
+    @*@Html.AntiForgeryToken()*@
+    <div class="row form-group">
+        <div class="col col-md-3">
+            @Html.LabelFor(model => model.CommonFieldName, new { @class = "form-control-label" })
+        </div>
+        <div class="col-12 col-md-9">
             @Html.DropDownListFor(model => model.selectedCommmonField, ViewData["CommField"] as SelectList, "Select", htmlAttributes: new { @class = "form-control", style = "width:30%", @id = "commfield" })
             @Html.ValidationMessageFor(model => model.selectedCommmonField, "Required", new { @class = "text-danger", @id = "errcommfield" })
 
         </div>
-        <br />
-        <div>
+        </div>
 
-            @Html.LabelFor(model => model.SkillName)
-            @Html.TextBoxFor(model => model.SkillName, htmlAttributes: new { @class = "form-control", style = "width:30%", @id = "skill" })
-            @Html.ValidationMessageFor(model => model.SkillName, "Required", new { @class = "text-danger", @id = "errskill" })
-
-        </div><br />
-        @*@Html.CheckBox("IsActive", false)
-            @Html.LabelFor(model => model.IsActive)*@
-        <br />
         <div class="row form-group">
             <div class="col col-md-3">
 
-
+                @Html.LabelFor(model => model.SkillName, new { @class = "form-control-label" })
             </div>
             <div class="col-12 col-md-9">
-                <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Index", "Skills", null, new { @class = "btn btn-outline-link" })
+                @Html.TextBoxFor(model => model.SkillName, htmlAttributes: new { @class = "form-control", style = "width:30%", @id = "skill" })
+                @Html.ValidationMessageFor(model => model.SkillName, "Required", new { @class = "text-danger", @id = "errskill" })
 
             </div>
+            </div>
+            @*@Html.CheckBox("IsActive", false)
+        @Html.LabelFor(model => model.IsActive)*@
+           
+            <div class="row form-group">
+                <div class="col col-md-3">
+
+
+                </div>
+                <div class="col-12 col-md-9">
+                    <input type="submit" value="Create" id="btnSave" class="btn btn-success" />
+                    @Html.ActionLink("Back to List", "Index", "Skills", null, new { @class = "btn btn-outline-link" })
+
+                </div>
+
+            </div>
+            @*<div>
+            <input type="submit" value="Create" class="btn btn-success" />
+            @Html.ActionLink("Back to List", "Index", "Skills", null, new { @class = "btn btn-outline-link" })
+
+        </div>*@
+
+            @*}*@
+
 
         </div>
-        @*<div>
-                <input type="submit" value="Create" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Index", "Skills", null, new { @class = "btn btn-outline-link" })
 
-            </div>*@
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
-    @*}*@
-
-
-</div>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-
-@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
-<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
+        @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
+        <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
     $("#btnSave").click(function () {
         var commfieldid = $("#commfield").val();
         var skillname = $("#skill").val();
@@ -148,7 +156,7 @@
         }
     });
 
-</script>
+        </script>
 
 
 

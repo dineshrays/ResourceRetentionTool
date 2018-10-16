@@ -38,7 +38,9 @@
                 @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
+                @Html.DisplayFor(model=>model.projectname)
+                @Html.HiddenFor(model=>model.projects.Project_Id,new {  @id = "projectid" })
+              @*@Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })*@
                 @Html.ValidationMessageFor(model => model.projects.Project_Id, "Required", new { @class = "text-danger", @id = "errorprjctid" })
 
             </div>

@@ -31,45 +31,45 @@
 
  
        
-        <div class="card-body">
+<div class="card-body">
 
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-            
-                <div class="row form-group">
+        
+        <div class="row form-group">
 
-                    <div class="col col-md-3">
-                        @Html.LabelFor(model => model.Name)
+            <div class="col col-md-3">
+                @Html.LabelFor(model => model.Name, new { @class = "form-control-label" })
 
-                    </div>
-                    <div class="col-12 col-md-9">
-                       
-                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%", @id = "commonfieldname" })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
+            </div>
+            <div class="col-12 col-md-9">
 
-                    </div>
-                    </div>
-                  
-                    <div class="row form-group">
-                        <div class="col col-md-3">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%", @id = "commonfieldname" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
 
-
-                        </div>
-                        <div class="col-12 col-md-9">
-                            <input type="submit" value="Create" class="btn btn-success" />
-                            @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
-
-                        </div>
-
-                    </div>
-
-
-
-                
-            }
+            </div>
         </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">
+
+
+            </div>
+            <div class="col-12 col-md-9">
+                <input type="submit" value="Create" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "CommonField", null, new { @class = "btn btn-outline-link" })
+
+            </div>
+
+        </div>
+
+
+
+
+    }
+</div>
    
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
