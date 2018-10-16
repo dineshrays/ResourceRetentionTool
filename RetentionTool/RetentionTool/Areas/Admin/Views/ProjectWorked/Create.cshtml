@@ -338,14 +338,17 @@
 
         if (projectid.length > 0 && startdate.length > 0 && enddate.length > 0 && description.length > 0 && managerid.length > 0
             && teammember.length > 0 && itemlist.length > 0) {
-            var newUrl = '@Url.Action("Index", "ProjectWorked")';
-            $("#btnSave").attr('disabled', true);
-        //var mod = {
-        //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
-        //    , EndDate: enddate,Description: description,Designation: designation
-        //     //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
-        // };
-               // alert(mod);
+            if (itemlist.length == teammember) {
+
+
+                var newUrl = '@Url.Action("Index", "ProjectWorked")';
+                $("#btnSave").attr('disabled', true);
+                //var mod = {
+                //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
+                //    , EndDate: enddate,Description: description,Designation: designation
+                //     //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
+                // };
+                // alert(mod);
                 $.ajax({
                     url: '@Url.Action("Create", "ProjectWorked")', //
                     dataType: "json",
@@ -365,11 +368,11 @@
                         alert("error");
                     }
                 });
+            }
+            else {
+                alert('Team Member Mismatch')
+            }
         }
-        //else {
-        //    alert('Please Enter all the details')
-        //}
-
 
 
 
@@ -390,7 +393,7 @@
                 var markup = "<tr id=" + empid + "><td style='display:none; width:0%'><input type='checkbox'  name='chck'></td><td>" + empcode + "</td><td>" +
                     empname + "</td><td style='display: none'>" + empid + "</td><td>" +
                     designation + "</td><td>" +
-                    responsibilty + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+                    responsibilty + "</td><td><input type='submit'  value='Delete' class='btn btn-danger' onclick=delete_Row(" + empid + ")></td></tr>";
                 $("table tbody").append(markup);
                 $("#searchemp").val('');
                 $("#searchid").val('');
@@ -424,7 +427,11 @@
 
     function delete_Row(empid) {
 
-    $("#" + empid).remove();
+        $("#" + empid).remove();
+        var rows = $('table tr').length;
+        if (rows == 1) {
+            $("#tblDiv").hide();
+        }
     }
 
 </script>

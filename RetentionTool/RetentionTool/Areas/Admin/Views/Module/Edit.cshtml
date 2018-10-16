@@ -221,6 +221,10 @@
             function delete_Row(idval) {
 
                 $("#" + idval).remove();
+                var rows = $('table tr').length;
+                if (rows == 1) {
+                    $("#tblDiv").hide();
+                }
             }
             $(document).ready(function () {
                 var count1 = @mDetails.Count;
@@ -272,14 +276,17 @@
         <br />
         @Html.ValidationMessageFor(model => model.module.Date, "Required", new { @class = "text-danger", @id = "errtpc" })
     </form>
-    <table class="table table-striped" style="width:100%">
+    <div id="tblDiv">
+
+
+        <table class="table table-striped" style="width:100%">
             <tr>
                 <th style="display:none">Select</th>
                 <th>Topics</th>
                 <th>HoursRequired</th>
                 <th>Actionss</th>
             </tr>
-       
+
             @foreach (var i1 in mDetails)
             {
                 count = count + 1;
@@ -290,7 +297,8 @@
                     <td><input type="submit" class="btn btn-danger" value="Delete" onclick="delete_Row(@count)"></td>
                 </tr>
             }
-    </table>
+        </table>
+    </div>
     @*<button type="button" class="delete-row">Delete Row</button>
         <br />*@
 
