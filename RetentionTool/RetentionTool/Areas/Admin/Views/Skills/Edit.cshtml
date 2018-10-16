@@ -26,36 +26,132 @@
 </div>
 
 <div class="card-body">
-    @using (Html.BeginForm())
-    {
-        @Html.LabelFor(model => model.CommonFieldName)
-        @Html.DropDownListFor(model => model.selectedCommmonField, ViewData["CommField"] as SelectList, htmlAttributes: new { @class = "form-control", style = "width:30%" })
-        <br />
+    @*@using (Html.BeginForm())
+        {*@
+    <div class="row form-group">
 
-        @Html.LabelFor(model => model.SkillName)
-        @Html.TextBoxFor(model => model.SkillName, htmlAttributes: new { @class = "form-control", style = "width:30%" })
-        <br />
-        @*@Html.CheckBox("IsActive")
-            @Html.LabelFor(model => model.IsActive)
-            <br />*@
-        <div class="row form-group">
-            <div class="col col-md-3">
+        <div class="col col-md-3">
+            @Html.LabelFor(model => model.CommonFieldName, new { @class = "form-control-label" })
+        </div>
 
-
-            </div>
-            <div class="col-12 col-md-9">
-                <input type="submit" value="Save" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Index", "Skills", null, new { @class = "btn btn-outline-link" })
-            </div>
+        <div class="col-12 col-md-9">
+            @Html.HiddenFor(model=>model.id,new { @id="skillid"})
+            @Html.DropDownListFor(model => model.selectedCommmonField, ViewData["CommField"] as SelectList, htmlAttributes: new { @class = "form-control", style = "width:30%", @id = "commonfieldname" })
+            @Html.ValidationMessageFor(model => model.selectedCommmonField, "Required", new { @class = "text-danger", @id = "errcommfield" })
 
         </div>
-        @*<input type="submit" value="Save" class="btn btn-success" />
+    </div>
+    <div class="row form-group">
+        <div class="col col-md-3">
+            @Html.LabelFor(model => model.SkillName, new { @class = "form-control-label" })
+        </div>
+        <div class="col-12 col-md-9">
+            @Html.TextBoxFor(model => model.SkillName, htmlAttributes: new { @class = "form-control", style = "width:30%", @id = "skill" })
+            @Html.ValidationMessageFor(model => model.SkillName, "Required", new { @class = "text-danger", @id = "errskill" })
+
+        </div>
+    </div>
+    @*@Html.CheckBox("IsActive")
+        @Html.LabelFor(model => model.IsActive)
+        <br />*@
+    <div class="row form-group">
+        <div class="col col-md-3">
+
+
+        </div>
+        <div class="col-12 col-md-9">
+            <input type="submit" value="Save" class="btn btn-success" id="btnSave"/>
+            @Html.ActionLink("Back to List", "Index", "Skills", null, new { @class = "btn btn-outline-link" })
+        </div>
+
+    </div>
+    @*<input type="submit" value="Save" class="btn btn-success" />
         @Html.ActionLink("Back to List", "Index", "Skills", null, new { @class = "btn btn-outline-link" })*@
 
-    }
+    @*}*@
 
 </div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>*@
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $("#btnSave").click(function () {
+        var commfieldid = $("#commonfieldname").val();
+        var skillname = $("#skill").val();
+        var id = $("#skillid").val();
+        var module = { SkillName: skillname, selectedCommmonField: commfieldid, id: id };
+        validate();
+        if (commfieldid > 0 && skillname.length > 0) {
+              var newUrl = '@Url.Action("Index", "Skills")';
+              $("#btnSave").attr('disabled', true);
+                $.ajax({
+                    url: '@Url.Action("Edit", "Skills")', //
+                    dataType: "json",
+                    data: JSON.stringify({ svm: module }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        window.location.href = newUrl;
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+        });
+          }
+          else {
+            //  alert('Please fill all the details')
+          }
+
+    });
+    $(document).ready(function () {
+        $("#errcommfield").hide();
+        $("#errskill").hide();
+        //commfield,errcommfield , skill, errskill
+    });
+    function validate() {
+        //if ($("#commfield").val() > 0) {
+        //    $("#errcommfield").hide();
+        //}
+        //else {
+
+        //    $("#errcommfield").show();
+        //}
+        if ($("#skill").val().length > 0) {
+            $("#errskill").hide();
+        }
+        else {
+
+            $("#errskill").show();
+        }
+    }
+    $("#skill").keydown(function () {
+        if (event.which === 8) {
+            if ($("#skill").val().length > 0) {
+                $("#errskill").hide();
+            }
+            else if ($("#skill").val() === "" || $("#skill").val().length === 0) {
+
+                $("#errskill").show();
+            }
+        }
+        else if ($("#skill").val() == "") {
+            $("#errskill").hide();
+        }
+    });
+    //commfield,errcommfield  skill,errskill
+    //$("#commfield").change(function () {
+    //    if ($("#commfield").val() > 0) {
+    //        $("#errcommfield").hide();
+    //    }
+    //    else {
+
+    //        $("#errcommfield").show();
+    //    }
+    //});
+
+</script>
 
 
 

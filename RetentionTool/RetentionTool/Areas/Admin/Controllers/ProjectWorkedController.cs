@@ -93,6 +93,8 @@ namespace RetentionTool.Areas.Admin.Controllers
             ProjectWorkViewModel prjwrkvm = new ProjectWorkViewModel();
             prjwrkvm.projectvm = prjctwrk;
             prjwrkvm.projects = prjctwrok;
+            ProjectsDetail projectdet = db.ProjectsDetails.Find(id);
+            prjwrkvm.projectname = projectdet.Name;
             getManagers();
             getProjectList();
             return View(prjwrkvm);

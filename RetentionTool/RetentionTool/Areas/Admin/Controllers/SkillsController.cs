@@ -23,7 +23,7 @@ namespace RetentionTool.Areas.Admin.Controllers
             List<SkillsViewModel> SkillsvmList = skillList.Select(X => new SkillsViewModel
             {
                 id = X.id, 
-                CommonFieldName = db.Commonfields.Where(p => p.id == X.CommonField_Id).SingleOrDefault()?.Name,
+                CommonFieldName = db.Commonfields.Where(p => p.id == X.CommonField_Id && p.IsActive==true).SingleOrDefault()?.Name,
                 SkillName = X.Name
                 
             }).ToList();
@@ -38,7 +38,7 @@ namespace RetentionTool.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            var val = new SelectList(db.Commonfields.ToList(), "id", "Name");
+            var val = new SelectList(db.Commonfields.Where(a=>a.IsActive==true).ToList(), "id", "Name");
             ViewData["CommField"] = val;
             return View();
         }
@@ -53,7 +53,7 @@ namespace RetentionTool.Areas.Admin.Controllers
                selectedCommmonField=s.CommonField_Id,
                IsActive=s.IsActive
             };
-            var val = new SelectList(db.Commonfields.ToList(), "id", "Name");
+            var val = new SelectList(db.Commonfields.Where(a=>a.IsActive==true).ToList(), "id", "Name");
             ViewData["CommField"] = val;
             return View(svm);
         }
@@ -96,7 +96,7 @@ namespace RetentionTool.Areas.Admin.Controllers
             {
                 db.Entry(s).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json("", JsonRequestBehavior.AllowGet);
             }
 
             return View(svm);
