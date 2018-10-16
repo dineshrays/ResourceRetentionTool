@@ -29,11 +29,7 @@
         </div>
     </div>
 </div>
-<div class="card">
-    @*<div class="card-header">
-        <h2>Edit Team Members</h2>
 
-    </div>*@
     <div class="card-body card-block">
         <div class="row form-group">
             <div class="col-md-3">
@@ -129,7 +125,7 @@
                     <td>@i.Designation</td>
                     <td>@i.Responsibilities</td>
                     <td style="display:none">@i.Id</td>
-                    <td><input type='submit' value='Delete' class="btn btn-danger" onclick='delete_Row(" + @i.Id + ")'></td>
+                    <td><input type='submit' value='Delete' class="btn btn-danger" onclick='delete_Row(@i.Id)'></td>
                 </tr>
                 }
 
@@ -151,7 +147,6 @@
         </div>
 
     </div>
-</div>
 
 <script>
     $(document).ready(function () {

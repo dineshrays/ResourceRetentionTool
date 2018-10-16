@@ -34,11 +34,7 @@
         </div>
     </div>
 </div>
-<div class="card">
-    @*<div class="card-header">
-            <h2>Edit Critical Resource</h2>
 
-        </div>*@
     <div class="card-body card-block">
         <div class="row form-group">
             <div class="col-md-3">
@@ -142,11 +138,12 @@
                     @foreach (var i in criticalacc)
                     {
                         count = count + 1;
-                        <tr id="@count">
-                            <td>@i.Name</td>
-                            <td>@i.Value</td>
-                            <td> <input type='submit' class='btn btn-danger' value='Delete' onclick="delete_Row(' @count')"></td>
-                        </tr>
+                    <tr id="@count">
+                        <td style="display:none"><input type="checkbox" name="chck" /></td>
+                        <td>@i.Name</td>
+                        <td>@i.Value</td>
+                        <td> <input type='submit' class='btn btn-danger' value='Delete' onclick="delete_Row('@count')"></td>
+                    </tr>
                     }
 
                 </table>
@@ -173,13 +170,13 @@
         </div>
 
     </div>
-</div>
+
 <script>
 
 
-    function delete_Row(empid) {
-        $("#" + empid).remove();
-    }
+    //function delete_Row(empid) {
+    //    $("#" + empid).remove();
+    //}
 
     function showcheckbox() {
         //$('#tbl input[type="checkbox"]').click(function () {
@@ -194,18 +191,20 @@
     }
 
     $(".add-accountability").click(function () {
-        var count1 = @criticalacc.Count;++;
+        var count1 = @criticalacc.Count;
         var reporting = $("#reporting").val();
         var Information = $("#Information").val();
-        count1 = count1 + 1;
-        var idval = count1;
-        var Company = "<tr id=" + idval + "><td>" +
-            reporting + "</td><td>" +
-            Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick=delete_Row(" + idval + ")></td></tr>";
+        if (reporting.length > 0 && Information.length > 0) {
+            count1 = count1 + 1;
+            var idval = count1;
+            var Company = "<tr id=" + idval + "><td>" +
+                reporting + "</td><td>" +
+                Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick=delete_Row(" + idval + ")></td></tr>";
 
-        $("#table-accountability").append(Company);
-        $("#reporting").val('');
-        $("#Information").val('');
+            $("#table-accountability").append(Company);
+            $("#reporting").val('');
+            $("#Information").val('');
+        }
     });
 
     function delete_Row(id) {
