@@ -1,4 +1,4 @@
-﻿@model RetentionTool.ViewModel.ProjectWorkedViewModel
+﻿@model RetentionTool.Models.ProjectWorkViewModel
 @{
     ViewBag.Title = "Identify Critical Resource";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
@@ -30,9 +30,9 @@
 
 <div class="card">
     @*<div class="card-header">
-        <h2>Identify Critical Resource</h2>
+            <h2>Identify Critical Resource</h2>
 
-    </div>*@
+        </div>*@
     <div class="card-body card-block">
         <div class="row form-group">
             <div class="col-md-3">
@@ -63,33 +63,33 @@
                 {
                     <tr>
                         @*<td>
-                        @{ bool IsCriticalRes = false;}
-                        @foreach (var id in ViewBag.CriticalRes)
-                        {
-                            if (id == item.PersonalInfo1.Id)
+                            @{ bool IsCriticalRes = false;}
+                            @foreach (var id in ViewBag.CriticalRes)
                             {
-                                IsCriticalRes = true;
+                                if (id == item.PersonalInfo1.Id)
+                                {
+                                    IsCriticalRes = true;
 
-                                //<input type="checkbox" class="chck" checked />
+                                    //<input type="checkbox" class="chck" checked />
+                                }
+                                else
+                                {
+                                    // value = false;
+                                    //<input type="checkbox" class="chck" />
+
+                                }
                             }
-                            else
+                            @if (IsCriticalRes == true)
                             {
-                                // value = false;
-                                //<input type="checkbox" class="chck" />
+                                <input type="radio"@*"checkbox" class="chck" name="critic" checked id="IsChecked" />
+                                        }
+                                        else
+                                        {
+                                        <input type="radio" @*"checkbox" name="critic" class="chck" />
 
-                            }
-                        }
-                        @if (IsCriticalRes == true)
-                        {
-                            <input type="radio"@*"checkbox" class="chck" name="critic" checked id="IsChecked" />
-                                    }
-                                    else
-                                    {
-                                    <input type="radio" @*"checkbox" name="critic" class="chck" />
+                                        }
 
-                                    }
-
-                                    </td>*@
+                                        </td>*@
                         <td>
                             <input type="radio" @*"checkbox"*@ name="critic" class="chck" />
 
@@ -107,31 +107,31 @@
 
                         </td>
                         @*<td>
-                            @{ bool isTrainer = false;}
+                                @{ bool isTrainer = false;}
 
-                            @foreach (var id in ViewBag.TrainerDet)
-                            {
-                                if (id == item.PersonalInfo1.Id)
+                                @foreach (var id in ViewBag.TrainerDet)
                                 {
-                                    isTrainer = true;
+                                    if (id == item.PersonalInfo1.Id)
+                                    {
+                                        isTrainer = true;
+                                    }
+                                    else
+                                    {
+                                        // <input type="checkbox" class="chcktrainer" />
+                                    }
+                                }
+                                @if (isTrainer == true)
+
+                                {
+                                    <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" checked />
+
                                 }
                                 else
                                 {
-                                    // <input type="checkbox" class="chcktrainer" />
+                                    <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" />
                                 }
-                            }
-                            @if (isTrainer == true)
 
-                            {
-                                <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" checked />
-
-                            }
-                            else
-                            {
-                                <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" />
-                            }
-
-                        </td>*@
+                            </td>*@
                     </tr>
                 }
             </table>
@@ -154,7 +154,7 @@
                     </table>
                 </div>
                 @*<br />
-                <button type="button" class="del-accountability">Delete</button>*@
+                    <button type="button" class="del-accountability">Delete</button>*@
             </div>
             <br />
         </div>
@@ -172,7 +172,7 @@
             </div>
         </div>
 
-       
+
 
     </div>
 </div>
@@ -183,54 +183,54 @@
     }
     $(function () {
         $('input.chck').change(
-            
-            function() {
+
+            function () {
                 if ($('input.chck').is(':checked')) {
-                $('#accountinfo').show();
-            } else {
-                $('#accountinfo').hide();
+                    $('#accountinfo').show();
+                } else {
+                    $('#accountinfo').hide();
+                }
+            });
+    });
+    var count = 0;
+    $(".add-accountability").click(function () {
+
+        var reporting = $("#reporting").val();
+        var Information = $("#Information").val();
+        if (reporting.length > 0 && Information.length > 0) {
+            $("#tbls").show();
+            var idval = count + 1;
+
+            //reporting + Information;
+
+            var Company = "<tr id=" + idval + "><td style='display:none'><input type='checkbox'  name='chck'></td><td>" +
+                reporting + "</td><td>" +
+                Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='Delete_Row(" + idval + ")'></td></tr>";
+
+            $("#table-accountability").append(Company);
+            $("#reporting").val('');
+            $("#Information").val('');
+
+
+        }
+        //var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
+        //    reporting + "</td><td>" +
+        //    Information + "</td></tr>";
+
+        //$("#table-accountability").append(Company);
+        //$("#reporting").val('');
+        //$("#Information").val('');
+    });
+
+    $(".del-accountability").click(function () {
+
+        $("#table-accountability").find('input[name="chck"]').each(function () {
+            if ($(this).is(":checked")) {
+                $(this).parents("tr").remove();
             }
         });
     });
-    var count = 0;
-        $(".add-accountability").click(function () {
 
-            var reporting = $("#reporting").val();
-            var Information = $("#Information").val();
-             if (reporting.length > 0 && Information.length > 0) {
-                 $("#tbls").show();
-               var idval = count + 1;
-
-                 //reporting + Information;
-                 
-                     var Company = "<tr id=" + idval + "><td style='display:none'><input type='checkbox'  name='chck'></td><td>" +
-                         reporting + "</td><td>" +
-                         Information + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick='Delete_Row(" + idval + ")'></td></tr>";
-
-                     $("#table-accountability").append(Company);
-                     $("#reporting").val('');
-                     $("#Information").val('');
-                 
-            
-            }
-            //var Company = "<tr><td><input type='checkbox'  name='chck'></td><td>" +
-            //    reporting + "</td><td>" +
-            //    Information + "</td></tr>";
-
-            //$("#table-accountability").append(Company);
-            //$("#reporting").val('');
-            //$("#Information").val('');
-        });
-
-        $(".del-accountability").click(function () {
-
-            $("#table-accountability").find('input[name="chck"]').each(function () {
-                if ($(this).is(":checked")) {
-                    $(this).parents("tr").remove();
-                }
-            });
-        });
-    
 </script>
 
 
@@ -263,15 +263,15 @@
 
           })
           var accinfo = [];
-          
+
           $("#table-accountability tr:not(:first)").each(function ()
           {
               var tdlist = $(this).find("td");
 
               var Item = { Name: $(tdlist[1]).html(), Value: $(tdlist[2]).html()};
-              
+
               accinfo.push(Item);
-             
+
           })
 
          var newUrl= '@Url.Action("Index", "CriticalResource")';

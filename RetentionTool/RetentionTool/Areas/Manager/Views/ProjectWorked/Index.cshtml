@@ -156,8 +156,7 @@
                             }
                         </td>
                         <td>
-                            @Html.ActionLink(" ", "Edit", new {id=@item.ProjectsDetail.Id },
-                                          new { @class = "ti-pencil"} )
+                            @Html.ActionLink(" ", "Edit", new {id=@item.ProjectsDetail.Id },new { @class = "ti-pencil"} )
                             @Html.ActionLink(" ", "Delete", new { id = @item.ProjectsDetail.Id }, new { @class = "ti-trash" })
                         </td>
                     </tr>

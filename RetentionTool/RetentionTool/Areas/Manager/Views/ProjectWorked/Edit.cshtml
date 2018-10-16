@@ -1,4 +1,4 @@
-﻿@model RetentionTool.ViewModel.ProjectWorkedViewModel
+﻿@model RetentionTool.Models.ProjectWorkViewModel
 @{
     ViewBag.Title = "Edit Team Members";
     Layout = "~/Areas/Manager/Views/Shared/_LayoutMain.cshtml";
@@ -41,7 +41,7 @@
                 @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
             </div>
             <div class="col-12 col-md-9">
-                @Html.DropDownListFor(model => model.projects.Project_Id, ViewData["projectlist"] as SelectList, new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
+                @Html.DisplayFor(model => model.projects.ProjectsDetail.Name,@*Project_Id, ViewData["projectlist"] as SelectList,*@  new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
                 @Html.ValidationMessageFor(model => model.projects.Project_Id, "Required", new { @class = "text-danger", @id = "errorprjctid" })
             </div>
         </div>
@@ -164,12 +164,12 @@
 
     });
     function validate() {
-        if ($("#projectid").val().length > 0) {
-            $("#errorprjctid").hide();
-        }
-        else {
-            $("#errorprjctid").show();
-        }
+        //if ($("#projectid").val().length > 0) {
+        //    $("#errorprjctid").hide();
+        //}
+        //else {
+        //    $("#errorprjctid").show();
+        //}
         if ($("#startdate").val().length > 0) {
             $("#errorstartdate").hide();
         }
@@ -391,7 +391,7 @@
             source: function (request, response) {
                 var param = { name: $('#searchemp').val() };
                 $.ajax({
-                    url: "/ProjectWorked/getEmployee",
+                    url: "/Manager/ProjectWorked/getEmployee",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
