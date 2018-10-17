@@ -37,7 +37,8 @@
                 @*For(model => model.projects.ProjectsDetail.Name, new { @class = "form-control-label" })*@
             </div>
             <div class="col-12 col-md-9">
-                @Html.DisplayFor(model => model.projects.ProjectsDetail.Name,@*Project_Id, ViewData["projectlist"] as SelectList,*@  new { @class = "form-control-label", @id = "projectid", style = "width:30%" })
+                @Html.HiddenFor(model=>model.projects.Project_Id,new { @id= "projectid" })
+                @Html.DisplayFor(model => model.projects.ProjectsDetail.Name,@*Project_Id, ViewData["projectlist"] as SelectList,*@  new { @class = "form-control-label",  style = "width:30%" })
                 @Html.ValidationMessageFor(model => model.projects.Project_Id, "Required", new { @class = "text-danger", @id = "errorprjctid" })
             </div>
         </div>
@@ -104,7 +105,7 @@
             <input type="button" value="Add" class="add-emp" />
         </div>
         <br />
-        <div>
+        <div id="tblDiv">
             <table class="table table-striped" style="width:100%">
                 <tr>
                     <th>Employee Name</th>
@@ -118,6 +119,7 @@
                 @foreach (var i in Model.projectvm)
                 {
                 <tr id="@i.Id">
+                    <td style="display:none;width:0%"><input type="checkbox" name="chck" /></td>
                     @*<td><input type="checkbox" name="chck" /></td>*@
                     <td>@i.PersonalInfo1.Name</td>
                     <td>@i.PersonalInfo1.EmpCode</td>
@@ -286,9 +288,7 @@
     $("#btnSave").click(function () {
 
         var itemlist = [];
-        var projectid = $("#projectid").val();
-      //  var designation = $("#designation").val();
-      //  var responsibilty = $("#responsibilty").val();
+        var projectid = $("#projectid").val();     
         var startdate = $("#startdate").val();
         var enddate = $("#enddate").val();
         var description = $("#description").val();
@@ -310,19 +310,28 @@
             itemlist.push(Item);
         })
 
+        //projectid.length > 0 && 
+        if (startdate.length > 0 && enddate.length > 0 && description.length > 0 && managerid.length > 0
+            && teammember.length > 0 && itemlist.length > 0) {
+            if (itemlist.length == teammember) {
 
+                $("#btnSave").attr('disabled', true);
+                var newUrl = '@Url.Action("Index", "ProjectWorked")';
+         $.ajax({
+                url: '@Url.Action("Edit", "ProjectWorked")', //
+             dataType: "json",
+             data: JSON.stringify({ prjctwrkvm: itemlist, id: projectid }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
 
-
-
-        var newUrl = '@Url.Action("Index", "ProjectWorked")';
-
-        //var mod = {
-        //    ProjectName: projectname, Manager_Id: managerid, Responsibilities: responsibilty, StartDate: startdate, TeamMembers: teammember
-        //    , EndDate: enddate,Description: description,Designation: designation
-        //     //, Trainer_Id: trainerid, Module_Id: moduleid, Date: date
-        // };
-               // alert(mod);
-                $.ajax({
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+                @*$.ajax({
                     url: '@Url.Action("Edit", "ProjectWorked")', //
                     dataType: "json",
                     data: JSON.stringify({ prjctwrkvm: itemlist, id: projectid }),
@@ -340,8 +349,13 @@
                     error: function (xhr) {
                         alert("error");
                     }
-                });
-            });
+                });*@
+            }
+            else {
+                alert('Team Member Mismatch')
+            }
+        }
+    });
 
     $(".add-emp").click(function () {
 
@@ -350,17 +364,28 @@
         var empname = $("#searchname").val();
         var designation = $("#designation").val();
         var responsibilty = $("#responsibilty").val();
+        var teamcount = $('#teammember').val();
+        var rowCount = $('table tr').length;
         if (empcode.length > 0 && empid.length > 0 && empname.length > 0 && designation.length > 0 && responsibilty.length > 0)
         {
-            var markup = "<tr id=" + empid + "><td>" + empcode + "</td><td>" +
-                empname + "</td><td style='display: none'>" + empid + "</td><td>" +
-                designation + "</td><td>" +
-                responsibilty + "</td><td style='display: none'>0</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
-            $("table tbody").append(markup);
-            $("#searchemp").val('');
-            $("#searchid").val('');
-            $("#designation").val('');
+            if (rowCount <= teamcount) {
+                var markup = "<tr id=" + empid + "><td>" + empcode + "</td><td>" +
+                    empname + "</td><td style='display: none'>" + empid + "</td><td>" +
+                    designation + "</td><td>" +
+                    responsibilty + "</td><td style='display: none'>0</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+                $("table tbody").append(markup);
+                $("#searchemp").val('');
+                $("#searchid").val('');
+                $("#designation").val('');
                 $("#responsibilty").val('');
+            }
+            else {
+                alert("You cannot select more than the team size !");
+                $("#searchemp").val('');
+                $("#searchid").val('');
+                $("#designation").val('');
+                $("#responsibilty").val('');
+            }
         }
     });
 
@@ -377,6 +402,10 @@
 
     function delete_Row(empid) {
         $("#" + empid).remove();
+        var rows = $('table tr').length;
+        if (rows == 1) {
+            $("#tblDiv").hide();
+        }
     }
 
 </script>

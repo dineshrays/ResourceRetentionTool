@@ -20,7 +20,7 @@ namespace RetentionTool.Areas.Admin.Controllers
             int td = int.Parse(Session["userid"].ToString());
 
             List<PersonalInfoModel> details = (from a in db.PersonalInfoes
-                                               //where a.Id == td
+                                               where a.IsActive==true
 
                                                select new PersonalInfoModel
                                                {

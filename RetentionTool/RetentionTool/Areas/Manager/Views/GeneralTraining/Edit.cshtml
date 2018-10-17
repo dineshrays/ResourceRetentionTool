@@ -315,22 +315,14 @@
 
                 var itemlist = [];
 
-                //get cell values, instead of the header text.
-
-         //if ($(this).find('input[name="chck"]').is(':checked')) {
-         //    var tdlist = $(this).find("td");
-         //    var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
-         //    itemlist.push(Item);
-         //}
+               
          $("table tr:not(:first)").each(function () {
-             if ($(this).find('input[name="chck"]').is(':checked')) {
+            // if ($(this).find('input[name="chck"]').is(':checked')) {
                  var tdlist = $(this).find("td");
                  var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
                  itemlist.push(Item);
-             }
-                    //var tdlist = $(this).find("td");
-                    //var Item = { Name: $(tdlist[1]).html(), Id: $(tdlist[2]).html(), EmpCode: $(tdlist[3]).html() };
-                    //itemlist.push(Item);
+            // }
+                    
          })
 
          validate();
@@ -341,9 +333,8 @@
          var moduleid = $("#moduleid").val();
          var trainerid = $("#trainerid").val();
 
-         var assignresid = $("assresid").val();
-               
-                  var assignresid = $("#assresid").val();
+         var assignresid = $("#assresid").val();
+         
          if (projectid > 0 && date.length > 0 && moduleid > 0 && trainerid > 0 && itemlist.length > 0 && assignresid > 0) {
              var newUrl = '@Url.Action("Index", "GeneralTraining")';
 
@@ -351,7 +342,7 @@
              var mod = { Manager_Id: managerid, Project_Id: projectid, Trainer_Id: trainerid, Module_Id: moduleid, Date: date };
              // alert(mod);
              $.ajax({
-                 url: '@Url.Action("Edit", "GeneralTraining")', //
+                 url: '@Url.Action("Edit", "GeneralTraining")', 
                  dataType: "json",
                  data: JSON.stringify({ list: itemlist, assgnResvm: mod, id: assignresid }),
                  type: "POST",
@@ -370,15 +361,15 @@
                  }
              });
          }
-            });
+     });
 
     $(".add-emp").click(function () {
 
         var empname = $("#searchemp").val();
         var empid = $("#searchid").val();
         var name = $("#searchempname").val();
-        if (empname.length > 0 && empid.length > 0 && name.length > 0) {
-            var markup = "<tr id="+empid+"><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' class='btn btn-danger' onclick=delete_Row(" + empid + ")></td></tr>";
+        if (empname.length > 0 && empid.length > 0 && name.length > 0) {           
+            var markup = "<tr id=" + empid +"><td style='display:none'>'ss'</td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  value='Delete' class='btn btn-danger' onclick=delete_Row(" + empid + ")></td></tr>";
             $("table tbody").append(markup);
             $("#searchemp").val('');
             $("#searchid").val('');
