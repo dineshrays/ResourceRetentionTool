@@ -130,7 +130,7 @@
 
             <table class="table table-striped" style="width:100%;" >
                 <tr>
-                    @*<th>Select</th>*@
+                    <th style="display:none;">Select</th>
                     <th>Employee Name</th>
                     <th style="display:none;width:0%">Employee Id</th>
                     <th>Employee Code</th>
@@ -181,7 +181,7 @@
         else
         
         {
-            $("#errdate").hide();
+            $("#errdate").show();
         }
     });
 
@@ -345,7 +345,7 @@
         if (empname.length > 0 && empid > 0 && name.length > 0) {
             $('#tblDiv').show();
             //<td><input type='checkbox' name='chck' checked /></td>
-            var markup = "<tr id=" + empid + "><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  class='btn btn-danger' value='Delete' onclick=Delete_Row(" + empid + ")></td></tr>";
+            var markup = "<tr id=" + empid + "><td style='display:none;'></td><td>" + empname + "</td><td style='display: none'>" + empid + "</td><td>" + name + "</td><td><input type='submit'  class='btn btn-danger' value='Delete' onclick=Delete_Row(" + empid + ")></td></tr>";
             $("table tbody").append(markup);
             $("#searchemp").val('');
             $("#searchid").val('');
@@ -358,6 +358,13 @@
     });
     function Delete_Row(id) {
         $('#' + id).remove();
+        var rows = $('table tr').length;
+        if (rows == 1) {
+            $("#moduleid").val('0');
+           // $("#moduleid").attr() = "Select Module";
+            $("#tblDiv").hide();
+        }
+
     }
     $(".del-emp").click(
 
@@ -390,7 +397,7 @@
                         $("table tr:not(:first)").remove();
                         $.each(result, function (i, Skill) {
                             $('#tblDiv').show();
-                            var markup = "<tr id=" + Skill.Id + "><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit'  class='btn btn-danger' value='Delete' onclick=Delete_Row(" + Skill.Id + ")></td></tr>";
+                            var markup = "<tr id=" + Skill.Id + "><td style='display:none;'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit'  class='btn btn-danger' value='Delete' onclick=Delete_Row(" + Skill.Id + ")></td></tr>";
 
                            // var markup = "<tr><td><input type='checkbox'  name='chck'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td></tr>";
                             $("table tbody").append(markup);

@@ -36,6 +36,8 @@
         </div>
         <div class="col-12 col-md-9">
             <div>@Html.EditorFor(m => m.TrainingVm.FromDate, new { htmlAttributes = new { @Id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
+            @Html.ValidationMessageFor(m => m.TrainingVm.FromDate, "Required", new { @class = "text-danger", @id = "errfrmdate" })
+
         </div>
     </div>
 
@@ -45,6 +47,9 @@
         </div>
         <div class="col-12 col-md-9">
             <div>@Html.EditorFor(m => m.TrainingVm.ToDate, new { htmlAttributes = new { @Id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
+
+            @Html.ValidationMessageFor(m => m.TrainingVm.ToDate, "Required", new { @class = "text-danger", @id = "errtodate" })
+
         </div>
     </div>
 
@@ -60,13 +65,13 @@
                 <tr>
                     <td style="display:none" id="Id">@emplist1.Id</td>
                     <td id="Topics">@emplist1.Topics</td>
-                    <td><input type="text" id="hours" /></td>
+                    <td><input type="text" id="@emplist1.Id" /></td>
                 </tr>
             }
         </tbody>
 
     </table>
-
+    @Html.ValidationMessageFor(m => m.TrainingVm.FromDate, "Required", new { @class = "text-danger", @id = "errTopics" })
     <div class="card-body">
         <div class="row form-group">
             <div class="col col-md-3">
@@ -75,11 +80,11 @@
             <div class="col-12 col-md-9">
                 <button type="button" id="btnGet" class="btn btn-success">Create</button>
                 @Html.ActionLink("Back to List", "Index")
-                
+
             </div>
         </div>
     </div>
-   
+
 </div>
 
 
@@ -87,6 +92,47 @@
 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+    //ToDate,errtodate   FromDate,errfrmdate
+    $("#ToDate").change(function () {
+
+        if ($("#ToDate").val().length > 0) {
+            $("#errtodate").hide();
+        }
+        else {
+            $("#errtodate").show();
+        }
+    });
+    $("#FromDate").change(function () {
+
+        if ($("#FromDate").val().length > 0) {
+            $("#errfrmdate").hide();
+        }
+        else {
+            $("#errfrmdate").show();
+        }
+    });
+
+
+
+    function validate() {
+        if ($("#FromDate").val().length > 0) {
+            $("#errfrmdate").hide();
+        }
+        else {
+
+            $("#errfrmdate").show();
+        }
+        if ($("#ToDate").val().length > 0) {
+            $("#errtodate").hide();
+        }
+        else {
+            $("#errtodate").show();
+        }
+
+    }
+</script>
 <script type="text/javascript">
     var assignresid;
     $(document).ready(function () {
@@ -97,12 +143,17 @@
         var ass = assign[1].split('=');
         assignresid = ass[1];
         //alert(assignresid);
+        $("#errTopics").hide();
+        $("#errtodate").hide();
+
+        $("#errfrmdate").hide();
+
        
     });
     $(function () {
         $("#btnGet").click(function () {
             
-            
+            var topicshr = 0;
             var FromDate = $("#FromDate").val();
           
             var ToDate = $("#ToDate").val();
@@ -110,27 +161,44 @@
 
             var itemlist1 = [];
             $("table tr:not(:first)").each(function () {
-                var tdlist = $(this).find("td");               
-                var Item = { Training_Id: $('Id').val(), Topics: $(tdlist[0]).html(), HoursRequired: $('#hours').val()};
+                var tdlist = $(this).find("td");    
+                var valueid = $(tdlist[0]).html();
+              
+                var hr = $("#" + valueid).val();
+             
+                if (hr.length == 0) {
+                    topicshr = 1;
+                }
+                var Item = { Training_Id: $('Id').val(), Topics: $(tdlist[0]).html(), HoursRequired: hr };
                 itemlist1.push(Item);
             })
+            validate();
+            if (topicshr == 0) {
 
-            var mod = { FromDate: FromDate, ToDate: ToDate, AssignResource_Id: assignresid};
-              var newUrl= '@Url.Action("Index", "Training")';
-                $.ajax({
-                    type: "POST",
-                    url: "/Trainer/Training/Createtraining",
-                    data: JSON.stringify({ itemlist: itemlist1 , TrainingVM: mod }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        window.location.href = newUrl;
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
 
-                });
+                if (FromDate.length > 0 && ToDate.length > 0 && assignresid > 0 && itemlist1.length > 0) {
+
+                    var mod = { FromDate: FromDate, ToDate: ToDate, AssignResource_Id: assignresid };
+                    var newUrl = '@Url.Action("Index", "Training")';
+                    $.ajax({
+                        type: "POST",
+                        url: "/Trainer/Training/Createtraining",
+                        data: JSON.stringify({ itemlist: itemlist1, TrainingVM: mod }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            window.location.href = newUrl;
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+
+                    });
+                }
+            }
+                else {
+                    $("#errTopics").show();
+                }
             
         });
     });

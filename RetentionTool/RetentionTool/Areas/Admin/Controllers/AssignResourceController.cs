@@ -103,9 +103,27 @@ namespace RetentionTool.Areas.Admin.Controllers
                 };
                 db.AssignResources.Add(assRes);
                 db.SaveChanges();
-               // int[] empid = assgnResvm.empid;
-              //  for (int i = 0; i < empid.Length; i++)
-              foreach(var i in list)
+                
+                int trainerid = fetchdet.getDefaultTrainerRoleId();
+                long userdetid = fetchdet.insertIntoUserDetails(assgnResvm.Trainer_Id, trainerid);
+               // UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id == assgnResvm.Trainer_Id && a.Role_Id == trainerid && a.IsActive == true);
+                ProjectsDetail projectdet = db.ProjectsDetails.Find(assgnResvm.Project_Id);
+
+                Notification notif = new Notification();
+                notif.User_Id = userdetid;
+                    //userdet.Id;
+                //  notif.Sessions_Id = sessionVM.Id;
+                notif.Message = projectdet.Name + fetchdet.AssignTrainerMsg;
+                //fetchdet.SessionCompletedMsg;
+                notif.IsActive = true;
+                notif.IsNotified = true;
+                notif.CreatedOn = DateTime.Now;
+
+                db.Notifications.Add(notif);
+                db.SaveChanges();
+                // int[] empid = assgnResvm.empid;
+                //  for (int i = 0; i < empid.Length; i++)
+                foreach (var i in list)
                 {
                     AssignResourcesDet assResDet = new AssignResourcesDet()
                     {
@@ -386,6 +404,8 @@ where personalInfo.IsActive==true && trainer.IsActive==true
                                      where project.Name.Contains(name)
 
          && project.IsActive == true && projectworked.IsActive==true
+                                     
+                                     && db.CriticalResources.Any(a=>a.Project_Id==project.Id && a.IsActive==true)
                                      select new EmployeeList
                                      {
                                          Id = project.Id,

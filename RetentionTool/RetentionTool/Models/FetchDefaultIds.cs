@@ -270,6 +270,34 @@ namespace RetentionTool.Models
             }
 
         }
+        public long insertIntoUserDetails(long? userid,int roleid)
+        {
+            long userdetid = 0;
+            UserDetail userdet = db.UserDetails.FirstOrDefault(a => a.Emp_Id ==userid && a.Role_Id == roleid && a.IsActive == true);
+            if(userdet==null)
+            {
+                PersonalInfo personalinfo = db.PersonalInfoes.Find(userid);
+                UserDetail user = new UserDetail();
+                user.Emp_Id = personalinfo.Id;
+                user.EntryDate = DateTime.Now;
+                user.Email = personalinfo.Email;
+
+
+                user.Role_Id = roleid;
+                user.Name = personalinfo.Name;
+                user.IsActive = true;
+                user.Password = password;
+
+                db.UserDetails.Add(user);
+                db.SaveChanges();
+                userdetid = user.Id;
+            }
+            else
+            {
+                userdetid = userdet.Id;
+            }
+            return 1;
+        }
 
     }
 }

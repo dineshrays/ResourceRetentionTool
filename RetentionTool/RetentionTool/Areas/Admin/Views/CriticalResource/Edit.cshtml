@@ -129,28 +129,31 @@
                          <input id="Information" placeholder="Information" />&nbsp;
                          <input type="button" value="Add" class="add-accountability" />
                      </div>
+                     <div id="tblDiv">
 
-                     <table class="table table-striped" id="table-accountability" style="width:100%">
-                         <tr>
-                             <th style="display:none">Select</th>
-                             <th>Reporting</th>
-                             <th>Information</th>
-                             <th>Action</th>
-                         </tr>
-                         
-                         @foreach (var i in criticalacc)
-                         {
-                             count = count + 1;
-                         <tr id="@count">
-                             <td style="display:none"><input type="checkbox" name="chck" /></td>
-                             <td>@i.Name</td>
-                             <td>@i.Value</td>
-                             <td><input type='submit' class='btn btn-danger' value='Delete' onclick="Delete_Row('@count')"></td>
 
-                         </tr>
-                         }
+                         <table class="table table-striped" id="table-accountability" style="width:100%">
+                             <tr>
+                                 <th style="display:none">Select</th>
+                                 <th>Reporting</th>
+                                 <th>Information</th>
+                                 <th>Action</th>
+                             </tr>
 
-                     </table>
+                             @foreach (var i in criticalacc)
+                             {
+                                 count = count + 1;
+                                 <tr id="@count">
+                                     <td style="display:none"><input type="checkbox" name="chck" /></td>
+                                     <td>@i.Name</td>
+                                     <td>@i.Value</td>
+                                     <td><input type='submit' class='btn btn-danger' value='Delete' onclick="Delete_Row('@count')"></td>
+
+                                 </tr>
+                             }
+
+                         </table>
+                     </div>
                      @*<br />
                      <button type="button" class="del-accountability">Delete</button>*@
                  </div>
@@ -199,6 +202,7 @@
             //var a = parseInt("10")
            // =parseInt(,1);
               //1;
+              $("#tblDiv").show();
               count1 = count1 + 1;
               var idval =count1;
               var Company = "<tr id=" + idval+ "><td style='display:none'><input type='checkbox'  name='chck'></td><td>" +
@@ -219,6 +223,10 @@
     });
     function Delete_Row(id) {
         $("#" + id).remove();
+        var rows = $('#table-accountability tr').length;
+        if (rows == 1) {
+            $("#tblDiv").hide();
+        }
     }
     $(".del-accountability").click(function () {
         $("#table-accountability").find('input[name="chck"]').each(function () {
