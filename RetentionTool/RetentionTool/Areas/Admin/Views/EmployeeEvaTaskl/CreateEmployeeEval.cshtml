@@ -32,78 +32,79 @@
 
         <h2>Create Employee Evaluation</h2>
     </div>*@
-    <div class="card-body card-block">
+<div class="card-body card-block">
 
-        <div class="row form-group">
-            <div class="col col-md-3">
-                <div>@Html.Label("Trainer Name")</div>
+    <div class="row form-group">
+        <div class="col col-md-3">
+            <div>@Html.Label("Trainer Name")</div>
 
-            </div>
-            <div class="col-12 col-md-9">
-                <div class="col-12 col-md-9">
-                    @Html.DisplayFor(m => m.EmployeeEvalTask.Trainer.PersonalInfo.Name, new { @class = "form-control", style = "width:30%" })
-                    @Html.HiddenFor(m => m.EmployeeEvalTask.Trainer_Id, new { @id = "trainerid" })
-
-
-                </div>
-            </div>
-            <br />
         </div>
+        <div class="col-12 col-md-9">
+            <div class="col-12 col-md-9">
+                @Html.DisplayFor(m => m.EmployeeEvalTask.Trainer.PersonalInfo.Name, new { @class = "form-control", style = "width:30%" })
+                @Html.HiddenFor(m => m.EmployeeEvalTask.Trainer_Id, new { @id = "trainerid" })
 
+
+            </div>
+        </div>
         <br />
+    </div>
+
+    <br />
 
 
-        <table class="mytbl table table-striped" style="width:100%">
-            <thead>
+    <table class="mytbl table table-striped" style="width:100%">
+        <thead>
+            <tr>
+
+                <th style="display:none">Employee Id</th>
+                <th>Employee Name</th>
+                <th>Task Assigned</th>
+                <th>Status</th>
+                <th>IsEligibleMark</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emplist in empDetails)
+            {
+
                 <tr>
 
-                    <th style="display:none">Employee Id</th>
-                    <th>Employee Name</th>
-                    <th>Task Assigned</th>
-                    <th>Status</th>
-                    <th>IsEligibleMark</th>
+                    <td style="display:none">@emplist.Id</td>
+                    <td>@emplist.Name</td>
+                    <td><input type="text" name="taskassign" required /></td>
+                    <td><input type="text" name="status" /></td>
+                    <td><input type="checkbox" class="chck" name="iseligible" /></td>
+
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var emplist in empDetails)
-                {
+            }
 
-                    <tr>
-
-                        <td style="display:none">@emplist.Id</td>
-                        <td>@emplist.Name</td>
-                        <td><input type="text" name="taskassign" required /></td>
-                        <td><input type="text" name="status" /></td>
-                        <td><input type="checkbox" class="chck" name="iseligible" /></td>
-
-                    </tr>
-                }
-
-            </tbody>
+        </tbody>
 
 
-        </table>
+    </table>
+    @Html.ValidationMessageFor(m => m.EmployeeEvalTask.Trainer_Id, "Required", new { @class = "text-danger", @id = "errtbl" })
 
 
-        <div class="row form-group">
-            <div class="col col-md-3">
+    <div class="row form-group">
+        <div class="col col-md-3">
 
 
-            </div>
-            <div class="col-12 col-md-9">
-                <input id="btnSave" type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
-            </div>
-
+        </div>
+        <div class="col-12 col-md-9">
+            <input id="btnSave" type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
         </div>
 
     </div>
+
+</div>
 <script>
     var assignresid;
     
     $(document).ready(function () {
         
         var assignres = location.search.substring(1).split('&');
-       
+        $("#errtbl").hide();
         var nv = assignres[0].split('=');
         assignresid = nv[1];
                        });
@@ -112,7 +113,8 @@
       $("#btnSave").click(function () {
 
 
-          var itemlist=[];
+          var itemlist = [];
+          var error = 0;
 
           $("table tr:not(:first)").each(function () {
               var iseligible;
@@ -126,16 +128,23 @@
               }
 
               taskassign = $(this).find("td:eq(2) input[type='text']").val();
+              if (taskassign.length == 0) {
+                  error = 1;
+                  $("#errtbl").show();
+              }
 
               status = $(this).find("td:eq(3) input[type='text']").val();
-                    var tdlist = $(this).find("td");
-
+              var tdlist = $(this).find("td");
+              if (status.length == 0) {
+                  error = 1;
+                  $("#errtbl").show();
+              }
               var Item = { Employee_Id: $(tdlist[0]).html(), TaskAssigned: taskassign, Status: status, IsEligiableMark: iseligible };
                     itemlist.push(Item);
                 })
 
           var trainerid = $("#trainerid").val();
-          if (trainerid > 0 && itemlist.length > 0) {
+          if (trainerid > 0 && itemlist.length > 0 && error==0) {
               var mod = [];
               mod = { AssignResource_Id: assignresid, Trainer_Id: trainerid };
 
@@ -156,7 +165,7 @@
               });
           }
           else {
-              alert('Please fill all the fields')
+           //   alert('Please fill all the fields')
           }
          
             });

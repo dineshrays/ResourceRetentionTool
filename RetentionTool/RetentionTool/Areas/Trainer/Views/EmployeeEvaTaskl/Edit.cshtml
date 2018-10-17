@@ -92,6 +92,7 @@
 
         </table>
 
+        @Html.ValidationMessageFor(m => m.EmployeeEvalTask.Trainer_Id, "Required", new { @class = "text-danger", @id = "errtbl" })
 
         <div class="row form-group">
             <div class="col col-md-3">
@@ -104,13 +105,15 @@
 
         </div>
 
-        </div>
+    </div>
         <script>
     var assignresid;
-
+            $(document).ready(function () {
+                $("#errtbl").hide();
+            });
     $("#btnSave").click(function () {
         assignresid = $("#assresid").val();
-
+        var error = 0;
           var itemlist=[];
 
           $("table tr:not(:first)").each(function () {
@@ -128,7 +131,13 @@
 
               status = $(this).find("td:eq(3) input[type='text']").val();
                     var tdlist = $(this).find("td");
-
+              if (taskassign.length == 0) {
+                  error = 1;
+                  $("#errtbl").show();
+              } if (status.length == 0) {
+                  error = 1;
+                  $("#errtbl").show();
+              }
               var Item = { EmployeeEvalTask_Id: empevalid, Employee_Id: $(tdlist[0]).html(), TaskAssigned: taskassign, Status: status, IsEligiableMark: iseligible, Id: $(tdlist[5]).html() };
                     itemlist.push(Item);
                 })
@@ -137,19 +146,22 @@
         var empevalid = $("#empevalid").val();
         var mod = [];
         mod = { Id: empevalid, AssignResource_Id: assignresid, Trainer_Id: trainerid };
-         var newUrl= '@Url.Action("Index", "EmployeeEvaTaskl")';
-                $.ajax({
-                    url: '@Url.Action("Edit", "EmployeeEvaTaskl")', //
-                    dataType: "json",
-                    data: JSON.stringify({ list: itemlist, empeval: mod }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+        if (itemlist.length > 0 && error == 0) {
+            var newUrl = '@Url.Action("Index", "EmployeeEvaTaskl")';
+            $("#btnSave").attr('disabled', true);
+            $.ajax({
+                url: '@Url.Action("Edit", "EmployeeEvaTaskl")', //
+                dataType: "json",
+                data: JSON.stringify({ list: itemlist, empeval: mod }),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    window.location.href = newUrl;
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+        }
             });
         </script>

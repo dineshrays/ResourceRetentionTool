@@ -31,86 +31,89 @@
     </div>
 </div>
 
-    <div class="card-body card-block">
+<div class="card-body card-block">
 
-        <div class="row form-group">
-            <div class="col col-md-3">
-                <div>@Html.Label("Trainer Name")</div>
+    <div class="row form-group">
+        <div class="col col-md-3">
+            <div>@Html.Label("Trainer Name")</div>
 
-            </div>
-            <div class="col-12 col-md-9">
-                <div class="col-12 col-md-9">
-                    @Html.HiddenFor(m => m.EmployeeEvalTask.Id, new { @id = "empevalid" })
-                    @Html.HiddenFor(m => m.EmployeeEvalTask.AssignResource_Id, new { @id = "assresid" })
-                    @Html.DisplayFor(m => m.EmployeeEvalTask.Trainer.PersonalInfo.Name)
-                    @Html.HiddenFor(m => m.EmployeeEvalTask.Trainer_Id, new { @id = "trainerid" })
-
-                </div>
-                <br />
-            </div>
         </div>
+        <div class="col-12 col-md-9">
+            <div class="col-12 col-md-9">
+                @Html.HiddenFor(m => m.EmployeeEvalTask.Id, new { @id = "empevalid" })
+                @Html.HiddenFor(m => m.EmployeeEvalTask.AssignResource_Id, new { @id = "assresid" })
+                @Html.DisplayFor(m => m.EmployeeEvalTask.Trainer.PersonalInfo.Name)
+                @Html.HiddenFor(m => m.EmployeeEvalTask.Trainer_Id, new { @id = "trainerid" })
+
+            </div>
+            <br />
+        </div>
+    </div>
 
 
 
-        <br />
+    <br />
 
 
-        <table class="mytbl table table-striped">
-            <thead>
+    <table class="mytbl table table-striped">
+        <thead>
+            <tr>
+
+                <th style="display:none">Employee Id</th>
+                <th>Employee Name</th>
+                <th>Task Assigned</th>
+                <th>Status</th>
+                <th>IsEligibleMark</th>
+                <th style="display:none">Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emplist in Model.empEvalTaskDetvm)
+            {
+
                 <tr>
 
-                    <th style="display:none">Employee Id</th>
-                    <th>Employee Name</th>
-                    <th>Task Assigned</th>
-                    <th>Status</th>
-                    <th>IsEligibleMark</th>
-                    <th style="display:none">Id</th>
+                    <td style="display:none">@emplist.Employee_Id</td>
+                    <td>@emplist.PersonalInfo.Name</td>
+                    <td><input type="text" name="taskassign" value="@emplist.TaskAssigned" /></td>
+                    <td><input type="text" name="status" value="@emplist.Status" /></td>
+                    <td><input type="checkbox" class="chck" name="iseligible" checked="@emplist.IsEligiableMark" /></td>
+                    <td style="display:none">@emplist.Id</td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var emplist in Model.empEvalTaskDetvm)
-                {
-
-                    <tr>
-
-                        <td style="display:none">@emplist.Employee_Id</td>
-                        <td>@emplist.PersonalInfo.Name</td>
-                        <td><input type="text" name="taskassign" value="@emplist.TaskAssigned" /></td>
-                        <td><input type="text" name="status" value="@emplist.Status" /></td>
-                        <td><input type="checkbox" class="chck" name="iseligible" checked="@emplist.IsEligiableMark" /></td>
-                        <td style="display:none">@emplist.Id</td>
-                    </tr>
 
 
-                }
+            }
 
-            </tbody>
-
-
-        </table>
+        </tbody>
 
 
-        <div class="row form-group">
-            <div class="col col-md-3">
+    </table>
+    @Html.ValidationMessageFor(m => m.EmployeeEvalTask.Trainer_Id, "Required", new { @class = "text-danger", @id = "errtbl" })
 
 
-            </div>
-            <div class="col-12 col-md-9">
-                <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
-            </div>
+    <div class="row form-group">
+        <div class="col col-md-3">
 
+
+        </div>
+        <div class="col-12 col-md-9">
+            <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index")
         </div>
 
     </div>
 
+</div>
+
 <script>
     var assignresid;
-    
+    $(document).ready(function () {
+        $("#errtbl").hide();
+    });
     $("#btnSave").click(function () {
         assignresid = $("#assresid").val();
 
           var itemlist=[];
-
+        var error = 0;
           $("table tr:not(:first)").each(function () {
               var iseligible;
               var taskassign;
@@ -125,7 +128,14 @@
               taskassign = $(this).find("td:eq(2) input[type='text']").val();
 
               status = $(this).find("td:eq(3) input[type='text']").val();
-                    var tdlist = $(this).find("td");
+              var tdlist = $(this).find("td");
+              if (taskassign.length == 0) {
+                  error = 1;
+                  $("#errtbl").show();
+              } if (status.length == 0) {
+                  error = 1;
+                  $("#errtbl").show();
+              }
 
               var Item = { EmployeeEvalTask_Id: empevalid, Employee_Id: $(tdlist[0]).html(), TaskAssigned: taskassign, Status: status, IsEligiableMark: iseligible, Id: $(tdlist[5]).html() };
                     itemlist.push(Item);
@@ -135,8 +145,9 @@
         var empevalid = $("#empevalid").val();
         var mod = [];
         mod = { Id: empevalid, AssignResource_Id: assignresid, Trainer_Id: trainerid };
-        if (itemlist.length > 0) {
+        if (itemlist.length > 0 && error == 0) {
             var newUrl = '@Url.Action("Index", "EmployeeEvaTaskl")';
+            $("#btnSave").attr('disabled', true);
             $.ajax({
                 url: '@Url.Action("Edit", "EmployeeEvaTaskl")', //
                 dataType: "json",
@@ -152,7 +163,7 @@
             });
         }
         else {
-            alert('Please enter all the fields')
+            //alert('Please enter all the fields')
         }
         
             });

@@ -83,6 +83,7 @@
 
         </table>
 
+        @Html.ValidationMessageFor(m => m.EmployeeEvalTask.Trainer_Id, "Required", new { @class = "text-danger", @id = "errtbl" })
 
         <div class="row form-group">
             <div class="col col-md-3">
@@ -95,21 +96,21 @@
 
         </div>
 
-        </div>
+    </div>
         <script>
     var assignresid;
 
     $(document).ready(function () {
 
         var assignres = location.search.substring(1).split('&');
-
+        $("#errtbl").hide();
         var nv = assignres[0].split('=');
         assignresid = nv[1];
                        });
 
 
       $("#btnSave").click(function () {
-
+          var error = 0;
 
           var itemlist=[];
 
@@ -123,11 +124,19 @@
               else {
                   iseligible = false;
               }
-
+             
               taskassign = $(this).find("td:eq(2) input[type='text']").val();
 
               status = $(this).find("td:eq(3) input[type='text']").val();
-                    var tdlist = $(this).find("td");
+              var tdlist = $(this).find("td");
+              if (taskassign.length == 0) {
+                  error = 1;
+                  $("#errtbl").show();
+              }
+              if (status.length == 0) {
+                  error = 1;
+                  $("#errtbl").show();
+              }
 
               var Item = { Employee_Id: $(tdlist[0]).html(), TaskAssigned: taskassign, Status: status, IsEligiableMark: iseligible };
                     itemlist.push(Item);
@@ -136,7 +145,7 @@
           var trainerid = $("#trainerid").val();
           var mod = [];
           mod = { AssignResource_Id: assignresid, Trainer_Id: trainerid };
-          if (itemlist.length > 0 && assignresid>0) {
+          if (itemlist.length > 0 && assignresid > 0 && error == 0) {
               $("#btnSave").attr('disabled', true);
               var newUrl = '@Url.Action("Index", "EmployeeEvaTaskl")';
               $.ajax({
@@ -154,7 +163,7 @@
               });
           }
           else {
-              alert('Please enter all the details');
+             // alert('Please enter all the details');
           }
 
 
