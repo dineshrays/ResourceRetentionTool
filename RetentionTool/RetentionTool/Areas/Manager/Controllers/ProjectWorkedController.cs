@@ -80,8 +80,10 @@ namespace RetentionTool.Areas.Manager.Controllers
             ProjectWorkViewModel prjwrkvm = new ProjectWorkViewModel();
             prjwrkvm.projectvm = prjctwrk;
             prjwrkvm.projects = prjctwrok;
-            PersonalInfo personalInfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == managerid && a.IsActive == true);
+            ProjectsDetail projectdet = db.ProjectsDetails.Find(id);
+            prjwrkvm.projectname = projectdet.Name;
 
+            PersonalInfo personalInfo = db.PersonalInfoes.FirstOrDefault(a => a.Id == managerid && a.IsActive == true);
             prjwrkvm.managername = personalInfo.Name;
             //   getManagers();
             getProjectList();
