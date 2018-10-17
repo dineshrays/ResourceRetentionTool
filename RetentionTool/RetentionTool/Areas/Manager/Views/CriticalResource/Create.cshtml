@@ -177,6 +177,10 @@
 <script type="text/javascript">
     function Delete_Row(id) {
         $('#' + id).remove();
+        var rows = $('#table-accountability tr').length;
+        if (rows == 1) {
+            $("#tbls").hide();
+        }
     }
     $(function () {
         $('input.chck').change(
@@ -243,6 +247,7 @@
           var cri;
          // var itemlist = [];
           var trainerlist;
+          var trainerchecked = 0;
               //= [];
           var projectId = $("#projectId").val();
           $("table tr:not(:first)").each(function () {
@@ -252,7 +257,7 @@
                           //itemlist.push(Item);
               }
               if ($(this).find('input.chcktrainer').is(':checked')) {
-
+                  trainerchecked = 1;
                   var tdlist = $(this).find("td");
                   trainerlist = { PersonalInfo_Id: $(tdlist[3]).html() };
                   //trainerlist.push(Item);
@@ -270,22 +275,24 @@
               accinfo.push(Item);
 
           })
-
-         var newUrl= '@Url.Action("Index", "CriticalResource")';
-                $.ajax({
-                    url: '/Manager/CriticalResource/Create',
+          if (accinfo.length > 0 && trainerchecked > 0 && cri.PersonalInfo_Id > 0 && projectId > 0) {
+              var newUrl = '@Url.Action("Index", "CriticalResource")';
+              $("#btnSave").attr('disabled', true);
+              $.ajax({
+                  url: '/Manager/CriticalResource/Create',
                         @*'@Url.Action("Create", "CriticalResource")', //*@
-                    dataType: "json",
-                    data: JSON.stringify({ criticalR: cri, trainerlist: trainerlist, criticalacc: accinfo }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-        });
+                  dataType: "json",
+                  data: JSON.stringify({ criticalR: cri, trainerlist: trainerlist, criticalacc: accinfo }),
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  success: function (result) {
+                      window.location.href = newUrl;
+                  },
+                  error: function (xhr) {
+                      alert("error");
+                  }
+              });
+          }
         });
 
 

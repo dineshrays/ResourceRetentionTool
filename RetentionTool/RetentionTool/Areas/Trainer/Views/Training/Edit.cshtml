@@ -41,6 +41,8 @@
             @Html.HiddenFor(m => m.TrainingVm.Id, new { @id = "trainingid" })
             @Html.HiddenFor(m => m.TrainingVm.AssignResource_Id, new { @id = "assignresid" })
             <div>@Html.EditorFor(m => m.TrainingVm.FromDate, new { htmlAttributes = new { @Id = "FromDate", @class = "form-control", style = "width:40%" } })</div><br />
+            @Html.ValidationMessageFor(m => m.TrainingVm.FromDate, "Required", new { @class = "text-danger", @id = "errfrmdate" })
+
         </div>
     </div>
 
@@ -50,6 +52,8 @@
         </div>
         <div class="col-12 col-md-9">
             <div>@Html.EditorFor(m => m.TrainingVm.ToDate, new { htmlAttributes = new { @Id = "ToDate", @class = "form-control", style = "width:40%" } })</div><br />
+            @Html.ValidationMessageFor(m => m.TrainingVm.ToDate, "Required", new { @class = "text-danger", @id = "errtodate" })
+
         </div>
     </div>
 
@@ -66,7 +70,7 @@
                 <tr>
                     <td style="display:none" id="Id">@emplist1.Id</td>
                     <td id="Topics">@emplist1.Topics</td>
-                    <td><input type="text" id="hours" value="@emplist1.HoursRequired" /></td>
+                    <td><input type="text" id="@emplist1.Id" value="@emplist1.HoursRequired" /></td>
                 </tr>
             }
         </tbody>
@@ -85,12 +89,59 @@
     </div>
 @*</div>*@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#errTopics").hide();
+        $("#errtodate").hide();
+
+        $("#errfrmdate").hide();
+
+    });
+    //ToDate,errtodate   FromDate,errfrmdate
+    $("#ToDate").change(function () {
+
+        if ($("#ToDate").val().length > 0) {
+            $("#errtodate").hide();
+        }
+        else {
+            $("#errtodate").show();
+        }
+    });
+    $("#FromDate").change(function () {
+
+        if ($("#FromDate").val().length > 0) {
+            $("#errfrmdate").hide();
+        }
+        else {
+            $("#errfrmdate").show();
+        }
+    });
+
+
+
+    function validate() {
+        if ($("#FromDate").val().length > 0) {
+            $("#errfrmdate").hide();
+        }
+        else {
+
+            $("#errfrmdate").show();
+        }
+        if ($("#ToDate").val().length > 0) {
+            $("#errtodate").hide();
+        }
+        else {
+            $("#errtodate").show();
+        }
+
+    }
+</script>
 <script type="text/javascript">
 
     $(function () {
         $("#btnGet").click(function () {
            // debugger;
-
+            var topicshr = 0;
             var FromDate = $("#FromDate").val();
            // alert(FromDate);
             var ToDate = $("#ToDate").val();
@@ -100,17 +151,29 @@
 
             var itemlist1 = [];
             $("table tr:not(:first)").each(function () {
-             var  hours = $(this).find("td:eq(2) input[type='text']").val();
+           //  var  hours = $(this).find("td:eq(2) input[type='text']").val();
                 var tdlist = $(this).find("td");
-                var Item = { Id: $(tdlist[0]).html(), Topics: $(tdlist[1]).html(), HoursRequired: hours };
+                var valueid = $(tdlist[0]).html();
+
+                var hr = $("#" + valueid).val();
+
+                if (hr.length == 0) {
+                    topicshr = 1;
+                }
+                var Item = { Id: $(tdlist[0]).html(), Topics: $(tdlist[1]).html(), HoursRequired: hr };
                 itemlist1.push(Item);
             })
+            validate();
+            if (topicshr == 0) {
+
+
+                if (FromDate.length > 0 && ToDate.length > 0 && assignresid > 0 && itemlist1.length > 0) {
 
             var mod = { FromDate: FromDate, ToDate: ToDate, AssignResource_Id: assignresid, Id: trainingid};
       var newUrl= '@Url.Action("Index", "Training")';
             $.ajax({
                 type: "POST",
-                url: "/Training/Edit",
+                url: "/Trainer/Training/Edit",
                 data: JSON.stringify({ itemlist: itemlist1, tvm: mod, id: trainingid }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -121,7 +184,13 @@
                     alert(response.responseText);
                 },
 
-            });
+                    });
+                }
+            }
+            else {
+                $("#errTopics").show();
+            }
+
 
         });
     });

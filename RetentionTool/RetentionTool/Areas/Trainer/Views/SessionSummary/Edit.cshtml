@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<div class="container" style="width:50%;margin-top:2%">
+<div class="container" style="width:100%;margin-top:2%">
 
     <div>
         <div class="row form-group">
@@ -41,9 +41,10 @@
                     @Html.HiddenFor(m => m.session.Id, new { @id = "sessionid" })
                     @Html.HiddenFor(m => m.session.TrainingDet_Id, new { @id = "transdetid" })
                     @Html.EditorFor(m => m.session.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:60%" } })
+                    @Html.ValidationMessageFor(model => model.session.Date, "Required", new { @class = "text-danger", @id = "errdate" })
 
 
-                </div><br />
+                </div>
             </div>
         </div>
 
@@ -52,7 +53,8 @@
                 <div>@Html.LabelFor(m => m.session.Hours, new { @class = "form-control-label" })</div>
             </div>
             <div class="col-12 col-md-9">
-                <div>@Html.TextBoxFor(m => m.session.Hours, new { @Id = "hours", @class = "form-control", style = "width:60%" })</div><br />
+                <div>@Html.TextBoxFor(m => m.session.Hours, new { @Id = "hours", @class = "form-control", style = "width:60%" })</div>
+                @Html.ValidationMessageFor(model => model.session.Hours, "Required", new { @class = "text-danger", @id = "errhour" })
             </div>
         </div>
 
@@ -61,7 +63,8 @@
                 <div>@Html.LabelFor(m => m.session.Description, new { @class = "form-control-label" })</div>
             </div>
             <div class="col-12 col-md-9">
-                <div>@Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:60%" })</div><br />
+                <div>@Html.TextBoxFor(m => m.session.Description, new { @Id = "descr", @class = "form-control", style = "width:60%" })</div>
+                @Html.ValidationMessageFor(model => model.session.Description, "Required", new { @class = "text-danger", @id = "errdesc" })
             </div>
         </div>
 
@@ -99,6 +102,8 @@
 
 
         </table>
+        @Html.ValidationMessageFor(model => model.session.Description, "Required", new { @class = "text-danger", @id = "errtbl" })
+
 
         <div class="row form-group">
             <div class="col col-md-3">
@@ -120,13 +125,115 @@
 
 
 
+<script>
+
+    $(document).ready(function () {
+        //$("#errtpc").hide();
+        $("#errdate").hide();
+        $("#errdesc").hide();
+        $("#errhour").hide();
+        $("#errtbl").hide();
+        // $("#errcomm_id").hide();
+
+
+    });
+    ////date, errdate
+    $("#date").change(function () {
+
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+            $("#errdate").show();
+        }
+    });
+    ////hours,errhour
+    $("#hours").keydown(function () {
+        if (event.which === 8) {
+            if ($("#hours").val().length > 0) {
+                $("#errhour").hide();
+            }
+            else if ($("#hours").val() === "" || $("#hours").val().length === 0) {
+
+                $("#errhour").show();
+            }
+        }
+        else if ($("#hours").val() == "") {
+            $("#errhour").hide();
+        }
+    });
+    ////descr,errdesc
+    //Common_Id,errcomm_id,skill_Id,errskill
+    $("#descr").keydown(function () {
+        if (event.which === 8) {
+            if ($("#descr").val().length > 0) {
+                $("#errdesc").hide();
+            }
+            else if ($("#descr").val() === "" || $("#descr").val().length === 0) {
+
+                $("#errdesc").show();
+            }
+        }
+        else if ($("#descr").val() == "") {
+            $("#errdesc").hide();
+        }
+    });
+    //   //remarkval  errtbl
+    $("#remarkval").keydown(function () {
+        if (event.which === 8) {
+            if ($("#remarkval").val().length > 0) {
+                $("#errtbl").hide();
+            }
+            else if ($("#remarkval").val() === "" || $("#remarkval").val().length === 0) {
+
+                $("#errtbl").show();
+            }
+        }
+        else if ($("#remarkval").val() == "") {
+            $("#errtbl").hide();
+        }
+    });
+
+    //trainerid,errtrainerid
+
+
+    function validate() {
+
+        if ($("#date").val().length > 0) {
+            $("#errdate").hide();
+        }
+        else {
+            $("#errdate").show();
+        }
+        if ($("#hours").val().length > 0) {
+            $("#errhour").hide();
+        }
+        else {
+
+            $("#errhour").show();
+        }
+
+        if ($("#descr").val().length > 0) {
+            $("#errdesc").hide();
+        }
+        else {
+
+            $("#errdesc").show();
+        }
+
+
+    }
+
+
+
+</script>
 
 <script>
 
       $("#btnSave").click(function () {
 
                 var itemlist = [];
-
+          var count = 0;
                 //get cell values, instead of the header text.
           $("table tr:not(:first)").each(function () {
               var attendance;
@@ -140,6 +247,10 @@
 
               remark = $(this).find("td:eq(3) input[type='text']").val();
               var tdlist = $(this).find("td");
+              if (remark.length <= 0) {
+                  count = 1;
+                  $("#errtbl").show();
+              }
 
               var Item = { Id: $(tdlist[0]).html(), Name: $(tdlist[1]).html(), Attendance: attendance, Remark: remark };
               itemlist.push(Item);
@@ -154,20 +265,24 @@
           var desc = $("#descr").val();
         //  alert(desc);
           var mod = [];
-          mod = { Date: date, Hours: hours, Description: desc, Id: sessionid, TrainingDet_Id: transdetid };
-         var newUrl= '@Url.Action("Index", "SessionSummary")';
-                $.ajax({
-                    url: '@Url.Action("Edit", "SessionSummary")', //
-                    dataType: "json",
-                    data: JSON.stringify({ list: itemlist, sessionVM: mod, id: sessionid }),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        window.location.href = newUrl;
-                    },
-                    error: function (xhr) {
-                        alert("error");
-                    }
-                });
+          validate();
+          if (date.length > 0 && hours.length > 0 && desc.length > 0 && itemlist.length > 0 && count == 0) {
+              mod = { Date: date, Hours: hours, Description: desc, Id: sessionid, TrainingDet_Id: transdetid };
+              var newUrl = '@Url.Action("Index", "SessionSummary")';
+              $("#btnSave").attr('disabled', true);
+              $.ajax({
+                  url: '@Url.Action("Edit", "SessionSummary")', //
+                  dataType: "json",
+                  data: JSON.stringify({ list: itemlist, sessionVM: mod, id: sessionid }),
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  success: function (result) {
+                      window.location.href = newUrl;
+                  },
+                  error: function (xhr) {
+                      alert("error");
+                  }
+              });
+          }
             });
 </script>

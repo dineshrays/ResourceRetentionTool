@@ -44,6 +44,7 @@
             </tr>
         }
     </table>
+    @Html.ValidationMessageFor(model => model.RateEmployeeVm.Employee_Id, "Required", new { @class = "text-danger", @id = "errtbl" })
     <div class="row form-group">
         <div class="col col-md-3">
 
@@ -69,13 +70,14 @@
 
         var ass = assign[0].split('=');
         assignresid = ass[1];
-        
+        $("#errtbl").hide();
 
     });
     $("#btnSave").click(function () {
 
 
-          var itemlist=[];
+        var itemlist = [];
+        var checkforval = 0;
 
         $("table tr:not(:first)").each(function () {
 
@@ -92,13 +94,17 @@
             
 
               grade = $(this).find("td:eq(2) input[type='text']").val();
-                    var tdlist = $(this).find("td");
-
+            var tdlist = $(this).find("td");
+            if (grade.length == 0) {
+                checkforval = 1;
+                $("#errtbl").show();
+            }
             var Item = { AssignResources_Id: assignresid, Employee_Id: $(tdlist[0]).html(), Name: $(tdlist[1]).html(), Grade: grade, IsEligible: IsEligible };
                     itemlist.push(Item);
         })
-        if (itemlist.length > 0) {
+        if (itemlist.length > 0 && checkforval==0) {
             var newUrl = '@Url.Action("Index", "RateEmployee")';
+            $("#btnSave").attr('disabled', true);
             $.ajax({
                 url: '@Url.Action("Create", "RateEmployee")', //
                 dataType: "json",
@@ -114,7 +120,7 @@
             });
         }
         else {
-            alert('Please enter all the details')
+           // alert('Please enter all the details')
         }
        
             });

@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        <br />
+     
 
 
         <table class="table table-striped">
@@ -301,17 +301,17 @@
               }
               remark = $(this).find("td:eq(3) input[type='text']").val();
               if ( remark.length > 0) {
-                  var tdlist = $(this).find("td");
-
-                  var Item = { Id: $(tdlist[0]).html(), Name: $(tdlist[1]).html(), Attendance: attendance, Remark: remark };
-                  itemlist.push(Item);
-                  count = 1;
+                
+                
               }
               else {
                   $("#errtbl").show();
-                  count = 0;
+                  count = 1;
               }
-             
+              var tdlist = $(this).find("td");
+
+              var Item = { Id: $(tdlist[0]).html(), Name: $(tdlist[1]).html(), Attendance: attendance, Remark: remark };
+              itemlist.push(Item);
                
                 })
 
@@ -323,7 +323,7 @@
         //  alert(desc);
           var mod = [];
           validate();
-          if (date.length > 0 && hours.length > 0 && desc.length > 0 && itemlist.length > 0 && count>0) {
+          if (date.length > 0 && hours.length > 0 && desc.length > 0 && itemlist.length > 0 && count==0) {
               var newUrl = '@Url.Action("Index", "SessionSummary")';
               $("#btnSave").attr('disabled', true);
                mod = { TrainingDet_Id: trainingdetid, Date: date, Hours: hours, Description: desc };
