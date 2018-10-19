@@ -20,6 +20,8 @@ namespace RetentionTool.Controllers
         {
             getRoleDetails();
             return View();
+                //RedirectToAction("Test");
+                //View();
         }
         public ActionResult loginIndex()
         {

@@ -56,5 +56,6 @@ namespace RetentionTool.Models
         public virtual DbSet<CircularUser_Details> CircularUser_Details { get; set; }
         public virtual DbSet<ApproveEmpSkill> ApproveEmpSkills { get; set; }
         public virtual DbSet<EmployeeSkillsAdd> EmployeeSkillsAdds { get; set; }
+        public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
     }
 }

@@ -134,6 +134,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="logfile.txt" />
     <Content Include="Models\RetentionToolsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RetentionToolsModel.Context.cs</LastGenOutput>
@@ -1644,6 +1645,9 @@
     <Compile Include="Models\EmployeeSkillsAddModel.cs" />
     <Compile Include="Models\EmployeeSkillsModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
+    <Compile Include="Models\ErrorLog.cs">
+      <DependentUpon>RetentionToolsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Experience.cs">
       <DependentUpon>RetentionToolsModel.tt</DependentUpon>
     </Compile>

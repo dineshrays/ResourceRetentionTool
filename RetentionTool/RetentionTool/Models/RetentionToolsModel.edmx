@@ -184,6 +184,15 @@
           <Property Name="IsPromoted" Type="bit" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="ErrorLogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErrorMessage" Type="varchar(max)" />
+          <Property Name="ControllerName" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Experience">
           <Key>
             <PropertyRef Name="Id" />
@@ -973,6 +982,7 @@
           <EntitySet Name="EmployeeEvalTaskDet" EntityType="Self.EmployeeEvalTaskDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeSkills" EntityType="Self.EmployeeSkills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeSkillsAdd" EntityType="Self.EmployeeSkillsAdd" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDet" EntityType="Self.ModuleDet" Schema="dbo" store:Type="Tables" />
@@ -1447,6 +1457,7 @@
             <End Role="Skill" EntitySet="Skills" />
             <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
           </AssociationSet>
+          <EntitySet Name="ErrorLogs" EntityType="RetentionToolModel.ErrorLog" />
           </EntityContainer>
         <EntityType Name="Module">
           <Key>
@@ -2487,6 +2498,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ControllerName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2884,6 +2904,16 @@
                 <ScalarProperty Name="Skills_Id" ColumnName="Skills_Id" />
                 <ScalarProperty Name="CommonField_Id" ColumnName="CommonField_Id" />
                 <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorLogs">
+            <EntityTypeMapping TypeName="RetentionToolModel.ErrorLog">
+              <MappingFragment StoreEntitySet="ErrorLogs">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

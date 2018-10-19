@@ -257,6 +257,7 @@
       <End Role="Skill" EntitySet="Skills" />
       <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
     </AssociationSet>
+    <EntitySet Name="ErrorLogs" EntityType="RetentionToolModel.ErrorLog" />
   </EntityContainer>
   <EntityType Name="Module">
     <Key>
@@ -1297,4 +1298,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ControllerName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
 </Schema>

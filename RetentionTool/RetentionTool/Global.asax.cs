@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using RetentionTool.Models;
 
 namespace RetentionTool
 {
@@ -28,7 +30,18 @@ namespace RetentionTool
             filterContext.Result = v;
             filterContext.ExceptionHandled = true;
             Exception e = filterContext.Exception;
-            v.TempData["ErrorMess"] = e.Message;
+            string controllerName = filterContext.Controller.ToString();
+            v.TempData["ErrorMess"] = e.Message + controllerName;
+            RetentionToolEntities dbEntities = new RetentionToolEntities();
+            ErrorLog error = new ErrorLog();
+            error.ErrorMessage = e.Message;
+            error.ControllerName = controllerName;
+            error.CreatedOn = DateTime.Now;
+            dbEntities.ErrorLogs.Add(error);
+            dbEntities.SaveChanges();
+      
+            //     string filePath = Path.Combine(Server.MapPath("../logfile.txt"),
+            //     File.AppendAllText(@"D:\temp\logfile.txt",DateTime.Now+":"+v.TempData["ErrorMess"] + Environment.NewLine);
         }
     }
 }
