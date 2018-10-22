@@ -4,6 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutMain.cshtml";
     var filepath = "" ;
     var count = 0;
+    var Gender = ViewBag.Genders;
 }
 
 @*<h2>Create Employee</h2>*@
@@ -96,7 +97,8 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Gender, new { @id = "Gender", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.DropDownList("Genders", ViewBag.Genders as SelectList, null, htmlAttributes: new { @id = "Gender", @class = "form-control", style = "width:40%" })</div>
+                    @*<div>@Html.TextBoxFor(m => m.PersonalInfoVm.Gender, new { @id = "Gender", @class = "form-control", style = "width:40%" })</div><br />*@
                 </div>
             </div>
 

@@ -75,13 +75,22 @@ namespace RetentionTool.Areas.Admin.Controllers
 
         }
 
+        
+
+        List<Gender> genderList = new List<Gender> {
+                                             new Gender{ Name="Male",   ID = 1},
+                                             new Gender{ Name="Female", ID = 2}
+                                             };
+        
+
         public ActionResult Create()
         {
             EmployeeInformationViewModel ei = new EmployeeInformationViewModel();
-
+          
             getId();
             ei.CommonField = getCommonFields();
             ei.Skill = getSkill();
+            ViewBag.Genders = new SelectList(genderList, "ID", "Name");
             return View(ei);
 
         }
@@ -100,6 +109,7 @@ namespace RetentionTool.Areas.Admin.Controllers
             getProjectList();
             ei.CommonField = getCommonFields();
             ei.Skill = getSkill();
+            ViewBag.Genders = new SelectList(genderList, "ID", "Name");
             return View(ei);
         }
 

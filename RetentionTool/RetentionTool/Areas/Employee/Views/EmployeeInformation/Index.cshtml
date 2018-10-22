@@ -8,7 +8,7 @@
    // var details = ViewBag.details;
 }
 
-<div class="card">
+
     <div class="breadcrumbs">
         <div class="col-sm-6">
             <div class="page-header float-left">
@@ -21,9 +21,10 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right" style="background-color:white">
-                        @*<li><a href="@Url.Action("Index", "AdminDashboard")">Dashboard </a></li>*@
-                        <li><a href="@Url.Action("Index", "EmployeeInformation")">Employee Information </a></li>
-                        <li class="active"> Index </li>
+                        <li><a href="@Url.Action("Index", "EmployeeHome")">Dashboard </a></li>
+                        @*<li><a href="@Url.Action("Index", "EmployeeInformation")">Employee Information </a></li>
+                        <li class="active"> Index </li>*@
+                        <li class="active"> Employee Information </li>
                     </ol>
                 </div>
             </div>
@@ -46,7 +47,7 @@
                     <td>@item.EmpCode</td>
                     <td><img src=@item.Image height="50" width="50" /></td>
                     <td>
-                        @Html.ActionLink("View Details", "viewdetails", new { id = item.Id })
+                        @Html.ActionLink("View", "viewdetails", new { id = item.Id })
                         @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "ti-pencil" })
                         @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "ti-trash" })*@
                     </td>
@@ -70,4 +71,3 @@
         </div>
 
     </div>
-</div>
