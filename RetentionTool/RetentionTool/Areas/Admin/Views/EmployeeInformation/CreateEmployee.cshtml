@@ -286,7 +286,7 @@
                     var Board = $("#Board").val();
                     var YearOfPassing = $("#YearOfPassing").val();
                     var Percentage = $("#Percentage").val();
-                    var count = count + 1;
+                     count = count + 1;
                     var tid2 = count;
 
                     if (Degree.length > 0 && Board.length > 0 && YearOfPassing.length > 0 && Percentage.length > 0) {
@@ -320,13 +320,14 @@
 
                 function delete_Row(tid2) {
                     $('#' + tid2).remove();
-                    var rows = $('table tr').length;
+                    var rows = $('#table-quali').length;
                     if (rows == 1) {
-                        $("#tblDiv").hide();
+                        $("#tbl2").hide();
                     }
+                    $("#tbl2").show();
                 }
             </script>
-            @*<div class="row card-footer">
+            @*<div class="row card-footer">x
 
                     <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab2(2)" />
                 </div>*@
@@ -473,7 +474,7 @@
                     $('#' + tid3).remove();
                     var rows = $('#table-exp').length;
                     if (rows == 1) {
-                        $("#tblDiv").hide();
+                        $("#tbl3").hide();
                     }
                 }
 
@@ -529,25 +530,24 @@
                     <button type="button" class="del-emp">Delete</button>*@
 
                 <script>
+                    var count = 0;
                     $(".add-skill").click(function () {
 
                         var skillname = $("#searchskill").val();
-
                         var skillid = $("#searchid").val();
-
                         var Years = $("#Years").val();
                         var Months = $("#Months").val();
                         var Status = $("#Status").val();
+                         count = count + 1;
+                        var tid4 = count;
 
-                        var cou = cou + 1;
-                        var tid4 = cou;
-                        if (skillname.length > 0 && Years.length > 0 && months.length > 0 && status.length > 0) {
+                        if (skillname.length > 0 && Years.length > 0 && Months.length > 0 && Status.length > 0) {
                             $("#tbl4").show();
-                            var markup = "<tr id=" + skillid + "><td>" +
+                            var markup = "<tr id=" + tid4 + "><td>" +
                                 skillname + "</td><td style='display: none'>" + skillid + "</td><td>" +
                                 Years + "</td><td>" +
                                 Months + "</td><td>" +
-                                Status + "</td><td><input type='submit'  value='Delete' class='btn btn-danger' onclick=delete_R(" + skillid + ")></td></tr>";
+                                Status + "</td><td><input type='submit'  value='Delete' class='btn btn-danger' onclick=delete_R(" + tid4 + ")></td></tr>";
                         }
                         else {
                             alert("Enter all the details");
@@ -570,11 +570,11 @@
                         });
                     });
 
-                    function delete_R(skillid) {
-                        $('#' + skillid).remove();
+                    function delete_R(tid4) {
+                        $('#' + tid4).remove();
                         var rows = $('#table-skill').length;
                         if (rows == 1) {
-                            $("#tblDiv").hide();
+                            $("#tbl4").hide();
                         }
                     }
 
