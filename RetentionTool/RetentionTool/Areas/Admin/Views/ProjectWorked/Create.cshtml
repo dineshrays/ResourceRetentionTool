@@ -68,7 +68,7 @@
 
                 </div>
                 <div class="col-12 col-md-9">
-                    @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
+                    @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%;color: #cbd1d4;" } })
                     @Html.ValidationMessageFor(model => model.projects.StartDate, "Required", new { @class = "text-danger", @id = "errorstartdate" })
                 </div>
 
@@ -79,8 +79,9 @@
                     @Html.LabelFor(model => model.projects.EndDate, new { @class = " form-control-label" })
 
                 </div>
+                @*"{0:dd-MM-yyyy}",*@
                 <div class="col-12 col-md-9">
-                    @Html.EditorFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
+                    @Html.EditorFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%;color: #cbd1d4;" } })
                     @Html.ValidationMessageFor(model => model.projects.EndDate, "Required", new { @class = "text-danger", @id = "errorenddate" })
                 </div>
 
@@ -184,6 +185,17 @@
         $("#errorteammember").hide();
         $("#errormanagerid").hide();
 
+        //$('#enddate').datepicker({
+        //    dateFormat: "dd/MM/yy",
+        //    showStatus: true,
+        //    showWeeks: true,
+        //    currentText: 'Now',
+        //    autoSize: true,
+        //    gotoCurrent: true,
+        //    showAnim: 'blind',
+        //    highlightWeek: true
+        //});
+
     });
     function validate() {
         if ($("#projectid").val().length > 0) {
@@ -230,11 +242,12 @@
 
     $("#enddate").change(function () {
        
-            if ($("#enddate").val().length > 0) {
+        if ($("#enddate").val().length > 0) {
+            $('#enddate').css("color", "#555");
                 $("#errorenddate").hide();
             }
             else  {
-               
+            $('#enddate').css("color", "#cbd1d4");
                 $("#errorenddate").show();
             }
      
@@ -270,11 +283,12 @@
 
     $("#startdate").change(function () {
         
-            if ($("#startdate").val().length > 0) {
+        if ($("#startdate").val().length > 0) {
+            $('#startdate').css("color", "#555");
                 $("#errorstartdate").hide();
             }
             else {
-
+            $('#startdate').css("color", "#cbd1d4");
                 $("#errorstartdate").show();
             }
        

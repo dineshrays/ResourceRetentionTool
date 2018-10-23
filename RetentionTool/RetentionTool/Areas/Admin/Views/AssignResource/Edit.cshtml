@@ -40,7 +40,7 @@
             </div>
             <div class="col-12 col-md-9">
                 @Html.HiddenFor(m => m.assignResource.Id, new { @id = "assresid" })
-                @Html.EditorFor(m => m.assignResource.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%" } })
+                @Html.EditorFor(m => m.assignResource.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:30%;color: #cbd1d4;" } })
                 @Html.ValidationMessageFor(m => m.assignResource.Date, "Required", new { @class = "text-danger", @id = "errdate" })
 
             </div>
@@ -210,11 +210,13 @@
     $("#date").change(function () {
         
         if ($("#date").val().length > 0) {
+            $('#date').css("color", "#555");
             $("#errdate").hide();
         }
         else
         //if ($("#date").val() == "")
         {
+            $('#date').css("color", "#cbd1d4");
             $("#errdate").hide();
         }
     });

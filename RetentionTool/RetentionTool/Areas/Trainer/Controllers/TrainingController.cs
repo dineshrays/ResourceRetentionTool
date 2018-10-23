@@ -171,6 +171,10 @@ namespace RetentionTool.Areas.Trainer.Controllers
         [HttpPost]
         public ActionResult Edit(int id, Training tvm, Item[] itemlist)
         {
+            try
+            {
+
+           
             var x = (from y in db.TrainingDets
                      where y.Training_Id == id
                      select y);
@@ -194,6 +198,11 @@ namespace RetentionTool.Areas.Trainer.Controllers
                 db.SaveChanges();
             }
             return Json("", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         public ActionResult delete(int id)

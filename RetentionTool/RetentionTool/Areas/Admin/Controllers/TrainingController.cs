@@ -166,29 +166,39 @@ namespace RetentionTool.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(int id, Training tvm, Item[] itemlist)
         {
-            var x = (from y in db.TrainingDets
-                     where y.Training_Id == id
-                     select y);
-            foreach (var item in x)
+            try
             {
-                db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
-            }
-            db.SaveChanges();
-
-            tvm.IsActive = true;
-            db.Entry(tvm).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            TrainingDet td = new TrainingDet();
-            foreach (var i in itemlist)
-            {
-                td.Training_Id = id;
-                td.ModuleDet_Id = i.Id;
-                td.HoursRequired = i.HoursRequired;
-                td.IsActive = true;
-                db.TrainingDets.Add(td);
+                var x = (from y in db.TrainingDets
+                         where y.Training_Id == id
+                         select y);
+                foreach (var item in x)
+                {
+                    db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                }
                 db.SaveChanges();
+
+                tvm.IsActive = true;
+                db.Entry(tvm).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                TrainingDet td = new TrainingDet();
+                foreach (var i in itemlist)
+                {
+                    td.Training_Id = id;
+                    td.ModuleDet_Id = i.Id;
+                    td.HoursRequired = i.HoursRequired;
+                    td.IsActive = true;
+                    db.TrainingDets.Add(td);
+                    db.SaveChanges();
+                }
+                return Json("", JsonRequestBehavior.AllowGet);
+
             }
-            return Json("", JsonRequestBehavior.AllowGet);
+            catch(Exception ex)
+            {
+                return View();
+                    //Json(null, JsonRequestBehavior.AllowGet);
+            }
+           
         }
 
         public ActionResult delete(int id)
