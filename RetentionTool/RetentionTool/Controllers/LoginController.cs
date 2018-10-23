@@ -92,7 +92,7 @@ namespace RetentionTool.Controllers
 
                 }else if (trainerRoleid == userResult.Role_Id)
                 {
-                    return RedirectToAction("Index", "Training", new { Area = "Trainer" });
+                    return RedirectToAction("Index", "TrainerHome", new { Area = "Trainer" });
                 }
                 //else if (internRoleid == userResult.Role_Id)
                 //{

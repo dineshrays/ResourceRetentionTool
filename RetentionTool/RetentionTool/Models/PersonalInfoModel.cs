@@ -27,4 +27,10 @@ namespace RetentionTool.Models
         public Nullable<bool> IsActive { get; set; }
         public string  Image { get; set; }
     }
+    public class Gender
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+    }
+
 }
