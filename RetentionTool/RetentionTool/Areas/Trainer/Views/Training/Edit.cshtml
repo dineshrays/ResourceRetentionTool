@@ -70,7 +70,7 @@
                 <tr>
                     <td style="display:none" id="Id">@emplist1.Id</td>
                     <td id="Topics">@emplist1.Topics</td>
-                    <td><input type="text" id="@emplist1.Id" value="@emplist1.HoursRequired" /></td>
+                    <td><input type="text" id="@emplist1.Id" value="@emplist1.HoursRequired"  onchange="validateHhMm(this);" /></td>
                 </tr>
             }
         </tbody>
@@ -101,18 +101,22 @@
     $("#ToDate").change(function () {
 
         if ($("#ToDate").val().length > 0) {
+            $('#ToDate').css("color", "#555");
             $("#errtodate").hide();
         }
         else {
+            $('#ToDate').css("color", "#cbd1d4");
             $("#errtodate").show();
         }
     });
     $("#FromDate").change(function () {
 
         if ($("#FromDate").val().length > 0) {
+            $('#FromDate').css("color", "#555");
             $("#errfrmdate").hide();
         }
         else {
+            $('#FromDate').css("color", "#cbd1d4");
             $("#errfrmdate").show();
         }
     });
@@ -137,11 +141,38 @@
     }
 </script>
 <script type="text/javascript">
+    var validHr = 0;
+    function validateHhMm(inputField) {
+        var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField.value);
 
+        if (isValid) {
+            // inputField.style.backgroundColor = '#bfa';
+        } else {
+            //    inputField.style.backgroundColor = '#fba';
+            inputField.focus();
+            alert('Hours Should be in HH:mm')
+        }
+
+        return isValid;
+    }
+    function validateHours(inputField) {
+        var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField);
+
+        if (isValid) {
+
+        } else {
+
+            validHr = 1;
+
+        }
+
+        return isValid;
+    }
     $(function () {
         $("#btnGet").click(function () {
            // debugger;
             var topicshr = 0;
+            validHr = 0;
             var FromDate = $("#FromDate").val();
            // alert(FromDate);
             var ToDate = $("#ToDate").val();
@@ -156,7 +187,7 @@
                 var valueid = $(tdlist[0]).html();
 
                 var hr = $("#" + valueid).val();
-
+                var valid = validateHours(hr);
                 if (hr.length == 0) {
                     topicshr = 1;
                 }
@@ -164,7 +195,7 @@
                 itemlist1.push(Item);
             })
             validate();
-            if (topicshr == 0) {
+            if (topicshr == 0 && validHr == 0) {
 
 
                 if (FromDate.length > 0 && ToDate.length > 0 && assignresid > 0 && itemlist1.length > 0) {

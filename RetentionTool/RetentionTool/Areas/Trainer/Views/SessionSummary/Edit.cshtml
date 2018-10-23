@@ -53,7 +53,7 @@
                 <div>@Html.LabelFor(m => m.session.Hours, new { @class = "form-control-label" })</div>
             </div>
             <div class="col-12 col-md-9">
-                <div>@Html.TextBoxFor(m => m.session.Hours, new { @Id = "hours", @class = "form-control", style = "width:60%" })</div>
+                <div>@Html.TextBoxFor(m => m.session.Hours, new { @Id = "hours", @class = "form-control", style = "width:60%", @onchange = "validateHhMm(this);" })</div>
                 @Html.ValidationMessageFor(model => model.session.Hours, "Required", new { @class = "text-danger", @id = "errhour" })
             </div>
         </div>
@@ -125,8 +125,34 @@
 
 
 
-<script>
+<script type="text/javascript">
+    var validHr = 0;
+    function validateHhMm(inputField) {
+        var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField.value);
 
+        if (isValid) {
+            // inputField.style.backgroundColor = '#bfa';
+        } else {
+            //    inputField.style.backgroundColor = '#fba';
+            inputField.focus();
+            alert('Hours Should be in HH:mm')
+        }
+
+        return isValid;
+    }
+    function validateHours(inputField) {
+        var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField);
+
+        if (isValid) {
+
+        } else {
+
+            validHr = 1;
+
+        }
+
+        return isValid;
+    }
     $(document).ready(function () {
         //$("#errtpc").hide();
         $("#errdate").hide();
@@ -141,9 +167,11 @@
     $("#date").change(function () {
 
         if ($("#date").val().length > 0) {
+            $('#date').css("color", "#555");
             $("#errdate").hide();
         }
         else {
+            $('#date').css("color", "#cbd1d4");
             $("#errdate").show();
         }
     });
@@ -265,8 +293,9 @@
           var desc = $("#descr").val();
         //  alert(desc);
           var mod = [];
+          validateHours(hours);
           validate();
-          if (date.length > 0 && hours.length > 0 && desc.length > 0 && itemlist.length > 0 && count == 0) {
+          if (date.length > 0 && hours.length > 0 && desc.length > 0 && itemlist.length > 0 && count == 0 && validHr==0) {
               mod = { Date: date, Hours: hours, Description: desc, Id: sessionid, TrainingDet_Id: transdetid };
               var newUrl = '@Url.Action("Index", "SessionSummary")';
               $("#btnSave").attr('disabled', true);
@@ -283,6 +312,9 @@
                       alert("error");
                   }
               });
+          }
+          if (validHr == 1) {
+              $("#errhour").show();
           }
             });
 </script>

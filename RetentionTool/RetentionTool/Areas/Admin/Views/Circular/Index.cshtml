@@ -102,7 +102,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:50%" } })
+                @Html.EditorFor(a => a.Date, new { htmlAttributes = new { @class = "form-control", @id = "date", style = "width:50%;color: #cbd1d4;" } })
 
                 @Html.ValidationMessageFor(m => m.Date, "Required", new { @class = "text-danger", @id = "errdate" })
 
@@ -117,7 +117,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.ValidFrom, new { htmlAttributes = new { @class = "form-control", @id = "validfrom", style = "width:50%" } })
+                @Html.EditorFor(a => a.ValidFrom, new { htmlAttributes = new { @class = "form-control", @id = "validfrom", style = "width:50%;color: #cbd1d4;" } })
 
                 @Html.ValidationMessageFor(m => m.ValidFrom, "Required", new { @class = "text-danger", @id = "errvalidfrom" })
 
@@ -132,7 +132,7 @@
             </div>
             <div class="col-12 col-md-9">
 
-                @Html.EditorFor(a => a.ValidTo, new { htmlAttributes = new { @class = "form-control", @id = "validto", style = "width:50%" } })
+                @Html.EditorFor(a => a.ValidTo, new { htmlAttributes = new { @class = "form-control", @id = "validto", style = "width:50%;color: #cbd1d4;" } })
                 @Html.ValidationMessageFor(m => m.ValidTo, "Required", new { @class = "text-danger", @id = "errvalidto" })
 
 
@@ -209,27 +209,38 @@
     $("#validfrom").change(function () {
 
         if ($("#validfrom").val().length > 0) {
+            $('#validfrom').css("color", "#555");
+
             $("#errvalidfrom").hide();
         }
         else {
+            $('#validfrom').css("color", "#cbd1d4");
+
             $("#errvalidfrom").hide();
         }
     });
     $("#validto").change(function () {
 
         if ($("#validto").val().length > 0) {
+            $('#validto').css("color", "#555");
             $("#errvalidto").hide();
         }
         else {
+            $('#validto').css("color", "#cbd1d4");
+
             $("#errvalidto").hide();
         }
     });
     $("#date").change(function () {
 
         if ($("#date").val().length > 0) {
+            $('#date').css("color", "#555");
+
             $("#errdate").hide();
         }
         else {
+            $('#date').css("color", "#cbd1d4");
+
             $("#errdate").hide();
         }
     });

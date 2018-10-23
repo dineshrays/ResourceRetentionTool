@@ -211,9 +211,11 @@
     $("#date").change(function () {
 
         if ($("#date").val().length > 0) {
+            $('#date').css("color", "#555");
             $("#errdate").hide();
         }
         else {
+            $('#date').css("color", "#cbd1d4");
             $("#errdate").hide();
         }
     });

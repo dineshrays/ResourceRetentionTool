@@ -220,10 +220,11 @@
     $("#enddate").change(function () {
 
         if ($("#enddate").val().length > 0) {
+            $('#enddate').css("color", "#555");
             $("#errorenddate").hide();
         }
         else {
-
+            $('#enddate').css("color", "#cbd1d4");
             $("#errorenddate").show();
         }
 
@@ -260,9 +261,12 @@
     $("#startdate").change(function () {
 
         if ($("#startdate").val().length > 0) {
+            $('#startdate').css("color", "#555");
+
             $("#errorstartdate").hide();
         }
         else {
+            $('#startdate').css("color", "#cbd1d4");
 
             $("#errorstartdate").show();
         }

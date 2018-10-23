@@ -178,9 +178,13 @@
             //    $("#errdate").show();
             //}
             if ($("#DateId").val().length > 0) {
+               
+                $('#DateId').css("color", "#555");
                 $("#errdate").hide();
             }
             else {
+              
+                $('#DateId').css("color", "#cbd1d4");
                 $("#errdate").show();
             }
             if ($("#skill_Id").val() > 0) {
@@ -218,6 +222,33 @@
     </script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
+        var validHr = 0;
+        function validateHhMm(inputField) {
+            var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField.value);
+
+            if (isValid) {
+                // inputField.style.backgroundColor = '#bfa';
+            } else {
+                //    inputField.style.backgroundColor = '#fba';
+                inputField.focus();
+                alert('Hours Should be in HH:mm')
+            }
+
+            return isValid;
+        }
+        function validateHours(inputField) {
+            var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField);
+
+            if (isValid) {
+
+            } else {
+
+                validHr = 1;
+
+            }
+
+            return isValid;
+        }
             function delete_Row(idval) {
 
                 $("#" + idval).remove();
@@ -230,12 +261,12 @@
                 var count1 = @mDetails.Count;
                 //alert(@countval);
                 $(".add-row").click(function () {
-                   // count = count + 1;
-
+                    // count = count + 1;
+                    validHr = 0;
                     var Topics = $("#Topics").val();
                     var HoursRequired = $("#HoursRequired").val();
-
-                    if (Topics.length > 0 && HoursRequired.length > 0) {
+                    validateHours(HoursRequired);
+                    if (Topics.length > 0 && HoursRequired.length > 0 && validHr ==0) {
                         $("#errtpc").hide();
                           $("#tblDiv").show();
                         count1 = count1 + 1;
@@ -271,7 +302,7 @@
 
     <form>
         <input type="text" id="Topics" placeholder="Topics">
-        <input type="text" id="HoursRequired" placeholder="Hours Required">
+        <input type="text" id="HoursRequired" placeholder="Hours Required" onchange="validateHhMm(this);">
         <input type="button" class="add-row" value="Add Row">
         <br />
         @Html.ValidationMessageFor(model => model.module.Date, "Required", new { @class = "text-danger", @id = "errtpc" })
