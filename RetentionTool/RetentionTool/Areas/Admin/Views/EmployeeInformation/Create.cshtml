@@ -60,6 +60,7 @@
                 </div>
                 <div class="col-6 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.EmpCode, new { @id = "EmpCode", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m=>m.PersonalInfoVm.EmpCode, "Required", new {@class="text-danger", @id="err1EmpCode", })</div>
                 </div>
             </div>
 
@@ -69,6 +70,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Name, new { @id = "Name", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.Name, "Required", new { @class = "text-danger", @id = "err1Name", })</div>
                 </div>
             </div>
 
@@ -87,6 +89,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.EditorFor(m => m.PersonalInfoVm.DOB, new { htmlAttributes = new { @id = "DOB", @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.DOB, "Required", new { @class = "text-danger", @id = "err1Dob", })</div>
                 </div>
             </div>
 
@@ -95,8 +98,9 @@
                     <div>@Html.LabelFor(m => m.PersonalInfoVm.Gender, new { @class = "form-control-label" })</div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div>@Html.DropDownList("Genders", ViewBag.Genders as SelectList,null ,htmlAttributes: new { @id = "Gender", @class = "form-control" })</div>
+                    <div>@Html.DropDownList("Genders", ViewBag.Genders as SelectList, null, htmlAttributes: new { @id = "Gender", @class = "form-control" })</div>
                     @*<div>@Html.TextBoxFor(m => m.PersonalInfoVm.Gender, new { @id = "Gender", @class = "form-control", style = "width:40%" })</div><br />*@
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.Gender, "Required", new { @class = "text-danger", @id = "err1Gender", })</div>
                 </div>
             </div>
 
@@ -127,6 +131,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Contact, new { @id = "Contact", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.Contact, "Required", new { @class = "text-danger", @id = "err1EmpCode", })</div>
                 </div>
             </div>
 
@@ -145,6 +150,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Email, new { @id = "Email", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.Email, "Required", new { @class = "text-danger", @id = "err1EmpCode", })</div>
                 </div>
             </div>
 
@@ -163,6 +169,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.AadharNo, new { @id = "AadharNo", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.AadharNo, "Required", new { @class = "text-danger", @id = "err1EmpCode", })</div>
                 </div>
             </div>
 
@@ -174,7 +181,7 @@
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.BloodGroup, new { @id = "BloodGroup", @class = "form-control", style = "width:40%" })</div><br />
                 </div>
             </div>
-
+            
 
 
         </div>

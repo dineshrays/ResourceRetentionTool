@@ -47,33 +47,33 @@
         </div>
     </div>
     @*<script src="jquery-1.5.1.min.js" type="text/javascript"></script>
-    <script src="jquery-ui.js" type="text/javascript"></script>
-    <link href="jquery-ui.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript">
-        $(function () {
-            $("tabs").tabs();
-        });
-        function GetSelectedTabIndex() {
-            var $tabs = $('#tabs').tabs();
-            var selected = $tabs.tabs('option', 'selected');
-            return selected;
-        }
+        <script src="jquery-ui.js" type="text/javascript"></script>
+        <link href="jquery-ui.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">
+            $(function () {
+                $("tabs").tabs();
+            });
+            function GetSelectedTabIndex() {
+                var $tabs = $('#tabs').tabs();
+                var selected = $tabs.tabs('option', 'selected');
+                return selected;
+            }
 
-        function ShowTabs(stepNum) {
-            var num = parseInt(stepNum);
-            $('#tabs').tabs('select', parseInt(GetSelectedTabIndex()) + num);
-        }
-    </script>*@
+            function ShowTabs(stepNum) {
+                var num = parseInt(stepNum);
+                $('#tabs').tabs('select', parseInt(GetSelectedTabIndex()) + num);
+            }
+        </script>*@
 
 
-    <div id="tabs">
+    <div id="tabs" class="mydivs">
         <ul>
             <li id='tb1'><a href="#tabs-1">Personal Information</a></li>
             <li id='tb2'><a href="#tabs-2">Education Qualification</a></li>
             <li id='tb3'><a href="#tabs-3">Experience</a></li>
-            <li id='td4'><a href="#tabs-4">Employee Skills</a></li>
-            <li id='td5'><a href="#tabs-5">Projects Worked</a></li>
-            <li id='td6'><a href="#tabs-6">Current Company</a></li>
+            <li id='tb4'><a href="#tabs-4">Employee Skills</a></li>
+            <li id='tb5'><a href="#tabs-5">Projects Worked</a></li>
+            <li id='tb6'><a href="#tabs-6">Current Company</a></li>
         </ul>
         <div id="tabs-1">
 
@@ -83,6 +83,7 @@
                 </div>
                 <div class="col-6 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.EmpCode, new { @id = "EmpCode", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.EmpCode, "Required", new { @class = "text-danger", @id = "err1EmpCode", })</div>
                 </div>
             </div>
 
@@ -92,6 +93,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Name, new { @id = "Name", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.Name, "Required", new { @class = "text-danger", @id = "err1Name", })</div>
                 </div>
             </div>
 
@@ -110,6 +112,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.EditorFor(m => m.PersonalInfoVm.DOB, new { htmlAttributes = new { @id = "DOB", @class = "form-control", style = "width:40%" } })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.DOB, "Required", new { @class = "text-danger", @id = "err1Dob", })</div>
                 </div>
             </div>
 
@@ -120,6 +123,7 @@
                 <div class="col-12 col-md-9">
                     <div>@Html.DropDownList("Genders", ViewBag.Genders as SelectList, null, htmlAttributes: new { @id = "Gender", @class = "form-control", style = "width:40%" })</div>
                     @*<div>@Html.TextBoxFor(m => m.PersonalInfoVm.Gender, new { @id = "Gender", @class = "form-control", style = "width:40%" })</div><br />*@
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.Gender, "Required", new { @class = "text-danger", @id = "err1Gender", })</div>
                 </div>
             </div>
 
@@ -148,6 +152,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Contact, new { @id = "Contact", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.Contact, "Required", new { @class = "text-danger", @id = "err1contact", })</div>
                 </div>
             </div>
 
@@ -166,6 +171,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.Email, new { @id = "Email", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.Email, "Required", new { @class = "text-danger", @id = "err1Email", })</div>
                 </div>
             </div>
 
@@ -184,6 +190,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.PersonalInfoVm.AadharNo, new { @id = "AadharNo", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.PersonalInfoVm.AadharNo, "Required", new { @class = "text-danger", @id = "err1Aadhar", })</div>
                 </div>
             </div>
 
@@ -232,8 +239,8 @@
             </script>
             @*<div class="row card-footer">
 
-                    <input type="button" id="my-text-link" style="float:right" class="btn btn-success" value="Next" onclick="" />
-                </div>*@
+                <input type="button" id="my-text-link" style="float:right" class="btn btn-success" value="Next" onclick="" />
+            </div>*@
 
             <script>
                 function changetab(id) {
@@ -250,7 +257,34 @@
 
             </script>
             <br><br>
+            @*<script>
+                $(document).ready(function () {
+                    $(".divs div").each(function (e) {
+                        if (e != 0)
+                            $(this).hide();
+                    });
 
+                    $("#next").click(function () {
+                        if ($(".divs div:visible").next().length != 0)
+                            $(".divs div:visible").next().show().prev().hide();
+                        else {
+                            $(".divs div:visible").hide();
+                            $(".divs div:first").show();
+                        }
+                        return false;
+                    });
+
+                    $("#prev").click(function () {
+                        if ($(".divs div:visible").prev().length != 0)
+                            $(".divs div:visible").prev().show().next().hide();
+                        else {
+                            $(".divs div:visible").hide();
+                            $(".divs div:last").show();
+                        }
+                        return false;
+                    });
+                });
+            </script>*@
         </div>
 
         <div id="tabs-2">
@@ -258,8 +292,8 @@
 
                 <input class="form-control" style="width:30%" id="Degree" placeholder="Degree" /> &nbsp;
                 <input id="Board" placeholder="Board" />&nbsp;
-                <input id="YearOfPassing" placeholder="Year Of Passing" />&nbsp;
-                <input id="Percentage" placeholder="Percentage" />&nbsp;
+                <input id="YearOfPassing" placeholder="Year Of Passing" type="number" min="0" />&nbsp;
+                <input id="Percentage" placeholder="Percentage" type="number" min="0" max="100" />&nbsp;
 
                 <input type="button" value="Add" class="add-quali" />
             </div>
@@ -277,7 +311,7 @@
                 </table>
             </div>
             @*<br />
-                <button type="button" class="del-quali">Delete</button>*@
+            <button type="button" class="del-quali">Delete</button>*@
 
             <script>
                 $(".add-quali").click(function () {
@@ -286,16 +320,22 @@
                     var Board = $("#Board").val();
                     var YearOfPassing = $("#YearOfPassing").val();
                     var Percentage = $("#Percentage").val();
-                     count = count + 1;
+                    count = count + 1;
                     var tid2 = count;
 
                     if (Degree.length > 0 && Board.length > 0 && YearOfPassing.length > 0 && Percentage.length > 0) {
-                        $("#tbl2").show();
-                        var Qualification = "<tr id=" + tid2 + "><td>" +
-                            Degree + "</td><td>" +
-                            Board + "</td><td>" +
-                            YearOfPassing + "</td><td>" +
-                            Percentage + "</td><td><input type='submit'  value='Delete' class='btn btn-danger' onclick=delete_Row(" + tid2 + ")></td></tr>";
+                        if (Percentage <= 100) {
+                            $("#tbl2").show();
+                            var Qualification = "<tr id=" + tid2 + "><td>" +
+                                Degree + "</td><td>" +
+                                Board + "</td><td>" +
+                                YearOfPassing + "</td><td>" +
+                                Percentage + "</td><td><input type='submit'  value='Delete' class='btn btn-danger' onclick=delete_Row(" + tid2 + ")></td></tr>";
+                        }
+                        else {
+                            alert("Enter the percentage below 100");
+                        }
+                       
                     }
                     else {
                         alert("Enter all the details");
@@ -329,8 +369,8 @@
             </script>
             @*<div class="row card-footer">x
 
-                    <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab2(2)" />
-                </div>*@
+                <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab2(2)" />
+            </div>*@
 
             <script>
                 function changetab2(id) {
@@ -345,6 +385,34 @@
 
                 }
             </script>
+            @*<script>
+                $(document).ready(function () {
+                    $(".divs div").each(function (e) {
+                        if (e != 0)
+                            $(this).hide();
+                    });
+
+                    $("#next").click(function () {
+                        if ($(".divs div:visible").next().length != 0)
+                            $(".divs div:visible").next().show().prev().hide();
+                        else {
+                            $(".divs div:visible").hide();
+                            $(".divs div:first").show();
+                        }
+                        return false;
+                    });
+
+                    $("#prev").click(function () {
+                        if ($(".divs div:visible").prev().length != 0)
+                            $(".divs div:visible").prev().show().next().hide();
+                        else {
+                            $(".divs div:visible").hide();
+                            $(".divs div:last").show();
+                        }
+                        return false;
+                    });
+                });
+            </script>*@
         </div>
 
         <div id="tabs-3">
@@ -355,6 +423,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.ExperienceVm.CompanyName, new { @id = "CompanyName", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.ExperienceVm.CompanyName, "Required", new { @class = "text-danger", @id = "err3comname", })</div>
                 </div>
             </div>
 
@@ -391,6 +460,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.ExperienceVm.ProjectWorked, new { @id = "ProjectWorked", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.ExperienceVm.ProjectWorked, "Required", new { @class = "text-danger", @id = "err3prjtwrk", })</div>
                 </div>
             </div>
 
@@ -420,7 +490,7 @@
                 </table>
             </div>
             @*<br />
-                <button type="button" class="del-exp">Delete</button>*@
+            <button type="button" class="del-exp">Delete</button>*@
 
 
             <script>
@@ -481,8 +551,8 @@
             </script>
             @*<div class="row card-footer">
 
-                    <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab3(3)" />
-                </div>*@
+                <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab3(3)" />
+            </div>*@
 
             <script>
                 function changetab3(id) {
@@ -527,7 +597,7 @@
                     </table>
                 </div>
                 @*<br />
-                    <button type="button" class="del-emp">Delete</button>*@
+                <button type="button" class="del-emp">Delete</button>*@
 
                 <script>
                     var count = 0;
@@ -538,7 +608,7 @@
                         var Years = $("#Years").val();
                         var Months = $("#Months").val();
                         var Status = $("#Status").val();
-                         count = count + 1;
+                        count = count + 1;
                         var tid4 = count;
 
                         if (skillname.length > 0 && Years.length > 0 && Months.length > 0 && Status.length > 0) {
@@ -625,8 +695,8 @@
 
             @*<div class="row card-footer">
 
-                    <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab4(4)" />
-                </div>*@
+                <input type="button" style="float:right" class="btn btn-success" value="Next" onclick="changetab4(4)" />
+            </div>*@
 
             <script>
                 function changetab4(id) {
@@ -719,8 +789,8 @@
             </div>
             @*<div class="row card-footer">
 
-                    <input type="button" style="float:right" class="btn btn-success" value="Next" id="td" onclick="changetab5" />
-                </div>*@
+                <input type="button" style="float:right" class="btn btn-success" value="Next" id="td" onclick="changetab5" />
+            </div>*@
 
             <script>
                 function changetab5(id) {
@@ -745,6 +815,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.CurrentInfoVm.Designation, new { @id = "Designation2", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.CurrentInfoVm.Designation, "Required", new { @class = "text-danger", @id = "err6designation", })</div>
                 </div>
             </div>
 
@@ -772,6 +843,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.CurrentInfoVm.ReportingManager, new { @id = "ReportingManager", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.CurrentInfoVm.ReportingManager, "Required", new { @class = "text-danger", @id = "err6RepManager", })</div>
                 </div>
             </div>
 
@@ -853,6 +925,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.CurrentInfoVm.WorkLocation, new { @id = "WorkLocation", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.CurrentInfoVm.WorkLocation, "Required", new { @class = "text-danger", @id = "err6WLoc", })</div>
                 </div>
             </div>
 
@@ -880,6 +953,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.CurrentInfoVm.Salary, new { @id = "Salary", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.CurrentInfoVm.Salary, "Required", new { @class = "text-danger", @id = "err6Salary", })</div>
                 </div>
             </div>
 
@@ -889,6 +963,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div>@Html.TextBoxFor(m => m.CurrentInfoVm.CTC, new { @id = "CTC", @class = "form-control", style = "width:40%" })</div><br />
+                    <div>@Html.ValidationMessageFor(m => m.CurrentInfoVm.CTC, "Required", new { @class = "text-danger", @id = "err6CTC", })</div>
                 </div>
             </div>
 
@@ -1049,7 +1124,74 @@
             </script>
         </div>
 
-    </div>
 
+        <button name="prev" class="btn btn-success">Previous</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button name="next" class="btn btn-success">Next</button>
+    </div>
+   
+   
+
+    @*<script>
+            $(document).ready(function () {
+                $(".divs div").each(function (e) {
+                    if (e != 0)
+                        $(this).hide();
+                });
+
+                $("#next").click(function () {
+                    if ($(".divs div:visible").next().length != 0)
+                        $(".divs div:visible").next().show().prev().hide();
+                    else {
+                        $(".divs div:visible").hide();
+                        $(".divs div:first").show();
+                    }
+                    return false;
+                });
+
+                $("#prev").click(function () {
+                    if ($(".divs div:visible").prev().length != 0)
+                        $(".divs div:visible").prev().show().next().hide();
+                    else {
+                        $(".divs div:visible").hide();
+                        $(".divs div:last").show();
+                    }
+                    return false;
+                });
+            });
+        </script>*@
+
+    <script>
+        $(document).ready(function () {
+            var divs = $('.mydivs>div');
+            var now = 0; // currently shown div
+            divs.hide().first().show(); // hide all divs except first
+            $("button[name=next]").click(function () {
+                divs.eq(now).hide();
+                now = (now + 1 < divs.length) ? now + 1 : 0;             
+                divs.eq(now).show(); // show next
+                var tabval = "#tb" +( now + 1);
+             $(tabval).addClass('ui-tab ui-tabs-active ui-state-active');
+                $(tabval).addClass('active');
+                var tabprev = "#tb" + now;
+               
+              $(tabprev).removeClass('ui-tab ui-tabs-active ui-state-active');
+
+            });
+            
+            $("button[name=prev]").click(function () {
+                divs.eq(now).hide();
+                now = (now > 0) ? now - 1 : divs.length - 1;
+                divs.eq(now).show(); // show previous
+               
+                var tabprev = "#tb" + (now + 1);
+
+                $(tabprev).addClass('ui-tab ui-tabs-active ui-state-active');
+                var tabval = "#tb" + (now+2);
+              
+                $(tabval).removeClass('ui-tab ui-tabs-active ui-state-active');
+               
+            });
+        });
+    </script>
 </body>
 </html>
