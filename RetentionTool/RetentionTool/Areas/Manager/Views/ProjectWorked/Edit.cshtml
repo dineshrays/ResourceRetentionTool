@@ -316,7 +316,7 @@
         //projectid.length > 0 && 
         if (startdate.length > 0 && enddate.length > 0 && description.length > 0 && managerid.length > 0
             && teammember.length > 0 && itemlist.length > 0) {
-            if (itemlist.length == teammember) {
+            if (itemlist.length <= teammember) {
 
                 $("#btnSave").attr('disabled', true);
                 var newUrl = '@Url.Action("Index", "ProjectWorked")';
