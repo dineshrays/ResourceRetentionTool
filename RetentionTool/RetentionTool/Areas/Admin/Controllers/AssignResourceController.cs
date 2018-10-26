@@ -193,6 +193,7 @@ namespace RetentionTool.Areas.Admin.Controllers
             var x = (from y in db.AssignResourcesDets where y.AssignResources_Id == id select y);
             foreach(var i in x)
             {
+               
                 db.Entry(i).State = System.Data.Entity.EntityState.Deleted;
             }
             db.SaveChanges();
@@ -305,13 +306,14 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             ViewData["managerslist"] = new SelectList(val, "Id", "Name"); ;
         }
 
-        public ActionResult getEmployeeDetails(int moduleid)
+        public ActionResult getEmployeeDetails(int moduleid,int[] empid)
         {
             List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
                                                join empskills in db.EmployeeSkills on personal.Id equals empskills.P_Id
                                                join skill in db.Skills on empskills.Skills_Id equals skill.id
                                                join module in db.Modules on skill.id equals module.Skill_Id
                                                where module.Id == moduleid
+                                               &&  !empid.Contains(personal.Id)
                                                select new EmployeeList
                                                {
                                                    Id = personal.Id,

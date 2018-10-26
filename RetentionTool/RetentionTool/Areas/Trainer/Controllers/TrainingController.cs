@@ -180,6 +180,7 @@ namespace RetentionTool.Areas.Trainer.Controllers
                      select y);
             foreach (var item in x)
             {
+                    item.IsActive = false;
                 db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
             }
             db.SaveChanges();

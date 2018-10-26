@@ -173,7 +173,8 @@ namespace RetentionTool.Areas.Admin.Controllers
                          select y);
                 foreach (var item in x)
                 {
-                    db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                    item.IsActive = false;
+                    db.Entry(item).State = System.Data.Entity.EntityState.Modified;
                 }
                 db.SaveChanges();
 

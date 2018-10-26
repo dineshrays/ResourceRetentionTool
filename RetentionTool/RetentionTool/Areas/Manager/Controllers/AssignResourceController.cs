@@ -165,9 +165,10 @@ namespace RetentionTool.Areas.Manager.Controllers
         public ActionResult Edit(int id,AssignResourceViewModel assgnResvm,EmployeeList[] list)
         {
             var x = (from y in db.AssignResourcesDets where y.AssignResources_Id == id select y);
-            foreach(var i in x)
+            foreach(var assid in x)
             {
-                db.Entry(i).State = System.Data.Entity.EntityState.Deleted;
+               
+                db.Entry(assid).State = System.Data.Entity.EntityState.Deleted;
             }
             db.SaveChanges();
             RetentionTool.Models.Trainer trainer = db.Trainers.FirstOrDefault(a => a.PersonalInfo_Id == assgnResvm.Trainer_Id);
@@ -332,7 +333,7 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             // list.Insert(0, new SelectListItem() { Value = "0", Text = "Select Module" });
             ViewData["moduleslist"] = list;
         }
-        public JsonResult getEmployee(string name)
+        public JsonResult getEmployee(string name, int[] empid)
        {
             //List<string> employee = new List<string>();
             //var val = (from e in db.Employees
@@ -345,7 +346,7 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             List< EmployeeList>  va = (from emp in db.PersonalInfoes
                                    join userdet in db.UserDetails on emp.Id equals userdet.Emp_Id
                                      where emp.Name.Contains(name)
-                                  
+                                   && !empid.Contains(emp.Id)
                                      && emp.IsActive==true 
                                      && userdet.IsActive==true && userdet.Role_Id==emproleid
                                      select new EmployeeList

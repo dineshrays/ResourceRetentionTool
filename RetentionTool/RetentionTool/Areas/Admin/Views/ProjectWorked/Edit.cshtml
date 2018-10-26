@@ -52,6 +52,8 @@
 
             </div>
             <div class="col-12 col-md-9">
+                @* @Html.TextBox(" ", Model.projects.StartDate.Value.ToShortDateString(), new { @class = "datepicker form-control-label", @id = "startdate", style = "width:30%" })*@
+
                 @Html.EditorFor(model => model.projects.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startdate", style = "width:30%" } })
                 @Html.ValidationMessageFor(model => model.projects.StartDate, "Required", new { @class = "text-danger", @id = "errorstartdate" })
 
@@ -65,7 +67,12 @@
 
             </div>
             <div class="col-12 col-md-9">
-                @Html.EditorFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "enddate", style = "width:30%" } })
+                @*@Html.TextBoxFor(model => model.projects.EndDate, new { @class = "form-control-label", @id = "dtpicker", style = "width:30%" })*@
+
+
+                @*@Html.TextBox(" ",Model.projects.EndDate.Value.ToShortDateString(), new { @class = "datepicker form-control-label", @id = "dtpicker", style = "width:30%" })*@
+
+                @Html.EditorFor(model => model.projects.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "dtpicker", style = "width:30%" } })
                 @Html.ValidationMessageFor(model => model.projects.EndDate, "Required", new { @class = "text-danger", @id = "errorenddate" })
 
             </div>
@@ -118,7 +125,7 @@
         <br />
         <div id="tblDiv" >
 
-            <table class="table table-striped" style="width:100%">
+            <table id="mytbldiv" class="table table-striped" style="width:100%">
                 <tr>
                     <th style="display:none;width:0%">Select</th>
                     <th>Employee Name</th>
@@ -172,8 +179,21 @@
         $("#errorenddate").hide();
         $("#errorteammember").hide();
         $("#errormanagerid").hide();
+        $('.datepicker').datepicker({
+            dateFormat: "dd/mm/yy",
+            showStatus: false,
+            showWeeks: false,
+            //currentText: 'Now',
+            autoSize: true,
+           // gotoCurrent: false,
+            showAnim: 'blind',
+            highlightWeek: false
+        });
 
     });
+    //$('#dtpicker').change(function () {
+    //   $("#dtpicker").val($.datepicker.formatDate('dd-mm-yy', new Date()));
+    //});
     function validate() {
         if ($("#projectid").val().length > 0) {
             $("#errorprjctid").hide();
@@ -187,7 +207,7 @@
         else {
             $("#errorstartdate").show();
         }
-        if ($("#enddate").val().length > 0) {
+        if ($("#dtpicker").val().length > 0) {
             $("#errorenddate").hide();
         }
         else {
@@ -217,14 +237,14 @@
     }
 
 
-    $("#enddate").change(function () {
+    $("#dtpicker").change(function () {
 
-        if ($("#enddate").val().length > 0) {
-            $('#enddate').css("color", "#555");
+        if ($("#dtpicker").val().length > 0) {
+            $('#dtpicker').css("color", "#555");
             $("#errorenddate").hide();
         }
         else {
-            $('#enddate').css("color", "#cbd1d4");
+            $('#dtpicker').css("color", "#cbd1d4");
             $("#errorenddate").show();
         }
 
@@ -310,14 +330,33 @@
       //  var designation = $("#designation").val();
       //  var responsibilty = $("#responsibilty").val();
         var startdate = $("#startdate").val();
-        var enddate = $("#enddate").val();
+       
+        var enddate= $("#dtpicker").val();
+      
+        //var endatesplit = enddate1.split('-');
+        //var day = endatesplit[0];
+        //var month = endatesplit[1];
+        //var year = endatesplit[2];
+
+        //var enddate2 = year + "-" + month + "-" + day;
+        //alert(enddate2);
+        //var enddate = enddate1.split("-").reverse().join("-");
+        //alert(enddate);
+      //  var enddate = $("#enddate").val();
+      //  alert(enddate1)
+      //  alert(enddate)
+      //  var mydate = moment(enddate1, 'DD/MM/YYYY');
+      //  alert(mydate);
+        //format that date into a different format
+      //  var enddate = moment(mydate).format("MM/DD/YYYY");
+      //  alert(enddate);
         var description = $("#description").val();
 
         var managerid = $("#managerid").val();
         var teammember = $("#teammember").val();
         validate();
         //get cell values, instead of the header text.
-        $("table tr:not(:first)").each(function () {
+        $("#mytbldiv tr:not(:first)").each(function () {
             var tdlist = $(this).find("td");
            
             var Item = {
@@ -373,7 +412,7 @@
     function delete_Row(empid) {
 
         $("#" + empid).remove();
-        var rows = $('table tr').length;
+        var rows = $('#mytbldiv tr').length;
         if (rows == 1) {
             $("#tblDiv").hide();
         }
