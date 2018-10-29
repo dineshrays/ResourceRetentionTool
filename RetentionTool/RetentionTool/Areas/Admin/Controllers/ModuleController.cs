@@ -83,28 +83,31 @@ namespace RetentionTool.Areas.Admin.Controllers
         public ActionResult Create(Item[] itemlist,ModuleViewModel mvm)
             {
 
-            Module m = new Module();
-            ModuleDet m1 = new ModuleDet();
-            m.ModuleName = mvm.ModuleName;
-            m.Commonfield_Id = fetchDet.getDefaultPrimarySkillId();
+        
+                Module m = new Module();
+                ModuleDet m1 = new ModuleDet();
+                m.ModuleName = mvm.ModuleName;
+                m.Commonfield_Id = fetchDet.getDefaultPrimarySkillId();
                 //mvm.SelectedCommonFields;
-            m.Skill_Id = mvm.SelectedSkills;
-            m.Date = mvm.Date;
-            m.IsActive = true;
+                m.Skill_Id = mvm.SelectedSkills;
+                m.Date = mvm.Date;
+                m.IsActive = true;
 
-            db.Modules.Add(m);
-            db.SaveChanges();
+                db.Modules.Add(m);
+                db.SaveChanges();
 
-            foreach (var i in itemlist)
-            {
-                m1.Module_Id = m.Id;
-                m1.Topics = i.Topics;
-                m1.HoursRequired =i.HoursRequired;
-                db.ModuleDets.Add(m1);
-                 db.SaveChanges();
-            }
+                foreach (var i in itemlist)
+                {
+                    m1.Module_Id = m.Id;
+                    m1.Topics = i.Topics;
+                    m1.HoursRequired = i.HoursRequired;
+                    db.ModuleDets.Add(m1);
+                    db.SaveChanges();
+                }
+
+                return Json("", JsonRequestBehavior.AllowGet);
+         
             
-            return Json("", JsonRequestBehavior.AllowGet);
         }
 
        
@@ -154,40 +157,42 @@ namespace RetentionTool.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(int id,ModuleViewModel mvm, Item[] itemlist)
         {
-           var x= (from y in db.ModuleDets
-                     where y.Module_Id == id
-                     select y);
-            foreach (var item in x)
-            {
-                db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
-            }
-            db.SaveChanges();
-
-            Module m = new Module()
-            {
-                Id = id,
-                ModuleName = mvm.ModuleName,
-                IsActive = true,
-                Commonfield_Id = fetchDet.getDefaultPrimarySkillId(),
-                ///mvm.SelectedCommonFields,
-                Skill_Id=mvm.SelectedSkills,
-                Date=mvm.Date
-            };
-            // db.Modules.Add(m);
-            db.Entry(m).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-
-            ModuleDet m1 = new ModuleDet();
-            
-            foreach (var i in itemlist)
-            {
-                m1.Module_Id = id;
-                m1.Topics = i.Topics;
-                m1.HoursRequired = i.HoursRequired;
-                db.ModuleDets.Add(m1);
+           
+                var x = (from y in db.ModuleDets
+                         where y.Module_Id == id
+                         select y);
+                foreach (var item in x)
+                {
+                    db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                }
                 db.SaveChanges();
-            }
-            return Json("", JsonRequestBehavior.AllowGet);
+
+                Module m = new Module()
+                {
+                    Id = id,
+                    ModuleName = mvm.ModuleName,
+                    IsActive = true,
+                    Commonfield_Id = fetchDet.getDefaultPrimarySkillId(),
+                    ///mvm.SelectedCommonFields,
+                    Skill_Id = mvm.SelectedSkills,
+                    Date = mvm.Date
+                };
+                // db.Modules.Add(m);
+                db.Entry(m).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                ModuleDet m1 = new ModuleDet();
+
+                foreach (var i in itemlist)
+                {
+                    m1.Module_Id = id;
+                    m1.Topics = i.Topics;
+                    m1.HoursRequired = i.HoursRequired;
+                    db.ModuleDets.Add(m1);
+                    db.SaveChanges();
+                }
+                return Json("", JsonRequestBehavior.AllowGet);
+           
 
         }
 
@@ -223,6 +228,20 @@ namespace RetentionTool.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult CheckIfNameExists(string name,int skillid)
+        {
+            Module mod = db.Modules.FirstOrDefault(a => a.ModuleName == name && a.Skill_Id == skillid && a.IsActive == true);
+            if (mod == null)
+          {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

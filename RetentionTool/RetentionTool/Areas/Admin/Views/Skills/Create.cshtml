@@ -98,7 +98,10 @@
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
-                        window.location.href = newUrl;
+                       
+                            window.location.href = newUrl;
+                       
+                      
                     },
                     error: function (xhr) {
                         alert("error");
@@ -127,7 +130,7 @@
             $("#errskill").hide();
         }
         else {
-
+            $("#errskill").text('Required');
             $("#errskill").show();
         }
     }
@@ -137,13 +140,41 @@
                 $("#errskill").hide();
             }
             else if ($("#skill").val() === "" || $("#skill").val().length === 0) {
-
+                $("#errskill").text('Required');
                 $("#errskill").show();
             }
         }
         else if ($("#skill").val() == "") {
             $("#errskill").hide();
         }
+            });
+
+            $("#skill").on("input",function (e) {
+                var name = $("#skill").val().trim();
+                var commid = $("#commfield").val();
+          $.ajax({
+              url: '@Url.Action("CheckIfNameExists", "Skills")', 
+              dataType: "json",
+             data: JSON.stringify({ name: name, id: commid }),
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              success: function (result) {
+                  if (result == "1") {
+
+                      $("#errskill").text('This name already exists');
+                      $("#errskill").show();
+                      $("#btnSave").attr('disabled', true);
+                    
+                        }
+                  else {
+                      $("#errskill").hide();
+                          $("#btnSave").attr('disabled', false);
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+        });        
     });
     //commfield,errcommfield  skill,errskill
     $("#commfield").change(function () {
