@@ -35,7 +35,7 @@
 
 <div class="card-body card-block">
 
-    <div class="row form-group">
+    @*<div class="row form-group">
         <div class="col col-md-3">
             @Html.LabelFor(m => Model.module.ModuleName, new { @class = "form-control-label" })
 
@@ -49,13 +49,14 @@
             </div>
             @Html.HiddenFor(m => Model.module.Module_Id, new { @id = "ModuleID" })
         </div>
-    </div>
+    </div>*@
 
     <div class="row form-group">
         <div class="col col-md-3">
             @Html.LabelFor(m => Model.module.CommonField, new { @class = "form-control-label" })
         </div>
         <div class="col-12 col-md-9">
+            @Html.HiddenFor(m=>m.module.Id,new { @id= "ModuleID" })
             <div>@Html.DropDownListFor(m => Model.module.SelectedCommonFields, Model.module.CommonField, "Select", new { @id = "Common_Id", @class = "form-control", style = "width:40%" })</div>
 
             @Html.ValidationMessageFor(model => model.module.SelectedCommonFields, "Required", new { @class = "text-danger", @id = "errcomm_id" })
@@ -159,14 +160,16 @@
                 $("#errmoduleid").hide();
             }
         });
-          $("#ModuleName").on("input",function (e) {
-            var name = $("#ModuleName").val().trim();
-            var skillid = $("#skill_Id").val().trim();
+        $("#ModuleName").on("input", function (e) {
+            alert('ffff')
+              var name = $("#ModuleName").val().trim();
+              var skillid = $("#skill_Id").val().trim();
+              var moduleid = $("#ModuleID").val();
      
           $.ajax({
-              url: '@Url.Action("CheckIfNameExists", "Module")', 
+              url: '@Url.Action("EditCheckIfNameExists", "Module")', 
               dataType: "json",
-              data: JSON.stringify({ name: name, skillid: skillid }),
+              data: JSON.stringify({ name: name, skillid: skillid, moduleid: moduleid }),
               type: "POST",
               contentType: "application/json; charset=utf-8",
               success: function (result) {

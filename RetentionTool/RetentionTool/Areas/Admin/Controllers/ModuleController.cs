@@ -12,6 +12,7 @@ namespace RetentionTool.Areas.Admin.Controllers
 {
     public class ModuleController : Controller
     {
+       
         RetentionToolEntities db = new RetentionToolEntities();
         FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: Module
@@ -133,7 +134,7 @@ namespace RetentionTool.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             Module mod = db.Modules.Find(id);
-           List<ModuleDet> mod2 = db.ModuleDets.Where(m => m.Module_Id == id).ToList();
+           List<ModuleDet> mod2 = db.ModuleDets.Where(m => m.Module_Id == id && m.IsActive==true).ToList();
                       
 
             ModuleViewModel1 obj = new ModuleViewModel1();
@@ -163,7 +164,8 @@ namespace RetentionTool.Areas.Admin.Controllers
                          select y);
                 foreach (var item in x)
                 {
-                    db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                item.IsActive = false;
+                    db.Entry(item).State = System.Data.Entity.EntityState.Modified;
                 }
                 db.SaveChanges();
 
@@ -199,7 +201,7 @@ namespace RetentionTool.Areas.Admin.Controllers
         public ActionResult Delete(int id)
         {
             Module mod = db.Modules.Find(id);
-             ModuleDet mod1 = db.ModuleDets.FirstOrDefault(m=>m.Module_Id==id);
+             ModuleDet mod1 = db.ModuleDets.FirstOrDefault(m=>m.Module_Id==id && m.IsActive==true);
             ModuleViewModel mvm = new ModuleViewModel()
             {
                 Id=mod.Id,
@@ -236,6 +238,21 @@ namespace RetentionTool.Areas.Admin.Controllers
             Module mod = db.Modules.FirstOrDefault(a => a.ModuleName == name && a.Skill_Id == skillid && a.IsActive == true);
             if (mod == null)
           {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditCheckIfNameExists(string name, int skillid,int moduleid)
+        {
+            Module mod = db.Modules.FirstOrDefault(a => a.ModuleName == name && a.Skill_Id == skillid && a.IsActive == true
+            && a.Id != moduleid);
+            if (mod == null)
+            {
                 return Json("", JsonRequestBehavior.AllowGet);
             }
             else

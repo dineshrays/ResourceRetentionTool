@@ -64,7 +64,7 @@
                          <th>IsTrainer</th>
 
                      </tr>
-                     @{ 
+                     @{
                          int criticalId = 0;
                      }
                      @foreach (var item in Model.projectvm)
@@ -72,23 +72,23 @@
                          <tr>
                              <td>
                                  @{ bool IsCriticalRes = false;
-                                     
-                                     }
+
+                                 }
                                  @*@foreach (var id in ViewBag.CriticalRes)
-                                 {*@
-                                     @if (ViewBag.CriticalRes.PersonalInfo_Id == item.PersonalInfo1.Id)
-                                     {
-                                         IsCriticalRes = true;
-                                         criticalId = ViewBag.CriticalRes.Id;
-                                     }
+                        {*@
+                                 @if (ViewBag.CriticalRes.PersonalInfo_Id == item.PersonalInfo1.Id)
+                                 {
+                                     IsCriticalRes = true;
+                                     criticalId = ViewBag.CriticalRes.Id;
+                                 }
                                  @*}*@
                                  @if (IsCriticalRes == true)
                                  {
-                                     <input type="radio"@*"checkbox"*@ name="critical" class="chck" checked onclick="showcheckbox();" />
+                                     <input type="radio" @*"checkbox"*@ name="critical" class="chck" checked @*onclick="showcheckbox();"*@ onchange="CriticalResChecked(@item.PersonalInfo1.Id)"/>
                                  }
                                  else
                                  {
-                                     <input type="radio"@*"checkbox"*@ name="critical" class="chck" onclick="showcheckbox();" />
+                                     <input type="radio" @*"checkbox"*@ name="critical" class="chck" @*onclick="showcheckbox();"*@ onchange="CriticalResChecked(@item.PersonalInfo1.Id)"/>
                                  }
 
                              </td>
@@ -101,29 +101,30 @@
                                  @{ bool isTrainer = false;}
 
                                  @*@foreach (var id in ViewBag.TrainerDet)
-                                 {*@
-                                     @if (ViewBag.TrainerDet.PersonalInfo_Id == item.PersonalInfo1.Id)
-                                     {
-                                         isTrainer = true;
-                                     }
+                        {*@
+                                 @if (ViewBag.TrainerDet.PersonalInfo_Id == item.PersonalInfo1.Id)
+                                 {
+                                     isTrainer = true;
+                                 }
                                  @*}*@
                                  @if (isTrainer == true)
 
                                  {
-                                     <input type= "radio"@*"checkbox"*@ name="trainer"class="chcktrainer" checked />
+                                     <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" checked id="@item.PersonalInfo1.Id" />
                                  }
                                  else
                                  {
-                                     <input type="radio"@*"checkbox"*@ name="trainer" class="chcktrainer" />
+                                     <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" id="@item.PersonalInfo1.Id"  />
                                  }
 
                              </td>
                          </tr>
                      }
                  </table>
+                 @Html.ValidationMessageFor(model => model.projects.Id, "Required", new { @class = "text-danger", @id = "errCritical" })
                  <input type="hidden" id="criticalId" value=@criticalId />
                  <br />
-                 <div  id="accountinfo">
+                 <div id="accountinfo">
                      <div class="row form-group">
                          <input class="form-control" style="width:30%" id="reporting" placeholder="Reporting" /> &nbsp;
                          <input id="Information" placeholder="Information" />&nbsp;
@@ -155,7 +156,7 @@
                          </table>
                      </div>
                      @*<br />
-                     <button type="button" class="del-accountability">Delete</button>*@
+            <button type="button" class="del-accountability">Delete</button>*@
                  </div>
                  <br />
 
@@ -178,7 +179,54 @@
 
     </div>
 @*</div>*@
-<script>
+<script type="text/javascript"> 
+    function CriticalResChecked(id) {
+        var criticalid = $("#criticalId").val();
+        if ($('input.chck').is(':checked')) {
+            //$('.chcktrainer').prop("checked", true)
+            var val = "#" + id;
+              $.ajax({
+              url: '@Url.Action("EditCheckIfNameExists", "CriticalResource")', 
+              dataType: "json",
+                  data: JSON.stringify({ id: id, criticalResId:criticalid }),
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              success: function (result) {
+                  if (result == "1") {
+
+                      $("#errCritical").text('This Employee already a Critical Resource');
+                      $("#errCritical").show();
+                     // $('.chck').prop('checked', 'false');
+                      $('.chck').each(function () {
+                          this.checked = false;
+                      });
+                      $('.chcktrainer').each(function () {
+                          this.checked = false;
+                      });
+                      $('#accountinfo').hide();
+                      $("#btnSave").attr('disabled', true);
+                    
+                        }
+                  else {
+                      $(val).prop('checked', 'true');
+                      $("#errCritical").hide();
+                      $('#accountinfo').show();
+                          $("#btnSave").attr('disabled', false);
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+        });        
+          
+        } else {
+            $('#accountinfo').hide();
+        }
+    }
+    $(document).ready(function () {
+        $("#errCritical").hide();
+      
+    });
 
     function showcheckbox() {
         //$('#tbl input[type="checkbox"]').click(function () {

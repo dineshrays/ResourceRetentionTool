@@ -221,6 +221,7 @@
     <Property Name="Module_Id" Type="int" />
     <Property Name="Topics" Type="varchar" MaxLength="250" />
     <Property Name="HoursRequired" Type="time" Precision="7" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Notifications">
     <Key>

@@ -129,5 +129,20 @@ namespace RetentionTool.Areas.Admin.Controllers
                 return Json("1", JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public ActionResult EditCheckIfNameExists(string projectname,int projectid)
+        {
+            ProjectsDetail projectdet = db.ProjectsDetails.FirstOrDefault(a => a.Name == projectname && a.IsActive == true
+            && a.Id != projectid);
+            if (projectdet == null)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
