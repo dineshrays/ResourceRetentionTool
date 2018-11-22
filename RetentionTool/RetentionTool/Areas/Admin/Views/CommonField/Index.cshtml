@@ -58,7 +58,7 @@
     <h2>Primary Skills</h2>
     </div>*@
 <div class="card-body card-text">
-    @Html.ActionLink("Create New", "Create", "CommonField", null, new { @class = "btn btn-outline-primary" })
+    @Html.ActionLink("Create New", "Index", "CommonField", null, new { @class = "btn btn-outline-primary" })
 
 </div>
 
@@ -81,19 +81,19 @@
 
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.IsActive)
-                        </td>*@
-                    <td>
-                        @Html.ActionLink(" ", "Edit", new { id = item.id }, new { @class = "ti-pencil" }) |
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td> new { id = item.id }*@
+                <td>
+                    @Html.ActionLink(" ", "Index",null, new { @class = "ti-pencil" }) |
 
-                        @Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "ti-trash" })
-                    </td>
-                </tr>
+                    @Html.ActionLink(" ", "Index", null, new { @class = "ti-trash" })
+                </td>
+            </tr>
             }
 
         </table>

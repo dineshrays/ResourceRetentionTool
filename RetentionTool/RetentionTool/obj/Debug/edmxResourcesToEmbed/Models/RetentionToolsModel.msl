@@ -32,16 +32,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ModuleDets">
-      <EntityTypeMapping TypeName="RetentionToolModel.ModuleDet">
-        <MappingFragment StoreEntitySet="ModuleDet">
-          <ScalarProperty Name="HoursRequired" ColumnName="HoursRequired" />
-          <ScalarProperty Name="Topics" ColumnName="Topics" />
-          <ScalarProperty Name="Module_Id" ColumnName="Module_Id" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AssignEvaluaters">
       <EntityTypeMapping TypeName="RetentionToolModel.AssignEvaluater">
         <MappingFragment StoreEntitySet="AssignEvaluater">
@@ -402,6 +392,17 @@
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
           <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
           <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleDets">
+      <EntityTypeMapping TypeName="RetentionToolModel.ModuleDet">
+        <MappingFragment StoreEntitySet="ModuleDet">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="HoursRequired" ColumnName="HoursRequired" />
+          <ScalarProperty Name="Topics" ColumnName="Topics" />
+          <ScalarProperty Name="Module_Id" ColumnName="Module_Id" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

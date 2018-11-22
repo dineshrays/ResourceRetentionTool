@@ -38,7 +38,7 @@ namespace RetentionTool.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(ProjectsDetail projectsDetail)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && projectsDetail.Name!=null)
             {
                 projectsDetail.IsActive = true;
                 db.ProjectsDetails.Add(projectsDetail);
@@ -114,6 +114,35 @@ namespace RetentionTool.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public ActionResult CheckIfNameExists(string projectname)
+        {
+            ProjectsDetail projectdet = db.ProjectsDetails.FirstOrDefault(a => a.Name == projectname && a.IsActive == true);
+            if(projectdet==null)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditCheckIfNameExists(string projectname,int projectid)
+        {
+            ProjectsDetail projectdet = db.ProjectsDetails.FirstOrDefault(a => a.Name == projectname && a.IsActive == true
+            && a.Id != projectid);
+            if (projectdet == null)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

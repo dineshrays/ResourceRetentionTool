@@ -35,7 +35,7 @@
 
 <div class="card-body card-block">
 
-    <div class="row form-group">
+    @*<div class="row form-group">
         <div class="col col-md-3">
             @Html.LabelFor(m => Model.module.ModuleName, new { @class = "form-control-label" })
 
@@ -49,13 +49,14 @@
             </div>
             @Html.HiddenFor(m => Model.module.Module_Id, new { @id = "ModuleID" })
         </div>
-    </div>
+    </div>*@
 
     <div class="row form-group">
         <div class="col col-md-3">
             @Html.LabelFor(m => Model.module.CommonField, new { @class = "form-control-label" })
         </div>
         <div class="col-12 col-md-9">
+            @Html.HiddenFor(m=>m.module.Id,new { @id= "ModuleID" })
             <div>@Html.DropDownListFor(m => Model.module.SelectedCommonFields, Model.module.CommonField, "Select", new { @id = "Common_Id", @class = "form-control", style = "width:40%" })</div>
 
             @Html.ValidationMessageFor(model => model.module.SelectedCommonFields, "Required", new { @class = "text-danger", @id = "errcomm_id" })
@@ -71,6 +72,21 @@
             <div>@Html.DropDownListFor(m => Model.module.SelectedSkills, new SelectList(Model.module.Skill, "Value", "Text"), new { @Id = "skill_Id", @class = "form-control", style = "width:40%" })</div>
             @Html.ValidationMessageFor(model => model.module.SelectedSkills, "Required", new { @class = "text-danger", @id = "errskill" })
 
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col col-md-3">
+            @Html.LabelFor(m => Model.module.ModuleName, new { @class = "form-control-label" })
+
+        </div>
+        <div class="col-12 col-md-9">
+
+            <div>
+                @Html.TextBoxFor(m => Model.module.ModuleName, new { @id = "ModuleName", @class = "form-control", style = "width:40%", placeholder = "Enter Module Name" })
+                @Html.ValidationMessageFor(model => model.module.ModuleName, "Required", new { @class = "text-danger", @id = "errmoduleid" })
+
+            </div>
+            @Html.HiddenFor(m => Model.module.Module_Id, new { @id = "ModuleID" })
         </div>
     </div>
 
@@ -136,7 +152,7 @@
                     $("#errmoduleid").hide();
                 }
                 else if ($("#ModuleName").val() === "" || $("#ModuleName").val().length === 0) {
-
+                    $("#errmoduleid").text('Required');
                     $("#errmoduleid").show();
                 }
             }
@@ -144,6 +160,36 @@
                 $("#errmoduleid").hide();
             }
         });
+        $("#ModuleName").on("input", function (e) {
+            alert('ffff')
+              var name = $("#ModuleName").val().trim();
+              var skillid = $("#skill_Id").val().trim();
+              var moduleid = $("#ModuleID").val();
+     
+          $.ajax({
+              url: '@Url.Action("EditCheckIfNameExists", "Module")', 
+              dataType: "json",
+              data: JSON.stringify({ name: name, skillid: skillid, moduleid: moduleid }),
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              success: function (result) {
+                  if (result == "1") {
+
+                      $("#errmoduleid").text('This name already exists');
+                      $("#errmoduleid").show();
+                      $("#btnSave").attr('disabled', true);
+                    
+                        }
+                  else {
+                      $("#errmoduleid").hide();
+                          $("#btnSave").attr('disabled', false);
+                        }
+                    },
+                    error: function (xhr) {
+                       
+                    }
+        });        
+    });
         //Common_Id,errcomm_id,skill_Id,errskill
         $("#Common_Id").change(
             function () {
@@ -178,12 +224,12 @@
             //    $("#errdate").show();
             //}
             if ($("#DateId").val().length > 0) {
-               
+
                 $('#DateId').css("color", "#555");
                 $("#errdate").hide();
             }
             else {
-              
+
                 $('#DateId').css("color", "#cbd1d4");
                 $("#errdate").show();
             }
@@ -205,7 +251,7 @@
                 $("#errmoduleid").hide();
             }
             else {
-
+                $("#errmoduleid").text('Required');
                 $("#errmoduleid").show();
             }
             //if ($("#searchemp").val().length > 0) {
@@ -366,8 +412,14 @@
                         type: "POST",
                         contentType: "application/json; charset=utf-8",
                         success: function (result) {
+                            if (result == "1") {
+                                $("#btnSave").attr('disabled', false);
+                                alert('This name already exists')
 
-                            window.location.href = newUrl;
+                            }
+                            else {
+                                window.location.href = newUrl;
+                            }
                         },
                         error: function (xhr) {
                             alert("error");
@@ -380,20 +432,20 @@
 
     @Html.HiddenFor(m1 => Model.module.ModuleDetId)
     @*<input type="hidden" id="custId" name="custId" value=@Model.ModuleDetId>*@
-    
+
     @*</div>*@
 
     <div class="row form-group">
-    <div class="col col-md-3">
+        <div class="col col-md-3">
 
+
+        </div>
+        <div class="col-12 col-md-9">
+            <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index", "module", null, new { @class = "btn btn-outline-link" })
+
+        </div>
 
     </div>
-    <div class="col-12 col-md-9">
-        <input id="btnSave" type="submit" value="Save" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index", "module", null, new { @class = "btn btn-outline-link" })
-       
-    </div>
-
-</div>
 </div>
 
 

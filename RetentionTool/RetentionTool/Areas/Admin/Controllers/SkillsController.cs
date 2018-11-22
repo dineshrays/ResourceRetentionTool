@@ -62,16 +62,26 @@ namespace RetentionTool.Areas.Admin.Controllers
         {
             //try
             //{
+            Skill skill = db.Skills.FirstOrDefault(a => a.Name == svm.SkillName && a.CommonField_Id == svm.selectedCommmonField && a.IsActive == true);
+            if(skill==null)
+            {
                 Skill s = new Skill();
-              
-                    // s.id = svm.id;
-                    s.Name = svm.SkillName;
-                    s.CommonField_Id = svm.selectedCommmonField;
-                    s.IsActive = true;
-                    db.Skills.Add(s);
 
-                    db.SaveChanges();
-            return Json("", JsonRequestBehavior.AllowGet);
+                // s.id = svm.id;
+                s.Name = svm.SkillName;
+                s.CommonField_Id = svm.selectedCommmonField;
+                s.IsActive = true;
+                db.Skills.Add(s);
+
+                db.SaveChanges();
+                return Json("", JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+                
                 //RedirectToAction("Index");
                     // long lid = s.id;
                     //var val = new SelectList(db.Commonfields.ToList(), "id", "Name");
@@ -87,7 +97,10 @@ namespace RetentionTool.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(int id,SkillsViewModel svm)
         {
-            Skill s = new Skill();
+            Skill skill = db.Skills.FirstOrDefault(a => a.Name == svm.SkillName && a.CommonField_Id == svm.selectedCommmonField && a.IsActive == true);
+            if (skill == null)
+            {
+                Skill s = new Skill();
             s.id = svm.id;
             s.Name = svm.SkillName;
             s.CommonField_Id = svm.selectedCommmonField;
@@ -98,8 +111,17 @@ namespace RetentionTool.Areas.Admin.Controllers
                 db.SaveChanges();
                 return Json("", JsonRequestBehavior.AllowGet);
             }
+                else
+                {
+                    return Json(null, JsonRequestBehavior.AllowGet);
+                }
 
-            return View(svm);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+           
 
             
         }
@@ -143,6 +165,20 @@ namespace RetentionTool.Areas.Admin.Controllers
             }
 
             return View(svm);            
-        }         
+        }
+        [HttpPost]
+        public ActionResult CheckIfNameExists(string name,int id)
+        {
+            Skill skill = db.Skills.FirstOrDefault(a => a.Name == name && a.CommonField_Id == id && a.IsActive == true);
+            if (skill == null)
+
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

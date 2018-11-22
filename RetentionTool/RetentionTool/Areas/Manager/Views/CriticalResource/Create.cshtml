@@ -60,35 +60,35 @@
                 {
                     <tr>
                         @*<td>
-                            @{ bool IsCriticalRes = false;}
-                            @foreach (var id in ViewBag.CriticalRes)
-                            {
-                                if (id == item.PersonalInfo1.Id)
-                                {
-                                    IsCriticalRes = true;
+                    @{ bool IsCriticalRes = false;}
+                    @foreach (var id in ViewBag.CriticalRes)
+                    {
+                        if (id == item.PersonalInfo1.Id)
+                        {
+                            IsCriticalRes = true;
 
-                                    //<input type="checkbox" class="chck" checked />
+                            //<input type="checkbox" class="chck" checked />
+                        }
+                        else
+                        {
+                            // value = false;
+                            //<input type="checkbox" class="chck" />
+
+                        }
+                    }
+                    @if (IsCriticalRes == true)
+                    {
+                        <input type="radio"@*"checkbox" class="chck" name="critic" checked id="IsChecked" />
                                 }
                                 else
                                 {
-                                    // value = false;
-                                    //<input type="checkbox" class="chck" />
+                                <input type="radio" @*"checkbox" name="critic" class="chck" />
 
                                 }
-                            }
-                            @if (IsCriticalRes == true)
-                            {
-                                <input type="radio"@*"checkbox" class="chck" name="critic" checked id="IsChecked" />
-                                        }
-                                        else
-                                        {
-                                        <input type="radio" @*"checkbox" name="critic" class="chck" />
 
-                                        }
-
-                                        </td>*@
+                                </td>*@
                         <td>
-                            <input type="radio" @*"checkbox"*@ name="critic" class="chck" />
+                            <input type="radio" @*"checkbox"*@ name="critic" class="chck" onchange="CriticalResChecked(@item.PersonalInfo1.Id)" />
 
 
                         </td>
@@ -99,39 +99,41 @@
 
                         <td>@item.Responsibilities</td>
                         <td>
-                            <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" />
+                            <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" id="@item.PersonalInfo1.Id"/>
 
 
                         </td>
                         @*<td>
-                                @{ bool isTrainer = false;}
+                        @{ bool isTrainer = false;}
 
-                                @foreach (var id in ViewBag.TrainerDet)
-                                {
-                                    if (id == item.PersonalInfo1.Id)
-                                    {
-                                        isTrainer = true;
-                                    }
-                                    else
-                                    {
-                                        // <input type="checkbox" class="chcktrainer" />
-                                    }
-                                }
-                                @if (isTrainer == true)
+                        @foreach (var id in ViewBag.TrainerDet)
+                        {
+                            if (id == item.PersonalInfo1.Id)
+                            {
+                                isTrainer = true;
+                            }
+                            else
+                            {
+                                // <input type="checkbox" class="chcktrainer" />
+                            }
+                        }
+                        @if (isTrainer == true)
 
-                                {
-                                    <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" checked />
+                        {
+                            <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" checked />
 
-                                }
-                                else
-                                {
-                                    <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" />
-                                }
+                        }
+                        else
+                        {
+                            <input type="radio" @*"checkbox" name="trainer" class="chcktrainer" />
+                        }
 
-                            </td>*@
+                    </td>*@
                     </tr>
                 }
             </table>
+            @Html.ValidationMessageFor(model => model.projects.Id, "Required", new { @class = "text-danger", @id = "errCritical" })
+
             <br />
             <div style="display:none" id="accountinfo">
                 <div class="row form-group">
@@ -151,7 +153,7 @@
                     </table>
                 </div>
                 @*<br />
-                    <button type="button" class="del-accountability">Delete</button>*@
+            <button type="button" class="del-accountability">Delete</button>*@
             </div>
             <br />
         </div>
@@ -175,6 +177,56 @@
 
 
 <script type="text/javascript">
+
+
+     function CriticalResChecked(id) {
+      
+        if ($('input.chck').is(':checked')) {
+            //$('.chcktrainer').prop("checked", true)
+            var val = "#" + id;
+              $.ajax({
+              url: '@Url.Action("CheckIfNameExists", "CriticalResource")', 
+              dataType: "json",
+                  data: JSON.stringify({ id: id }),
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              success: function (result) {
+                  if (result == "1") {
+
+                      $("#errCritical").text('This Employee already a Critical Resource');
+                      $("#errCritical").show();
+                     // $('.chck').prop('checked', 'false');
+                      $('.chck').each(function () {
+                          this.checked = false;
+                      });
+                      $('.chcktrainer').each(function () {
+                          this.checked = false;
+                      });
+                      $('#accountinfo').hide();
+                      $("#btnSave").attr('disabled', true);
+                    
+                        }
+                  else {
+                      $(val).prop('checked', 'true');
+                      $("#errCritical").hide();
+                      $('#accountinfo').show();
+                          $("#btnSave").attr('disabled', false);
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+        });        
+          
+        } else {
+            $('#accountinfo').hide();
+        }
+    }
+    $(document).ready(function () {
+        $("#errCritical").hide();
+      
+    });
+   
     function Delete_Row(id) {
         $('#' + id).remove();
         var rows = $('#table-accountability tr').length;
@@ -182,17 +234,17 @@
             $("#tbls").hide();
         }
     }
-    $(function () {
-        $('input.chck').change(
+    //$(function () {
+    //    $('input.chck').change(
 
-            function () {
-                if ($('input.chck').is(':checked')) {
-                    $('#accountinfo').show();
-                } else {
-                    $('#accountinfo').hide();
-                }
-            });
-    });
+    //        function () {
+    //            if ($('input.chck').is(':checked')) {
+    //                $('#accountinfo').show();
+    //            } else {
+    //                $('#accountinfo').hide();
+    //            }
+    //        });
+    //});
     var count = 0;
     $(".add-accountability").click(function () {
 

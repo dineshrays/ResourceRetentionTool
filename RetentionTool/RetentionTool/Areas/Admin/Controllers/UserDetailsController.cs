@@ -93,6 +93,7 @@ namespace RetentionTool.Areas.Admin.Controllers
             uservm.userDetail = userdet;
             return View(uservm);
         }
+        
         [HttpPost]
         public ActionResult Delete(int id, UserDetailsViewModel uservm)
         {

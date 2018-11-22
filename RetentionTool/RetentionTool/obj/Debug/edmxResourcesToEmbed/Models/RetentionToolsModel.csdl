@@ -37,11 +37,6 @@
       <End Role="Skill" EntitySet="Skills" />
       <End Role="Module" EntitySet="Modules" />
     </AssociationSet>
-    <EntitySet Name="ModuleDets" EntityType="RetentionToolModel.ModuleDet" />
-    <AssociationSet Name="FK_ModuleDet_Module" Association="RetentionToolModel.FK_ModuleDet_Module">
-      <End Role="Module" EntitySet="Modules" />
-      <End Role="ModuleDet" EntitySet="ModuleDets" />
-    </AssociationSet>
     <EntitySet Name="AssignEvaluaters" EntityType="RetentionToolModel.AssignEvaluater" />
     <EntitySet Name="EmployeeEvalTasks" EntityType="RetentionToolModel.EmployeeEvalTask" />
     <EntitySet Name="Sessions" EntityType="RetentionToolModel.Session" />
@@ -57,10 +52,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_TrainerDet_Training" Association="RetentionToolModel.FK_TrainerDet_Training">
       <End Role="Training" EntitySet="Trainings" />
-      <End Role="TrainingDet" EntitySet="TrainingDets" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TrainingDet_ModuleDet" Association="RetentionToolModel.FK_TrainingDet_ModuleDet">
-      <End Role="ModuleDet" EntitySet="ModuleDets" />
       <End Role="TrainingDet" EntitySet="TrainingDets" />
     </AssociationSet>
     <EntitySet Name="Roles" EntityType="RetentionToolModel.Role" />
@@ -258,6 +249,15 @@
       <End Role="EmployeeSkillsAdd" EntitySet="EmployeeSkillsAdds" />
     </AssociationSet>
     <EntitySet Name="ErrorLogs" EntityType="RetentionToolModel.ErrorLog" />
+    <EntitySet Name="ModuleDets" EntityType="RetentionToolModel.ModuleDet" />
+    <AssociationSet Name="FK_ModuleDet_Module" Association="RetentionToolModel.FK_ModuleDet_Module">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="ModuleDet" EntitySet="ModuleDets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrainingDet_ModuleDet" Association="RetentionToolModel.FK_TrainingDet_ModuleDet">
+      <End Role="ModuleDet" EntitySet="ModuleDets" />
+      <End Role="TrainingDet" EntitySet="TrainingDets" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Module">
     <Key>
@@ -271,8 +271,8 @@
     <Property Name="Date" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Commonfield" Relationship="RetentionToolModel.FK_Module_Commonfields" FromRole="Module" ToRole="Commonfield" />
     <NavigationProperty Name="Skill" Relationship="RetentionToolModel.FK_Module_Skills" FromRole="Module" ToRole="Skill" />
-    <NavigationProperty Name="ModuleDets" Relationship="RetentionToolModel.FK_ModuleDet_Module" FromRole="Module" ToRole="ModuleDet" />
     <NavigationProperty Name="AssignResources" Relationship="RetentionToolModel.FK_AssignResources_Module" FromRole="Module" ToRole="AssignResource" />
+    <NavigationProperty Name="ModuleDets" Relationship="RetentionToolModel.FK_ModuleDet_Module" FromRole="Module" ToRole="ModuleDet" />
   </EntityType>
   <Association Name="FK_Module_Commonfields">
     <End Type="RetentionToolModel.Commonfield" Role="Commonfield" Multiplicity="0..1" />
@@ -295,29 +295,6 @@
       </Principal>
       <Dependent Role="Module">
         <PropertyRef Name="Skill_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="ModuleDet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Module_Id" Type="Int32" />
-    <Property Name="Topics" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="HoursRequired" Type="Time" Precision="7" />
-    <NavigationProperty Name="Module" Relationship="RetentionToolModel.FK_ModuleDet_Module" FromRole="ModuleDet" ToRole="Module" />
-    <NavigationProperty Name="TrainingDets" Relationship="RetentionToolModel.FK_TrainingDet_ModuleDet" FromRole="ModuleDet" ToRole="TrainingDet" />
-  </EntityType>
-  <Association Name="FK_ModuleDet_Module">
-    <End Type="RetentionToolModel.Module" Role="Module" Multiplicity="0..1" />
-    <End Type="RetentionToolModel.ModuleDet" Role="ModuleDet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Module">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ModuleDet">
-        <PropertyRef Name="Module_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -416,18 +393,6 @@
       </Principal>
       <Dependent Role="TrainingDet">
         <PropertyRef Name="Training_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TrainingDet_ModuleDet">
-    <End Type="RetentionToolModel.ModuleDet" Role="ModuleDet" Multiplicity="0..1" />
-    <End Type="RetentionToolModel.TrainingDet" Role="TrainingDet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ModuleDet">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TrainingDet">
-        <PropertyRef Name="ModuleDet_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1307,4 +1272,40 @@
     <Property Name="ControllerName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
   </EntityType>
+  <EntityType Name="ModuleDet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Module_Id" Type="Int32" />
+    <Property Name="Topics" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="HoursRequired" Type="Time" Precision="7" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Module" Relationship="RetentionToolModel.FK_ModuleDet_Module" FromRole="ModuleDet" ToRole="Module" />
+    <NavigationProperty Name="TrainingDets" Relationship="RetentionToolModel.FK_TrainingDet_ModuleDet" FromRole="ModuleDet" ToRole="TrainingDet" />
+  </EntityType>
+  <Association Name="FK_ModuleDet_Module">
+    <End Type="RetentionToolModel.Module" Role="Module" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.ModuleDet" Role="ModuleDet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ModuleDet">
+        <PropertyRef Name="Module_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrainingDet_ModuleDet">
+    <End Type="RetentionToolModel.ModuleDet" Role="ModuleDet" Multiplicity="0..1" />
+    <End Type="RetentionToolModel.TrainingDet" Role="TrainingDet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ModuleDet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrainingDet">
+        <PropertyRef Name="ModuleDet_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -64,7 +64,7 @@
                 {
                     <tr>
                         <td>
-                            <input type="radio" @*"checkbox"*@ name="critic" class="chck" />
+                            <input type="radio" @*"checkbox"*@ name="critic" class="chck" onchange="CriticalResChecked(@item.PersonalInfo1.Id)" />
 
 
                         </td>
@@ -74,13 +74,15 @@
                         <td>@item.Designation</td>
                         <td>@item.Responsibilities</td>
                         <td>
-                            <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" />
+                            <input type="radio" @*"checkbox"*@ name="trainer" class="chcktrainer" id="@item.PersonalInfo1.Id" />
 
 
                         </td>
                     </tr>
                 }
             </table>
+            @Html.ValidationMessageFor(model => model.projects.Id, "Required", new { @class = "text-danger", @id = "errCritical" })
+
             <br />
             <div style="display:none" id="accountinfo">
                 <div class="row form-group">
@@ -101,7 +103,7 @@
                     </table>
                 </div>
                 @*<br />
-                <button type="button" class="del-accountability">Delete</button>*@
+            <button type="button" class="del-accountability">Delete</button>*@
             </div>
             <br />
         </div>
@@ -124,21 +126,68 @@
 
 <script type="text/javascript">
 
-    $(function () {
-        $('input.chck').change(
+    //$(function () {
+    //    $('input.chck').change(
 
-            function() {
-                if ($('input.chck').is(':checked')) {
-                    //$('.chcktrainer').prop("checked", true)
+    //        function() {
+    //            if ($('input.chck').is(':checked')) {
+    //                //$('.chcktrainer').prop("checked", true)
                    
-                $('#accountinfo').show();
-            } else {
-                $('#accountinfo').hide();
-            }
-        });
-    });
+    //            $('#accountinfo').show();
+    //        } else {
+    //            $('#accountinfo').hide();
+    //        }
+    //    });
+    //});
 
-  
+
+    function CriticalResChecked(id) {
+      
+        if ($('input.chck').is(':checked')) {
+            //$('.chcktrainer').prop("checked", true)
+            var val = "#" + id;
+              $.ajax({
+              url: '@Url.Action("CheckIfNameExists", "CriticalResource")', 
+              dataType: "json",
+                  data: JSON.stringify({ id: id }),
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              success: function (result) {
+                  if (result == "1") {
+
+                      $("#errCritical").text('This Employee already a Critical Resource');
+                      $("#errCritical").show();
+                     // $('.chck').prop('checked', 'false');
+                      $('.chck').each(function () {
+                          this.checked = false;
+                      });
+                      $('.chcktrainer').each(function () {
+                          this.checked = false;
+                      });
+                      $('#accountinfo').hide();
+                      $("#btnSave").attr('disabled', true);
+                    
+                        }
+                  else {
+                      $(val).prop('checked', 'true');
+                      $("#errCritical").hide();
+                      $('#accountinfo').show();
+                          $("#btnSave").attr('disabled', false);
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+        });        
+          
+        } else {
+            $('#accountinfo').hide();
+        }
+    }
+    $(document).ready(function () {
+        $("#errCritical").hide();
+      
+    });
     function Delete_Row(id) {
         $('#' + id).remove();
         var rows = $('#table-accountability tr').length;

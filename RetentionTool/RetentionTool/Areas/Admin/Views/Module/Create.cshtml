@@ -31,16 +31,7 @@
 </div>
 
 <div class="card-body card-block">
-    <div class="row form-group">
-        <div class="col col-md-3">
-            <div>@Html.LabelFor(m => m.ModuleName, new { @class = "form-control-label" })</div>
-        </div>
-        <div class="col-12 col-md-9">
-            <div>@Html.TextBoxFor(m => m.ModuleName, new { @id = "ModuleName", @class = "form-control", style = "width:40%", placeholder = "Enter Module Name" })</div>
-            @Html.ValidationMessageFor(model => model.ModuleName, "Required", new { @class = "text-danger", @id = "errmoduleid" })
 
-        </div>
-    </div>
 
     <div class="row form-group">
         <div class="col col-md-3">
@@ -60,10 +51,19 @@
         <div class="col-12 col-md-9">
             <div>@Html.DropDownListFor(m => m.SelectedSkills, new SelectList(Model.Skill, "Value", "Text"), new { @Id = "skill_Id", @class = "form-control", style = "width:40%" })</div>
             @Html.ValidationMessageFor(model => model.SelectedSkills, "Required", new { @class = "text-danger", @id = "errskill" })
-          
+
         </div>
     </div>
+    <div class="row form-group">
+        <div class="col col-md-3">
+            <div>@Html.LabelFor(m => m.ModuleName, new { @class = "form-control-label" })</div>
+        </div>
+        <div class="col-12 col-md-9">
+            <div>@Html.TextBoxFor(m => m.ModuleName, new { @id = "ModuleName", @class = "form-control", style = "width:40%", placeholder = "Enter Module Name" })</div>
+            @Html.ValidationMessageFor(model => model.ModuleName, "Required", new { @class = "text-danger", @id = "errmoduleid" })
 
+        </div>
+    </div>
     <div class="row form-group">
         <div class="col col-md-3">
             <div>@Html.LabelFor(m => m.Date, new { @class = "form-control-label" })</div>
@@ -110,14 +110,14 @@
                 var Topics = $("#Topics").val().trim();
                 var HoursRequired = $("#HoursRequired").val().trim();
                 validateHours(HoursRequired);
-                if (Topics.length > 0 && HoursRequired.length > 0 && validHr==0) {
+                if (Topics.length > 0 && HoursRequired.length > 0 && validHr == 0) {
                     $("#errtpc").hide();
                     $("#tblDiv").show();
                     count = count + 1;
                     var idvalue = count;
-                   
-                        //Topics + HoursRequired;
-                   
+
+                    //Topics + HoursRequired;
+
                     var markup = "<tr id=" + idvalue + "><td style='display:none'><input type='checkbox' name='record'></td><td>" + Topics + "</td><td>" + HoursRequired + "</td><td><input type='submit' value='Delete' class='btn btn-danger' onclick=delete_Row(" + idvalue + ")></td></tr>";
                     $("table").append(markup);
                     $("#Topics").val('');
@@ -126,9 +126,9 @@
                 else {
                     $("#errtpc").show();
                 }
-               
+
             });
-            
+
             // Find and remove selected table rows
             //$(".delete-row").click(function () {
             //    $("table tbody").find('input[name="record"]').each(function () {
@@ -141,34 +141,34 @@
         });
 
         function delete_Row(idval) {
-           
+
             $("#" + idval).remove();
             var rows = $('#tblDisp tr').length;
             if (rows == 1) {
                 $("#tblDiv").hide();
             }
-            
+
         }
     </script>
 
     <form>
         <input type="text" id="Topics" placeholder="Topics">&nbsp;
-        <input type="text" id="HoursRequired" placeholder="Hours Required"  onchange="validateHhMm(this);">&nbsp;
+        <input type="text" id="HoursRequired" placeholder="Hours Required" onchange="validateHhMm(this);">&nbsp;
         <input type="button" class="add-row" value="Add Row">
         <br />
         @Html.ValidationMessageFor(model => model.Date, "Required", new { @class = "text-danger", @id = "errtpc" })
 
     </form>
-    <div id="tblDiv" style="display:none" >
-        <table style="width:100%" class="table table-striped" id="tblDisp" >
-           
-                <tr>
-                    <th style="display:none">Select</th>
-                    <th>Topics</th>
-                    <th>Hours Required</th>
-                    <th>Action</th>
-                </tr>
-           
+    <div id="tblDiv" style="display:none">
+        <table style="width:100%" class="table table-striped" id="tblDisp">
+
+            <tr>
+                <th style="display:none">Select</th>
+                <th>Topics</th>
+                <th>Hours Required</th>
+                <th>Action</th>
+            </tr>
+
         </table>
     </div>
     @*<button type="button" class="delete-row">Delete Row</button>*@
@@ -184,11 +184,11 @@
 
         });
         $("#DateId").change(function () {
-           
+
             if ($("#DateId").val().length > 0) {
                 $('#DateId').css("color", "#555");
                 $("#errdate").hide();
-               
+
             }
             else {
                 $('#DateId').css("color", "#cbd1d4");
@@ -202,7 +202,7 @@
                     $("#errmoduleid").hide();
                 }
                 else if ($("#ModuleName").val() === "" || $("#ModuleName").val().length === 0) {
-
+                    $("#errmoduleid").text('Required');
                     $("#errmoduleid").show();
                 }
             }
@@ -210,7 +210,36 @@
                 $("#errmoduleid").hide();
             }
         });
-          //Common_Id,errcomm_id,skill_Id,errskill
+
+        $("#ModuleName").on("input",function (e) {
+            var name = $("#ModuleName").val().trim();
+            var skillid = $("#skill_Id").val().trim();
+     
+          $.ajax({
+              url: '@Url.Action("CheckIfNameExists", "Module")', 
+              dataType: "json",
+              data: JSON.stringify({ name: name, skillid: skillid }),
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              success: function (result) {
+                  if (result == "1") {
+
+                      $("#errmoduleid").text('This name already exists');
+                      $("#errmoduleid").show();
+                      $("#btnSave").attr('disabled', true);
+                    
+                        }
+                  else {
+                      $("#errmoduleid").hide();
+                          $("#btnSave").attr('disabled', false);
+                        }
+                    },
+                    error: function (xhr) {
+                       
+                    }
+        });        
+    });
+        //Common_Id,errcomm_id,skill_Id,errskill
         $("#Common_Id").change(
             function () {
                 if ($("#Common_Id").val() > 0) {
@@ -233,7 +262,7 @@
 
         });
         //trainerid,errtrainerid
-       
+
 
         function validate() {
             //if ($("#date").val().length > 0) {
@@ -256,18 +285,18 @@
 
                 $("#errskill").show();
             }
-          
-                    if ($("#Common_Id").val() > 0) {
-                        $("#errcomm_id").hide();
-                    }
-                    else {
-                        $("#errcomm_id").show();
-                    }
+
+            if ($("#Common_Id").val() > 0) {
+                $("#errcomm_id").hide();
+            }
+            else {
+                $("#errcomm_id").show();
+            }
             if ($("#ModuleName").val().length > 0) {
                 $("#errmoduleid").hide();
             }
-            else  {
-
+            else {
+                $("#errmoduleid").text('Required');
                 $("#errmoduleid").show();
             }
             //if ($("#searchemp").val().length > 0) {
@@ -320,7 +349,7 @@
                     $("table tr:not(:first)").each(function () {
                         var tdlist = $(this).find("td");
                         var Item = { Topics: $(tdlist[1]).html(), HoursRequired: $(tdlist[2]).html() };
-                       
+
                         itemlist.push(Item);
                     })
                     validate();
@@ -342,13 +371,20 @@
                         type: "POST",
                         contentType: "application/json; charset=utf-8",
                         success: function (result) {
+                          //  if (result == "1") {
+                           //     $("#btnSave").attr('disabled', false);
+                             //   alert('This name already exists')
 
-                            $("#ModuleName").val('');
-                            $("#Common_Id").val('');
-                            $("#skill_Id").val('');
-                            $("#DateId").val('');
-                            $("table tbody").empty();
-                            window.location.href = newUrl;
+                            //}
+                            //else {
+                            //    $("#ModuleName").val('');
+                            //    $("#Common_Id").val('');
+                            //    $("#skill_Id").val('');
+                            //    $("#DateId").val('');
+                            //    $("table tbody").empty();
+                                window.location.href = newUrl;
+                           // }
+
                         },
                         error: function (xhr) {
                             alert("error");

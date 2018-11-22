@@ -28,7 +28,6 @@ namespace RetentionTool.Models
         public virtual DbSet<Commonfield> Commonfields { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
-        public virtual DbSet<ModuleDet> ModuleDets { get; set; }
         public virtual DbSet<AssignEvaluater> AssignEvaluaters { get; set; }
         public virtual DbSet<EmployeeEvalTask> EmployeeEvalTasks { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
@@ -57,5 +56,6 @@ namespace RetentionTool.Models
         public virtual DbSet<ApproveEmpSkill> ApproveEmpSkills { get; set; }
         public virtual DbSet<EmployeeSkillsAdd> EmployeeSkillsAdds { get; set; }
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
+        public virtual DbSet<ModuleDet> ModuleDets { get; set; }
     }
 }

@@ -35,6 +35,7 @@
             @Html.LabelFor(model => model.Name, new { @class = "form-control-label" })
         </div>
         <div class="col-12 col-md-9">
+            @Html.HiddenFor(model => model.Id, new { @id = "commid" })
             @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:30%", @id = "commonfieldname" })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @id = "validationforcommonfield" })
 
@@ -45,14 +46,16 @@
 
         </div>
         <div class="col-12 col-md-9">
-            <input type="submit" value="Edit" class="btn btn-success" />
+            <input type="submit" value="Edit" class="btn btn-success" id="btnSave" />
             @Html.ActionLink("Back to List", "Index")
         </div>
     </div>
 </div>
 
 }
-
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $("#commonfieldname").keydown(function () {
         if (event.which === 8) {
@@ -67,6 +70,36 @@
         else if ($("#commonfieldname").val() == "") {
             $("#validationforcommonfield").hide();
         }
+    });
+     $("#commonfieldname").on("input",function (e) {
+         var name = $("#commonfieldname").val().trim();
+         var id = $("#commid").val().trim();
+          $.ajax({
+              url: '@Url.Action("EditCheckIfNameExists", "ProjectsDetails")',
+              dataType: "json",
+              data: JSON.stringify({ projectname: name, projectid:id }),
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              success: function (result) {
+                  if (result == "1") {
+
+                      $("#validationforcommonfield").text('This name already exists');
+                      $("#validationforcommonfield").show();
+                      $("#btnSave").attr('disabled', true);
+
+                        }
+                  else {
+                      $("#validationforcommonfield").hide();
+                          $("#btnSave").attr('disabled', false);
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+        });
+    });
+    $(document).ready(function () {
+        $("#validationforcommonfield").hide();
     });
     //$("#commonfieldname").keypress(function () {
     //    //alert('dsjdh')

@@ -325,6 +325,19 @@ namespace RetentionTool.Areas.Manager.Controllers
 
             return RedirectToAction("Index");
         }
-        
+        [HttpPost]
+        public ActionResult CheckIfNameExists(int id)
+        {
+            CriticalResource criticalRes = db.CriticalResources.FirstOrDefault(a => a.PersonalInfo_Id == id && a.IsActive == true);
+            if (criticalRes == null)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

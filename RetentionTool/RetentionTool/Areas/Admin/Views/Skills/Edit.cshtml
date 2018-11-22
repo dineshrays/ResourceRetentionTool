@@ -93,7 +93,13 @@
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
-                        window.location.href = newUrl;
+                        if (result == "1") {
+                            $("#btnSave").attr('disabled', false);
+                            alert('This name already exists')
+                        }
+                        else {
+                            window.location.href = newUrl;
+                        }
                     },
                     error: function (xhr) {
                         alert("error");

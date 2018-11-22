@@ -313,5 +313,32 @@ namespace RetentionTool.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult CheckIfNameExists(int id)
+        {
+            CriticalResource criticalRes = db.CriticalResources.FirstOrDefault(a => a.PersonalInfo_Id == id && a.IsActive == true);
+            if (criticalRes == null)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult EditCheckIfNameExists(int id,int criticalResId)
+        {
+            CriticalResource criticalRes = db.CriticalResources.FirstOrDefault(a => a.PersonalInfo_Id == id && a.IsActive == true && a.Id !=criticalResId);
+            if (criticalRes == null)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

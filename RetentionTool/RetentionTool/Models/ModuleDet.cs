@@ -24,6 +24,7 @@ namespace RetentionTool.Models
         public Nullable<int> Module_Id { get; set; }
         public string Topics { get; set; }
         public Nullable<System.TimeSpan> HoursRequired { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         public virtual Module Module { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

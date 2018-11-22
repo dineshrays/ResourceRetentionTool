@@ -12,6 +12,7 @@ namespace RetentionTool.Areas.Admin.Controllers
 {
     public class ModuleController : Controller
     {
+       
         RetentionToolEntities db = new RetentionToolEntities();
         FetchDefaultIds fetchDet = new FetchDefaultIds();
         // GET: Module
@@ -83,28 +84,31 @@ namespace RetentionTool.Areas.Admin.Controllers
         public ActionResult Create(Item[] itemlist,ModuleViewModel mvm)
             {
 
-            Module m = new Module();
-            ModuleDet m1 = new ModuleDet();
-            m.ModuleName = mvm.ModuleName;
-            m.Commonfield_Id = fetchDet.getDefaultPrimarySkillId();
+        
+                Module m = new Module();
+                ModuleDet m1 = new ModuleDet();
+                m.ModuleName = mvm.ModuleName;
+                m.Commonfield_Id = fetchDet.getDefaultPrimarySkillId();
                 //mvm.SelectedCommonFields;
-            m.Skill_Id = mvm.SelectedSkills;
-            m.Date = mvm.Date;
-            m.IsActive = true;
+                m.Skill_Id = mvm.SelectedSkills;
+                m.Date = mvm.Date;
+                m.IsActive = true;
 
-            db.Modules.Add(m);
-            db.SaveChanges();
+                db.Modules.Add(m);
+                db.SaveChanges();
 
-            foreach (var i in itemlist)
-            {
-                m1.Module_Id = m.Id;
-                m1.Topics = i.Topics;
-                m1.HoursRequired =i.HoursRequired;
-                db.ModuleDets.Add(m1);
-                 db.SaveChanges();
-            }
+                foreach (var i in itemlist)
+                {
+                    m1.Module_Id = m.Id;
+                    m1.Topics = i.Topics;
+                    m1.HoursRequired = i.HoursRequired;
+                    db.ModuleDets.Add(m1);
+                    db.SaveChanges();
+                }
+
+                return Json("", JsonRequestBehavior.AllowGet);
+         
             
-            return Json("", JsonRequestBehavior.AllowGet);
         }
 
        
@@ -130,7 +134,7 @@ namespace RetentionTool.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             Module mod = db.Modules.Find(id);
-           List<ModuleDet> mod2 = db.ModuleDets.Where(m => m.Module_Id == id).ToList();
+           List<ModuleDet> mod2 = db.ModuleDets.Where(m => m.Module_Id == id && m.IsActive==true).ToList();
                       
 
             ModuleViewModel1 obj = new ModuleViewModel1();
@@ -154,47 +158,50 @@ namespace RetentionTool.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(int id,ModuleViewModel mvm, Item[] itemlist)
         {
-           var x= (from y in db.ModuleDets
-                     where y.Module_Id == id
-                     select y);
-            foreach (var item in x)
-            {
-                db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
-            }
-            db.SaveChanges();
-
-            Module m = new Module()
-            {
-                Id = id,
-                ModuleName = mvm.ModuleName,
-                IsActive = true,
-                Commonfield_Id = fetchDet.getDefaultPrimarySkillId(),
-                ///mvm.SelectedCommonFields,
-                Skill_Id=mvm.SelectedSkills,
-                Date=mvm.Date
-            };
-            // db.Modules.Add(m);
-            db.Entry(m).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-
-            ModuleDet m1 = new ModuleDet();
-            
-            foreach (var i in itemlist)
-            {
-                m1.Module_Id = id;
-                m1.Topics = i.Topics;
-                m1.HoursRequired = i.HoursRequired;
-                db.ModuleDets.Add(m1);
+           
+                var x = (from y in db.ModuleDets
+                         where y.Module_Id == id
+                         select y);
+                foreach (var item in x)
+                {
+                item.IsActive = false;
+                    db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                }
                 db.SaveChanges();
-            }
-            return Json("", JsonRequestBehavior.AllowGet);
+
+                Module m = new Module()
+                {
+                    Id = id,
+                    ModuleName = mvm.ModuleName,
+                    IsActive = true,
+                    Commonfield_Id = fetchDet.getDefaultPrimarySkillId(),
+                    ///mvm.SelectedCommonFields,
+                    Skill_Id = mvm.SelectedSkills,
+                    Date = mvm.Date
+                };
+                // db.Modules.Add(m);
+                db.Entry(m).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                ModuleDet m1 = new ModuleDet();
+
+                foreach (var i in itemlist)
+                {
+                    m1.Module_Id = id;
+                    m1.Topics = i.Topics;
+                    m1.HoursRequired = i.HoursRequired;
+                    db.ModuleDets.Add(m1);
+                    db.SaveChanges();
+                }
+                return Json("", JsonRequestBehavior.AllowGet);
+           
 
         }
 
         public ActionResult Delete(int id)
         {
             Module mod = db.Modules.Find(id);
-             ModuleDet mod1 = db.ModuleDets.FirstOrDefault(m=>m.Module_Id==id);
+             ModuleDet mod1 = db.ModuleDets.FirstOrDefault(m=>m.Module_Id==id && m.IsActive==true);
             ModuleViewModel mvm = new ModuleViewModel()
             {
                 Id=mod.Id,
@@ -223,6 +230,35 @@ namespace RetentionTool.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult CheckIfNameExists(string name,int skillid)
+        {
+            Module mod = db.Modules.FirstOrDefault(a => a.ModuleName == name && a.Skill_Id == skillid && a.IsActive == true);
+            if (mod == null)
+          {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditCheckIfNameExists(string name, int skillid,int moduleid)
+        {
+            Module mod = db.Modules.FirstOrDefault(a => a.ModuleName == name && a.Skill_Id == skillid && a.IsActive == true
+            && a.Id != moduleid);
+            if (mod == null)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
