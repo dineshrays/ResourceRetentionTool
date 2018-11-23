@@ -165,7 +165,7 @@
             }
            // var trainerid = $("#trainerid").val();
             var assresid = $("#assresid").val();
-            if (isEmp.length > 0 && (empid > 0 || trainerid > 0) && assresid > 0) {
+            if ((empid > 0 || trainerid > 0) && assresid > 0) {
                 $("#btnSave").attr('disabled', true);
                 var newUrl = '@Url.Action("Index", "AssignEvaluater")';
 

@@ -78,6 +78,7 @@
    
         <table class="table table-striped" id="tblUser" style="display:none">
             <tr>
+                <th style="display:none">Select</th>
                 <th style="display:none">Employee Id</th>
                 <th>Employee Name</th>
                 <th>Employee EmailId</th>
@@ -219,12 +220,12 @@
 
             if (searchid > 0 && roleid > 0 && password.length > 0) {
                 $("#tblUser").show();
-                var value = "<tr id=" + searchid + "><td style='display:none'>" +
+                var value = "<tr id=" + searchid + "><td style='display:none'></td><td style='display:none'>" +
                     searchid + "</td><td>" +
                     searchempcode + "</td><td>" +
                     searchname + "</td><td style='display:none'>" + roleid + "</td><td>" +
                     rolename + "</td><td>" +
-                    password + "</td><input type='submit'  value='Delete' onclick=delete_Row(" + empid + ")></td></tr>";
+                    password + "</td><td><input type='submit'  value='Delete' onclick=delete_Row(" + searchid + ")></td></tr>";
 
                 $("#tblUser").append(value);
                 $("#searchempcode").val('');

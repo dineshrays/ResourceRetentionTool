@@ -686,3 +686,4 @@ F:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\Rete
 F:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csproj.CopyComplete
 F:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.dll
 F:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.pdb
+F:\Git Projects\ResourceRetentionTool\RetentionTool\RetentionTool\obj\Debug\RetentionTool.csprojAssemblyReference.cache

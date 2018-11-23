@@ -203,7 +203,7 @@ trainer in db.Trainers on personalInfo.Id equals trainer.PersonalInfo_Id
                         {
                             Id = trainer.Id,
                             Name = personalInfo.Name
-                        }).ToList();
+                        }).Distinct().ToList();
             
             var val = new SelectList(data.Where(a => !db.AssignResources.Any(p2 => p2.Trainer_Id == a.Id && p2.Id == assignresid )).ToList(), "id", "Name");
             ViewData["trainerslist"] = val;

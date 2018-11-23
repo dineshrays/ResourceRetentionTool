@@ -269,7 +269,7 @@ where personalInfo.IsActive==true && trainer.IsActive==true
             ViewData["managerslist"] = val;
         }
 
-        public ActionResult getEmployeeDetails(int moduleid)
+        public ActionResult getEmployeeDetails(int moduleid, int[] empid)
         {
             int emproleid = fetchdet.getDefaultEmployeeRoleId();
             List<EmployeeList> employeeList = (from personal in db.PersonalInfoes
@@ -278,6 +278,7 @@ where personalInfo.IsActive==true && trainer.IsActive==true
                                                join module in db.Modules on skill.id equals module.Skill_Id
                                                join userdet in db.UserDetails on personal.Id equals userdet.Emp_Id
                                                where module.Id == moduleid && userdet.Role_Id == emproleid && userdet.IsActive == true
+                                               && !empid.Contains(personal.Id)
                                                select new EmployeeList
                                                {
                                                    Id = personal.Id,

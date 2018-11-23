@@ -78,8 +78,10 @@
                 @Html.LabelFor(m => m.managername, new { @class = " form-control-label" })
             </div>
             <div class="col-12 col-md-9" style="margin-top: 0.5rem;">
-                @Html.DisplayFor(m=>m.managername, new { @id= "managerid", @class = "form-control"})
-                    
+                @Html.HiddenFor(m => m.Manager_Id, new { @id = "mngrid" })
+
+                @Html.DisplayFor(m => m.managername, new { @id = "managerid", @class = "form-control" })
+
             </div>
         </div>
         
@@ -304,7 +306,7 @@
 
          var date = $("#date").val();
          var projectid = $("#searchprojectid").val();
-         var managerid = $("#managerid").val();
+         var managerid = $("#mngrid").val();
          var moduleid = $("#moduleid").val();
          var trainerid = $("#trainerid").val();
          validate();
@@ -382,27 +384,44 @@
 
  
 <script>
+    var lstempid = [];
     $(document).ready(function () {
         $('#moduleid').change(function () {
             $("#table").show();
-            var selected = $('#moduleid').val();
-            $.ajax(
-                {
-                    url: '/Manager/AssignResource/getEmployeeDetails',
-                    type: 'POST',
-                    datatype: 'application/json',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ moduleid: +selected }),
-                    success: function (result) {
-                        $("table tr:not(:first)").remove();
-                        $.each(result, function (i, Skill) {
-                            var markup = "<tr id =" + Skill.Id + "><td style='display: none'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick=delete_Row(" + Skill.Id + ")></td></tr>";
-                            $("table tbody").append(markup);
-                           // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
-                        });
-                    },
-                    error: function () { alert("Something Gone Wrong") },
-                });
+         
+            lstempid.length = 0;
+            //  lstempid.pop();
+            var managerid = $("#mngrid").val();
+            var trainerid = $("#trainerid").val();
+          
+            if (managerid > 0 && trainerid > 0) {
+                lstempid.push(managerid);
+                lstempid.push(trainerid);
+                var selected = $('#moduleid').val();
+                $.ajax(
+                    {
+                        url: '/Manager/AssignResource/getEmployeeDetails',
+                        type: 'POST',
+                        datatype: 'application/json',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ moduleid: +selected, empid: lstempid }),
+                        success: function (result) {
+                            $("table tr:not(:first)").remove();
+                            $.each(result, function (i, Skill) {
+                                var markup = "<tr id =" + Skill.Id + "><td style='display: none'></td><td>" + Skill.Name + "</td><td style='display: none'>" + Skill.Id + "</td><td>" + Skill.EmpCode + "</td><td><input type='submit' class='btn btn-danger' value='Delete' onclick=delete_Row(" + Skill.Id + ")></td></tr>";
+                                $("table tbody").append(markup);
+                                // $('#skill_Id').append('<option value="' + Skill.Value + '">' + Skill.Text + '</option>');
+                            });
+                        },
+                        error: function () { alert("Something Gone Wrong") },
+                    });
+            }
+            else {
+                $('#moduleid').val('0');
+                alert('Please select project name');
+            }
+
+
         })
     });
     $(function () {
@@ -447,7 +466,7 @@
 
                     success: function (data) {
 
-                        $("#managerid").val(data.Manager_Id);
+                        $("#mngrid").val(data.Manager_Id);
                        
                         $("#trainerid").val(data.Trainer_Id);
 
