@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Drawing;
-
+using RetentionTool.Models;
 namespace RetentionTool.Areas.Admin.Controllers
 {
     public class ImportDataController : Controller
@@ -21,7 +21,13 @@ namespace RetentionTool.Areas.Admin.Controllers
             return View();
         }
 
-        SqlConnection sqlcon = new SqlConnection("workstation id=RetentionTool.mssql.somee.com;packet size=4096;user id=dineshrays_SQLLogin_1;pwd=dinesh@123;data source=RetentionTool.mssql.somee.com;persist security info=False;initial catalog=RetentionTool");
+     public static  string conString = ConfigurationManager.ConnectionStrings["RTDBConnection"].ToString();
+        SqlConnection sqlcon = new SqlConnection(conString);
+        FetchDefaultIds fetchDet = new FetchDefaultIds();
+            //"data source=164.164.39.5;initial catalog=RT;persist security info=False;MultipleActiveResultSets=True;user id=sa;password=dotnet");
+        //"workstation id=RetentionTool.mssql.somee.com;packet size=4096;user id=dineshrays_SQLLogin_1;pwd=dinesh@123;data source=RetentionTool.mssql.somee.com;persist security info=False;initial catalog=RetentionTool");
+        //conString);
+        //"workstation id=RetentionTool.mssql.somee.com;packet size=4096;user id=dineshrays_SQLLogin_1;pwd=dinesh@123;data source=RetentionTool.mssql.somee.com;persist security info=False;initial catalog=RetentionTool");
         public ActionResult Upload()
         {
             return View();
@@ -35,7 +41,7 @@ namespace RetentionTool.Areas.Admin.Controllers
             {
                 if (uploadFile.ContentLength > 0)
                 {
-                    string filePath = Path.Combine(HttpContext.Server.MapPath("../Uploads"),
+                    string filePath = Path.Combine(HttpContext.Server.MapPath("../../Uploads"),
                    Path.GetFileName(uploadFile.FileName));
                     uploadFile.SaveAs(filePath);
                     DataSet ds = new DataSet();
@@ -83,7 +89,15 @@ namespace RetentionTool.Areas.Admin.Controllers
 
                                             string PersonalInfoIdstr = sqlCommand.ExecuteScalar().ToString();
                                             int PersonalInfoId = Convert.ToInt32(PersonalInfoIdstr);
+                                            int employeeroleid = fetchDet.getDefaultEmployeeRoleId();
+                                            string emailid = empid + "@gmail.com";
+                                            string password = fetchDet.password;
+                                            DateTime curDate = DateTime.Now;
+                                            SqlCommand sqlCommand1 = new SqlCommand("insert into UserDetails(Emp_Id,Name,Email,Password,Role_Id,EntryDate,IsActive) " +
+                                                "values('" + PersonalInfoId + "','" + empname + "','"+emailid+"','"+password+"',"+employeeroleid+",'"+curDate+"', '1'); select SCOPE_IDENTITY();", sqlcon);
 
+                                            string userid = sqlCommand1.ExecuteScalar().ToString();
+                                           
                                             string skills = ds.Tables[0].Rows[i]["Worker Skills as Text"].ToString();
 
                                             if (String.IsNullOrEmpty(skills))
@@ -102,12 +116,14 @@ namespace RetentionTool.Areas.Admin.Controllers
                                                     //    string skillid = cmd.ExecuteScalar().ToString();
                                                     DataTable dt = new DataTable();
                                                     cmd.Fill(dt);
+                                                    long commonFieldId = fetchDet.getDefaultPrimarySkillId();
                                                     //Int64.Parse(cmd.ExecuteScalar().ToString());
                                                     if (dt.Rows.Count > 0)
                                                     {
                                                         string SkillIdstr = dt.Rows[0]["Id"].ToString();
                                                         int SkillId = Convert.ToInt32(SkillIdstr);
-                                                        sqlCommand = new SqlCommand("insert into EmployeeSkills(P_Id,CommonField_Id,Skills_Id,IsActive) values(" + PersonalInfoId + ",'3'," + SkillId + " ,'1')", sqlcon);
+                                                        
+                                                        sqlCommand = new SqlCommand("insert into EmployeeSkills(P_Id,CommonField_Id,Skills_Id,IsActive) values(" + PersonalInfoId + ","+commonFieldId+"," + SkillId + " ,'1')", sqlcon);
                                                         sqlCommand.ExecuteNonQuery();
 
 
@@ -115,11 +131,12 @@ namespace RetentionTool.Areas.Admin.Controllers
                                                     else
                                                     {
                                                         SqlCommand cmd1 = new SqlCommand("insert into Skills(Name,CommonField_Id,IsActive) " +
-                                                            "values('" + skill[j] + "', '3', '1'); select SCOPE_IDENTITY();", sqlcon);
+                                                            "values('" + skill[j] + "', "+ commonFieldId + ", '1'); select SCOPE_IDENTITY();", sqlcon);
                                                         //cmd1.ExecuteNonQuery();
                                                         string SkillIdstr = cmd1.ExecuteScalar().ToString();
                                                         int SkillId = Convert.ToInt32(SkillIdstr);
-                                                        sqlCommand = new SqlCommand("insert into EmployeeSkills(P_Id,CommonField_Id,Skills_Id,IsActive) values(" + PersonalInfoId + ",'3'," + SkillId + " ,'1')", sqlcon);
+                                                        
+                                                        sqlCommand = new SqlCommand("insert into EmployeeSkills(P_Id,CommonField_Id,Skills_Id,IsActive) values(" + PersonalInfoId + ","+ commonFieldId + "," + SkillId + " ,'1')", sqlcon);
                                                         sqlCommand.ExecuteNonQuery();
                                                     }
                                                 }
@@ -155,8 +172,21 @@ namespace RetentionTool.Areas.Admin.Controllers
 
 
                                             sqlcmd = new SqlCommand("Select  id  from PersonalInfo where EmpCode='" + managerid + "'", sqlcon);
+                                            Int32 pid_mgrid = 0;
                                             string pid_mgridstr = sqlcmd.ExecuteScalar().ToString();
-                                            Int32 pid_mgrid = Convert.ToInt32(pid_mgridstr);
+                                            pid_mgrid = Convert.ToInt32(pid_mgridstr);
+
+                                            sqlcmd = new SqlCommand("Select  Name  from PersonalInfo where EmpCode='" + managerid + "'", sqlcon);
+                                            
+                                            string empname = sqlcmd.ExecuteScalar().ToString();
+                                            int managerroleid = fetchDet.getDefaultManagerRoleId();
+                                            string emailid = managerid + "@gmail.com";
+                                            string password = fetchDet.password;
+                                            DateTime curDate = DateTime.Now;
+                                            SqlCommand sqlCommand1 = new SqlCommand("insert into UserDetails(Emp_Id,Name,Email,Password,Role_Id,EntryDate,IsActive) " +
+                                                "values('" + pid_mgrid + "','" + empname + "','" + emailid + "','" + password + "'," + managerroleid + ",'" + curDate + "', '1'); select SCOPE_IDENTITY();", sqlcon);
+
+                                            string userid = sqlCommand1.ExecuteScalar().ToString();
 
 
                                             sqlcmd = new SqlCommand("insert into CurrentInfo(P_Id,Designation,DOJ,ReportingManager,WorkLocation,Department)" +

@@ -25,6 +25,7 @@ namespace RetentionTool.Models
         }
     
         public int Id { get; set; }
+
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> Project_Id { get; set; }
         public Nullable<int> Manager_Id { get; set; }

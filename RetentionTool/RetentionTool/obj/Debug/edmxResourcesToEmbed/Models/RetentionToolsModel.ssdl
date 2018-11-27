@@ -184,8 +184,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ErrorMessage" Type="varchar(max)" />
-    <Property Name="ControllerName" Type="varchar" MaxLength="250" />
+    <Property Name="ErrorMessage" Type="varchar" MaxLength="500" />
+    <Property Name="ControllerName" Type="varchar" MaxLength="100" />
     <Property Name="CreatedOn" Type="datetime" />
   </EntityType>
   <EntityType Name="Experience">

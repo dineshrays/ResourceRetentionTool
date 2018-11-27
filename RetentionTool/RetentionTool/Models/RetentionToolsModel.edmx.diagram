@@ -83,10 +83,10 @@
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkillsAdd_Managers" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkillsAdd_PersonalInfo" />
         <AssociationConnector Association="RetentionToolModel.FK_EmployeeSkillsAdd_Skills" />
-        <EntityTypeShape EntityType="RetentionToolModel.ErrorLog" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="RetentionToolModel.ModuleDet" Width="1.5" PointX="5" PointY="3.5" />
         <AssociationConnector Association="RetentionToolModel.FK_ModuleDet_Module" />
         <AssociationConnector Association="RetentionToolModel.FK_TrainingDet_ModuleDet" />
+        <EntityTypeShape EntityType="RetentionToolModel.ErrorLog" Width="1.5" PointX="5.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

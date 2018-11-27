@@ -343,7 +343,9 @@ project.Id equals projectworked.Project_Id
                 UserDetail user = new UserDetail();
                 user.Emp_Id = personalinfo.Id;
                 user.EntryDate = DateTime.Now;
-                user.Email = personalinfo.Email;
+                string emailid = personalinfo.EmpCode + "@gmail.com";
+                user.Email = emailid;
+                    //personalinfo.Email;
 
 
                 user.Role_Id = managerroleid;
@@ -416,7 +418,9 @@ project.Id equals projectworked.Project_Id
                 UserDetail user = new UserDetail();
                 user.Emp_Id = personalinfo.Id;
                 user.EntryDate = DateTime.Now;
-                user.Email = personalinfo.Email;
+                string emailid = personalinfo.EmpCode + "@gmail.com";
+                user.Email = emailid;
+                    //personalinfo.Email;
 
 
                 user.Role_Id = trainerroleid;
@@ -484,7 +488,9 @@ project.Id equals projectworked.Project_Id
                     UserDetail user = new UserDetail();
                     user.Emp_Id = empid.Id;
                     user.EntryDate = DateTime.Now;
-                    user.Email = empid.Email;
+                    string emailid = empid.Id + "@gmail.com";
+                    user.Email = emailid;
+                        //empid.Email;
 
 
                     user.Role_Id = employeeroleid;

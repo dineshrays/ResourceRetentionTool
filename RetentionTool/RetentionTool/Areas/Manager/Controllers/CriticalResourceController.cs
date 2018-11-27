@@ -137,7 +137,9 @@ namespace RetentionTool.Areas.Manager.Controllers
                 UserDetail userdetail = new UserDetail();
                 userdetail.Emp_Id = personalinfo.Id;
                 userdetail.EntryDate = DateTime.Now;
-                userdetail.Email = personalinfo.Email;
+                string emailid = personalinfo.EmpCode + "@gmail.com";
+                userdetail.Email = emailid;
+                    //personalinfo.Email;
 
 
                 userdetail.Role_Id = roleid;
@@ -219,7 +221,9 @@ namespace RetentionTool.Areas.Manager.Controllers
                 UserDetail user = new UserDetail();
                 user.Emp_Id = personalinfo.Id;
                 user.EntryDate = DateTime.Now;
-                user.Email = personalinfo.Email;
+                string emailid = personalinfo.EmpCode + "@gmail.com";
+                user.Email = emailid;
+                    //personalinfo.Email;
 
 
                 user.Role_Id = roleid;

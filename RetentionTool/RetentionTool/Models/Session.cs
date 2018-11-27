@@ -11,7 +11,8 @@ namespace RetentionTool.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Session
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,8 @@ namespace RetentionTool.Models
     
         public int Id { get; set; }
         public Nullable<int> TrainingDet_Id { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<System.TimeSpan> Hours { get; set; }
         public string Description { get; set; }

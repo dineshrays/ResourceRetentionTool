@@ -282,7 +282,9 @@ namespace RetentionTool.Models
                 UserDetail user = new UserDetail();
                 user.Emp_Id = personalinfo.Id;
                 user.EntryDate = DateTime.Now;
-                user.Email = personalinfo.Email;
+                string emailid = personalinfo.EmpCode + "@gmail.com";
+                user.Email = emailid;
+                    //personalinfo.Email;
 
 
                 user.Role_Id = roleid;
