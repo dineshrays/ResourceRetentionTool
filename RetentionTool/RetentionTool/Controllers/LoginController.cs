@@ -66,6 +66,7 @@ namespace RetentionTool.Controllers
                 // Session["Notifict"] = db.Notifications.Where(a => a.User_Id == userResult.Id && a.IsActive == true && a.IsNotified == true).Count();
                 //Image.PerformImageResizeAndPutOnCanvas(imgPath, filename, Convert.ToInt16(txtWidth.Text), Convert.ToInt16(txtHeight.Text), txtOutputFileName.Text.ToString() + ".jpg");
                 fetchdet.getNotificationCount(userResult.Id);
+                fetchdet.getDefaultPrimarySkillId();
                 fetchdet.updateCircular();
                 if (empRoleId==userResult.Role_Id)
                 {

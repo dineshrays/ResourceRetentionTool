@@ -266,7 +266,8 @@ namespace RetentionTool.Models
                 Commonfield commField = new Commonfield();
                 commField.Name = commonFieldName;
                 commField.IsActive = true;
-
+                db.Commonfields.Add(commField);
+                db.SaveChanges();
                 return commField.id;
             }
 
